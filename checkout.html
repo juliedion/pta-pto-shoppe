@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Get Started — The PTA/PTO Shoppe</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,400&display=swap" rel="stylesheet">
+
+<!-- ═══════════════════════════════════════════════════════════════
+     LEMON SQUEEZY SETUP
+     Replace the 3 URLs below with your actual checkout URLs from
+     your Lemon Squeezy dashboard (Products → click product → copy
+     the "Checkout URL").
+     Format: https://yourstore.lemonsqueezy.com/buy/xxxxxxxx
+     ═══════════════════════════════════════════════════════════════ -->
+<script>
+  window.LS_URLS = {
+    starter:  'https://YOUR-STORE.lemonsqueezy.com/buy/STARTER-VARIANT-ID',
+    pro:      'https://YOUR-STORE.lemonsqueezy.com/buy/PRO-VARIANT-ID',
+    district: 'https://YOUR-STORE.lemonsqueezy.com/buy/DISTRICT-VARIANT-ID',
+    // Annual variants (optional — add when ready)
+    starter_annual:  'https://YOUR-STORE.lemonsqueezy.com/buy/STARTER-ANNUAL-ID',
+    pro_annual:      'https://YOUR-STORE.lemonsqueezy.com/buy/PRO-ANNUAL-ID',
+    district_annual: 'https://YOUR-STORE.lemonsqueezy.com/buy/DISTRICT-ANNUAL-ID',
+  };
+</script>
+
+<!-- Lemon Squeezy JS — enables the overlay checkout popup -->
+<script src="https://app.lemonsqueezy.com/js/lemon.js" defer></script>
+
+<style>
+:root{--navy:#0D1B3E;--navy-mid:#142248;--pink:#E8357A;--pink-bright:#FF2D87;--pink-pale:#FFF0F7;--purple:#7B3FB5;--purple-pale:#F5EEFF;--blue:#2E7BC4;--blue-pale:#EAF4FF;--green:#2BA84A;--green-bright:#00C853;--green-pale:#EDFFF4;--gold:#C9943A;--gold-light:#F5D78E;--off-white:#F8F9FF;--light-bg:#F2F4FB;}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{font-family:'Poppins',sans-serif;background:var(--light-bg);color:var(--navy);overflow-x:hidden;}
+
+/* NAV */
+.checkout-nav{background:var(--navy);padding:0 48px;height:64px;display:flex;align-items:center;justify-content:space-between;border-bottom:3px solid transparent;border-image:linear-gradient(90deg,var(--pink),var(--purple),var(--blue),var(--green)) 1;}
+.checkout-nav-logo img{height:40px;width:auto;}
+.checkout-nav-secure{display:flex;align-items:center;gap:6px;font-size:12px;font-weight:600;color:rgba(255,255,255,0.5);}
+.gold-divider{height:3px;background:linear-gradient(90deg,var(--pink),var(--purple),var(--blue),var(--green),#F07A1A,var(--pink));background-size:200% 100%;animation:shimmer 3s linear infinite;}
+@keyframes shimmer{0%{background-position:0%}100%{background-position:200%}}
+
+/* STEPS */
+.steps-bar{background:white;border-bottom:1px solid rgba(13,27,62,0.08);padding:16px 48px;}
+.steps-inner{max-width:860px;margin:0 auto;display:flex;align-items:center;}
+.step{display:flex;align-items:center;gap:10px;flex:1;}
+.step-num{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800;flex-shrink:0;}
+.step.active .step-num{background:var(--pink);color:white;}
+.step.upcoming .step-num{background:rgba(13,27,62,0.1);color:rgba(13,27,62,0.35);}
+.step-label{font-size:12px;font-weight:700;}
+.step.active .step-label{color:var(--navy);}
+.step.upcoming .step-label{color:rgba(13,27,62,0.35);}
+.step-line{flex:1;height:2px;background:rgba(13,27,62,0.08);margin:0 12px;}
+
+/* LAYOUT */
+.checkout-main{max-width:1000px;margin:0 auto;padding:48px 24px;display:grid;grid-template-columns:1fr 380px;gap:28px;align-items:start;}
+
+/* PLAN PICKER */
+.plan-picker{background:white;border-radius:20px;padding:36px;border:2px solid rgba(13,27,62,0.07);box-shadow:0 4px 24px rgba(13,27,62,0.06);margin-bottom:20px;}
+.plan-picker h2{font-size:18px;font-weight:800;color:var(--navy);margin-bottom:6px;}
+.pp-sub{font-size:13px;font-weight:300;color:rgba(13,27,62,0.5);margin-bottom:24px;}
+
+/* BILLING TOGGLE */
+.billing-toggle{display:flex;align-items:center;gap:10px;margin-bottom:24px;background:var(--light-bg);border-radius:100px;padding:6px 14px;display:inline-flex;}
+.toggle-opt{font-size:12px;font-weight:700;padding:6px 16px;border-radius:100px;cursor:pointer;transition:all 0.2s;color:rgba(13,27,62,0.45);}
+.toggle-opt.active{background:white;color:var(--navy);box-shadow:0 2px 8px rgba(13,27,62,0.1);}
+.toggle-save-badge{font-size:10px;font-weight:800;background:var(--green-pale);color:var(--green);padding:3px 8px;border-radius:100px;margin-left:4px;}
+
+.plan-option{border:2px solid rgba(13,27,62,0.1);border-radius:16px;padding:20px 22px;cursor:pointer;transition:all 0.2s;margin-bottom:12px;display:flex;align-items:center;gap:16px;position:relative;}
+.plan-option:hover{border-color:rgba(232,53,122,0.4);box-shadow:0 4px 16px rgba(13,27,62,0.06);}
+.plan-option.selected{border-color:var(--pink);background:var(--pink-pale);}
+.plan-option.recommended{border-color:var(--gold);}
+.plan-option.recommended.selected{border-color:var(--gold);background:#FDF6E3;}
+.plan-radio{width:20px;height:20px;border-radius:50%;border:2px solid rgba(13,27,62,0.2);flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:all 0.2s;}
+.plan-option.selected .plan-radio{border-color:var(--pink);background:var(--pink);}
+.plan-option.selected .plan-radio::after,.plan-option.selected .plan-radio::before{content:'';width:8px;height:8px;border-radius:50%;background:white;display:block;}
+.plan-option.recommended.selected .plan-radio{border-color:var(--gold);background:var(--gold);}
+.plan-body{flex:1;}
+.plan-name-row{display:flex;align-items:center;gap:10px;margin-bottom:3px;}
+.plan-name{font-size:15px;font-weight:800;color:var(--navy);}
+.plan-badge{font-size:9px;font-weight:800;padding:3px 9px;border-radius:100px;letter-spacing:1px;text-transform:uppercase;background:linear-gradient(135deg,var(--gold),var(--gold-light));color:var(--navy);}
+.plan-desc{font-size:12px;font-weight:300;color:rgba(13,27,62,0.55);}
+.plan-price-col{text-align:right;flex-shrink:0;}
+.plan-price{font-size:22px;font-weight:900;color:var(--navy);letter-spacing:-0.5px;line-height:1;}
+.plan-price-sub{font-size:10px;font-weight:400;color:rgba(13,27,62,0.4);margin-top:2px;}
+.plan-savings{font-size:10px;font-weight:700;color:var(--green);margin-top:3px;}
+
+/* PRE-FILL CARD */
+.prefill-card{background:white;border-radius:20px;padding:36px;border:2px solid rgba(13,27,62,0.07);box-shadow:0 4px 24px rgba(13,27,62,0.06);}
+.prefill-card h2{font-size:18px;font-weight:800;color:var(--navy);margin-bottom:6px;}
+.prefill-card .pf-sub{font-size:13px;font-weight:300;color:rgba(13,27,62,0.5);margin-bottom:28px;}
+.form-row{margin-bottom:18px;}
+.form-row-2{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:18px;}
+.cf-label{font-size:11px;font-weight:700;color:rgba(13,27,62,0.55);letter-spacing:0.5px;text-transform:uppercase;margin-bottom:6px;display:block;}
+.cf-input{width:100%;padding:12px 16px;border:1.5px solid rgba(13,27,62,0.12);border-radius:10px;font-family:'Poppins',sans-serif;font-size:13px;color:var(--navy);outline:none;transition:border-color 0.2s;background:var(--off-white);}
+.cf-input:focus{border-color:var(--pink);background:white;}
+.lsq-note{background:var(--light-bg);border-radius:12px;padding:14px 16px;font-size:12px;color:rgba(13,27,62,0.6);margin-bottom:24px;display:flex;gap:10px;align-items:flex-start;line-height:1.6;}
+.lsq-note-icon{font-size:18px;flex-shrink:0;}
+.checkout-btn{width:100%;background:linear-gradient(135deg,var(--pink),var(--purple));color:white;font-family:'Poppins',sans-serif;font-size:16px;font-weight:800;padding:18px;border-radius:100px;border:none;cursor:pointer;transition:all 0.2s;box-shadow:0 6px 24px rgba(232,53,122,0.4);display:flex;align-items:center;justify-content:center;gap:10px;margin-bottom:12px;}
+.checkout-btn:hover{transform:translateY(-2px);box-shadow:0 10px 32px rgba(232,53,122,0.55);}
+.checkout-terms{font-size:11px;color:rgba(13,27,62,0.4);text-align:center;line-height:1.7;}
+.checkout-terms a{color:var(--pink);text-decoration:none;}
+
+/* ORDER SUMMARY */
+.order-summary{background:white;border-radius:20px;padding:28px;border:2px solid rgba(13,27,62,0.07);box-shadow:0 4px 24px rgba(13,27,62,0.06);position:sticky;top:24px;}
+.os-title{font-size:11px;font-weight:800;color:rgba(13,27,62,0.4);letter-spacing:2px;text-transform:uppercase;margin-bottom:20px;}
+.os-plan-card{background:linear-gradient(135deg,var(--navy),#1C2F5E);border-radius:14px;padding:20px;margin-bottom:20px;}
+.os-plan-name{font-size:16px;font-weight:800;color:white;margin-bottom:2px;}
+.os-plan-billing{font-size:11px;color:rgba(255,255,255,0.4);}
+.os-plan-price{font-size:30px;font-weight:900;color:white;letter-spacing:-1px;margin-top:12px;line-height:1;}
+.os-plan-price span{font-size:13px;font-weight:400;color:rgba(255,255,255,0.45);}
+.os-features{margin-bottom:20px;}
+.os-feature{display:flex;align-items:flex-start;gap:10px;font-size:12px;color:rgba(13,27,62,0.7);padding:7px 0;border-bottom:1px solid rgba(13,27,62,0.06);}
+.os-feature:last-child{border-bottom:none;}
+.os-check{width:16px;height:16px;border-radius:50%;background:var(--green-pale);color:var(--green);display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;flex-shrink:0;margin-top:1px;}
+.os-divider{height:1px;background:rgba(13,27,62,0.08);margin:16px 0;}
+.os-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;font-size:12px;}
+.os-row-label{color:rgba(13,27,62,0.5);}
+.os-row-val{font-weight:600;color:var(--navy);}
+.os-row.grand .os-row-label{font-size:14px;font-weight:800;color:var(--navy);}
+.os-row.grand .os-row-val{font-size:22px;font-weight:900;letter-spacing:-0.5px;}
+.os-row.savings .os-row-val{color:var(--green);}
+.os-guarantee{background:var(--green-pale);border-radius:12px;padding:14px;margin-top:16px;display:flex;gap:10px;align-items:flex-start;}
+.os-guarantee-icon{font-size:20px;flex-shrink:0;}
+.os-guarantee-text{font-size:11px;font-weight:600;color:var(--green);line-height:1.55;}
+.os-trust{margin-top:16px;display:flex;align-items:center;justify-content:center;gap:6px;font-size:10px;color:rgba(13,27,62,0.35);font-weight:600;}
+
+/* UNSUPPORTED — placeholder shown when URLs aren't set yet */
+.setup-banner{background:#FDF6E3;border:2px solid rgba(201,148,58,0.3);border-radius:14px;padding:16px 20px;margin-bottom:20px;display:flex;gap:12px;align-items:flex-start;}
+.setup-banner-icon{font-size:20px;flex-shrink:0;}
+.setup-banner h4{font-size:13px;font-weight:800;color:var(--gold);margin-bottom:4px;}
+.setup-banner p{font-size:11px;color:rgba(13,27,62,0.6);line-height:1.6;}
+.setup-banner code{background:rgba(13,27,62,0.07);border-radius:4px;padding:1px 6px;font-size:11px;font-family:monospace;}
+
+@media(max-width:900px){
+  .checkout-nav{padding:0 20px;}
+  .steps-bar{padding:16px 20px;overflow-x:auto;}
+  .checkout-main{grid-template-columns:1fr;padding:24px 16px;}
+  .order-summary{position:static;}
+  .form-row-2{grid-template-columns:1fr;}
+  .plan-picker,.prefill-card{padding:24px;}
+}
+</style>
+</head>
+<body>
+
+<div class="checkout-nav">
+  <a href="pta-shoppe-landing.html"><img src="logo.png" alt="The PTA/PTO Shoppe" style="height:40px;"></a>
+  <div class="checkout-nav-secure">🔒 <span style="color:var(--green-bright);">Secure Checkout · Lemon Squeezy</span></div>
+</div>
+<div class="gold-divider"></div>
+
+<div class="steps-bar">
+  <div class="steps-inner">
+    <div class="step active"><div class="step-num">1</div><div class="step-label">Choose Plan</div></div>
+    <div class="step-line"></div>
+    <div class="step upcoming"><div class="step-num">2</div><div class="step-label">Payment &amp; Account</div></div>
+    <div class="step-line"></div>
+    <div class="step upcoming"><div class="step-num">3</div><div class="step-label">Start Using Tools</div></div>
+  </div>
+</div>
+
+<div class="checkout-main">
+
+  <!-- LEFT COLUMN -->
+  <div>
+
+    <!-- SETUP BANNER — hidden once URLs are set -->
+    <div class="setup-banner" id="setupBanner" style="display:none;">
+      <div class="setup-banner-icon">⚠️</div>
+      <div>
+        <h4>Almost there — add your Lemon Squeezy URLs</h4>
+        <p>Open <code>checkout.html</code>, find <code>window.LS_URLS</code> at the top, and replace the placeholder URLs with your actual Lemon Squeezy checkout links. Takes 2 minutes.</p>
+      </div>
+    </div>
+
+    <!-- PLAN PICKER -->
+    <div class="plan-picker">
+      <h2>Choose your plan</h2>
+      <p class="pp-sub">Cancel anytime. No contracts. School-year billing available.</p>
+
+      <!-- Billing Toggle -->
+      <div style="margin-bottom:24px;">
+        <div class="billing-toggle">
+          <div class="toggle-opt active" id="opt-monthly" onclick="setBilling('monthly')">Monthly</div>
+          <div class="toggle-opt" id="opt-annual" onclick="setBilling('annual')">Annual <span class="toggle-save-badge">Save up to 31%</span></div>
+        </div>
+      </div>
+
+      <div class="plan-option" id="plan-starter" onclick="selectPlan('starter')">
+        <div class="plan-radio"></div>
+        <div class="plan-body">
+          <div class="plan-name-row"><span class="plan-name">Starter</span></div>
+          <div class="plan-desc">10 AI generations/mo · Core tools · 50 directory entries</div>
+        </div>
+        <div class="plan-price-col">
+          <div class="plan-price" id="price-starter">$19</div>
+          <div class="plan-price-sub">/month</div>
+          <div class="plan-savings" id="save-starter" style="display:none;">$49 off — $179/yr</div>
+        </div>
+      </div>
+
+      <div class="plan-option recommended selected" id="plan-pro" onclick="selectPlan('pro')">
+        <div class="plan-radio"></div>
+        <div class="plan-body">
+          <div class="plan-name-row">
+            <span class="plan-name">Pro Board</span>
+            <span class="plan-badge">⭐ Most Popular</span>
+          </div>
+          <div class="plan-desc">Unlimited generations · All 11 tools · Full directory</div>
+        </div>
+        <div class="plan-price-col">
+          <div class="plan-price" id="price-pro">$24</div>
+          <div class="plan-price-sub">/month</div>
+          <div class="plan-savings" id="save-pro" style="display:none;">$89 off — $199/yr</div>
+        </div>
+      </div>
+
+      <div class="plan-option" id="plan-district" onclick="selectPlan('district')">
+        <div class="plan-radio"></div>
+        <div class="plan-body">
+          <div class="plan-name-row"><span class="plan-name">District</span></div>
+          <div class="plan-desc">Up to 10 schools · Admin dashboard · Priority support</div>
+        </div>
+        <div class="plan-price-col">
+          <div class="plan-price" id="price-district">$69</div>
+          <div class="plan-price-sub">/month</div>
+          <div class="plan-savings" id="save-district" style="display:none;">$229 off — $599/yr</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PRE-FILL INFO -->
+    <div class="prefill-card">
+      <h2>A little about your board</h2>
+      <p class="pf-sub">Optional — we'll pre-fill your checkout so you don't have to type it twice.</p>
+
+      <div class="lsq-note">
+        <div class="lsq-note-icon">🛡️</div>
+        <div>Your card and payment info are handled entirely by <strong>Lemon Squeezy</strong> — a secure, PCI-compliant payment processor. We never see or store your card details.</div>
+      </div>
+
+      <div class="form-row-2">
+        <div>
+          <label class="cf-label">First name</label>
+          <input class="cf-input" type="text" id="co-first" placeholder="Jane" oninput="updateSummary()">
+        </div>
+        <div>
+          <label class="cf-label">Last name</label>
+          <input class="cf-input" type="text" id="co-last" placeholder="Smith">
+        </div>
+      </div>
+      <div class="form-row">
+        <label class="cf-label">Email address</label>
+        <input class="cf-input" type="email" id="co-email" placeholder="you@school.org" oninput="updateSummary()">
+      </div>
+      <div class="form-row">
+        <label class="cf-label">School / Organization name</label>
+        <input class="cf-input" type="text" id="co-school" placeholder="Jefferson Elementary PTA">
+      </div>
+
+      <button class="checkout-btn" id="checkoutBtn" onclick="openCheckout()">
+        🔒 Continue to Payment →
+      </button>
+      <p class="checkout-terms">
+        Secure checkout by Lemon Squeezy · <a href="#">Terms</a> · <a href="#">Privacy</a><br>
+        Cancel anytime. No contracts.
+      </p>
+    </div>
+
+  </div>
+
+  <!-- ORDER SUMMARY -->
+  <div class="order-summary">
+    <div class="os-title">Order Summary</div>
+
+    <div class="os-plan-card">
+      <div class="os-plan-name" id="os-name">Pro Board</div>
+      <div class="os-plan-billing" id="os-billing">Billed monthly · Cancel anytime</div>
+      <div class="os-plan-price" id="os-price">$24 <span>/mo</span></div>
+    </div>
+
+    <div class="os-features" id="os-features">
+      <div class="os-feature"><div class="os-check">✓</div>Unlimited AI generations</div>
+      <div class="os-feature"><div class="os-check">✓</div>All 11 tools unlocked</div>
+      <div class="os-feature"><div class="os-check">✓</div>Event Builder + planning kits</div>
+      <div class="os-feature"><div class="os-check">✓</div>Donor directory + letters</div>
+      <div class="os-feature"><div class="os-check">✓</div>Social + ad copy tools</div>
+      <div class="os-feature"><div class="os-check">✓</div>Full parent directory</div>
+    </div>
+
+    <div class="os-divider"></div>
+    <div class="os-row"><span class="os-row-label">Subtotal</span><span class="os-row-val" id="os-subtotal">$24.00</span></div>
+    <div class="os-row savings" id="os-savings-row" style="display:none;"><span class="os-row-label">Annual discount</span><span class="os-row-val" id="os-savings-val">—</span></div>
+    <div class="os-row"><span class="os-row-label">Tax</span><span class="os-row-val">Calculated at checkout</span></div>
+    <div class="os-divider"></div>
+    <div class="os-row grand"><span class="os-row-label">Due today</span><span class="os-row-val" id="os-total">$24.00</span></div>
+
+    <div class="os-guarantee">
+      <div class="os-guarantee-icon">🛡️</div>
+      <div class="os-guarantee-text">30-day money-back guarantee. If it's not right for your board, email us and we'll refund you — no questions asked.</div>
+    </div>
+
+    <div class="os-trust">🔒 Secured by Lemon Squeezy &nbsp;·&nbsp; PCI compliant</div>
+  </div>
+
+</div>
+
+<script>
+// ─── Plan configuration ───────────────────────────────────────────────────────
+const PLANS = {
+  starter: {
+    name: 'Starter',
+    monthly: 19, annual: 179, annualMonthly: 14.92,
+    savings: '$49', annualDisplay: '$179/yr',
+    features: [
+      '10 AI generations per month',
+      'Flyer Writer + Newsletter Blurb',
+      'Permission Slip generator',
+      '50 parent directory entries',
+      'Email support'
+    ]
+  },
+  pro: {
+    name: 'Pro Board',
+    monthly: 24, annual: 199, annualMonthly: 16.58,
+    savings: '$89', annualDisplay: '$199/yr',
+    features: [
+      'Unlimited AI generations',
+      'All 11 tools unlocked',
+      'Event Builder + planning kits',
+      'Donor directory + letters',
+      'Social + ad copy tools',
+      'Full parent directory'
+    ]
+  },
+  district: {
+    name: 'District',
+    monthly: 69, annual: 599, annualMonthly: 49.92,
+    savings: '$229', annualDisplay: '$599/yr',
+    features: [
+      'Everything in Pro Board',
+      'Up to 10 school accounts',
+      'District admin dashboard',
+      'Shared brand settings',
+      'Priority support + onboarding',
+      'Early access to new tools'
+    ]
+  }
+};
+
+let currentPlan = 'pro';
+let currentBilling = 'monthly';
+
+// ─── Check if URLs are configured ────────────────────────────────────────────
+function urlsAreSet() {
+  return !Object.values(window.LS_URLS).some(u => u.includes('YOUR-STORE'));
+}
+
+window.addEventListener('DOMContentLoaded', () => {
+  if (!urlsAreSet()) {
+    document.getElementById('setupBanner').style.display = 'flex';
+  }
+  // Pre-select plan from URL param
+  const params = new URLSearchParams(window.location.search);
+  if (params.get('plan') && PLANS[params.get('plan')]) {
+    selectPlan(params.get('plan'));
+  } else {
+    updateSummary();
+  }
+});
+
+// ─── Plan selection ───────────────────────────────────────────────────────────
+function selectPlan(plan) {
+  currentPlan = plan;
+  document.querySelectorAll('.plan-option').forEach(el => el.classList.remove('selected'));
+  document.getElementById('plan-' + plan).classList.add('selected');
+  updateSummary();
+}
+
+// ─── Billing toggle ───────────────────────────────────────────────────────────
+function setBilling(type) {
+  currentBilling = type;
+  document.getElementById('opt-monthly').classList.toggle('active', type === 'monthly');
+  document.getElementById('opt-annual').classList.toggle('active', type === 'annual');
+
+  Object.keys(PLANS).forEach(key => {
+    const p = PLANS[key];
+    const priceEl = document.getElementById('price-' + key);
+    const saveEl  = document.getElementById('save-' + key);
+    if (type === 'annual') {
+      priceEl.textContent = '$' + Math.round(p.annualMonthly);
+      saveEl.textContent = p.savings + ' off — ' + p.annualDisplay;
+      saveEl.style.display = 'block';
+    } else {
+      priceEl.textContent = '$' + p.monthly;
+      saveEl.style.display = 'none';
+    }
+  });
+  updateSummary();
+}
+
+// ─── Update order summary ─────────────────────────────────────────────────────
+function updateSummary() {
+  const p = PLANS[currentPlan];
+  const isAnnual = currentBilling === 'annual';
+  const price = isAnnual ? p.annual : p.monthly;
+  const perLabel = isAnnual ? '/yr' : '/mo';
+
+  document.getElementById('os-name').textContent = p.name;
+  document.getElementById('os-billing').textContent = isAnnual
+    ? 'Billed annually · Cancel anytime'
+    : 'Billed monthly · Cancel anytime';
+  document.getElementById('os-price').innerHTML = '$' + price + ' <span>' + perLabel + '</span>';
+  document.getElementById('os-subtotal').textContent = '$' + price.toFixed(2);
+  document.getElementById('os-total').textContent = '$' + price.toFixed(2);
+
+  const savingsRow = document.getElementById('os-savings-row');
+  if (isAnnual) {
+    savingsRow.style.display = 'flex';
+    document.getElementById('os-savings-val').textContent = '−' + p.savings;
+  } else {
+    savingsRow.style.display = 'none';
+  }
+
+  document.getElementById('os-features').innerHTML = p.features
+    .map(f => `<div class="os-feature"><div class="os-check">✓</div>${f}</div>`)
+    .join('');
+
+  // Update button label
+  const first = document.getElementById('co-first')?.value?.trim();
+  document.getElementById('checkoutBtn').innerHTML =
+    '🔒 ' + (first ? `Continue, ${first} →` : 'Continue to Payment →');
+}
+
+// ─── Open Lemon Squeezy overlay ───────────────────────────────────────────────
+function openCheckout() {
+  const isAnnual  = currentBilling === 'annual';
+  const urlKey    = currentPlan + (isAnnual ? '_annual' : '');
+  let   url       = window.LS_URLS[urlKey] || window.LS_URLS[currentPlan];
+
+  // Abort with friendly message if URLs not set yet
+  if (!urlsAreSet()) {
+    alert('⚠️ Lemon Squeezy checkout URLs are not set yet.\n\nOpen checkout.html and replace the placeholder URLs in window.LS_URLS with your actual Lemon Squeezy product links.');
+    return;
+  }
+
+  // Pre-fill customer info via URL params
+  const email  = document.getElementById('co-email').value.trim();
+  const first  = document.getElementById('co-first').value.trim();
+  const last   = document.getElementById('co-last').value.trim();
+  const school = document.getElementById('co-school').value.trim();
+
+  const params = new URLSearchParams();
+  if (email)  params.set('checkout[email]',         email);
+  if (first || last) params.set('checkout[name]',   [first, last].filter(Boolean).join(' '));
+  if (school) params.set('checkout[custom][school]', school);
+
+  const finalUrl = url + (url.includes('?') ? '&' : '?') + params.toString();
+
+  // Use LemonSqueezy.com's JS overlay if available, otherwise open in new tab
+  if (window.LemonSqueezy) {
+    window.LemonSqueezy.Url.Open(finalUrl);
+  } else {
+    // Lemon.js not loaded yet — open in new tab as fallback
+    window.open(finalUrl, '_blank');
+  }
+}
+</script>
+</body>
+</html>

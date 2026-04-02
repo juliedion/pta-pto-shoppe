@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Flyer Writer — The PTA/PTO Shoppe</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,400&display=swap" rel="stylesheet">
+<style>
+:root {
+  --navy:#0D1B3E;--navy-mid:#142248;--navy-light:#1C2F5E;
+  --pink:#E8357A;--pink-bright:#FF2D87;--pink-pale:#FFF0F7;
+  --purple:#7B3FB5;--purple-pale:#F5EEFF;
+  --blue:#2E7BC4;--blue-pale:#EAF4FF;
+  --green:#2BA84A;--green-bright:#00C853;--green-pale:#EDFFF4;
+  --gold:#C9943A;--gold-light:#F5D78E;
+  --white:#FFFFFF;--off-white:#F8F9FF;--light-bg:#F2F4FB;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{font-family:'Poppins',sans-serif;background:var(--off-white);color:var(--navy);overflow-x:hidden;}
+nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(13,27,62,0.97);backdrop-filter:blur(12px);border-bottom:3px solid transparent;border-image:linear-gradient(90deg,var(--pink),var(--purple),var(--blue),var(--green)) 1;padding:0 48px;height:72px;display:flex;align-items:center;justify-content:space-between;}
+.nav-logo{display:flex;align-items:center;text-decoration:none;}
+.nav-logo img{height:48px;width:auto;object-fit:contain;}
+.nav-links{display:flex;align-items:center;gap:28px;}
+.nav-links a{font-size:16px;font-weight:700;color:rgba(255,255,255,0.88);text-decoration:none;transition:color 0.2s;letter-spacing:0.3px;}
+.nav-links a:hover{color:var(--gold-light);}
+.nav-cta{background:linear-gradient(135deg,var(--pink),var(--purple));color:white;font-family:'Poppins',sans-serif;font-size:13px;font-weight:700;padding:10px 22px;border-radius:100px;text-decoration:none;transition:all 0.2s;box-shadow:0 4px 16px rgba(232,53,122,0.4);border:none;cursor:pointer;}
+.nav-cta:hover{transform:translateY(-1px);box-shadow:0 6px 24px rgba(232,53,122,0.55);}
+.gold-divider{height:4px;background:linear-gradient(90deg,var(--pink),var(--purple),var(--blue),var(--green),var(--orange,#F07A1A),var(--pink));background-size:200% 100%;animation:shimmer 3s linear infinite;}
+@keyframes shimmer{0%{background-position:0% 0%}100%{background-position:200% 0%}}
+
+/* TOOL HERO */
+.tool-hero{min-height:52vh;background-color:#010D2A;background-image:radial-gradient(ellipse 60% 60% at 10% 50%,rgba(232,53,122,0.22) 0%,transparent 55%),radial-gradient(ellipse 50% 50% at 90% 20%,rgba(123,63,181,0.18) 0%,transparent 50%),linear-gradient(155deg,#010D2A 0%,#031B52 40%,#0D1B3E 100%);display:flex;align-items:center;justify-content:center;padding:120px 60px 80px;position:relative;overflow:hidden;}
+.tool-hero-inner{max-width:800px;margin:0 auto;text-align:center;animation:floatUp 0.7s ease both;}
+@keyframes floatUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+.tool-icon-lg{font-size:72px;margin-bottom:20px;display:block;filter:drop-shadow(0 8px 24px rgba(232,53,122,0.4));}
+.tool-eyebrow{display:inline-flex;align-items:center;gap:8px;background:rgba(232,53,122,0.12);border:1px solid rgba(232,53,122,0.3);border-radius:100px;padding:6px 16px;font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--pink-bright);margin-bottom:20px;}
+.tool-hero h1{font-size:clamp(36px,5vw,60px);font-weight:900;color:white;letter-spacing:-2px;line-height:1.05;margin-bottom:16px;}
+.tool-hero h1 span{background:linear-gradient(135deg,#FF2D87,#FF6BBF,#C84FFF);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;filter:drop-shadow(0 0 20px rgba(255,45,135,0.6));}
+.tool-hero p{font-size:17px;font-weight:300;color:rgba(255,255,255,0.65);line-height:1.75;max-width:580px;margin:0 auto 32px;}
+.btn-hero{background:linear-gradient(135deg,var(--pink),var(--purple));color:white;font-family:'Poppins',sans-serif;font-size:14px;font-weight:700;padding:14px 32px;border-radius:100px;text-decoration:none;border:none;cursor:pointer;transition:all 0.2s;box-shadow:0 6px 24px rgba(232,53,122,0.4);display:inline-flex;align-items:center;gap:8px;}
+.btn-hero:hover{transform:translateY(-2px);box-shadow:0 10px 32px rgba(232,53,122,0.55);}
+
+/* SECTIONS */
+.section{padding:80px 60px;max-width:1100px;margin:0 auto;}
+.section-label{font-size:10px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--pink);margin-bottom:12px;}
+.section h2{font-size:clamp(28px,3.5vw,42px);font-weight:900;letter-spacing:-1.5px;color:var(--navy);line-height:1.1;margin-bottom:16px;}
+.section h2 span{background:linear-gradient(135deg,var(--pink),var(--purple),var(--blue));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.section p.lead{font-size:15px;font-weight:300;color:rgba(13,27,62,0.6);line-height:1.75;max-width:560px;}
+
+/* HOW IT WORKS */
+.hiw-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:48px;}
+.hiw-card{background:white;border-radius:20px;padding:32px 28px;border:2px solid rgba(13,27,62,0.07);box-shadow:0 2px 16px rgba(13,27,62,0.05);position:relative;}
+.hiw-num{font-size:11px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:var(--pink);margin-bottom:16px;}
+.hiw-icon{font-size:32px;margin-bottom:12px;display:block;}
+.hiw-card h3{font-size:16px;font-weight:800;color:var(--navy);margin-bottom:8px;}
+.hiw-card p{font-size:13px;font-weight:300;color:rgba(13,27,62,0.6);line-height:1.7;}
+
+/* EXAMPLE OUTPUT */
+.example-wrap{background:var(--navy);border-radius:24px;padding:48px;margin-top:48px;position:relative;overflow:hidden;}
+.example-wrap::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 50% at 80% 50%,rgba(232,53,122,0.1) 0%,transparent 60%);pointer-events:none;}
+.example-label{font-size:9px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:rgba(255,255,255,0.3);margin-bottom:24px;}
+.flyer-mock{background:white;border-radius:16px;padding:32px;max-width:520px;margin:0 auto;box-shadow:0 24px 64px rgba(0,0,0,0.4);}
+.flyer-header{background:linear-gradient(135deg,var(--pink),var(--purple));border-radius:12px;padding:24px;text-align:center;margin-bottom:20px;}
+.flyer-header h3{font-size:22px;font-weight:900;color:white;margin-bottom:4px;}
+.flyer-header p{font-size:12px;color:rgba(255,255,255,0.8);}
+.flyer-body p{font-size:13px;color:rgba(13,27,62,0.75);line-height:1.7;margin-bottom:12px;}
+.flyer-detail{display:flex;gap:8px;align-items:center;font-size:12px;font-weight:600;color:var(--navy);margin-bottom:6px;}
+.flyer-cta{background:var(--pink);color:white;text-align:center;padding:12px;border-radius:8px;font-size:13px;font-weight:700;margin-top:16px;}
+
+/* FEATURES */
+.feat-section{background:var(--light-bg);padding:80px 60px;}
+.feat-inner{max-width:1100px;margin:0 auto;}
+.feat-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:20px;margin-top:48px;}
+.feat-card{background:white;border-radius:18px;padding:28px;border:2px solid rgba(13,27,62,0.07);display:flex;gap:16px;align-items:flex-start;}
+.feat-icon{width:44px;height:44px;border-radius:12px;background:var(--pink-pale);display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;}
+.feat-card h3{font-size:14px;font-weight:800;color:var(--navy);margin-bottom:6px;}
+.feat-card p{font-size:12px;font-weight:300;color:rgba(13,27,62,0.6);line-height:1.7;}
+
+/* USE CASES */
+.use-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:40px;}
+.use-chip{background:white;border:2px solid rgba(232,53,122,0.2);border-radius:12px;padding:16px 18px;font-size:13px;font-weight:600;color:var(--navy);display:flex;align-items:center;gap:10px;}
+.use-chip span{font-size:18px;}
+
+/* CTA */
+.tool-cta{background:var(--navy);padding:80px 60px;text-align:center;position:relative;overflow:hidden;}
+.tool-cta::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 70% 60% at 50% 100%,rgba(123,63,181,0.2) 0%,transparent 70%);}
+.tool-cta-inner{position:relative;z-index:1;max-width:600px;margin:0 auto;}
+.tool-cta h2{font-size:clamp(28px,4vw,44px);font-weight:900;color:white;letter-spacing:-1.5px;line-height:1.1;margin-bottom:16px;}
+.tool-cta h2 span{background:linear-gradient(135deg,var(--pink-bright),var(--purple));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.tool-cta p{font-size:15px;color:rgba(255,255,255,0.55);margin-bottom:32px;line-height:1.7;font-weight:300;}
+
+/* BACK LINK */
+.back-bar{background:var(--off-white);border-bottom:1px solid rgba(13,27,62,0.08);padding:0 60px;}
+.back-bar a{display:inline-flex;align-items:center;gap:8px;font-size:12px;font-weight:600;color:rgba(13,27,62,0.5);text-decoration:none;padding:12px 0;transition:color 0.2s;}
+.back-bar a:hover{color:var(--pink);}
+
+/* FOOTER */
+footer{background:var(--navy-mid,#142248);border-top:3px solid transparent;border-image:linear-gradient(90deg,var(--pink),var(--purple),var(--blue),var(--green)) 1;padding:28px 60px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px;}
+.f-logo{height:40px;width:auto;object-fit:contain;}
+.f-copy{font-size:12px;color:rgba(255,255,255,0.28);}
+.f-links{display:flex;gap:24px;}
+.f-links a{font-size:12px;color:rgba(255,255,255,0.35);text-decoration:none;transition:color 0.2s;}
+.f-links a:hover{color:var(--gold-light);}
+
+/* TOOLS NAV BAR */
+.tools-nav{background:white;border-bottom:1px solid rgba(13,27,62,0.08);padding:0 60px;overflow-x:auto;}
+.tools-nav-inner{display:flex;gap:4px;align-items:center;white-space:nowrap;}
+.tools-nav a{font-size:12px;font-weight:600;color:rgba(13,27,62,0.5);text-decoration:none;padding:14px 16px;border-bottom:2px solid transparent;transition:all 0.2s;display:inline-flex;align-items:center;gap:6px;}
+.tools-nav a:hover{color:var(--navy);}
+.tools-nav a.active{color:var(--pink);border-bottom-color:var(--pink);}
+
+@media(max-width:900px){nav{padding:0 20px;}.nav-links{display:none;}.tool-hero{padding:100px 24px 60px;}.section{padding:60px 24px;}.hiw-grid,.feat-grid{grid-template-columns:1fr;}.use-grid{grid-template-columns:1fr 1fr;}.tool-cta{padding:60px 24px;}.back-bar,.tools-nav{padding:0 20px;}footer{padding:24px 20px;flex-direction:column;align-items:flex-start;}}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="pta-shoppe-landing.html" class="nav-logo">
+    <img src="logo.png" alt="The PTA/PTO Shoppe">
+  </a>
+  <div class="nav-links">
+    <a href="pta-shoppe-landing.html#tools">Tools</a>
+    <a href="pta-shoppe-landing.html#pricing">Pricing</a>
+    <a href="pta-shoppe-landing.html#testimonials">Reviews</a>
+    <a href="pta-shoppe-landing.html#contact">Contact</a>
+  </div>
+  <a href="pta-shoppe-landing.html#pricing" class="nav-cta">Get Started →</a>
+</nav>
+
+<div class="gold-divider" style="margin-top:72px;"></div>
+
+<div class="back-bar">
+  <a href="pta-shoppe-landing.html#tools">← Back to All Tools</a>
+</div>
+
+<div class="tools-nav">
+  <div class="tools-nav-inner">
+    <a href="tool-flyer-writer.html" class="active">📢 Flyer Writer</a>
+    <a href="tool-agenda-builder.html">📋 Agenda Builder</a>
+    <a href="tool-fundraiser-email.html">💌 Fundraiser Email</a>
+    <a href="tool-newsletter-blurb.html">📰 Newsletter Blurb</a>
+    <a href="tool-permission-slip.html">📝 Permission Slip</a>
+    <a href="tool-event-builder.html">🎪 Event Builder</a>
+    <a href="tool-calendar-builder.html">📅 Calendar Builder</a>
+    <a href="tool-parent-directory.html">👥 Parent Directory</a>
+    <a href="tool-donor-directory.html">🤝 Donor Directory</a>
+    <a href="tool-social-posts.html">📱 Social Posts</a>
+    <a href="tool-ad-copy.html">📣 Ad Copy</a>
+  </div>
+</div>
+
+<!-- HERO -->
+<section class="tool-hero">
+  <div class="tool-hero-inner">
+    <span class="tool-icon-lg">📢</span>
+    <div class="tool-eyebrow">✦ AI-Powered Tool</div>
+    <h1>Flyers that <span>actually get read.</span></h1>
+    <p>Tell us your event, date, and key details. Our AI writes a polished, attention-grabbing flyer in under 60 seconds — ready to print, email, or share.</p>
+    <a href="pta-shoppe-landing.html#pricing" class="btn-hero">Start Writing Flyers ✦</a>
+  </div>
+</section>
+
+<div class="gold-divider"></div>
+
+<!-- HOW IT WORKS -->
+<div class="section">
+  <div class="section-label">How it works</div>
+  <h2>Three inputs. <span>One great flyer.</span></h2>
+  <p class="lead">No design skills needed. No blank page panic. Just answer three quick questions and your flyer is done.</p>
+  <div class="hiw-grid">
+    <div class="hiw-card">
+      <div class="hiw-num">Step 01</div>
+      <span class="hiw-icon">✏️</span>
+      <h3>Describe your event</h3>
+      <p>Enter your event name, date, location, and a few key details. The more you share, the more personalized your flyer.</p>
+    </div>
+    <div class="hiw-card">
+      <div class="hiw-num">Step 02</div>
+      <span class="hiw-icon">⚡</span>
+      <h3>AI writes it instantly</h3>
+      <p>Our AI generates headline, body copy, call-to-action, and formatting — all tuned for parent readability in under 60 seconds.</p>
+    </div>
+    <div class="hiw-card">
+      <div class="hiw-num">Step 03</div>
+      <span class="hiw-icon">📤</span>
+      <h3>Copy, print, or share</h3>
+      <p>Copy the text into your design tool, paste into an email, or use as-is. It's formatted and ready — no editing required.</p>
+    </div>
+  </div>
+</div>
+
+<div class="gold-divider"></div>
+
+<!-- EXAMPLE OUTPUT -->
+<div style="background:var(--navy);padding:80px 60px;">
+  <div style="max-width:1100px;margin:0 auto;">
+    <div class="example-label">Example output</div>
+    <h2 style="font-size:clamp(28px,3.5vw,42px);font-weight:900;color:white;letter-spacing:-1.5px;margin-bottom:40px;">Here's what <span style="color:var(--pink-bright);">you'll get.</span></h2>
+    <div class="flyer-mock">
+      <div class="flyer-header">
+        <h3>🎉 Spring Book Fair is HERE!</h3>
+        <p>Jefferson Elementary PTA Presents</p>
+      </div>
+      <div class="flyer-body">
+        <p>Stock up on incredible reads and support our school at the same time! Our annual Spring Book Fair is the perfect chance to find your next favorite book — and every purchase benefits our classroom libraries.</p>
+        <div class="flyer-detail">📅 March 14–18, 2026</div>
+        <div class="flyer-detail">📍 Jefferson Elementary Library</div>
+        <div class="flyer-detail">🕒 Mon–Fri, 8am – 3pm · Eve. Preview: Wed 5–7pm</div>
+        <p>Bring cash, check, or use our new eWallet. All ages welcome. Can't make it? Online ordering opens March 14!</p>
+        <div class="flyer-cta">Questions? Email pta@jefferson.edu · Follow us @JeffersonPTA</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="gold-divider"></div>
+
+<!-- FEATURES -->
+<div class="feat-section">
+  <div class="feat-inner">
+    <div class="section-label">What's included</div>
+    <h2 style="font-size:clamp(28px,3.5vw,42px);font-weight:900;letter-spacing:-1.5px;color:var(--navy);margin-bottom:8px;">Everything your flyer <span style="background:linear-gradient(135deg,var(--pink),var(--purple));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">needs to work.</span></h2>
+    <div class="feat-grid">
+      <div class="feat-card"><div class="feat-icon">✍️</div><div><h3>AI-written headline & body</h3><p>Professionally written copy optimized for parent attention spans and quick scanning.</p></div></div>
+      <div class="feat-card"><div class="feat-icon">📅</div><div><h3>Date, time & location block</h3><p>Clearly formatted event details that parents can't miss and won't need to re-read.</p></div></div>
+      <div class="feat-card"><div class="feat-icon">📣</div><div><h3>Call-to-action included</h3><p>Every flyer ends with a clear next step — RSVP link, contact email, or sign-up info.</p></div></div>
+      <div class="feat-card"><div class="feat-icon">🔁</div><div><h3>Regenerate anytime</h3><p>Not quite right? Tweak your inputs or hit regenerate for a fresh version instantly.</p></div></div>
+      <div class="feat-card"><div class="feat-icon">📋</div><div><h3>Copy-paste ready</h3><p>Output is clean text you can drop into Canva, Word, Google Docs, or any email tool.</p></div></div>
+      <div class="feat-card"><div class="feat-icon">🏫</div><div><h3>School-tone aware</h3><p>Friendly, warm, and inclusive language — not corporate jargon. Parents actually read these.</p></div></div>
+    </div>
+  </div>
+</div>
+
+<div class="gold-divider"></div>
+
+<!-- USE CASES -->
+<div class="section">
+  <div class="section-label">Perfect for</div>
+  <h2>Every event. <span>Every announcement.</span></h2>
+  <div class="use-grid">
+    <div class="use-chip"><span>📚</span>Book Fairs</div>
+    <div class="use-chip"><span>🎪</span>Carnivals & Fairs</div>
+    <div class="use-chip"><span>🏃</span>Fun Runs</div>
+    <div class="use-chip"><span>🍕</span>Dining Nights</div>
+    <div class="use-chip"><span>🗳️</span>Meeting Notices</div>
+    <div class="use-chip"><span>🎭</span>Talent Shows</div>
+    <div class="use-chip"><span>🎁</span>Gift Wrap Sales</div>
+    <div class="use-chip"><span>🎓</span>End of Year Events</div>
+    <div class="use-chip"><span>💰</span>Fundraiser Kickoffs</div>
+  </div>
+</div>
+
+<!-- CTA -->
+<div class="tool-cta">
+  <div class="tool-cta-inner">
+    <h2>Ready to write your <span>first flyer?</span></h2>
+    <p>Plans start at $19/mo. Your board will wonder how you ever managed without it.</p>
+    <a href="pta-shoppe-landing.html#pricing" class="btn-hero" style="font-size:15px;padding:16px 36px;">Get Started — $19/mo ✦</a>
+  </div>
+</div>
+
+<footer id="contact">
+  <img src="logo.png" alt="The PTA/PTO Shoppe" class="f-logo">
+  <div class="f-copy">© 2026 The PTA/PTO Shoppe. All rights reserved.</div>
+  <div class="f-links">
+    <a href="#">Privacy</a>
+    <a href="#">Terms</a>
+    <a href="#">Contact</a>
+  </div>
+</footer>
+
+</body>
+</html>

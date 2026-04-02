@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contact Us — The PTA/PTO Shoppe</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,400&display=swap" rel="stylesheet">
+<style>
+:root{--navy:#0D1B3E;--navy-mid:#142248;--pink:#E8357A;--pink-bright:#FF2D87;--pink-pale:#FFF0F7;--purple:#7B3FB5;--purple-pale:#F5EEFF;--blue:#2E7BC4;--blue-pale:#EAF4FF;--green:#2BA84A;--green-bright:#00C853;--green-pale:#EDFFF4;--gold:#C9943A;--gold-light:#F5D78E;--off-white:#F8F9FF;--light-bg:#F2F4FB;}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{font-family:'Poppins',sans-serif;background:var(--off-white);color:var(--navy);overflow-x:hidden;}
+nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(13,27,62,0.97);backdrop-filter:blur(12px);border-bottom:3px solid transparent;border-image:linear-gradient(90deg,var(--pink),var(--purple),var(--blue),var(--green)) 1;padding:0 48px;height:72px;display:flex;align-items:center;justify-content:space-between;}
+.nav-logo{display:flex;align-items:center;text-decoration:none;}
+.nav-logo img{height:48px;width:auto;object-fit:contain;}
+.nav-links{display:flex;align-items:center;gap:28px;}
+.nav-links a{font-size:16px;font-weight:700;color:rgba(255,255,255,0.88);text-decoration:none;transition:color 0.2s;}
+.nav-links a:hover{color:var(--gold-light);}
+.nav-links a.active{color:var(--gold-light);}
+.nav-cta{background:linear-gradient(135deg,var(--pink),var(--purple));color:white;font-family:'Poppins',sans-serif;font-size:13px;font-weight:700;padding:10px 22px;border-radius:100px;text-decoration:none;transition:all 0.2s;box-shadow:0 4px 16px rgba(232,53,122,0.4);}
+.nav-cta:hover{transform:translateY(-1px);}
+.gold-divider{height:4px;background:linear-gradient(90deg,var(--pink),var(--purple),var(--blue),var(--green),#F07A1A,var(--pink));background-size:200% 100%;animation:shimmer 3s linear infinite;}
+@keyframes shimmer{0%{background-position:0%}100%{background-position:200%}}
+
+/* PAGE HERO */
+.page-hero{padding:120px 60px 72px;background:#010D2A;background-image:radial-gradient(ellipse 55% 50% at 15% 50%,rgba(232,53,122,0.18) 0%,transparent 60%),linear-gradient(155deg,#010D2A 0%,#031B52 40%,#0D1B3E 100%);text-align:center;}
+.page-hero-inner{max-width:640px;margin:0 auto;animation:floatUp 0.7s ease both;}
+@keyframes floatUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+.page-eyebrow{display:inline-flex;align-items:center;gap:8px;background:rgba(232,53,122,0.12);border:1px solid rgba(232,53,122,0.3);border-radius:100px;padding:6px 16px;font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--pink-bright);margin-bottom:20px;}
+.page-hero h1{font-size:clamp(34px,4.5vw,52px);font-weight:900;color:white;letter-spacing:-2px;line-height:1.05;margin-bottom:14px;}
+.page-hero h1 span{background:linear-gradient(135deg,#FF2D87,#FF85C2,#C084FC);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;filter:drop-shadow(0 0 12px rgba(255,45,135,0.65)) drop-shadow(0 0 28px rgba(192,132,252,0.3));}
+.page-hero p{font-size:16px;font-weight:300;color:rgba(255,255,255,0.6);line-height:1.75;}
+
+/* MAIN LAYOUT */
+.contact-main{max-width:1100px;margin:0 auto;padding:80px 60px;display:grid;grid-template-columns:1fr 1.6fr;gap:60px;align-items:start;}
+
+/* LEFT SIDEBAR */
+.contact-sidebar{}
+.sidebar-title{font-size:11px;font-weight:800;letter-spacing:2.5px;text-transform:uppercase;color:var(--pink);margin-bottom:28px;}
+.contact-way{display:flex;align-items:flex-start;gap:16px;background:white;border-radius:18px;padding:22px;border:2px solid rgba(13,27,62,0.07);text-decoration:none;color:var(--navy);transition:all 0.2s;margin-bottom:14px;}
+.contact-way:hover{border-color:var(--pink);transform:translateX(4px);box-shadow:0 8px 28px rgba(13,27,62,0.08);}
+.cw-icon{width:46px;height:46px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0;}
+.cw-email{background:var(--pink-pale);}
+.cw-review{background:var(--purple-pale);}
+.cw-pricing{background:var(--green-pale);}
+.cw-social{background:var(--blue-pale);}
+.cw-label{font-size:13px;font-weight:700;color:var(--navy);margin-bottom:3px;}
+.cw-sub{font-size:11px;font-weight:300;color:rgba(13,27,62,0.5);line-height:1.5;}
+.hours-card{background:var(--navy);border-radius:18px;padding:24px;margin-top:28px;}
+.hours-title{font-size:11px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,0.35);margin-bottom:16px;}
+.hours-row{display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid rgba(255,255,255,0.07);}
+.hours-row:last-child{border-bottom:none;}
+.hours-day{font-size:12px;font-weight:600;color:rgba(255,255,255,0.7);}
+.hours-time{font-size:12px;font-weight:700;color:var(--gold-light);}
+.hours-closed{font-size:12px;font-weight:400;color:rgba(255,255,255,0.3);}
+
+/* FORM CARD */
+.form-card{background:white;border-radius:24px;padding:48px;border:2px solid rgba(13,27,62,0.07);box-shadow:0 8px 48px rgba(13,27,62,0.08);}
+.form-card h2{font-size:22px;font-weight:900;color:var(--navy);letter-spacing:-0.5px;margin-bottom:6px;}
+.form-card .form-sub{font-size:13px;font-weight:300;color:rgba(13,27,62,0.5);margin-bottom:32px;}
+.form-row{margin-bottom:20px;}
+.form-row-2{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:20px;}
+.cf-label{font-size:11px;font-weight:700;color:rgba(13,27,62,0.55);letter-spacing:0.5px;text-transform:uppercase;margin-bottom:7px;display:block;}
+.cf-input{width:100%;padding:13px 16px;border:1.5px solid rgba(13,27,62,0.12);border-radius:10px;font-family:'Poppins',sans-serif;font-size:13px;color:var(--navy);outline:none;transition:border-color 0.2s;background:var(--off-white);}
+.cf-input:focus{border-color:var(--pink);background:white;}
+.cf-textarea{resize:vertical;min-height:130px;}
+.cf-select{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%230D1B3E' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center;padding-right:40px;cursor:pointer;}
+.cf-check-row{display:flex;align-items:flex-start;gap:10px;margin-bottom:10px;}
+.cf-check-row input[type=checkbox]{width:16px;height:16px;margin-top:2px;accent-color:var(--pink);flex-shrink:0;}
+.cf-check-label{font-size:12px;font-weight:500;color:rgba(13,27,62,0.7);line-height:1.5;}
+.cf-btn{width:100%;background:linear-gradient(135deg,var(--pink),var(--purple));color:white;font-family:'Poppins',sans-serif;font-size:15px;font-weight:700;padding:16px;border-radius:100px;border:none;cursor:pointer;transition:all 0.2s;margin-top:16px;display:flex;align-items:center;justify-content:center;gap:8px;}
+.cf-btn:hover{transform:translateY(-1px);box-shadow:0 8px 28px rgba(232,53,122,0.4);}
+.form-note{font-size:11px;font-weight:300;color:rgba(13,27,62,0.4);text-align:center;margin-top:14px;line-height:1.6;}
+
+/* SUCCESS STATE (hidden by default) */
+.form-success{display:none;text-align:center;padding:40px 20px;}
+.form-success .success-icon{font-size:56px;margin-bottom:16px;}
+.form-success h3{font-size:20px;font-weight:800;color:var(--navy);margin-bottom:10px;}
+.form-success p{font-size:14px;color:rgba(13,27,62,0.6);line-height:1.7;}
+
+/* FAQ */
+.faq-section{background:var(--light-bg);padding:80px 60px;}
+.faq-inner{max-width:760px;margin:0 auto;}
+.faq-title{font-size:11px;font-weight:800;letter-spacing:2.5px;text-transform:uppercase;color:var(--purple);margin-bottom:8px;}
+.faq-h{font-size:clamp(26px,3.5vw,36px);font-weight:900;color:var(--navy);letter-spacing:-1px;margin-bottom:40px;}
+.faq-item{background:white;border-radius:16px;border:2px solid rgba(13,27,62,0.07);margin-bottom:12px;overflow:hidden;}
+.faq-q{padding:20px 24px;font-size:14px;font-weight:700;color:var(--navy);cursor:pointer;display:flex;align-items:center;justify-content:space-between;gap:12px;user-select:none;}
+.faq-q::after{content:'＋';font-size:18px;font-weight:300;color:var(--pink);flex-shrink:0;transition:transform 0.2s;}
+.faq-item.open .faq-q::after{transform:rotate(45deg);}
+.faq-a{display:none;padding:0 24px 20px;font-size:13px;font-weight:300;color:rgba(13,27,62,0.65);line-height:1.8;border-top:1px solid rgba(13,27,62,0.06);}
+.faq-item.open .faq-a{display:block;}
+
+footer{background:var(--navy-mid,#142248);border-top:3px solid transparent;border-image:linear-gradient(90deg,var(--pink),var(--purple),var(--blue),var(--green)) 1;padding:28px 60px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px;}
+.f-logo{height:110px;width:auto;object-fit:contain;}
+.f-copy{font-size:12px;color:rgba(255,255,255,0.28);}
+.f-links{display:flex;gap:24px;}
+.f-links a{font-size:12px;color:rgba(255,255,255,0.35);text-decoration:none;}
+.f-links a:hover{color:var(--gold-light);}
+
+@media(max-width:900px){
+  nav{padding:0 20px;}.nav-links{display:none;}
+  .page-hero{padding:100px 24px 60px;}
+  .contact-main{grid-template-columns:1fr;padding:60px 24px;gap:40px;}
+  .form-row-2{grid-template-columns:1fr;}
+  .form-card{padding:32px 24px;}
+  .faq-section{padding:60px 24px;}
+  footer{padding:24px 20px;flex-direction:column;}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="pta-shoppe-landing.html" class="nav-logo"><img src="logo.png" alt="The PTA/PTO Shoppe"></a>
+  <div class="nav-links">
+    <a href="pta-shoppe-landing.html#tools">Tools</a>
+    <a href="pta-shoppe-landing.html#pricing">Pricing</a>
+    <a href="reviews.html">Reviews</a>
+    <a href="contact.html" class="active">Contact</a>
+  </div>
+  <a href="pta-shoppe-landing.html#pricing" class="nav-cta">Get Started →</a>
+</nav>
+<div class="gold-divider" style="margin-top:72px;"></div>
+
+<section class="page-hero">
+  <div class="page-hero-inner">
+    <div class="page-eyebrow">✉️ Get in Touch</div>
+    <h1>We'd love to <span>hear from you.</span></h1>
+    <p>Questions, feedback, or just want to tell us about your board — we read every message and respond within one business day.</p>
+  </div>
+</section>
+<div class="gold-divider"></div>
+
+<div class="contact-main">
+
+  <!-- SIDEBAR -->
+  <div class="contact-sidebar">
+    <div class="sidebar-title">Other ways to reach us</div>
+
+    <a href="mailto:hello@ptaptoshoppe.com" class="contact-way">
+      <div class="cw-icon cw-email">📧</div>
+      <div><div class="cw-label">Email directly</div><div class="cw-sub">hello@ptaptoshoppe.com<br>We reply within 1 business day</div></div>
+    </a>
+
+    <a href="reviews.html" class="contact-way">
+      <div class="cw-icon cw-review">⭐</div>
+      <div><div class="cw-label">Leave a review</div><div class="cw-sub">Share your experience with other PTA/PTO boards</div></div>
+    </a>
+
+    <a href="pta-shoppe-landing.html#pricing" class="contact-way">
+      <div class="cw-icon cw-pricing">💳</div>
+      <div><div class="cw-label">View pricing</div><div class="cw-sub">Plans starting at $19/mo — no contracts</div></div>
+    </a>
+
+    <a href="pta-shoppe-landing.html#tools" class="contact-way">
+      <div class="cw-icon cw-social">🛠️</div>
+      <div><div class="cw-label">Explore the tools</div><div class="cw-sub">See all 11 AI-powered tools for your board</div></div>
+    </a>
+
+    <div class="hours-card">
+      <div class="hours-title">Support Hours</div>
+      <div class="hours-row"><span class="hours-day">Monday – Friday</span><span class="hours-time">9am – 6pm ET</span></div>
+      <div class="hours-row"><span class="hours-day">Saturday</span><span class="hours-time">10am – 2pm ET</span></div>
+      <div class="hours-row"><span class="hours-day">Sunday</span><span class="hours-closed">Closed</span></div>
+    </div>
+  </div>
+
+  <!-- FORM -->
+  <div class="form-card">
+    <h2>Send us a message</h2>
+    <p class="form-sub">Fill out the form below and a real human will get back to you shortly.</p>
+
+    <div id="contactForm">
+      <div class="form-row-2">
+        <div>
+          <label class="cf-label">First name</label>
+          <input class="cf-input" type="text" placeholder="Jane" id="firstName">
+        </div>
+        <div>
+          <label class="cf-label">Last name</label>
+          <input class="cf-input" type="text" placeholder="Smith" id="lastName">
+        </div>
+      </div>
+
+      <div class="form-row">
+        <label class="cf-label">Email address</label>
+        <input class="cf-input" type="email" placeholder="you@school.org" id="email">
+      </div>
+
+      <div class="form-row">
+        <label class="cf-label">School / Organization name</label>
+        <input class="cf-input" type="text" placeholder="Jefferson Elementary PTA" id="school">
+      </div>
+
+      <div class="form-row">
+        <label class="cf-label">What can we help you with?</label>
+        <select class="cf-input cf-select" id="subject">
+          <option value="" disabled selected>Select a topic...</option>
+          <option>Question about pricing or plans</option>
+          <option>Help with a specific tool</option>
+          <option>Technical issue or bug</option>
+          <option>Feature request or feedback</option>
+          <option>District or multi-school inquiry</option>
+          <option>Press or partnership</option>
+          <option>Leave a review</option>
+          <option>Something else</option>
+        </select>
+      </div>
+
+      <div class="form-row">
+        <label class="cf-label">Your message</label>
+        <textarea class="cf-input cf-textarea" placeholder="Tell us about your board and what you're looking for. The more detail, the better we can help!" id="message"></textarea>
+      </div>
+
+      <div class="cf-check-row">
+        <input type="checkbox" id="newsletter" checked>
+        <label class="cf-check-label" for="newsletter">Send me occasional tips for PTA/PTO boards — unsubscribe anytime.</label>
+      </div>
+
+      <button class="cf-btn" onclick="submitForm()">Send Message →</button>
+      <p class="form-note">We never share your information. By submitting you agree to our <a href="#" style="color:var(--pink);">Privacy Policy</a>.</p>
+    </div>
+
+    <div class="form-success" id="formSuccess">
+      <div class="success-icon">🎉</div>
+      <h3>Message sent!</h3>
+      <p>Thanks for reaching out. We'll get back to you at your email address within one business day.<br><br>In the meantime, explore our tools or check out what other boards are saying.</p>
+      <div style="display:flex;gap:12px;justify-content:center;margin-top:24px;flex-wrap:wrap;">
+        <a href="pta-shoppe-landing.html#tools" style="background:linear-gradient(135deg,var(--pink),var(--purple));color:white;font-family:'Poppins',sans-serif;font-size:13px;font-weight:700;padding:12px 24px;border-radius:100px;text-decoration:none;">Explore Tools →</a>
+        <a href="reviews.html" style="color:var(--navy);font-family:'Poppins',sans-serif;font-size:13px;font-weight:600;padding:12px 24px;border-radius:100px;text-decoration:none;border:2px solid rgba(13,27,62,0.15);">Read Reviews</a>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="gold-divider"></div>
+
+<!-- FAQ -->
+<section class="faq-section">
+  <div class="faq-inner">
+    <div class="faq-title">Common questions</div>
+    <h2 class="faq-h">Before you write — check here first.</h2>
+
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">What does a subscription include?</div>
+      <div class="faq-a">The Starter plan ($19/mo) gives you 10 AI generations per month, the Flyer Writer, Newsletter Blurb, Permission Slip generator, and 50 directory entries. The Pro Board plan ($24/mo) unlocks all 11 tools with unlimited generations. See the full breakdown on our <a href="pta-shoppe-landing.html#pricing" style="color:var(--pink);">pricing page</a>.</div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">Is this built for both PTAs and PTOs?</div>
+      <div class="faq-a">Yes — absolutely both. The PTA/PTO Shoppe works equally well for National PTA-affiliated groups and independent PTOs. Our tools are designed for any parent volunteer organization running a school community.</div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">Can I cancel anytime?</div>
+      <div class="faq-a">Yes. Cancel anytime from your account settings — no contracts, no cancellation fees. Your access continues through the end of your billing period.</div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">Do you offer school-year billing?</div>
+      <div class="faq-a">Yes! We offer a school-year billing option (September–June) for boards that don't need the tool over summer. Contact us and we'll set it up for your account.</div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">Is there a District plan for multiple schools?</div>
+      <div class="faq-a">Yes. Our District plan ($69/mo) covers up to 10 school accounts with a shared admin dashboard, per-school brand settings, and priority support. Contact us for a demo.</div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">What if I need help getting started?</div>
+      <div class="faq-a">Every new member gets access to our Getting Started guide and quick-start videos. Pro Board and District members get email onboarding support. We're here — just reach out via this form.</div>
+    </div>
+
+  </div>
+</section>
+
+<footer>
+  <img src="logo.png" alt="The PTA/PTO Shoppe" class="f-logo">
+  <div class="f-copy">© 2026 The PTA/PTO Shoppe. All rights reserved.</div>
+  <div class="f-links"><a href="#">Privacy</a><a href="#">Terms</a><a href="contact.html">Contact</a></div>
+</footer>
+
+<script>
+function submitForm() {
+  const first = document.getElementById('firstName').value.trim();
+  const email = document.getElementById('email').value.trim();
+  const message = document.getElementById('message').value.trim();
+  if (!first || !email || !message) {
+    alert('Please fill in your name, email, and message.');
+    return;
+  }
+  document.getElementById('contactForm').style.display = 'none';
+  document.getElementById('formSuccess').style.display = 'block';
+}
+
+function toggleFaq(el) {
+  const item = el.parentElement;
+  const isOpen = item.classList.contains('open');
+  document.querySelectorAll('.faq-item.open').forEach(i => i.classList.remove('open'));
+  if (!isOpen) item.classList.add('open');
+}
+
+// Pre-fill subject from URL param
+const params = new URLSearchParams(window.location.search);
+if (params.get('subject')) {
+  const sel = document.getElementById('subject');
+  for (let o of sel.options) {
+    if (o.value.toLowerCase().includes(params.get('subject').toLowerCase())) {
+      o.selected = true;
+      break;
+    }
+  }
+}
+</script>
+</body>
+</html>

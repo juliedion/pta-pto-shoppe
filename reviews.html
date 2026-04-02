@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Reviews — The PTA/PTO Shoppe</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,400&display=swap" rel="stylesheet">
+<style>
+:root{--navy:#0D1B3E;--navy-mid:#142248;--pink:#E8357A;--pink-bright:#FF2D87;--pink-pale:#FFF0F7;--purple:#7B3FB5;--purple-pale:#F5EEFF;--blue:#2E7BC4;--blue-pale:#EAF4FF;--green:#2BA84A;--green-bright:#00C853;--green-pale:#EDFFF4;--gold:#C9943A;--gold-light:#F5D78E;--white:#FFFFFF;--off-white:#F8F9FF;--light-bg:#F2F4FB;}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{font-family:'Poppins',sans-serif;background:var(--off-white);color:var(--navy);overflow-x:hidden;}
+nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(13,27,62,0.97);backdrop-filter:blur(12px);border-bottom:3px solid transparent;border-image:linear-gradient(90deg,var(--pink),var(--purple),var(--blue),var(--green)) 1;padding:0 48px;height:72px;display:flex;align-items:center;justify-content:space-between;}
+.nav-logo{display:flex;align-items:center;text-decoration:none;}
+.nav-logo img{height:48px;width:auto;object-fit:contain;}
+.nav-links{display:flex;align-items:center;gap:28px;}
+.nav-links a{font-size:16px;font-weight:700;color:rgba(255,255,255,0.88);text-decoration:none;transition:color 0.2s;letter-spacing:0.3px;}
+.nav-links a:hover{color:var(--gold-light);}
+.nav-cta{background:linear-gradient(135deg,var(--pink),var(--purple));color:white;font-family:'Poppins',sans-serif;font-size:13px;font-weight:700;padding:10px 22px;border-radius:100px;text-decoration:none;transition:all 0.2s;box-shadow:0 4px 16px rgba(232,53,122,0.4);}
+.nav-cta:hover{transform:translateY(-1px);}
+.gold-divider{height:4px;background:linear-gradient(90deg,var(--pink),var(--purple),var(--blue),var(--green),#F07A1A,var(--pink));background-size:200% 100%;animation:shimmer 3s linear infinite;}
+@keyframes shimmer{0%{background-position:0%}100%{background-position:200%}}
+
+/* PAGE HERO */
+.page-hero{padding:120px 60px 80px;background:#010D2A;background-image:radial-gradient(ellipse 60% 50% at 20% 50%,rgba(123,63,181,0.2) 0%,transparent 60%),linear-gradient(155deg,#010D2A 0%,#031B52 40%,#0D1B3E 100%);text-align:center;}
+.page-hero-inner{max-width:700px;margin:0 auto;animation:floatUp 0.7s ease both;}
+@keyframes floatUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+.page-eyebrow{display:inline-flex;align-items:center;gap:8px;background:rgba(123,63,181,0.12);border:1px solid rgba(123,63,181,0.3);border-radius:100px;padding:6px 16px;font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#C084FC;margin-bottom:20px;}
+.page-hero h1{font-size:clamp(36px,5vw,56px);font-weight:900;color:white;letter-spacing:-2px;line-height:1.05;margin-bottom:14px;}
+.page-hero h1 span{background:linear-gradient(135deg,#FF2D87,#FF85C2,#C084FC);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;filter:drop-shadow(0 0 12px rgba(255,45,135,0.65)) drop-shadow(0 0 28px rgba(192,132,252,0.3));}
+.page-hero p{font-size:16px;font-weight:300;color:rgba(255,255,255,0.6);line-height:1.75;max-width:540px;margin:0 auto;}
+
+/* STATS BAR */
+.stats-bar{background:white;border-bottom:1px solid rgba(13,27,62,0.08);padding:28px 60px;}
+.stats-bar-inner{max-width:900px;margin:0 auto;display:flex;align-items:center;justify-content:center;gap:48px;flex-wrap:wrap;}
+.stat-big{text-align:center;}
+.stat-big-n{font-size:36px;font-weight:900;letter-spacing:-1.5px;line-height:1;}
+.stat-big-n.pink{color:var(--pink);}
+.stat-big-n.purple{color:var(--purple);}
+.stat-big-n.gold{color:var(--gold);}
+.stat-big-l{font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:rgba(13,27,62,0.4);margin-top:4px;}
+.stat-big-div{width:1px;height:48px;background:rgba(13,27,62,0.1);}
+
+/* FILTER BAR */
+.filter-bar{background:var(--light-bg);border-bottom:1px solid rgba(13,27,62,0.08);padding:16px 60px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;}
+.filter-label{font-size:11px;font-weight:700;color:rgba(13,27,62,0.4);text-transform:uppercase;letter-spacing:1.5px;margin-right:4px;}
+.filter-btn{font-size:12px;font-weight:700;padding:7px 18px;border-radius:100px;border:none;cursor:pointer;transition:all 0.2s;font-family:'Poppins',sans-serif;}
+.filter-btn.active{background:var(--purple);color:white;}
+.filter-btn:not(.active){background:white;color:rgba(13,27,62,0.55);border:1.5px solid rgba(13,27,62,0.1);}
+.filter-btn:hover:not(.active){border-color:var(--purple);color:var(--purple);}
+
+/* REVIEW GRID */
+.reviews-section{padding:60px 60px 100px;}
+.reviews-inner{max-width:1100px;margin:0 auto;}
+.r-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
+.r-card{background:white;border-radius:20px;padding:28px;border:2px solid rgba(13,27,62,0.07);box-shadow:0 2px 12px rgba(13,27,62,0.05);transition:all 0.2s;display:flex;flex-direction:column;}
+.r-card:hover{transform:translateY(-4px);box-shadow:0 12px 40px rgba(13,27,62,0.1);}
+.r-card.featured{border:2px solid var(--purple);background:var(--purple-pale);}
+.r-stars{font-size:14px;letter-spacing:2px;margin-bottom:6px;}
+.r-tool{font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:3px 10px;border-radius:100px;display:inline-block;margin-bottom:12px;}
+.rt-pink{background:var(--pink-pale);color:var(--pink);}
+.rt-purple{background:var(--purple-pale);color:var(--purple);}
+.rt-green{background:var(--green-pale);color:var(--green);}
+.rt-blue{background:var(--blue-pale);color:var(--blue);}
+.rt-gold{background:#FDF6E3;color:var(--gold);}
+.r-quote{font-size:14px;font-weight:500;font-style:italic;color:var(--navy);line-height:1.65;flex:1;margin-bottom:20px;}
+.r-author{display:flex;align-items:center;gap:10px;}
+.r-av{width:42px;height:42px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800;flex-shrink:0;}
+.av-pink{background:var(--pink);color:white;}
+.av-purple{background:var(--purple);color:white;}
+.av-green{background:var(--green);color:white;}
+.av-blue{background:var(--blue);color:white;}
+.av-gold{background:var(--gold);color:white;}
+.r-nm{font-size:13px;font-weight:700;color:var(--navy);}
+.r-rl{font-size:11px;font-weight:400;color:rgba(13,27,62,0.5);}
+.r-verified{font-size:9px;font-weight:700;color:var(--green);letter-spacing:1px;text-transform:uppercase;margin-top:2px;}
+
+/* SUBMIT REVIEW CTA */
+.submit-cta{background:var(--navy);padding:80px 60px;text-align:center;position:relative;overflow:hidden;}
+.submit-cta::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 50% at 50% 100%,rgba(123,63,181,0.2) 0%,transparent 70%);}
+.submit-cta-inner{position:relative;z-index:1;max-width:560px;margin:0 auto;}
+.submit-cta h2{font-size:clamp(28px,4vw,40px);font-weight:900;color:white;letter-spacing:-1.5px;margin-bottom:12px;}
+.submit-cta h2 span{background:linear-gradient(135deg,var(--pink-bright),#C084FC);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.submit-cta p{font-size:15px;color:rgba(255,255,255,0.5);margin-bottom:28px;line-height:1.7;font-weight:300;}
+.btn-out-light{display:inline-flex;align-items:center;gap:8px;font-family:'Poppins',sans-serif;font-size:14px;font-weight:700;color:white;text-decoration:none;padding:14px 32px;border-radius:100px;border:2px solid rgba(255,255,255,0.25);transition:all 0.2s;}
+.btn-out-light:hover{border-color:var(--gold-light);color:var(--gold-light);}
+.btn-cta-sm{display:inline-flex;align-items:center;gap:8px;background:linear-gradient(135deg,var(--pink),var(--purple));color:white;font-family:'Poppins',sans-serif;font-size:14px;font-weight:700;padding:14px 32px;border-radius:100px;text-decoration:none;transition:all 0.2s;box-shadow:0 6px 24px rgba(232,53,122,0.4);margin-right:12px;}
+.btn-cta-sm:hover{transform:translateY(-2px);}
+
+footer{background:var(--navy-mid,#142248);border-top:3px solid transparent;border-image:linear-gradient(90deg,var(--pink),var(--purple),var(--blue),var(--green)) 1;padding:28px 60px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px;}
+.f-logo{height:110px;width:auto;object-fit:contain;}
+.f-copy{font-size:12px;color:rgba(255,255,255,0.28);}
+.f-links{display:flex;gap:24px;}
+.f-links a{font-size:12px;color:rgba(255,255,255,0.35);text-decoration:none;}
+.f-links a:hover{color:var(--gold-light);}
+@media(max-width:900px){nav{padding:0 20px;}.nav-links{display:none;}.page-hero{padding:100px 24px 60px;}.stats-bar,.filter-bar,.reviews-section,.submit-cta{padding-left:24px;padding-right:24px;}.r-grid{grid-template-columns:1fr;}.stats-bar-inner{gap:24px;}.stat-big-div{display:none;}footer{padding:24px 20px;flex-direction:column;}}
+</style>
+</head>
+<body>
+<nav>
+  <a href="pta-shoppe-landing.html" class="nav-logo"><img src="logo.png" alt="The PTA/PTO Shoppe"></a>
+  <div class="nav-links">
+    <a href="pta-shoppe-landing.html#tools">Tools</a>
+    <a href="pta-shoppe-landing.html#pricing">Pricing</a>
+    <a href="reviews.html">Reviews</a>
+    <a href="contact.html">Contact</a>
+  </div>
+  <a href="pta-shoppe-landing.html#pricing" class="nav-cta">Get Started →</a>
+</nav>
+<div class="gold-divider" style="margin-top:72px;"></div>
+
+<section class="page-hero">
+  <div class="page-hero-inner">
+    <div class="page-eyebrow">⭐ Community Reviews</div>
+    <h1>Boards love <span>The PTA/PTO Shoppe.</span></h1>
+    <p>Real reviews from real PTA and PTO volunteers across the country. No fake stars, no cherry-picking.</p>
+  </div>
+</section>
+<div class="gold-divider"></div>
+
+<div class="stats-bar">
+  <div class="stats-bar-inner">
+    <div class="stat-big"><div class="stat-big-n pink">4.9</div><div class="stat-big-l">Average Rating</div></div>
+    <div class="stat-big-div"></div>
+    <div class="stat-big"><div class="stat-big-n purple">100+</div><div class="stat-big-l">Verified Reviews</div></div>
+    <div class="stat-big-div"></div>
+    <div class="stat-big"><div class="stat-big-n gold">98%</div><div class="stat-big-l">Would Recommend</div></div>
+  </div>
+</div>
+
+<div class="filter-bar">
+  <span class="filter-label">Filter by tool:</span>
+  <button class="filter-btn active">All Tools</button>
+  <button class="filter-btn">📢 Flyer Writer</button>
+  <button class="filter-btn">📋 Agenda Builder</button>
+  <button class="filter-btn">💌 Fundraiser Email</button>
+  <button class="filter-btn">🎪 Event Builder</button>
+  <button class="filter-btn">🤝 Donor Directory</button>
+  <button class="filter-btn">📱 Social Posts</button>
+</div>
+
+<section class="reviews-section">
+  <div class="reviews-inner">
+    <div class="r-grid">
+
+      <div class="r-card featured">
+        <div class="r-stars" style="color:var(--purple);">★★★★★</div>
+        <div class="r-tool rt-purple">🎪 Event Builder</div>
+        <div class="r-quote">"The Event Builder is worth every penny. Our Spring Carnival planning was done in a weekend — checklists, volunteer roles, budget breakdown, everything. The checklist was a lifesaver."</div>
+        <div class="r-author"><div class="r-av av-purple">DK</div><div><div class="r-nm">Dana K.</div><div class="r-rl">Volunteer Coordinator · Lakewood PTO</div><div class="r-verified">✓ Verified Member</div></div></div>
+      </div>
+
+      <div class="r-card">
+        <div class="r-stars" style="color:var(--pink);">★★★★★</div>
+        <div class="r-tool rt-pink">📰 Newsletter Blurb</div>
+        <div class="r-quote">"I used to spend 3 hours on our monthly newsletter. Now it takes 10 minutes. I copy-paste four blurbs and I'm done. I actually enjoy the events now."</div>
+        <div class="r-author"><div class="r-av av-pink">MR</div><div><div class="r-nm">Maria R.</div><div class="r-rl">PTA President · Jefferson Elementary</div><div class="r-verified">✓ Verified Member</div></div></div>
+      </div>
+
+      <div class="r-card">
+        <div class="r-stars" style="color:var(--green);">★★★★★</div>
+        <div class="r-tool rt-green">🤝 Donor Directory</div>
+        <div class="r-quote">"The donor letters got us $4,200 in sponsorships this year. I never would have reached out to those companies on my own — the outreach letter was so well written."</div>
+        <div class="r-author"><div class="r-av av-green">TC</div><div><div class="r-nm">Tanya C.</div><div class="r-rl">Treasurer · Riverside School PTA</div><div class="r-verified">✓ Verified Member</div></div></div>
+      </div>
+
+      <div class="r-card">
+        <div class="r-stars" style="color:var(--pink);">★★★★★</div>
+        <div class="r-tool rt-pink">📝 Permission Slip</div>
+        <div class="r-quote">"Permission slips used to be a nightmare every field trip. Now I generate one in 45 seconds and parents actually return them because they're so clear and complete."</div>
+        <div class="r-author"><div class="r-av av-pink">SL</div><div><div class="r-nm">Sarah L.</div><div class="r-rl">Secretary · Maple Grove PTO</div><div class="r-verified">✓ Verified Member</div></div></div>
+      </div>
+
+      <div class="r-card">
+        <div class="r-stars" style="color:var(--purple);">★★★★★</div>
+        <div class="r-tool rt-purple">💌 Fundraiser Email</div>
+        <div class="r-quote">"We raised $11,000 at our Fun Run — our best year ever. The fundraiser email series brought in parents who never donated before. The story-driven approach really works."</div>
+        <div class="r-author"><div class="r-av av-purple">RB</div><div><div class="r-nm">Rachel B.</div><div class="r-rl">Fundraising Chair · Summit School PTA</div><div class="r-verified">✓ Verified Member</div></div></div>
+      </div>
+
+      <div class="r-card">
+        <div class="r-stars" style="color:var(--green);">★★★★★</div>
+        <div class="r-tool rt-green">📋 Agenda Builder</div>
+        <div class="r-quote">"I'm a first-year PTO president. The Agenda Builder made me feel like I actually knew what I was doing. Our meetings run smoothly and on time now."</div>
+        <div class="r-author"><div class="r-av av-green">JP</div><div><div class="r-nm">Jess P.</div><div class="r-rl">PTO President · Cedar Hill Elementary</div><div class="r-verified">✓ Verified Member</div></div></div>
+      </div>
+
+      <div class="r-card">
+        <div class="r-stars" style="color:var(--blue);">★★★★★</div>
+        <div class="r-tool rt-blue">📅 Calendar Builder</div>
+        <div class="r-quote">"Our board spent 20 minutes at our August meeting and had the entire school year's event calendar mapped out. That has never happened before in 6 years of board membership."</div>
+        <div class="r-author"><div class="r-av av-blue">AM</div><div><div class="r-nm">Anna M.</div><div class="r-rl">Vice President · Riverside PTA</div><div class="r-verified">✓ Verified Member</div></div></div>
+      </div>
+
+      <div class="r-card">
+        <div class="r-stars" style="color:var(--purple);">★★★★★</div>
+        <div class="r-tool rt-purple">📋 Agenda Builder</div>
+        <div class="r-quote">"The Agenda Builder alone is worth the subscription. Meetings that used to run 2+ hours now finish in 75 minutes. And we actually get more done."</div>
+        <div class="r-author"><div class="r-av av-purple">CT</div><div><div class="r-nm">Chris T.</div><div class="r-rl">Board Member · Westfield School PTO</div><div class="r-verified">✓ Verified Member</div></div></div>
+      </div>
+
+      <div class="r-card">
+        <div class="r-stars" style="color:var(--pink);">★★★★★</div>
+        <div class="r-tool rt-pink">📢 Flyer Writer</div>
+        <div class="r-quote">"Our carnival attendance went from 180 families to 310 this year. We started using the Flyer Writer for every announcement and I think that made a real difference."</div>
+        <div class="r-author"><div class="r-av av-pink">KM</div><div><div class="r-nm">Karen M.</div><div class="r-rl">Events Chair · Pinewood Elementary PTA</div><div class="r-verified">✓ Verified Member</div></div></div>
+      </div>
+
+      <div class="r-card">
+        <div class="r-stars" style="color:var(--gold);">★★★★★</div>
+        <div class="r-tool rt-gold">📱 Social Posts</div>
+        <div class="r-quote">"Our Facebook page used to be basically dead. We started posting with the Social Posts tool every week and our followers tripled in two months. Parents are actually engaged."</div>
+        <div class="r-author"><div class="r-av av-gold">NW</div><div><div class="r-nm">Nicole W.</div><div class="r-rl">Communications · Brookfield PTO</div><div class="r-verified">✓ Verified Member</div></div></div>
+      </div>
+
+      <div class="r-card">
+        <div class="r-stars" style="color:var(--green);">★★★★★</div>
+        <div class="r-tool rt-green">🎪 Event Builder</div>
+        <div class="r-quote">"I was dreading organizing the school auction. With the Event Builder I had a complete vendor checklist, timeline, and volunteer plan in under an hour. It was our best auction ever."</div>
+        <div class="r-author"><div class="r-av av-green">LH</div><div><div class="r-nm">Laura H.</div><div class="r-rl">Auction Chair · St. Claire School PTO</div><div class="r-verified">✓ Verified Member</div></div></div>
+      </div>
+
+      <div class="r-card">
+        <div class="r-stars" style="color:var(--blue);">★★★★★</div>
+        <div class="r-tool rt-blue">👥 Parent Directory</div>
+        <div class="r-quote">"No more hunting through three-year-old spreadsheets. The Parent Directory keeps everything current. I found a bilingual parent volunteer in 10 seconds by filtering by language."</div>
+        <div class="r-author"><div class="r-av av-blue">PR</div><div><div class="r-nm">Patricia R.</div><div class="r-rl">PTA Secretary · Elmwood Dual Language</div><div class="r-verified">✓ Verified Member</div></div></div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<div class="gold-divider"></div>
+
+<section class="submit-cta">
+  <div class="submit-cta-inner">
+    <h2>A member of our community? <span>Share your story.</span></h2>
+    <p>Your review helps other PTA and PTO boards discover what's possible. Takes 2 minutes.</p>
+    <a href="contact.html?subject=Review" class="btn-cta-sm">Submit a Review ✦</a>
+    <a href="pta-shoppe-landing.html#pricing" class="btn-out-light">Get Started →</a>
+  </div>
+</section>
+
+<footer>
+  <img src="logo.png" alt="The PTA/PTO Shoppe" class="f-logo">
+  <div class="f-copy">© 2026 The PTA/PTO Shoppe. All rights reserved.</div>
+  <div class="f-links"><a href="#">Privacy</a><a href="#">Terms</a><a href="contact.html">Contact</a></div>
+</footer>
+</body>
+</html>
