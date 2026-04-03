@@ -496,7 +496,7 @@ footer{background:var(--navy-mid,#142248);border-top:3px solid transparent;borde
           </div>
           <div class="canva-cta-text">
             <div class="canva-cta-title">Customize this in Canva</div>
-            <div class="canva-cta-sub">Open the matching Canva template — drag in your logo, tweak colors, done.</div>
+            <div class="canva-cta-sub">Open the matching Canva template and fully customize it. Requires a free Canva account.</div>
           </div>
           <a id="canvaCtaLink" href="#" target="_blank" rel="noopener" class="canva-cta-btn">Open in Canva →</a>
         </div>
@@ -1043,7 +1043,7 @@ function renderFlyerTmpls(filter) {
     var canvaBtn = t.canva
       ? '<a class="ft-canva-btn" href="'+t.canva+'" target="_blank" rel="noopener" onclick="event.stopPropagation();">'
         +'<svg width="10" height="10" viewBox="0 0 24 24" fill="white"><circle cx="12" cy="12" r="10"/></svg>'
-        +'Open in Canva</a>'
+        +'Customize in Canva (free account required)</a>'
       : '';
     return '<div class="ft-card" data-tier="'+t.tier+'" onclick="useFlyerTmpl('+t.id+',event)">'
       +'<div class="ft-thumb">'+mkFlyerThumb(t)+'</div>'
