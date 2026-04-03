@@ -112,10 +112,13 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(13,27,62,0.9
 .fo-body{padding:24px 28px;}
 .fo-blurb{font-size:13px;color:rgba(13,27,62,0.75);line-height:1.75;margin-bottom:18px;outline:none;border-radius:6px;min-height:20px;}
 .fo-blurb:focus{background:rgba(123,63,181,0.04);outline:2px dashed rgba(123,63,181,0.3);}
-.fo-details{display:flex;flex-direction:column;gap:6px;margin-bottom:16px;}
-.fo-detail{font-size:12px;font-weight:600;color:var(--navy);padding:4px 2px;outline:none;border-radius:4px;min-height:22px;}
-.fo-detail:focus{background:rgba(123,63,181,0.04);outline:2px dashed rgba(123,63,181,0.3);}
-.fo-detail:empty::before{content:attr(data-placeholder);color:rgba(13,27,62,0.2);font-weight:300;}
+.fo-dtl-block{border-radius:14px;overflow:hidden;margin-bottom:18px;box-shadow:0 3px 16px rgba(13,27,62,0.1);border:1.5px solid rgba(13,27,62,0.07);}
+.fo-dtl-accent{height:5px;}
+.fo-dtl-row{display:block;padding:11px 20px;text-align:center;font-size:13px;font-weight:700;letter-spacing:0.2px;color:var(--navy);outline:none;cursor:text;min-height:38px;background:white;}
+.fo-dtl-row:hover{background:rgba(123,63,181,0.03);}
+.fo-dtl-row:focus{background:rgba(123,63,181,0.05);outline:2px dashed rgba(123,63,181,0.3);}
+.fo-dtl-row:empty::before{content:attr(data-placeholder);color:rgba(13,27,62,0.22);font-weight:400;font-size:12px;}
+.fo-dtl-sep{height:1px;background:rgba(13,27,62,0.07);}
 .fo-details-extra{font-size:12px;color:rgba(13,27,62,0.6);line-height:1.65;margin-bottom:16px;padding:4px 2px;outline:none;border-radius:4px;min-height:18px;}
 .fo-details-extra:focus{background:rgba(123,63,181,0.04);outline:2px dashed rgba(123,63,181,0.3);}
 .fo-cta-bar{color:white;text-align:center;padding:11px 16px;border-radius:8px;font-size:13px;font-weight:700;margin-bottom:14px;outline:none;}
@@ -150,6 +153,17 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(13,27,62,0.9
 .cp-tmpl-thumb{height:60px;overflow:hidden;pointer-events:none;}
 .cp-tmpl-thumb>div{transform:scale(0.5);transform-origin:top left;width:200%;height:200%;}
 .cp-tmpl-name{font-size:8px;font-weight:700;text-align:center;padding:3px 4px;color:var(--navy);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;background:white;}
+/* hero style */
+.cp-hero-opts{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;}
+.cp-hero-btn{padding:8px 6px;border-radius:10px;border:2px solid rgba(13,27,62,0.1);background:var(--off-white);cursor:pointer;font-size:10px;font-weight:700;color:var(--navy);transition:all 0.18s;text-align:center;line-height:1.3;}
+.cp-hero-btn:hover{border-color:var(--purple);}
+.cp-hero-btn.active{border-color:var(--purple);background:var(--purple);color:white;}
+.cp-hero-thumb{height:32px;border-radius:5px;margin-bottom:5px;overflow:hidden;}
+/* gradient presets */
+.cp-grad-presets{display:flex;flex-wrap:wrap;gap:6px;}
+.cp-grad-swatch{width:34px;height:34px;border-radius:50%;cursor:pointer;border:3px solid transparent;transition:all 0.18s;flex-shrink:0;}
+.cp-grad-swatch:hover{transform:scale(1.15);}
+.cp-grad-swatch.active{border-color:var(--navy);transform:scale(1.12);}
 /* decor strip */
 .cp-decor-opts{display:flex;gap:6px;flex-wrap:wrap;}
 .cp-decor-btn{padding:7px 12px;border-radius:10px;border:2px solid rgba(13,27,62,0.1);background:var(--off-white);cursor:pointer;font-size:11px;font-weight:700;color:var(--navy);transition:all 0.18s;display:flex;align-items:center;gap:5px;}
@@ -525,6 +539,11 @@ footer{background:var(--navy-mid,#142248);border-top:3px solid transparent;borde
             <div class="cp-tmpl-strip" id="cpTmplStrip"></div>
           </div>
 
+          <div class="cp-section" id="cpHeroSection">
+            <div class="cp-label">Hero Style</div>
+            <div class="cp-hero-opts" id="cpHeroOpts"></div>
+          </div>
+
           <div class="cp-section">
             <div class="cp-label">Header Decoration</div>
             <div class="cp-decor-opts" id="cpDecorOpts"></div>
@@ -551,6 +570,11 @@ footer{background:var(--navy-mid,#142248);border-top:3px solid transparent;borde
                 <label>Background</label>
               </div>
             </div>
+          </div>
+
+          <div class="cp-section">
+            <div class="cp-label">Gradient Presets</div>
+            <div class="cp-grad-presets" id="cpGradPresets"></div>
           </div>
 
           <div class="cp-section">
@@ -829,10 +853,13 @@ function _foBdy(d, ctaBg) {
   return '<div class="fo-body">'
     +'<div class="fo-graphic" id="foGraphic"></div>'
     +'<div class="fo-blurb" id="foBlurb" contenteditable="true" spellcheck="false">'+d.body+'</div>'
-    +'<div class="fo-details">'
-    +'<div class="fo-detail" id="foDate" contenteditable="true" spellcheck="false" data-placeholder="📅 Date">'+d.dateStr+'</div>'
-    +'<div class="fo-detail" id="foTime" contenteditable="true" spellcheck="false" data-placeholder="🕒 Time">'+d.timeStr+'</div>'
-    +'<div class="fo-detail" id="foLocation" contenteditable="true" spellcheck="false" data-placeholder="📍 Location">'+d.locStr+'</div>'
+    +'<div class="fo-dtl-block" id="foDtlBlock">'
+    +'<div class="fo-dtl-accent" id="foDtlAccent"></div>'
+    +'<div class="fo-dtl-row" id="foDate" contenteditable="true" spellcheck="false" data-placeholder="📅 Add a date">'+d.dateStr+'</div>'
+    +'<div class="fo-dtl-sep"></div>'
+    +'<div class="fo-dtl-row" id="foTime" contenteditable="true" spellcheck="false" data-placeholder="🕒 Add a time">'+d.timeStr+'</div>'
+    +'<div class="fo-dtl-sep"></div>'
+    +'<div class="fo-dtl-row" id="foLocation" contenteditable="true" spellcheck="false" data-placeholder="📍 Add a location">'+d.locStr+'</div>'
     +'</div>'
     +'<div class="fo-details-extra" id="foExtra" contenteditable="true" spellcheck="false"></div>'
     +'<div class="fo-sticker" id="foSticker"></div>'
@@ -843,12 +870,93 @@ function _foBdy(d, ctaBg) {
     +'</div>';
 }
 
+function _heroTitle(d, extra) {
+  return '<div id="foTitle" contenteditable="true" spellcheck="false" style="outline:none;border-radius:4px;'+(extra||'')+'">'+d.title+'</div>'
+    +'<div id="foSubtitle" contenteditable="true" spellcheck="false" style="outline:none;border-radius:4px;">'+d.subtitle+'</div>';
+}
 function buildFlyerDefault(d, c1, c2) {
+  switch(flyerCustom.heroStyle) {
+    case 'diagonal': return buildHeroDiagonal(d, c1, c2);
+    case 'radial':   return buildHeroRadial(d, c1, c2);
+    case 'dark':     return buildHeroDark(d, c1, c2);
+    case 'bold':     return buildHeroBold(d, c1, c2);
+    case 'wave':     return buildHeroWave(d, c1, c2);
+    default:         return buildHeroGradient(d, c1, c2);
+  }
+}
+function buildHeroGradient(d, c1, c2) {
   return _foTop()
-    +'<div class="fo-header" id="foHeader" style="background:linear-gradient(135deg,'+c1+','+c2+');">'
+    +'<div class="fo-header" id="foHeader" style="background:linear-gradient(135deg,'+c1+','+c2+');padding:28px 28px 24px;text-align:center;">'
     +'<div class="fo-title" id="foTitle" contenteditable="true" spellcheck="false">'+d.title+'</div>'
     +'<div class="fo-subtitle" id="foSubtitle" contenteditable="true" spellcheck="false">'+d.subtitle+'</div>'
     +'</div>'
+    +_foBdy(d, c1);
+}
+function buildHeroDiagonal(d, c1, c2) {
+  return _foTop()
+    +'<div id="foHeader" style="position:relative;overflow:hidden;min-height:110px;">'
+    +'<div style="position:absolute;inset:0;background:'+c2+';"></div>'
+    +'<div style="position:absolute;inset:0;background:'+c1+';clip-path:polygon(0 0,72% 0,50% 100%,0 100%);"></div>'
+    +'<div style="position:relative;z-index:1;padding:26px 28px 30px;">'
+    +'<div id="foSubtitle" contenteditable="true" spellcheck="false" style="font-size:10px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:rgba(255,255,255,0.72);margin-bottom:8px;outline:none;border-radius:4px;text-shadow:0 1px 4px rgba(0,0,0,0.4);">'+d.subtitle+'</div>'
+    +'<div id="foTitle" contenteditable="true" spellcheck="false" style="font-size:26px;font-weight:900;color:#fff;text-transform:uppercase;letter-spacing:-0.5px;line-height:1.05;text-shadow:0 3px 12px rgba(0,0,0,0.5);outline:none;border-radius:4px;">'+d.title+'</div>'
+    +'</div>'
+    +'<div style="position:absolute;bottom:0;left:0;right:0;height:6px;background:rgba(0,0,0,0.18);"></div>'
+    +'</div>'
+    +_foBdy(d, c1);
+}
+function buildHeroRadial(d, c1, c2) {
+  return _foTop()
+    +'<div id="foHeader" style="position:relative;overflow:hidden;padding:34px 28px 30px;text-align:center;">'
+    +'<div style="position:absolute;inset:0;background:radial-gradient(ellipse at 50% 45%,'+c2+' 0%,'+c1+' 72%);"></div>'
+    +'<div style="position:absolute;width:260px;height:260px;border-radius:50%;border:2px solid rgba(255,255,255,0.12);top:50%;left:50%;transform:translate(-50%,-50%);"></div>'
+    +'<div style="position:absolute;width:170px;height:170px;border-radius:50%;border:1.5px solid rgba(255,255,255,0.18);top:50%;left:50%;transform:translate(-50%,-50%);"></div>'
+    +'<div style="position:relative;z-index:1;">'
+    +'<div id="foSubtitle" contenteditable="true" spellcheck="false" style="font-size:10px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:rgba(255,255,255,0.68);margin-bottom:10px;outline:none;border-radius:4px;">'+d.subtitle+'</div>'
+    +'<div id="foTitle" contenteditable="true" spellcheck="false" style="font-size:26px;font-weight:900;color:#fff;text-transform:uppercase;letter-spacing:-0.5px;line-height:1.05;text-shadow:0 4px 16px rgba(0,0,0,0.5);outline:none;border-radius:4px;">'+d.title+'</div>'
+    +'</div></div>'
+    +_foBdy(d, c2);
+}
+function buildHeroDark(d, c1, c2) {
+  return _foTop()
+    +'<div id="foHeader" style="position:relative;overflow:hidden;padding:32px 28px;text-align:center;background:#0a0a14;">'
+    +'<div style="position:absolute;width:300px;height:300px;border-radius:50%;background:'+c1+';top:-120px;left:50%;transform:translateX(-50%);opacity:0.35;filter:blur(40px);"></div>'
+    +'<div style="position:absolute;width:200px;height:200px;border-radius:50%;background:'+c2+';bottom:-80px;left:50%;transform:translateX(-50%);opacity:0.28;filter:blur(30px);"></div>'
+    +'<div style="position:relative;z-index:1;">'
+    +'<div id="foSubtitle" contenteditable="true" spellcheck="false" style="font-size:10px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,0.5);margin-bottom:10px;outline:none;border-radius:4px;">'+d.subtitle+'</div>'
+    +'<div id="foTitle" contenteditable="true" spellcheck="false" style="font-size:26px;font-weight:900;color:#fff;text-transform:uppercase;letter-spacing:-0.5px;line-height:1.05;text-shadow:0 0 30px '+c1+',0 4px 14px rgba(0,0,0,0.6);outline:none;border-radius:4px;">'+d.title+'</div>'
+    +'<div style="display:flex;align-items:center;gap:10px;margin:14px auto 0;max-width:160px;">'
+    +'<div style="height:1px;flex:1;background:'+c1+';opacity:0.6;"></div>'
+    +'<span style="color:'+c1+';font-size:10px;">✦</span>'
+    +'<div style="height:1px;flex:1;background:'+c2+';opacity:0.6;"></div>'
+    +'</div></div></div>'
+    +_foBdy(d, c1);
+}
+function buildHeroBold(d, c1, c2) {
+  return _foTop()
+    +'<div id="foHeader">'
+    +'<div style="background:'+c1+';padding:10px 28px 8px;text-align:center;">'
+    +'<div id="foSubtitle" contenteditable="true" spellcheck="false" style="font-size:10px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,0.65);outline:none;border-radius:4px;">'+d.subtitle+'</div>'
+    +'</div>'
+    +'<div style="background:'+c1+';padding:10px 28px 28px;text-align:center;">'
+    +'<div id="foTitle" contenteditable="true" spellcheck="false" style="font-size:32px;font-weight:900;color:#fff;text-transform:uppercase;letter-spacing:-1px;line-height:1.0;text-shadow:0 4px 20px rgba(0,0,0,0.4);outline:none;border-radius:4px;">'+d.title+'</div>'
+    +'</div>'
+    +'<div style="height:8px;background:'+c2+';"></div>'
+    +'<div style="height:3px;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.3),transparent);"></div>'
+    +'</div>'
+    +_foBdy(d, c2);
+}
+function buildHeroWave(d, c1, c2) {
+  return _foTop()
+    +'<div id="foHeader" style="position:relative;overflow:visible;">'
+    +'<div style="background:linear-gradient(160deg,'+c1+','+c2+');padding:26px 28px 48px;text-align:center;">'
+    +'<div id="foSubtitle" contenteditable="true" spellcheck="false" style="font-size:10px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:rgba(255,255,255,0.7);margin-bottom:8px;outline:none;border-radius:4px;">'+d.subtitle+'</div>'
+    +'<div id="foTitle" contenteditable="true" spellcheck="false" style="font-size:26px;font-weight:900;color:#fff;text-transform:uppercase;letter-spacing:-0.5px;line-height:1.05;text-shadow:0 3px 12px rgba(0,0,0,0.35);outline:none;border-radius:4px;">'+d.title+'</div>'
+    +'</div>'
+    +'<div style="margin-top:-2px;line-height:0;">'
+    +'<svg viewBox="0 0 480 32" preserveAspectRatio="none" style="width:100%;height:32px;display:block;">'
+    +'<path d="M0,16 C80,32 160,0 240,16 C320,32 400,0 480,16 L480,32 L0,32 Z" fill="'+c1+'"/>'
+    +'</svg></div></div>'
     +_foBdy(d, c1);
 }
 
@@ -1368,8 +1476,33 @@ var flyerCustom = {
   socials: {},
   decor: 'none',
   callout: { active: false, text: 'Special announcement goes here!', color: '#E8357A' },
-  logoPos: 'top-left'
+  logoPos: 'top-left',
+  heroStyle: 'gradient'
 };
+
+var HERO_STYLES = [
+  {id:'gradient', label:'Gradient',  desc:'Smooth blend'},
+  {id:'diagonal', label:'Diagonal',  desc:'Bold split'},
+  {id:'radial',   label:'Radial',    desc:'Glow center'},
+  {id:'dark',     label:'Dark Glow', desc:'Dark + pop'},
+  {id:'bold',     label:'Bold',      desc:'Solid block'},
+  {id:'wave',     label:'Wave',      desc:'Curved edge'}
+];
+
+var GRADIENT_PRESETS = [
+  {id:'berry',    c1:'#E8357A', c2:'#7B3FB5'},
+  {id:'ocean',    c1:'#2E7BC4', c2:'#0B9E8F'},
+  {id:'fire',     c1:'#F07A1A', c2:'#E8357A'},
+  {id:'midnight', c1:'#0D1B3E', c2:'#7B3FB5'},
+  {id:'forest',   c1:'#2BA84A', c2:'#0a5f6e'},
+  {id:'royal',    c1:'#1a4fa8', c2:'#7B3FB5'},
+  {id:'sunset',   c1:'#FF6B6B', c2:'#FFE66D'},
+  {id:'rose',     c1:'#FF2D87', c2:'#FF85C2'},
+  {id:'teal',     c1:'#0B9E8F', c2:'#2E7BC4'},
+  {id:'gold',     c1:'#C9943A', c2:'#8a3000'},
+  {id:'lime',     c1:'#2BA84A', c2:'#00C853'},
+  {id:'noir',     c1:'#080808', c2:'#1a1a2e'}
+];
 
 var DECORS = [
   {id:'none',    label:'None',    icon:'✕'},
@@ -1399,6 +1532,19 @@ function buildCustomizePanel() {
         +'<div class="cp-tmpl-name">'+t.name+'</div>'
         +'</div>';
     }).join('');
+
+  // Hero styles
+  document.getElementById('cpHeroOpts').innerHTML = HERO_STYLES.map(function(h) {
+    var thumbHtml = _heroThumb(h.id);
+    return '<button class="cp-hero-btn'+(h.id==='gradient'?' active':'')+'" onclick="setHeroStyle(\''+h.id+'\',this)">'
+      +'<div class="cp-hero-thumb">'+thumbHtml+'</div>'
+      +h.label+'</button>';
+  }).join('');
+
+  // Gradient presets
+  document.getElementById('cpGradPresets').innerHTML = GRADIENT_PRESETS.map(function(g) {
+    return '<div class="cp-grad-swatch" title="'+g.id+'" style="background:linear-gradient(135deg,'+g.c1+','+g.c2+');" onclick="applyGradientPreset(\''+g.c1+'\',\''+g.c2+'\',this)"></div>';
+  }).join('');
 
   // Decoration options
   document.getElementById('cpDecorOpts').innerHTML = DECORS.map(function(d) {
@@ -1431,6 +1577,11 @@ function buildCustomizePanel() {
   }).join('');
 }
 
+function setHeroSectionVisibility() {
+  var sec = document.getElementById('cpHeroSection');
+  if (sec) sec.style.display = selectedFlyerTmpl ? 'none' : '';
+}
+
 function pickCpTmpl(id, btn) {
   if (id === null) {
     selectedFlyerTmpl = null;
@@ -1449,10 +1600,38 @@ function pickCpTmpl(id, btn) {
   }
   document.querySelectorAll('.cp-tmpl-item').forEach(function(el){el.classList.remove('active');});
   if (btn) btn.classList.add('active');
-  if (lastFlyerData && document.getElementById('flyerOutput').style.display !== 'none') {
-    renderFlyerOutput(lastFlyerData);
-    applyLogo();
+  setHeroSectionVisibility();
+  if (lastFlyerData) { renderFlyerOutput(lastFlyerData); applyLogo(); }
+}
+
+function _heroThumb(id) {
+  var c1='#E8357A', c2='#7B3FB5';
+  switch(id) {
+    case 'gradient': return '<div style="height:100%;background:linear-gradient(135deg,'+c1+','+c2+');border-radius:5px;"></div>';
+    case 'diagonal': return '<div style="height:100%;position:relative;overflow:hidden;border-radius:5px;"><div style="position:absolute;inset:0;background:'+c2+';"></div><div style="position:absolute;inset:0;background:'+c1+';clip-path:polygon(0 0,65% 0,45% 100%,0 100%);"></div></div>';
+    case 'radial':   return '<div style="height:100%;background:radial-gradient(ellipse at 50% 45%,'+c2+' 0%,'+c1+' 75%);border-radius:5px;"></div>';
+    case 'dark':     return '<div style="height:100%;background:#0a0a14;border-radius:5px;display:flex;align-items:center;justify-content:center;"><div style="width:18px;height:18px;border-radius:50%;background:'+c1+';opacity:0.6;filter:blur(4px);"></div></div>';
+    case 'bold':     return '<div style="height:100%;border-radius:5px;overflow:hidden;display:flex;flex-direction:column;"><div style="flex:1;background:'+c1+';"></div><div style="height:5px;background:'+c2+';"></div></div>';
+    case 'wave':     return '<div style="height:100%;position:relative;overflow:hidden;border-radius:5px;background:white;"><div style="position:absolute;top:0;left:0;right:0;height:70%;background:linear-gradient(160deg,'+c1+','+c2+');"></div><svg viewBox="0 0 60 8" preserveAspectRatio="none" style="position:absolute;top:56%;width:100%;height:12px;"><path d="M0,4 C10,8 20,0 30,4 C40,8 50,0 60,4 L60,8 L0,8 Z" fill="'+c1+'"/></svg></div>';
+    default: return '';
   }
+}
+
+function setHeroStyle(id, btn) {
+  flyerCustom.heroStyle = id;
+  document.querySelectorAll('.cp-hero-btn').forEach(function(b){b.classList.remove('active');});
+  if (btn) btn.classList.add('active');
+  if (lastFlyerData) { renderFlyerOutput(lastFlyerData); applyLogo(); }
+}
+
+function applyGradientPreset(c1, c2, btn) {
+  document.getElementById('primaryColor').value = c1;
+  document.getElementById('secondaryColor').value = c2;
+  document.getElementById('primaryHex').textContent = c1;
+  document.getElementById('secondaryHex').textContent = c2;
+  document.querySelectorAll('.cp-grad-swatch').forEach(function(b){b.classList.remove('active');});
+  if (btn) btn.classList.add('active');
+  if (lastFlyerData) { renderFlyerOutput(lastFlyerData); applyLogo(); }
 }
 
 function setDecor(style, btn) {
@@ -1586,6 +1765,13 @@ function applyCustomizations() {
       socEl.style.display = 'none';
       socEl.innerHTML = '';
     }
+  }
+
+  // Date block accent color
+  var dtlAccent = document.getElementById('foDtlAccent');
+  if (dtlAccent) {
+    var effC1 = selectedFlyerTmpl ? selectedFlyerTmpl.c1 : document.getElementById('primaryColor').value;
+    dtlAccent.style.background = 'linear-gradient(90deg,'+effC1+','+effC1+'99)';
   }
 
   // Decoration strip
