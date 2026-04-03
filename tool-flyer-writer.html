@@ -480,6 +480,48 @@ footer{background:var(--navy-mid,#142248);border-top:3px solid transparent;borde
         </div>
 
         <button class="fw-generate-btn" id="generateBtn" onclick="generateFlyer()">✦ Generate My Flyer</button>
+
+        <div class="customize-panel" id="customizePanel" style="display:none;">
+          <div class="cp-heading">🎨 Customize Your Flyer</div>
+
+          <div class="cp-section">
+            <div class="cp-label">Font</div>
+            <div class="font-opts" id="fontOpts"></div>
+          </div>
+
+          <div class="cp-section">
+            <div class="cp-label">Colors</div>
+            <div class="cp-colors">
+              <div class="cp-color-item">
+                <input type="color" id="cpTitleColor" value="#ffffff" oninput="applyCustomizations()">
+                <label>Heading</label>
+              </div>
+              <div class="cp-color-item">
+                <input type="color" id="cpBodyColor" value="#0D1B3E" oninput="applyCustomizations()">
+                <label>Body text</label>
+              </div>
+              <div class="cp-color-item">
+                <input type="color" id="cpBgColor" value="#ffffff" oninput="applyCustomizations()">
+                <label>Background</label>
+              </div>
+            </div>
+          </div>
+
+          <div class="cp-section">
+            <div class="cp-label">Graphic</div>
+            <div class="gfx-grid" id="gfxGrid"></div>
+          </div>
+
+          <div class="cp-section">
+            <div class="cp-label">Sticker</div>
+            <div class="sticker-opts" id="stickerOpts"></div>
+          </div>
+
+          <div class="cp-section">
+            <div class="cp-label">Social &amp; Website</div>
+            <div class="social-inputs" id="socialInputs"></div>
+          </div>
+        </div>
       </div>
 
       <!-- PREVIEW PANEL -->
@@ -533,48 +575,6 @@ footer{background:var(--navy-mid,#142248);border-top:3px solid transparent;borde
             <div class="canva-cta-sub">Open the matching Canva template and fully customize it. Requires a free Canva account.</div>
           </div>
           <a id="canvaCtaLink" href="#" target="_blank" rel="noopener" class="canva-cta-btn">Open in Canva →</a>
-        </div>
-
-        <div class="customize-panel" id="customizePanel" style="display:none;">
-          <div class="cp-heading">🎨 Customize Your Flyer</div>
-
-          <div class="cp-section">
-            <div class="cp-label">Font</div>
-            <div class="font-opts" id="fontOpts"></div>
-          </div>
-
-          <div class="cp-section">
-            <div class="cp-label">Colors</div>
-            <div class="cp-colors">
-              <div class="cp-color-item">
-                <input type="color" id="cpTitleColor" value="#ffffff" oninput="applyCustomizations()">
-                <label>Heading</label>
-              </div>
-              <div class="cp-color-item">
-                <input type="color" id="cpBodyColor" value="#0D1B3E" oninput="applyCustomizations()">
-                <label>Body text</label>
-              </div>
-              <div class="cp-color-item">
-                <input type="color" id="cpBgColor" value="#ffffff" oninput="applyCustomizations()">
-                <label>Background</label>
-              </div>
-            </div>
-          </div>
-
-          <div class="cp-section">
-            <div class="cp-label">Graphic</div>
-            <div class="gfx-grid" id="gfxGrid"></div>
-          </div>
-
-          <div class="cp-section">
-            <div class="cp-label">Sticker</div>
-            <div class="sticker-opts" id="stickerOpts"></div>
-          </div>
-
-          <div class="cp-section">
-            <div class="cp-label">Social &amp; Website</div>
-            <div class="social-inputs" id="socialInputs"></div>
-          </div>
         </div>
 
         <div class="social-post-link" id="socialPostLink" style="display:none;">
@@ -956,9 +956,7 @@ function generateFlyer() {
     btn.textContent = '↺ Regenerate Flyer';
     btn.disabled    = false;
 
-    if (window.innerWidth < 1000) {
-      document.getElementById('fwCanvas').scrollIntoView({behavior:'smooth', block:'center'});
-    }
+    document.getElementById('customizePanel').scrollIntoView({behavior:'smooth', block:'nearest'});
   }, 1300);
 }
 
