@@ -101,7 +101,17 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(13,27,62,0.9
 .gen-spinner{display:inline-block;width:40px;height:40px;border:3px solid rgba(232,53,122,0.2);border-top-color:var(--pink);border-radius:50%;animation:spin 0.7s linear infinite;margin-bottom:16px;}
 .gen-text{font-size:14px;font-weight:600;color:rgba(13,27,62,0.5);}
 .gen-sub{font-size:12px;font-weight:300;color:rgba(13,27,62,0.35);margin-top:4px;}
-.flyer-output{background:white;border-radius:16px;box-shadow:0 16px 56px rgba(13,27,62,0.18);width:100%;max-width:480px;overflow:hidden;position:relative;}
+/* size toggle */
+.size-toggle{display:flex;gap:6px;margin-bottom:14px;}
+.size-btn{flex:1;padding:8px 6px;border-radius:10px;border:2px solid rgba(13,27,62,0.1);background:var(--off-white);cursor:pointer;font-family:'Poppins',sans-serif;font-size:10px;font-weight:700;color:rgba(13,27,62,0.5);transition:all 0.18s;text-align:center;line-height:1.4;}
+.size-btn:hover{border-color:var(--purple);color:var(--purple);}
+.size-btn.active{border-color:var(--purple);background:var(--purple);color:white;}
+.size-btn span{display:block;font-size:8px;font-weight:400;opacity:0.8;margin-top:2px;}
+/* flyer output sizes */
+.flyer-output{background:white;border-radius:16px;box-shadow:0 16px 56px rgba(13,27,62,0.18);width:100%;overflow:hidden;position:relative;transition:all 0.2s;}
+.flyer-output.size-print{max-width:480px;aspect-ratio:8.5/11;}
+.flyer-output.size-poster{max-width:480px;aspect-ratio:11/17;}
+.flyer-output.size-web{max-width:420px;aspect-ratio:1/1;}
 .fo-logo-bar{position:absolute;z-index:10;background:rgba(255,255,255,0.92);border-radius:8px;padding:5px 8px;display:none;max-width:90px;}
 .fo-logo-bar img{width:100%;height:auto;max-height:38px;object-fit:contain;display:block;}
 .fo-header{padding:28px 28px 24px;text-align:center;}
@@ -279,6 +289,15 @@ footer{background:var(--navy-mid,#142248);border-top:3px solid transparent;borde
 .share-text:hover{background:#1a7a32;}
 .share-copy{background:white;color:var(--navy);border:2px solid rgba(13,27,62,0.12);}
 .share-copy:hover{border-color:var(--purple);color:var(--purple);}
+/* cta button customizer */
+.cp-cta-row{display:flex;align-items:center;gap:8px;margin-bottom:8px;}
+.cp-cta-shape{display:flex;gap:5px;}
+.cta-shape-btn{padding:5px 10px;border-radius:8px;border:2px solid rgba(13,27,62,0.1);background:var(--off-white);cursor:pointer;font-size:10px;font-weight:700;color:var(--navy);transition:all 0.18s;}
+.cta-shape-btn:hover{border-color:var(--purple);}
+.cta-shape-btn.active{border-color:var(--purple);background:var(--purple);color:white;}
+/* fo-cta custom button */
+.fo-cta-custom{margin:10px 24px 0;padding:11px 16px;border-radius:8px;font-size:13px;font-weight:800;text-align:center;cursor:pointer;display:none;transition:all 0.18s;}
+.fo-cta-custom:hover{filter:brightness(1.08);}
 /* ink warning toast */
 .ink-toast{position:fixed;bottom:28px;left:50%;transform:translateX(-50%) translateY(80px);background:#1a1a2e;color:white;padding:14px 20px;border-radius:16px;font-size:13px;font-weight:600;max-width:380px;width:90%;z-index:999;box-shadow:0 8px 32px rgba(0,0,0,0.35);transition:transform 0.35s ease;display:flex;align-items:flex-start;gap:12px;}
 .ink-toast.show{transform:translateX(-50%) translateY(0);}
@@ -360,7 +379,7 @@ footer{background:var(--navy-mid,#142248);border-top:3px solid transparent;borde
 
 @media(max-width:1000px){.fw-layout{grid-template-columns:1fr;}.fw-preview-panel{position:static;}.start-grid{grid-template-columns:1fr;}.ft-grid{grid-template-columns:repeat(2,1fr);}}
 @media(max-width:900px){nav{padding:0 20px;}.nav-links{display:none;}.tool-hero{padding:140px 24px 60px;}.section{padding:60px 24px;}.fw-section{padding:60px 24px;}.hiw-grid,.feat-grid{grid-template-columns:1fr;}.use-grid{grid-template-columns:1fr 1fr;}.tool-cta{padding:60px 24px;}.back-bar,.tools-nav{padding:0 20px;}footer{padding:24px 20px;flex-direction:column;align-items:flex-start;}.fw-row-2{grid-template-columns:1fr;}}
-@media print{nav,.gold-divider,.back-bar,.tools-nav,.tool-hero,.fw-form-panel,.preview-header-bar,.preview-actions,.social-post-link,.fw-header,.section,.feat-section,.tool-cta,footer,.flyer-empty,.flyer-generating{display:none!important;}body{background:white;}.fw-section,.fw-inner,.fw-layout,.fw-preview-panel,.fw-canvas{padding:0!important;margin:0!important;background:white!important;border:none!important;box-shadow:none!important;display:block!important;}.flyer-output{box-shadow:none!important;max-width:100%!important;display:block!important;}[contenteditable]{outline:none!important;}}
+@media print{nav,.gold-divider,.back-bar,.tools-nav,.tool-hero,.fw-form-panel,.preview-header-bar,.preview-actions,.share-panel,.social-post-link,.fw-header,.section,.feat-section,.tool-cta,footer,.flyer-empty,.flyer-generating,.size-toggle,.canva-cta{display:none!important;}body{background:white;}@page{size:8.5in 11in;margin:0.5in;}.fw-section,.fw-inner,.fw-layout,.fw-preview-panel,.fw-canvas{padding:0!important;margin:0!important;background:white!important;border:none!important;box-shadow:none!important;display:block!important;}.flyer-output{box-shadow:none!important;max-width:100%!important;width:100%!important;aspect-ratio:auto!important;display:block!important;}[contenteditable]{outline:none!important;}}
 </style>
 </head>
 <body>
@@ -662,6 +681,21 @@ footer{background:var(--navy-mid,#142248);border-top:3px solid transparent;borde
           </div>
 
           <div class="cp-section">
+            <div class="cp-label">Call-to-Action Button</div>
+            <div class="cp-cta-row">
+              <input type="color" id="cpCtaBtnColor" value="#E8357A" oninput="applyCustomizations()" style="width:36px;height:36px;border-radius:50%;border:2px solid rgba(13,27,62,0.1);cursor:pointer;padding:2px;background:none;flex-shrink:0;">
+              <input class="cp-text-input" id="cpCtaBtnText" type="text" placeholder="Button text…" value="" oninput="applyCustomizations()" style="flex:1;">
+            </div>
+            <div style="font-size:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:rgba(13,27,62,0.4);margin-bottom:5px;">Shape</div>
+            <div class="cp-cta-shape">
+              <button class="cta-shape-btn active" onclick="setCtaShape('pill',this)">Pill</button>
+              <button class="cta-shape-btn" onclick="setCtaShape('rounded',this)">Rounded</button>
+              <button class="cta-shape-btn" onclick="setCtaShape('square',this)">Square</button>
+            </div>
+            <div style="font-size:9px;color:rgba(13,27,62,0.4);margin-top:8px;">The existing CTA bar is above. Add a custom button below it by entering text above.</div>
+          </div>
+
+          <div class="cp-section">
             <div class="cp-label">Sticker</div>
             <div class="sticker-opts" id="stickerOpts"></div>
           </div>
@@ -677,7 +711,12 @@ footer{background:var(--navy-mid,#142248);border-top:3px solid transparent;borde
       <div class="fw-preview-panel">
         <div class="preview-header-bar">
           <div class="preview-label">Live Preview</div>
-          <div class="preview-edit-badge" id="editBadge" style="display:none;">✏️ Click any text to edit</div>
+          <div class="preview-edit-badge" id="editBadge">✏️ Click any text to edit</div>
+        </div>
+        <div class="size-toggle">
+          <button class="size-btn active" id="sizePrint" onclick="setFlyerSize('print',this)">🖨️ Print<span>8.5 × 11"</span></button>
+          <button class="size-btn" id="sizePoster" onclick="setFlyerSize('poster',this)">📋 Poster<span>11 × 17"</span></button>
+          <button class="size-btn" id="sizeWeb" onclick="setFlyerSize('web',this)">📱 Web<span>Square</span></button>
         </div>
 
         <div class="fw-canvas" id="fwCanvas">
@@ -687,7 +726,7 @@ footer{background:var(--navy-mid,#142248);border-top:3px solid transparent;borde
             <div class="gen-text">Writing your flyer…</div>
             <div class="gen-sub">Crafting your copy now</div>
           </div>
-          <div class="flyer-output" id="flyerOutput">
+          <div class="flyer-output size-print" id="flyerOutput">
             <div class="fo-logo-bar" id="foLogoBar" style="display:none;"><img id="foLogo" src="" alt="School Logo"></div>
             <div class="fo-header" id="foHeader" style="background:linear-gradient(135deg,#E8357A,#7B3FB5);">
               <div class="fo-title" id="foTitle" contenteditable="true" spellcheck="false">Event Name</div>
@@ -950,6 +989,7 @@ function _foBdy(d, ctaBg) {
     +'<div class="fo-sticker" id="foSticker"></div>'
     +'<div class="fo-callout" id="foCallout"><div class="fo-callout-text" id="foCalloutText" contenteditable="true" spellcheck="false"></div></div>'
     +'<div class="fo-cta-bar" id="foCta" contenteditable="true" spellcheck="false" style="background:'+ctaBg+';">'+d.cta+'</div>'
+    +'<div class="fo-cta-custom" id="foCtaCustom" contenteditable="true" spellcheck="false"></div>'
     +'<div class="fo-contact" id="foContact" contenteditable="true" spellcheck="false">'+d.contact+'</div>'
     +'<div class="fo-socials" id="foSocials"></div>'
     +'</div>';
@@ -1562,7 +1602,9 @@ var flyerCustom = {
   decor: 'none',
   callout: { active: false, text: 'Special announcement goes here!', color: '#E8357A' },
   logoPos: 'top-left',
-  heroStyle: 'gradient'
+  heroStyle: 'gradient',
+  flyerSize: 'print',
+  ctaShape: 'pill'
 };
 
 var HERO_STYLES = [
@@ -1833,6 +1875,22 @@ function setLogoPos(pos, btn) {
   applyLogoPosition();
 }
 
+function setFlyerSize(size, btn) {
+  flyerCustom.flyerSize = size;
+  var fo = document.getElementById('flyerOutput');
+  fo.classList.remove('size-print','size-poster','size-web');
+  fo.classList.add('size-'+size);
+  document.querySelectorAll('.size-btn').forEach(function(b){b.classList.remove('active');});
+  if (btn) btn.classList.add('active');
+}
+
+function setCtaShape(shape, btn) {
+  flyerCustom.ctaShape = shape;
+  document.querySelectorAll('.cta-shape-btn').forEach(function(b){b.classList.remove('active');});
+  if (btn) btn.classList.add('active');
+  applyCustomizations();
+}
+
 function setFont(id, btn) {
   flyerCustom.font = id;
   document.querySelectorAll('.font-opt').forEach(function(b){b.classList.remove('active');});
@@ -1947,6 +2005,29 @@ function applyCustomizations() {
     } else {
       stkEl.style.display = 'none';
       stkEl.innerHTML = '';
+    }
+  }
+
+  // CTA bar color
+  var ctaColorEl = document.getElementById('cpCtaBtnColor');
+  var ctaBar = document.getElementById('foCta');
+  if (ctaBar && ctaColorEl) ctaBar.style.background = ctaColorEl.value;
+
+  // Custom CTA button
+  var ctaBtnTextEl = document.getElementById('cpCtaBtnText');
+  var ctaCustomEl = document.getElementById('foCtaCustom');
+  if (ctaCustomEl && ctaBtnTextEl) {
+    var ctaTxt = ctaBtnTextEl.value.trim();
+    var ctaColor = ctaColorEl ? ctaColorEl.value : '#E8357A';
+    var shapeRadius = flyerCustom.ctaShape === 'pill' ? '100px' : flyerCustom.ctaShape === 'rounded' ? '10px' : '4px';
+    if (ctaTxt) {
+      ctaCustomEl.style.display = 'block';
+      ctaCustomEl.style.background = ctaColor;
+      ctaCustomEl.style.color = '#fff';
+      ctaCustomEl.style.borderRadius = shapeRadius;
+      if (!ctaCustomEl.textContent.trim()) ctaCustomEl.textContent = ctaTxt;
+    } else {
+      ctaCustomEl.style.display = 'none';
     }
   }
 
