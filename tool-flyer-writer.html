@@ -2,73 +2,145 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+<link rel="icon" type="image/x-icon" href="favicon.ico">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+<link rel="apple-touch-icon" sizes="192x192" href="favicon-192.png">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Flyer Writer — The PTA/PTO Shoppe</title>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,400&display=swap" rel="stylesheet">
 <style>
-:root {
-  --navy:#0D1B3E;--navy-mid:#142248;--navy-light:#1C2F5E;
-  --pink:#E8357A;--pink-bright:#FF2D87;--pink-pale:#FFF0F7;
-  --purple:#7B3FB5;--purple-pale:#F5EEFF;
-  --blue:#2E7BC4;--blue-pale:#EAF4FF;
-  --green:#2BA84A;--green-bright:#00C853;--green-pale:#EDFFF4;
-  --gold:#C9943A;--gold-light:#F5D78E;
-  --white:#FFFFFF;--off-white:#F8F9FF;--light-bg:#F2F4FB;
-}
+:root{--navy:#0D1B3E;--navy-mid:#142248;--navy-light:#1C2F5E;--pink:#E8357A;--pink-bright:#FF2D87;--pink-pale:#FFF0F7;--purple:#7B3FB5;--purple-pale:#F5EEFF;--blue:#2E7BC4;--blue-pale:#EAF4FF;--green:#2BA84A;--green-bright:#00C853;--green-pale:#EDFFF4;--gold:#C9943A;--gold-light:#F5D78E;--white:#FFFFFF;--off-white:#F8F9FF;--light-bg:#F2F4FB;}
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
 html{scroll-behavior:smooth;}
 body{font-family:'Poppins',sans-serif;background:var(--off-white);color:var(--navy);overflow-x:hidden;}
-nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(13,27,62,0.97);backdrop-filter:blur(12px);border-bottom:3px solid transparent;border-image:linear-gradient(90deg,var(--pink),var(--purple),var(--blue),var(--green)) 1;padding:0 48px;height:72px;display:flex;align-items:center;justify-content:space-between;}
+nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(13,27,62,0.97);backdrop-filter:blur(12px);border-bottom:3px solid transparent;border-image:linear-gradient(90deg,var(--pink),var(--purple),var(--blue),var(--green)) 1;padding:0 48px;height:120px;display:flex;align-items:center;justify-content:space-between;}
 .nav-logo{display:flex;align-items:center;text-decoration:none;}
-.nav-logo img{height:48px;width:auto;object-fit:contain;}
+.nav-logo img{height:150px;width:auto;object-fit:contain;}
 .nav-links{display:flex;align-items:center;gap:28px;}
 .nav-links a{font-size:16px;font-weight:700;color:rgba(255,255,255,0.88);text-decoration:none;transition:color 0.2s;letter-spacing:0.3px;}
 .nav-links a:hover{color:var(--gold-light);}
 .nav-cta{background:linear-gradient(135deg,var(--pink),var(--purple));color:white;font-family:'Poppins',sans-serif;font-size:13px;font-weight:700;padding:10px 22px;border-radius:100px;text-decoration:none;transition:all 0.2s;box-shadow:0 4px 16px rgba(232,53,122,0.4);border:none;cursor:pointer;}
 .nav-cta:hover{transform:translateY(-1px);box-shadow:0 6px 24px rgba(232,53,122,0.55);}
-.gold-divider{height:4px;background:linear-gradient(90deg,var(--pink),var(--purple),var(--blue),var(--green),var(--orange,#F07A1A),var(--pink));background-size:200% 100%;animation:shimmer 3s linear infinite;}
-@keyframes shimmer{0%{background-position:0% 0%}100%{background-position:200% 0%}}
-
-/* TOOL HERO */
-.tool-hero{min-height:52vh;background-color:#010D2A;background-image:radial-gradient(ellipse 60% 60% at 10% 50%,rgba(232,53,122,0.22) 0%,transparent 55%),radial-gradient(ellipse 50% 50% at 90% 20%,rgba(123,63,181,0.18) 0%,transparent 50%),linear-gradient(155deg,#010D2A 0%,#031B52 40%,#0D1B3E 100%);display:flex;align-items:center;justify-content:center;padding:120px 60px 80px;position:relative;overflow:hidden;}
-.tool-hero-inner{max-width:800px;margin:0 auto;text-align:center;animation:floatUp 0.7s ease both;}
+.gold-divider{height:4px;background:linear-gradient(90deg,var(--pink),var(--purple),var(--blue),var(--green),#F07A1A,var(--pink));background-size:200% 100%;animation:shimmer 3s linear infinite;}
+@keyframes shimmer{0%{background-position:0%}100%{background-position:200%}}
 @keyframes floatUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+@keyframes spin{to{transform:rotate(360deg)}}
+.tool-hero{min-height:52vh;background-color:#010D2A;background-image:radial-gradient(ellipse 60% 60% at 10% 50%,rgba(232,53,122,0.22) 0%,transparent 55%),radial-gradient(ellipse 50% 50% at 90% 20%,rgba(123,63,181,0.18) 0%,transparent 50%),linear-gradient(155deg,#010D2A 0%,#031B52 40%,#0D1B3E 100%);display:flex;align-items:center;justify-content:center;padding:140px 60px 80px;position:relative;overflow:hidden;}
+.tool-hero-inner{max-width:800px;margin:0 auto;text-align:center;animation:floatUp 0.7s ease both;}
 .tool-icon-lg{font-size:72px;margin-bottom:20px;display:block;filter:drop-shadow(0 8px 24px rgba(232,53,122,0.4));}
 .tool-eyebrow{display:inline-flex;align-items:center;gap:8px;background:rgba(232,53,122,0.12);border:1px solid rgba(232,53,122,0.3);border-radius:100px;padding:6px 16px;font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--pink-bright);margin-bottom:20px;}
 .tool-hero h1{font-size:clamp(36px,5vw,60px);font-weight:900;color:white;letter-spacing:-2px;line-height:1.05;margin-bottom:16px;}
 .tool-hero h1 span{background:linear-gradient(135deg,#FF2D87,#FF6BBF,#C84FFF);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;filter:drop-shadow(0 0 20px rgba(255,45,135,0.6));}
-.tool-hero p{font-size:17px;font-weight:300;color:rgba(255,255,255,0.65);line-height:1.75;max-width:580px;margin:0 auto 32px;}
+.tool-hero p{font-size:17px;font-weight:300;color:rgba(255,255,255,0.65);line-height:1.75;max-width:580px;margin:0 auto 16px;}
+.hero-review-link{display:inline-block;margin-bottom:28px;font-size:13px;font-weight:600;color:rgba(255,255,255,0.55);text-decoration:none;border-bottom:1px solid rgba(255,255,255,0.25);padding-bottom:2px;transition:color 0.2s,border-color 0.2s;}
+.hero-review-link:hover{color:var(--gold-light);border-color:var(--gold-light);}
 .btn-hero{background:linear-gradient(135deg,var(--pink),var(--purple));color:white;font-family:'Poppins',sans-serif;font-size:14px;font-weight:700;padding:14px 32px;border-radius:100px;text-decoration:none;border:none;cursor:pointer;transition:all 0.2s;box-shadow:0 6px 24px rgba(232,53,122,0.4);display:inline-flex;align-items:center;gap:8px;}
 .btn-hero:hover{transform:translateY(-2px);box-shadow:0 10px 32px rgba(232,53,122,0.55);}
-
-/* SECTIONS */
+.back-bar{background:var(--off-white);border-bottom:1px solid rgba(13,27,62,0.08);padding:0 60px;}
+.back-bar a{display:inline-flex;align-items:center;gap:8px;font-size:12px;font-weight:600;color:rgba(13,27,62,0.5);text-decoration:none;padding:12px 0;transition:color 0.2s;}
+.back-bar a:hover{color:var(--pink);}
+.tools-nav{background:white;border-bottom:1px solid rgba(13,27,62,0.08);padding:0 60px;overflow-x:auto;}
+.tools-nav-inner{display:flex;gap:4px;align-items:center;white-space:nowrap;}
+.tools-nav a{font-size:12px;font-weight:600;color:rgba(13,27,62,0.5);text-decoration:none;padding:14px 16px;border-bottom:2px solid transparent;transition:all 0.2s;display:inline-flex;align-items:center;gap:6px;}
+.tools-nav a:hover{color:var(--navy);}
+.tools-nav a.active{color:var(--pink);border-bottom-color:var(--pink);}
 .section{padding:80px 60px;max-width:1100px;margin:0 auto;}
 .section-label{font-size:10px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--pink);margin-bottom:12px;}
 .section h2{font-size:clamp(28px,3.5vw,42px);font-weight:900;letter-spacing:-1.5px;color:var(--navy);line-height:1.1;margin-bottom:16px;}
 .section h2 span{background:linear-gradient(135deg,var(--pink),var(--purple),var(--blue));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
 .section p.lead{font-size:15px;font-weight:300;color:rgba(13,27,62,0.6);line-height:1.75;max-width:560px;}
 
-/* HOW IT WORKS */
+/* FLYER WRITER TOOL */
+.fw-section{padding:80px 60px;background:white;}
+.fw-inner{max-width:1200px;margin:0 auto;}
+.fw-header{margin-bottom:48px;}
+.fw-header h2{font-size:clamp(28px,3.5vw,42px);font-weight:900;letter-spacing:-1.5px;color:var(--navy);line-height:1.1;margin-bottom:12px;}
+.fw-header h2 span{background:linear-gradient(135deg,var(--pink),var(--purple));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.fw-header p{font-size:15px;font-weight:300;color:rgba(13,27,62,0.6);line-height:1.75;}
+.fw-layout{display:grid;grid-template-columns:420px 1fr;gap:40px;align-items:start;}
+.fw-form-panel{display:flex;flex-direction:column;gap:20px;}
+.fw-group{background:var(--light-bg);border-radius:18px;padding:24px;border:1.5px solid rgba(13,27,62,0.07);}
+.fw-group-label{font-size:11px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:var(--purple);margin-bottom:18px;}
+.fw-label{font-size:11px;font-weight:700;color:rgba(13,27,62,0.55);letter-spacing:0.4px;text-transform:uppercase;margin-bottom:7px;display:block;margin-top:14px;}
+.fw-group .fw-label:first-of-type{margin-top:0;}
+.fw-input{width:100%;padding:12px 14px;border:2px solid rgba(13,27,62,0.1);border-radius:12px;font-size:13px;font-family:'Poppins',sans-serif;color:var(--navy);background:white;outline:none;transition:border-color 0.2s;}
+.fw-input:focus{border-color:var(--purple);}
+.fw-textarea{min-height:90px;resize:vertical;}
+.fw-row-2{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+.upload-zone{border:2px dashed rgba(13,27,62,0.18);border-radius:14px;padding:24px;text-align:center;cursor:pointer;transition:all 0.2s;background:white;}
+.upload-zone:hover{border-color:var(--purple);background:var(--purple-pale);}
+.upload-zone.has-logo{border-style:solid;border-color:var(--green);background:var(--green-pale);}
+.upload-icon{font-size:32px;display:block;margin-bottom:8px;}
+.upload-text{font-size:13px;font-weight:700;color:var(--navy);margin-bottom:4px;}
+.upload-sub{font-size:11px;font-weight:300;color:rgba(13,27,62,0.45);}
+.color-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:16px;}
+.color-field label{font-size:11px;font-weight:700;color:rgba(13,27,62,0.55);letter-spacing:0.4px;text-transform:uppercase;margin-bottom:7px;display:block;}
+.color-input-wrap{display:flex;align-items:center;gap:10px;background:white;border:2px solid rgba(13,27,62,0.1);border-radius:12px;padding:10px 14px;}
+.color-input-wrap input[type="color"]{width:32px;height:32px;border:none;border-radius:8px;cursor:pointer;padding:0;background:none;}
+.color-input-wrap span{font-size:12px;font-weight:700;color:var(--navy);font-family:monospace;}
+.tone-options{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;}
+.tone-opt input{display:none;}
+.tone-card{border:2px solid rgba(13,27,62,0.1);border-radius:12px;padding:14px 10px;text-align:center;cursor:pointer;transition:all 0.2s;background:white;}
+.tone-card:hover{border-color:rgba(123,63,181,0.4);}
+.tone-opt input:checked + .tone-card{border-color:var(--purple);background:var(--purple-pale);}
+.tone-emoji{font-size:22px;margin-bottom:6px;}
+.tone-name{font-size:12px;font-weight:800;color:var(--navy);}
+.tone-desc{font-size:10px;font-weight:300;color:rgba(13,27,62,0.5);margin-top:2px;}
+.fw-generate-btn{width:100%;padding:18px;background:linear-gradient(135deg,var(--pink),var(--purple));color:white;font-family:'Poppins',sans-serif;font-size:15px;font-weight:800;border:none;border-radius:100px;cursor:pointer;transition:all 0.2s;box-shadow:0 8px 28px rgba(232,53,122,0.38);letter-spacing:0.3px;}
+.fw-generate-btn:hover{transform:translateY(-2px);box-shadow:0 12px 36px rgba(232,53,122,0.5);}
+.fw-generate-btn:disabled{opacity:0.7;cursor:not-allowed;transform:none;}
+.fw-preview-panel{position:sticky;top:140px;}
+.preview-header-bar{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;}
+.preview-label{font-size:11px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:rgba(13,27,62,0.4);}
+.preview-edit-badge{font-size:11px;font-weight:700;color:var(--purple);background:var(--purple-pale);padding:5px 12px;border-radius:100px;border:1.5px solid rgba(123,63,181,0.25);}
+.fw-canvas{background:var(--light-bg);border-radius:20px;padding:24px;border:2px solid rgba(13,27,62,0.08);min-height:480px;display:flex;align-items:center;justify-content:center;}
+.flyer-empty{text-align:center;color:rgba(13,27,62,0.35);line-height:1.7;}
+.flyer-empty-icon{font-size:48px;margin-bottom:14px;opacity:0.4;}
+.flyer-empty div{font-size:14px;font-weight:300;}
+.flyer-generating{text-align:center;}
+.gen-spinner{display:inline-block;width:40px;height:40px;border:3px solid rgba(232,53,122,0.2);border-top-color:var(--pink);border-radius:50%;animation:spin 0.7s linear infinite;margin-bottom:16px;}
+.gen-text{font-size:14px;font-weight:600;color:rgba(13,27,62,0.5);}
+.gen-sub{font-size:12px;font-weight:300;color:rgba(13,27,62,0.35);margin-top:4px;}
+.flyer-output{background:white;border-radius:16px;box-shadow:0 16px 56px rgba(13,27,62,0.18);width:100%;max-width:480px;overflow:hidden;}
+.fo-logo-bar{padding:16px 24px 0;text-align:center;}
+.fo-logo-bar img{max-height:64px;max-width:160px;object-fit:contain;}
+.fo-header{padding:28px 28px 24px;text-align:center;}
+.fo-title{font-size:22px;font-weight:900;color:white;letter-spacing:-0.5px;line-height:1.15;margin-bottom:6px;outline:none;border-radius:4px;}
+.fo-title:focus{background:rgba(255,255,255,0.18);}
+.fo-subtitle{font-size:12px;color:rgba(255,255,255,0.8);font-weight:500;outline:none;border-radius:4px;}
+.fo-subtitle:focus{background:rgba(255,255,255,0.18);}
+.fo-body{padding:24px 28px;}
+.fo-blurb{font-size:13px;color:rgba(13,27,62,0.75);line-height:1.75;margin-bottom:18px;outline:none;border-radius:6px;min-height:20px;}
+.fo-blurb:focus{background:rgba(123,63,181,0.04);outline:2px dashed rgba(123,63,181,0.3);}
+.fo-details{display:flex;flex-direction:column;gap:6px;margin-bottom:16px;}
+.fo-detail{font-size:12px;font-weight:600;color:var(--navy);padding:4px 2px;outline:none;border-radius:4px;min-height:22px;}
+.fo-detail:focus{background:rgba(123,63,181,0.04);outline:2px dashed rgba(123,63,181,0.3);}
+.fo-detail:empty::before{content:attr(data-placeholder);color:rgba(13,27,62,0.2);font-weight:300;}
+.fo-details-extra{font-size:12px;color:rgba(13,27,62,0.6);line-height:1.65;margin-bottom:16px;padding:4px 2px;outline:none;border-radius:4px;min-height:18px;}
+.fo-details-extra:focus{background:rgba(123,63,181,0.04);outline:2px dashed rgba(123,63,181,0.3);}
+.fo-cta-bar{color:white;text-align:center;padding:11px 16px;border-radius:8px;font-size:13px;font-weight:700;margin-bottom:14px;outline:none;}
+.fo-cta-bar:focus{filter:brightness(1.12);outline:2px dashed rgba(255,255,255,0.5);}
+.fo-contact{font-size:11px;font-weight:400;color:rgba(13,27,62,0.45);text-align:center;outline:none;border-radius:4px;padding:2px;min-height:16px;}
+.fo-contact:focus{background:rgba(123,63,181,0.04);outline:2px dashed rgba(123,63,181,0.3);}
+.flyer-output.editable [contenteditable]:hover{outline:2px dashed rgba(123,63,181,0.25);border-radius:4px;cursor:text;}
+.preview-actions{display:flex;gap:10px;margin-top:16px;}
+.pa-btn{flex:1;padding:13px;border-radius:100px;font-family:'Poppins',sans-serif;font-size:13px;font-weight:700;cursor:pointer;border:none;transition:all 0.2s;}
+.pa-primary{background:var(--navy);color:white;}
+.pa-primary:hover{background:var(--navy-light);}
+.pa-secondary{background:white;color:var(--navy);border:2px solid rgba(13,27,62,0.15);}
+.pa-secondary:hover{border-color:var(--purple);color:var(--purple);}
+.social-post-link{display:flex;align-items:center;gap:14px;background:linear-gradient(135deg,rgba(123,63,181,0.07),rgba(46,123,196,0.07));border:2px solid rgba(123,63,181,0.2);border-radius:16px;padding:18px 20px;margin-top:14px;}
+.spl-icon{font-size:28px;flex-shrink:0;}
+.spl-title{font-size:13px;font-weight:800;color:var(--navy);margin-bottom:2px;}
+.spl-sub{font-size:11px;font-weight:300;color:rgba(13,27,62,0.55);line-height:1.5;}
+.spl-btn{flex-shrink:0;font-size:12px;font-weight:700;color:var(--purple);text-decoration:none;border:2px solid var(--purple);padding:8px 16px;border-radius:100px;transition:all 0.2s;white-space:nowrap;}
+.spl-btn:hover{background:var(--purple);color:white;}
 .hiw-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:48px;}
-.hiw-card{background:white;border-radius:20px;padding:32px 28px;border:2px solid rgba(13,27,62,0.07);box-shadow:0 2px 16px rgba(13,27,62,0.05);position:relative;}
+.hiw-card{background:white;border-radius:20px;padding:32px 28px;border:2px solid rgba(13,27,62,0.07);box-shadow:0 2px 16px rgba(13,27,62,0.05);}
 .hiw-num{font-size:11px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:var(--pink);margin-bottom:16px;}
 .hiw-icon{font-size:32px;margin-bottom:12px;display:block;}
 .hiw-card h3{font-size:16px;font-weight:800;color:var(--navy);margin-bottom:8px;}
 .hiw-card p{font-size:13px;font-weight:300;color:rgba(13,27,62,0.6);line-height:1.7;}
-
-/* EXAMPLE OUTPUT */
-.example-wrap{background:var(--navy);border-radius:24px;padding:48px;margin-top:48px;position:relative;overflow:hidden;}
-.example-wrap::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 50% at 80% 50%,rgba(232,53,122,0.1) 0%,transparent 60%);pointer-events:none;}
-.example-label{font-size:9px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:rgba(255,255,255,0.3);margin-bottom:24px;}
-.flyer-mock{background:white;border-radius:16px;padding:32px;max-width:520px;margin:0 auto;box-shadow:0 24px 64px rgba(0,0,0,0.4);}
-.flyer-header{background:linear-gradient(135deg,var(--pink),var(--purple));border-radius:12px;padding:24px;text-align:center;margin-bottom:20px;}
-.flyer-header h3{font-size:22px;font-weight:900;color:white;margin-bottom:4px;}
-.flyer-header p{font-size:12px;color:rgba(255,255,255,0.8);}
-.flyer-body p{font-size:13px;color:rgba(13,27,62,0.75);line-height:1.7;margin-bottom:12px;}
-.flyer-detail{display:flex;gap:8px;align-items:center;font-size:12px;font-weight:600;color:var(--navy);margin-bottom:6px;}
-.flyer-cta{background:var(--pink);color:white;text-align:center;padding:12px;border-radius:8px;font-size:13px;font-weight:700;margin-top:16px;}
-
-/* FEATURES */
 .feat-section{background:var(--light-bg);padding:80px 60px;}
 .feat-inner{max-width:1100px;margin:0 auto;}
 .feat-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:20px;margin-top:48px;}
@@ -76,62 +148,43 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(13,27,62,0.9
 .feat-icon{width:44px;height:44px;border-radius:12px;background:var(--pink-pale);display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;}
 .feat-card h3{font-size:14px;font-weight:800;color:var(--navy);margin-bottom:6px;}
 .feat-card p{font-size:12px;font-weight:300;color:rgba(13,27,62,0.6);line-height:1.7;}
-
-/* USE CASES */
 .use-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:40px;}
 .use-chip{background:white;border:2px solid rgba(232,53,122,0.2);border-radius:12px;padding:16px 18px;font-size:13px;font-weight:600;color:var(--navy);display:flex;align-items:center;gap:10px;}
 .use-chip span{font-size:18px;}
-
-/* CTA */
 .tool-cta{background:var(--navy);padding:80px 60px;text-align:center;position:relative;overflow:hidden;}
 .tool-cta::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 70% 60% at 50% 100%,rgba(123,63,181,0.2) 0%,transparent 70%);}
 .tool-cta-inner{position:relative;z-index:1;max-width:600px;margin:0 auto;}
 .tool-cta h2{font-size:clamp(28px,4vw,44px);font-weight:900;color:white;letter-spacing:-1.5px;line-height:1.1;margin-bottom:16px;}
 .tool-cta h2 span{background:linear-gradient(135deg,var(--pink-bright),var(--purple));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
 .tool-cta p{font-size:15px;color:rgba(255,255,255,0.55);margin-bottom:32px;line-height:1.7;font-weight:300;}
-
-/* BACK LINK */
-.back-bar{background:var(--off-white);border-bottom:1px solid rgba(13,27,62,0.08);padding:0 60px;}
-.back-bar a{display:inline-flex;align-items:center;gap:8px;font-size:12px;font-weight:600;color:rgba(13,27,62,0.5);text-decoration:none;padding:12px 0;transition:color 0.2s;}
-.back-bar a:hover{color:var(--pink);}
-
-/* FOOTER */
 footer{background:var(--navy-mid,#142248);border-top:3px solid transparent;border-image:linear-gradient(90deg,var(--pink),var(--purple),var(--blue),var(--green)) 1;padding:28px 60px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px;}
-.f-logo{height:40px;width:auto;object-fit:contain;}
+.f-logo{height:110px;width:auto;object-fit:contain;}
 .f-copy{font-size:12px;color:rgba(255,255,255,0.28);}
 .f-links{display:flex;gap:24px;}
 .f-links a{font-size:12px;color:rgba(255,255,255,0.35);text-decoration:none;transition:color 0.2s;}
 .f-links a:hover{color:var(--gold-light);}
-
-/* TOOLS NAV BAR */
-.tools-nav{background:white;border-bottom:1px solid rgba(13,27,62,0.08);padding:0 60px;overflow-x:auto;}
-.tools-nav-inner{display:flex;gap:4px;align-items:center;white-space:nowrap;}
-.tools-nav a{font-size:12px;font-weight:600;color:rgba(13,27,62,0.5);text-decoration:none;padding:14px 16px;border-bottom:2px solid transparent;transition:all 0.2s;display:inline-flex;align-items:center;gap:6px;}
-.tools-nav a:hover{color:var(--navy);}
-.tools-nav a.active{color:var(--pink);border-bottom-color:var(--pink);}
-
-@media(max-width:900px){nav{padding:0 20px;}.nav-links{display:none;}.tool-hero{padding:100px 24px 60px;}.section{padding:60px 24px;}.hiw-grid,.feat-grid{grid-template-columns:1fr;}.use-grid{grid-template-columns:1fr 1fr;}.tool-cta{padding:60px 24px;}.back-bar,.tools-nav{padding:0 20px;}footer{padding:24px 20px;flex-direction:column;align-items:flex-start;}}
+@media(max-width:1000px){.fw-layout{grid-template-columns:1fr;}.fw-preview-panel{position:static;}}
+@media(max-width:900px){nav{padding:0 20px;}.nav-links{display:none;}.tool-hero{padding:140px 24px 60px;}.section{padding:60px 24px;}.fw-section{padding:60px 24px;}.hiw-grid,.feat-grid{grid-template-columns:1fr;}.use-grid{grid-template-columns:1fr 1fr;}.tool-cta{padding:60px 24px;}.back-bar,.tools-nav{padding:0 20px;}footer{padding:24px 20px;flex-direction:column;align-items:flex-start;}.fw-row-2{grid-template-columns:1fr;}}
+@media print{nav,.gold-divider,.back-bar,.tools-nav,.tool-hero,.fw-form-panel,.preview-header-bar,.preview-actions,.social-post-link,.fw-header,.section,.feat-section,.tool-cta,footer,.flyer-empty,.flyer-generating{display:none!important;}body{background:white;}.fw-section,.fw-inner,.fw-layout,.fw-preview-panel,.fw-canvas{padding:0!important;margin:0!important;background:white!important;border:none!important;box-shadow:none!important;display:block!important;}.flyer-output{box-shadow:none!important;max-width:100%!important;display:block!important;}[contenteditable]{outline:none!important;}}
 </style>
 </head>
 <body>
 
 <nav>
-  <a href="pta-shoppe-landing.html" class="nav-logo">
-    <img src="logo.png" alt="The PTA/PTO Shoppe">
-  </a>
+  <a href="index.html" class="nav-logo"><img src="logo.png" alt="The PTA/PTO Shoppe"></a>
   <div class="nav-links">
-    <a href="pta-shoppe-landing.html#tools">Tools</a>
-    <a href="pta-shoppe-landing.html#pricing">Pricing</a>
-    <a href="pta-shoppe-landing.html#testimonials">Reviews</a>
-    <a href="pta-shoppe-landing.html#contact">Contact</a>
+    <a href="index.html#tools">Tools</a>
+    <a href="index.html#pricing">Pricing</a>
+    <a href="reviews.html">Reviews</a>
+    <a href="contact.html">Contact</a>
   </div>
-  <a href="pta-shoppe-landing.html#pricing" class="nav-cta">Get Started →</a>
+  <a href="checkout.html" class="nav-cta">Get Started →</a>
 </nav>
 
-<div class="gold-divider" style="margin-top:72px;"></div>
+<div class="gold-divider" style="margin-top:120px;"></div>
 
 <div class="back-bar">
-  <a href="pta-shoppe-landing.html#tools">← Back to All Tools</a>
+  <a href="index.html#tools">← Back to All Tools</a>
 </div>
 
 <div class="tools-nav">
@@ -155,9 +208,159 @@ footer{background:var(--navy-mid,#142248);border-top:3px solid transparent;borde
   <div class="tool-hero-inner">
     <span class="tool-icon-lg">📢</span>
     <div class="tool-eyebrow">✦ AI-Powered Tool</div>
-    <h1>Flyers that <span>actually get read.</span></h1>
+    <h1>Flyers that <br><span>actually get read.</span></h1>
     <p>Tell us your event, date, and key details. Our AI writes a polished, attention-grabbing flyer in under 60 seconds — ready to print, email, or share.</p>
-    <a href="pta-shoppe-landing.html#pricing" class="btn-hero">Start Writing Flyers ✦</a>
+    <a href="#tool" class="btn-hero">Start Writing Flyers ✦</a>
+  </div>
+</section>
+
+<div class="gold-divider"></div>
+
+<!-- FLYER WRITER TOOL -->
+<section class="fw-section" id="tool">
+  <div class="fw-inner">
+    <div class="fw-header">
+      <div class="section-label">Interactive Tool</div>
+      <h2>Build your flyer. <span>Edit it live.</span></h2>
+      <p>Upload your logo, pick your school colors, fill in the details — then click any text on the preview to edit it directly before you print or share.</p>
+    </div>
+
+    <div class="fw-layout">
+
+      <!-- FORM PANEL -->
+      <div class="fw-form-panel">
+
+        <div class="fw-group">
+          <div class="fw-group-label">🎨 Your Brand</div>
+          <div class="upload-zone" id="uploadZone" onclick="document.getElementById('logoUpload').click()" title="Click to upload your school logo">
+            <input type="file" id="logoUpload" accept="image/*" style="display:none" onchange="handleLogoUpload(event)">
+            <div id="uploadContent">
+              <span class="upload-icon">🏫</span>
+              <div class="upload-text">Upload your school logo</div>
+              <div class="upload-sub">PNG, JPG, or SVG · Click to browse</div>
+            </div>
+            <img id="logoPreviewThumb" alt="Logo preview" style="display:none;max-height:72px;max-width:180px;border-radius:8px;margin:0 auto;">
+          </div>
+          <div class="color-row">
+            <div class="color-field">
+              <label>Primary Color</label>
+              <div class="color-input-wrap">
+                <input type="color" id="primaryColor" value="#E8357A" oninput="updateColors()">
+                <span id="primaryHex">#E8357A</span>
+              </div>
+            </div>
+            <div class="color-field">
+              <label>Secondary Color</label>
+              <div class="color-input-wrap">
+                <input type="color" id="secondaryColor" value="#7B3FB5" oninput="updateColors()">
+                <span id="secondaryHex">#7B3FB5</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="fw-group">
+          <div class="fw-group-label">📅 Event Details</div>
+          <label class="fw-label">Event or Announcement Name *</label>
+          <input class="fw-input" type="text" id="eventName" placeholder="e.g. Spring Book Fair, Fun Run, Bingo Night">
+          <label class="fw-label">Organization Name</label>
+          <input class="fw-input" type="text" id="orgName" placeholder="e.g. Jefferson Elementary PTA">
+          <div class="fw-row-2">
+            <div>
+              <label class="fw-label">Date</label>
+              <input class="fw-input" type="date" id="eventDate">
+            </div>
+            <div>
+              <label class="fw-label">Time</label>
+              <input class="fw-input" type="text" id="eventTime" placeholder="e.g. 6–8pm">
+            </div>
+          </div>
+          <label class="fw-label">Location</label>
+          <input class="fw-input" type="text" id="eventLocation" placeholder="e.g. School Gymnasium">
+        </div>
+
+        <div class="fw-group">
+          <div class="fw-group-label">✍️ Content</div>
+          <label class="fw-label">Key Details or Description</label>
+          <textarea class="fw-input fw-textarea" id="eventDetails" placeholder="Ticket prices, what to bring, RSVP links, volunteer needs, etc."></textarea>
+          <label class="fw-label">Contact Info</label>
+          <input class="fw-input" type="text" id="contactInfo" placeholder="e.g. pta@school.org or (555) 123-4567">
+        </div>
+
+        <div class="fw-group">
+          <div class="fw-group-label">🎭 Tone</div>
+          <div class="tone-options">
+            <label class="tone-opt">
+              <input type="radio" name="tone" value="friendly" checked>
+              <div class="tone-card"><div class="tone-emoji">😊</div><div class="tone-name">Friendly</div><div class="tone-desc">Warm &amp; welcoming</div></div>
+            </label>
+            <label class="tone-opt">
+              <input type="radio" name="tone" value="energetic">
+              <div class="tone-card"><div class="tone-emoji">🎉</div><div class="tone-name">Energetic</div><div class="tone-desc">Exciting &amp; hype</div></div>
+            </label>
+            <label class="tone-opt">
+              <input type="radio" name="tone" value="formal">
+              <div class="tone-card"><div class="tone-emoji">📋</div><div class="tone-name">Formal</div><div class="tone-desc">Professional tone</div></div>
+            </label>
+          </div>
+        </div>
+
+        <button class="fw-generate-btn" id="generateBtn" onclick="generateFlyer()">✦ Generate My Flyer</button>
+      </div>
+
+      <!-- PREVIEW PANEL -->
+      <div class="fw-preview-panel">
+        <div class="preview-header-bar">
+          <div class="preview-label">Live Preview</div>
+          <div class="preview-edit-badge" id="editBadge" style="display:none;">✏️ Click any text to edit</div>
+        </div>
+
+        <div class="fw-canvas" id="fwCanvas">
+          <div class="flyer-empty" id="flyerEmpty">
+            <div class="flyer-empty-icon">📄</div>
+            <div>Fill in your event details and click<br><strong>Generate My Flyer</strong> to see it here.</div>
+          </div>
+          <div class="flyer-generating" id="flyerGenerating" style="display:none;">
+            <div class="gen-spinner"></div>
+            <div class="gen-text">Writing your flyer…</div>
+            <div class="gen-sub">Crafting your copy now</div>
+          </div>
+          <div class="flyer-output" id="flyerOutput" style="display:none;">
+            <div class="fo-logo-bar" id="foLogoBar" style="display:none;"><img id="foLogo" src="" alt="School Logo"></div>
+            <div class="fo-header" id="foHeader" style="background:linear-gradient(135deg,#E8357A,#7B3FB5);">
+              <div class="fo-title" id="foTitle" contenteditable="true" spellcheck="false">Event Name</div>
+              <div class="fo-subtitle" id="foSubtitle" contenteditable="true" spellcheck="false">Your Organization</div>
+            </div>
+            <div class="fo-body">
+              <div class="fo-blurb" id="foBlurb" contenteditable="true" spellcheck="false">Your flyer description will appear here.</div>
+              <div class="fo-details">
+                <div class="fo-detail" id="foDate" contenteditable="true" spellcheck="false" data-placeholder="📅 Date"></div>
+                <div class="fo-detail" id="foTime" contenteditable="true" spellcheck="false" data-placeholder="🕒 Time"></div>
+                <div class="fo-detail" id="foLocation" contenteditable="true" spellcheck="false" data-placeholder="📍 Location"></div>
+              </div>
+              <div class="fo-details-extra" id="foExtra" contenteditable="true" spellcheck="false"></div>
+              <div class="fo-cta-bar" id="foCta" contenteditable="true" spellcheck="false" style="background:#E8357A;">Don't miss it — mark your calendar!</div>
+              <div class="fo-contact" id="foContact" contenteditable="true" spellcheck="false"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="preview-actions" id="previewActions" style="display:none;">
+          <button class="pa-btn pa-primary" onclick="printFlyer()">🖨️ Print / Save as PDF</button>
+          <button class="pa-btn pa-secondary" id="copyBtn" onclick="copyFlyerText()">📋 Copy Text</button>
+        </div>
+
+        <div class="social-post-link" id="socialPostLink" style="display:none;">
+          <div class="spl-icon">📱</div>
+          <div>
+            <div class="spl-title">Turn this into a social post</div>
+            <div class="spl-sub">Use the same event details to create an Instagram, Facebook, or X post in seconds.</div>
+          </div>
+          <a href="tool-social-posts.html" class="spl-btn">Try Social Posts →</a>
+        </div>
+      </div>
+
+    </div>
   </div>
 </section>
 
@@ -173,43 +376,19 @@ footer{background:var(--navy-mid,#142248);border-top:3px solid transparent;borde
       <div class="hiw-num">Step 01</div>
       <span class="hiw-icon">✏️</span>
       <h3>Describe your event</h3>
-      <p>Enter your event name, date, location, and a few key details. The more you share, the more personalized your flyer.</p>
+      <p>Enter your event name, date, location, and key details. Upload your school logo and pick your brand colors.</p>
     </div>
     <div class="hiw-card">
       <div class="hiw-num">Step 02</div>
       <span class="hiw-icon">⚡</span>
       <h3>AI writes it instantly</h3>
-      <p>Our AI generates headline, body copy, call-to-action, and formatting — all tuned for parent readability in under 60 seconds.</p>
+      <p>Headline, body copy, call-to-action, and formatting — all tuned for parent readability in under 60 seconds.</p>
     </div>
     <div class="hiw-card">
       <div class="hiw-num">Step 03</div>
       <span class="hiw-icon">📤</span>
-      <h3>Copy, print, or share</h3>
-      <p>Copy the text into your design tool, paste into an email, or use as-is. It's formatted and ready — no editing required.</p>
-    </div>
-  </div>
-</div>
-
-<div class="gold-divider"></div>
-
-<!-- EXAMPLE OUTPUT -->
-<div style="background:var(--navy);padding:80px 60px;">
-  <div style="max-width:1100px;margin:0 auto;">
-    <div class="example-label">Example output</div>
-    <h2 style="font-size:clamp(28px,3.5vw,42px);font-weight:900;color:white;letter-spacing:-1.5px;margin-bottom:40px;">Here's what <span style="color:var(--pink-bright);">you'll get.</span></h2>
-    <div class="flyer-mock">
-      <div class="flyer-header">
-        <h3>🎉 Spring Book Fair is HERE!</h3>
-        <p>Jefferson Elementary PTA Presents</p>
-      </div>
-      <div class="flyer-body">
-        <p>Stock up on incredible reads and support our school at the same time! Our annual Spring Book Fair is the perfect chance to find your next favorite book — and every purchase benefits our classroom libraries.</p>
-        <div class="flyer-detail">📅 March 14–18, 2026</div>
-        <div class="flyer-detail">📍 Jefferson Elementary Library</div>
-        <div class="flyer-detail">🕒 Mon–Fri, 8am – 3pm · Eve. Preview: Wed 5–7pm</div>
-        <p>Bring cash, check, or use our new eWallet. All ages welcome. Can't make it? Online ordering opens March 14!</p>
-        <div class="flyer-cta">Questions? Email pta@jefferson.edu · Follow us @JeffersonPTA</div>
-      </div>
+      <h3>Edit, print, or share</h3>
+      <p>Click any text in the preview to edit live. Then print to PDF, copy the text, or create a matching social post.</p>
     </div>
   </div>
 </div>
@@ -222,12 +401,12 @@ footer{background:var(--navy-mid,#142248);border-top:3px solid transparent;borde
     <div class="section-label">What's included</div>
     <h2 style="font-size:clamp(28px,3.5vw,42px);font-weight:900;letter-spacing:-1.5px;color:var(--navy);margin-bottom:8px;">Everything your flyer <span style="background:linear-gradient(135deg,var(--pink),var(--purple));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">needs to work.</span></h2>
     <div class="feat-grid">
-      <div class="feat-card"><div class="feat-icon">✍️</div><div><h3>AI-written headline & body</h3><p>Professionally written copy optimized for parent attention spans and quick scanning.</p></div></div>
-      <div class="feat-card"><div class="feat-icon">📅</div><div><h3>Date, time & location block</h3><p>Clearly formatted event details that parents can't miss and won't need to re-read.</p></div></div>
-      <div class="feat-card"><div class="feat-icon">📣</div><div><h3>Call-to-action included</h3><p>Every flyer ends with a clear next step — RSVP link, contact email, or sign-up info.</p></div></div>
-      <div class="feat-card"><div class="feat-icon">🔁</div><div><h3>Regenerate anytime</h3><p>Not quite right? Tweak your inputs or hit regenerate for a fresh version instantly.</p></div></div>
-      <div class="feat-card"><div class="feat-icon">📋</div><div><h3>Copy-paste ready</h3><p>Output is clean text you can drop into Canva, Word, Google Docs, or any email tool.</p></div></div>
-      <div class="feat-card"><div class="feat-icon">🏫</div><div><h3>School-tone aware</h3><p>Friendly, warm, and inclusive language — not corporate jargon. Parents actually read these.</p></div></div>
+      <div class="feat-card"><div class="feat-icon">🏫</div><div><h3>Logo &amp; school colors</h3><p>Upload your school logo and set your primary and secondary colors — applied to every flyer automatically.</p></div></div>
+      <div class="feat-card"><div class="feat-icon">✍️</div><div><h3>AI-written headline &amp; body</h3><p>Professionally written copy optimized for parent attention spans and quick scanning.</p></div></div>
+      <div class="feat-card"><div class="feat-icon">✏️</div><div><h3>Click-to-edit live canvas</h3><p>Every element on the flyer is editable — click any text on the preview and type directly.</p></div></div>
+      <div class="feat-card"><div class="feat-icon">📅</div><div><h3>Date, time &amp; location block</h3><p>Clearly formatted event details that parents can't miss and won't need to re-read.</p></div></div>
+      <div class="feat-card"><div class="feat-icon">📱</div><div><h3>One-click social post</h3><p>When your flyer is ready, turn it into an Instagram, Facebook, or X post with one tap.</p></div></div>
+      <div class="feat-card"><div class="feat-icon">🖨️</div><div><h3>Print-ready &amp; copy-paste</h3><p>Print directly to PDF or copy the clean text into Canva, Word, Google Docs, or any email tool.</p></div></div>
     </div>
   </div>
 </div>
@@ -240,7 +419,7 @@ footer{background:var(--navy-mid,#142248);border-top:3px solid transparent;borde
   <h2>Every event. <span>Every announcement.</span></h2>
   <div class="use-grid">
     <div class="use-chip"><span>📚</span>Book Fairs</div>
-    <div class="use-chip"><span>🎪</span>Carnivals & Fairs</div>
+    <div class="use-chip"><span>🎪</span>Carnivals &amp; Fairs</div>
     <div class="use-chip"><span>🏃</span>Fun Runs</div>
     <div class="use-chip"><span>🍕</span>Dining Nights</div>
     <div class="use-chip"><span>🗳️</span>Meeting Notices</div>
@@ -254,21 +433,165 @@ footer{background:var(--navy-mid,#142248);border-top:3px solid transparent;borde
 <!-- CTA -->
 <div class="tool-cta">
   <div class="tool-cta-inner">
-    <h2>Ready to write your <span>first flyer?</span></h2>
-    <p>Plans start at $19/mo. Your board will wonder how you ever managed without it.</p>
-    <a href="pta-shoppe-landing.html#pricing" class="btn-hero" style="font-size:15px;padding:16px 36px;">Get Started — $19/mo ✦</a>
+    <h2>Ready to write your<br><span>first flyer?</span></h2>
+    <p>Plans start at $25/mo. Your board will wonder how you ever managed without it.</p>
+    <a href="checkout.html" class="btn-hero" style="font-size:15px;padding:16px 36px;">Get Started — $25/mo ✦</a>
   </div>
 </div>
 
-<footer id="contact">
+<footer>
   <img src="logo.png" alt="The PTA/PTO Shoppe" class="f-logo">
   <div class="f-copy">© 2026 The PTA/PTO Shoppe. All rights reserved.</div>
-  <div class="f-links">
-    <a href="#">Privacy</a>
-    <a href="#">Terms</a>
-    <a href="#">Contact</a>
-  </div>
+  <div class="f-links"><a href="#">Privacy</a><a href="#">Terms</a><a href="contact.html">Contact</a></div>
 </footer>
 
+<script>
+let schoolLogoDataUrl = null;
+
+function handleLogoUpload(e) {
+  const file = e.target.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = function(ev) {
+    schoolLogoDataUrl = ev.target.result;
+    const thumb = document.getElementById('logoPreviewThumb');
+    const content = document.getElementById('uploadContent');
+    thumb.src = schoolLogoDataUrl;
+    thumb.style.display = 'block';
+    content.style.display = 'none';
+    document.getElementById('uploadZone').classList.add('has-logo');
+    if (document.getElementById('flyerOutput').style.display !== 'none') applyLogo();
+  };
+  reader.readAsDataURL(file);
+}
+
+function applyLogo() {
+  if (!schoolLogoDataUrl) return;
+  document.getElementById('foLogo').src = schoolLogoDataUrl;
+  document.getElementById('foLogoBar').style.display = 'block';
+}
+
+function updateColors() {
+  const p = document.getElementById('primaryColor').value;
+  const s = document.getElementById('secondaryColor').value;
+  document.getElementById('primaryHex').textContent = p;
+  document.getElementById('secondaryHex').textContent = s;
+  document.getElementById('foHeader').style.background = 'linear-gradient(135deg,' + p + ',' + s + ')';
+  document.getElementById('foCta').style.background = p;
+}
+
+function buildBody(tone, eventName, details, org) {
+  const who = org ? org + ' ' : 'We ';
+  const extra = details ? ' ' + details : '';
+  if (tone === 'energetic') {
+    return '🎉 Get ready — ' + eventName + ' is HERE and it\'s going to be incredible! ' + who + 'invite ALL families to come out and be part of the fun.' + extra + ' This is the event you do NOT want to miss!';
+  } else if (tone === 'formal') {
+    return who + 'cordially invite all school families to attend ' + eventName + '. This event represents a wonderful opportunity for our community to come together in support of our students and school.' + extra + ' We look forward to your attendance and participation.';
+  } else {
+    return 'Come join us for ' + eventName + '! ' + who + 'are excited to bring our school community together for a fun and memorable time.' + extra + ' All families are welcome — we hope to see everyone there!';
+  }
+}
+
+function generateFlyer() {
+  const eventName = document.getElementById('eventName').value.trim();
+  if (!eventName) {
+    const el = document.getElementById('eventName');
+    el.style.borderColor = 'var(--pink)';
+    el.placeholder = 'Please enter an event name first';
+    el.focus();
+    return;
+  }
+  document.getElementById('eventName').style.borderColor = '';
+
+  const org      = document.getElementById('orgName').value.trim();
+  const dateVal  = document.getElementById('eventDate').value;
+  const timeVal  = document.getElementById('eventTime').value.trim();
+  const location = document.getElementById('eventLocation').value.trim();
+  const details  = document.getElementById('eventDetails').value.trim();
+  const contact  = document.getElementById('contactInfo').value.trim();
+  const tone     = document.querySelector('input[name="tone"]:checked').value;
+
+  const btn = document.getElementById('generateBtn');
+  btn.textContent = '⚡ Writing your flyer…';
+  btn.disabled = true;
+  document.getElementById('flyerEmpty').style.display = 'none';
+  document.getElementById('flyerGenerating').style.display = 'block';
+  document.getElementById('flyerOutput').style.display = 'none';
+  document.getElementById('previewActions').style.display = 'none';
+  document.getElementById('socialPostLink').style.display = 'none';
+  document.getElementById('editBadge').style.display = 'none';
+
+  setTimeout(function() {
+    var title    = eventName.toUpperCase();
+    var subtitle = org ? org + ' Presents' : 'Your PTA/PTO Presents';
+    var body     = buildBody(tone, eventName, details, org);
+    var dateStr  = '';
+    if (dateVal) {
+      var d = new Date(dateVal + 'T12:00:00');
+      dateStr = '📅 ' + d.toLocaleDateString('en-US', {weekday:'long', month:'long', day:'numeric', year:'numeric'});
+    }
+    var ctaMap = {
+      friendly:  "We hope to see you there — don't miss it! 🎉",
+      energetic: "MARK YOUR CALENDAR — this one's gonna be AMAZING! 🙌",
+      formal:    "We look forward to your attendance and participation."
+    };
+
+    document.getElementById('foTitle').textContent    = title;
+    document.getElementById('foSubtitle').textContent = subtitle;
+    document.getElementById('foBlurb').textContent    = body;
+    document.getElementById('foDate').textContent     = dateStr;
+    document.getElementById('foTime').textContent     = timeVal ? '🕒 ' + timeVal : '';
+    document.getElementById('foLocation').textContent = location ? '📍 ' + location : '';
+    document.getElementById('foExtra').textContent    = '';
+    document.getElementById('foCta').textContent      = ctaMap[tone];
+    document.getElementById('foContact').textContent  = contact ? '✉️  ' + contact : '';
+
+    updateColors();
+    applyLogo();
+
+    document.getElementById('flyerGenerating').style.display = 'none';
+    var output = document.getElementById('flyerOutput');
+    output.style.display = 'block';
+    output.classList.add('editable');
+    document.getElementById('previewActions').style.display  = 'flex';
+    document.getElementById('socialPostLink').style.display  = 'flex';
+    document.getElementById('editBadge').style.display       = 'inline-flex';
+
+    btn.textContent = '↺ Regenerate Flyer';
+    btn.disabled    = false;
+
+    if (window.innerWidth < 1000) {
+      document.getElementById('fwCanvas').scrollIntoView({behavior:'smooth', block:'center'});
+    }
+  }, 1300);
+}
+
+function printFlyer() { window.print(); }
+
+function copyFlyerText() {
+  var parts = [
+    document.getElementById('foTitle').textContent,
+    document.getElementById('foSubtitle').textContent,
+    '',
+    document.getElementById('foBlurb').textContent,
+    '',
+    document.getElementById('foDate').textContent,
+    document.getElementById('foTime').textContent,
+    document.getElementById('foLocation').textContent,
+    document.getElementById('foExtra').textContent,
+    '',
+    document.getElementById('foCta').textContent,
+    document.getElementById('foContact').textContent
+  ].filter(function(l){ return l.trim(); });
+
+  navigator.clipboard.writeText(parts.join('\n')).then(function() {
+    var btn = document.getElementById('copyBtn');
+    btn.textContent = '✓ Copied!';
+    setTimeout(function(){ btn.textContent = '📋 Copy Text'; }, 2000);
+  }).catch(function() {
+    alert('Could not copy automatically. Please select the flyer text and copy manually.');
+  });
+}
+</script>
 </body>
 </html>

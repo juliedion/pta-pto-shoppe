@@ -1,0 +1,942 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<link rel="icon" type="image/x-icon" href="favicon.ico">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+<link rel="apple-touch-icon" sizes="192x192" href="favicon-192.png">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Agenda Templates — The PTA/PTO Shoppe</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#0D1B3E;--navy-mid:#142248;--navy-light:#1C2F5E;
+  --pink:#E8357A;--pink-bright:#FF2D87;--pink-pale:#FFF0F7;
+  --purple:#7B3FB5;--purple-pale:#F5EEFF;
+  --blue:#2E7BC4;--blue-pale:#EAF4FF;
+  --green:#2BA84A;--green-bright:#00C853;--green-pale:#EDFFF4;
+  --gold:#C9943A;--gold-light:#F5D78E;
+  --teal:#0B9E8F;--teal-pale:#E6FAF8;
+  --orange:#F07A1A;--orange-pale:#FFF4EA;
+  --red:#D93025;--red-pale:#FFF0EE;
+  --white:#FFFFFF;--off-white:#F8F9FF;--light-bg:#F2F4FB;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{font-family:'Poppins',sans-serif;background:var(--off-white);color:var(--navy);overflow-x:hidden;}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(13,27,62,0.97);backdrop-filter:blur(12px);border-bottom:3px solid transparent;border-image:linear-gradient(90deg,var(--pink),var(--purple),var(--blue),var(--green)) 1;padding:0 48px;height:120px;display:flex;align-items:center;justify-content:space-between;}
+.nav-logo{display:flex;align-items:center;text-decoration:none;}
+.nav-logo img{height:150px;width:auto;object-fit:contain;}
+.nav-links{display:flex;align-items:center;gap:28px;}
+.nav-links a{font-size:16px;font-weight:700;color:rgba(255,255,255,0.88);text-decoration:none;transition:color 0.2s;letter-spacing:0.3px;}
+.nav-links a:hover{color:var(--gold-light);}
+.nav-cta{background:linear-gradient(135deg,var(--pink),var(--purple));color:white;font-family:'Poppins',sans-serif;font-size:13px;font-weight:700;padding:10px 22px;border-radius:100px;text-decoration:none;transition:all 0.2s;box-shadow:0 4px 16px rgba(232,53,122,0.4);}
+.nav-cta:hover{transform:translateY(-1px);box-shadow:0 6px 24px rgba(232,53,122,0.55);}
+
+/* GOLD DIVIDER */
+.gold-divider{height:4px;background:linear-gradient(90deg,var(--pink),var(--purple),var(--blue),var(--green),#F07A1A,var(--pink));background-size:200% 100%;animation:shimmer 3s linear infinite;}
+@keyframes shimmer{0%{background-position:0%}100%{background-position:200%}}
+@keyframes floatUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+
+/* BACK BAR */
+.back-bar{background:var(--off-white);border-bottom:1px solid rgba(13,27,62,0.08);padding:0 60px;}
+.back-bar a{display:inline-flex;align-items:center;gap:8px;font-size:12px;font-weight:600;color:rgba(13,27,62,0.5);text-decoration:none;padding:12px 0;transition:color 0.2s;}
+.back-bar a:hover{color:var(--purple);}
+
+/* PAGE HERO */
+.page-hero{padding:120px 60px 80px;background:#010D2A;background-image:radial-gradient(ellipse 60% 50% at 20% 50%,rgba(123,63,181,0.2) 0%,transparent 60%),linear-gradient(155deg,#010D2A 0%,#031B52 40%,#0D1B3E 100%);text-align:center;}
+.page-hero-inner{max-width:700px;margin:0 auto;animation:floatUp 0.7s ease both;}
+.page-eyebrow{display:inline-flex;align-items:center;gap:8px;background:rgba(123,63,181,0.12);border:1px solid rgba(123,63,181,0.3);border-radius:100px;padding:6px 16px;font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#C084FC;margin-bottom:20px;}
+.page-hero h1{font-size:clamp(36px,5vw,56px);font-weight:900;color:white;letter-spacing:-2px;line-height:1.05;margin-bottom:14px;}
+.page-hero h1 span{background:linear-gradient(135deg,#FF2D87,#FF85C2,#C084FC);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;filter:drop-shadow(0 0 12px rgba(255,45,135,0.65)) drop-shadow(0 0 28px rgba(192,132,252,0.3));}
+.page-hero p{font-size:16px;font-weight:300;color:rgba(255,255,255,0.6);line-height:1.75;max-width:560px;margin:0 auto;}
+
+/* FILTER BAR */
+.filter-bar{background:var(--light-bg);border-bottom:1px solid rgba(13,27,62,0.08);padding:16px 60px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;}
+.filter-label{font-size:11px;font-weight:700;color:rgba(13,27,62,0.4);text-transform:uppercase;letter-spacing:1.5px;margin-right:4px;}
+.filter-btn{font-size:12px;font-weight:700;padding:7px 18px;border-radius:100px;border:none;cursor:pointer;transition:all 0.2s;font-family:'Poppins',sans-serif;}
+.filter-btn.active{background:var(--purple);color:white;}
+.filter-btn:not(.active){background:white;color:rgba(13,27,62,0.55);border:1.5px solid rgba(13,27,62,0.1);}
+.filter-btn:hover:not(.active){border-color:var(--purple);color:var(--purple);}
+
+/* TEMPLATE GRID SECTION */
+.templates-section{padding:60px 60px 100px;}
+.templates-inner{max-width:1160px;margin:0 auto;}
+.templates-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;}
+
+/* TEMPLATE CARD */
+.t-card{background:white;border-radius:20px;overflow:hidden;border:2px solid rgba(13,27,62,0.07);box-shadow:0 2px 12px rgba(13,27,62,0.05);transition:all 0.22s;display:flex;flex-direction:column;}
+.t-card:hover{transform:translateY(-5px);box-shadow:0 16px 48px rgba(13,27,62,0.12);}
+
+/* THUMBNAIL */
+.t-thumb{height:140px;position:relative;overflow:hidden;flex-shrink:0;display:flex;align-items:flex-end;padding:14px;}
+.t-thumb-doc{position:absolute;inset:0;display:flex;flex-direction:column;padding:16px 14px 10px;}
+.t-thumb-doc-header{height:14px;border-radius:3px;margin-bottom:10px;opacity:0.9;}
+.t-thumb-doc-line{height:7px;border-radius:2px;margin-bottom:6px;opacity:0.55;}
+.t-thumb-doc-line.w80{width:80%;}
+.t-thumb-doc-line.w60{width:60%;}
+.t-thumb-doc-line.w90{width:90%;}
+.t-thumb-doc-line.w50{width:50%;}
+.t-thumb-doc-line.w70{width:70%;}
+.t-thumb-doc-block{height:22px;border-radius:4px;margin-bottom:8px;opacity:0.2;}
+
+/* CARD BODY */
+.t-card-body{padding:18px 20px 20px;display:flex;flex-direction:column;flex:1;}
+.t-card-top{display:flex;align-items:flex-start;justify-content:space-between;gap:8px;margin-bottom:6px;}
+.t-name{font-size:14px;font-weight:800;color:var(--navy);line-height:1.3;flex:1;}
+.t-price-badge{flex-shrink:0;font-size:9px;font-weight:800;letter-spacing:1px;text-transform:uppercase;padding:4px 9px;border-radius:100px;white-space:nowrap;}
+.t-price-badge.free{background:var(--green-pale);color:var(--green);}
+.t-price-badge.premium{background:#FDF6E3;color:var(--gold);}
+.t-desc{font-size:12px;font-weight:300;color:rgba(13,27,62,0.55);line-height:1.55;margin-bottom:10px;flex:1;}
+.t-cat-badge{display:inline-block;font-size:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:3px 9px;border-radius:100px;margin-bottom:14px;}
+.t-actions{display:flex;gap:8px;margin-top:auto;}
+.t-btn{flex:1;font-family:'Poppins',sans-serif;font-size:11px;font-weight:700;padding:9px 8px;border-radius:100px;cursor:pointer;transition:all 0.18s;text-align:center;white-space:nowrap;}
+.t-btn-purple{background:transparent;color:var(--purple);border:1.5px solid var(--purple);}
+.t-btn-purple:hover{background:var(--purple);color:white;}
+.t-btn-blue{background:transparent;color:var(--blue);border:1.5px solid var(--blue);}
+.t-btn-blue:hover{background:var(--blue);color:white;}
+
+/* PREMIUM UPGRADE MODAL */
+.modal-overlay{display:none;position:fixed;inset:0;background:rgba(1,13,42,0.75);backdrop-filter:blur(6px);z-index:500;align-items:center;justify-content:center;padding:24px;}
+.modal-overlay.open{display:flex;}
+.modal-box{background:white;border-radius:28px;padding:48px;max-width:480px;width:100%;position:relative;box-shadow:0 32px 80px rgba(1,13,42,0.4);text-align:center;}
+.modal-close{position:absolute;top:18px;right:22px;background:none;border:none;font-size:22px;color:rgba(13,27,62,0.35);cursor:pointer;line-height:1;padding:4px;font-family:'Poppins',sans-serif;}
+.modal-close:hover{color:var(--navy);}
+.modal-icon{font-size:52px;margin-bottom:12px;display:block;}
+.modal-eyebrow{font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--gold);margin-bottom:10px;}
+.modal-box h3{font-size:22px;font-weight:900;color:var(--navy);letter-spacing:-0.5px;margin-bottom:8px;}
+.modal-box p{font-size:14px;font-weight:300;color:rgba(13,27,62,0.55);line-height:1.7;margin-bottom:28px;}
+.modal-actions{display:flex;flex-direction:column;gap:12px;}
+.modal-btn-primary{display:block;width:100%;padding:15px 24px;background:linear-gradient(135deg,var(--pink),var(--purple));color:white;font-family:'Poppins',sans-serif;font-size:14px;font-weight:700;border:none;border-radius:100px;cursor:pointer;text-decoration:none;transition:all 0.2s;box-shadow:0 6px 24px rgba(232,53,122,0.35);}
+.modal-btn-primary:hover{transform:translateY(-1px);box-shadow:0 10px 32px rgba(232,53,122,0.45);}
+.modal-btn-secondary{display:block;width:100%;padding:15px 24px;background:transparent;color:var(--navy);font-family:'Poppins',sans-serif;font-size:14px;font-weight:700;border:2px solid rgba(13,27,62,0.15);border-radius:100px;cursor:pointer;text-decoration:none;transition:all 0.2s;}
+.modal-btn-secondary:hover{border-color:var(--gold);color:var(--gold);}
+.modal-note{font-size:11px;color:rgba(13,27,62,0.35);margin-top:16px;line-height:1.6;}
+
+/* FOOTER */
+footer{background:var(--navy-mid,#142248);border-top:3px solid transparent;border-image:linear-gradient(90deg,var(--pink),var(--purple),var(--blue),var(--green)) 1;padding:28px 60px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px;}
+.f-logo{height:110px;width:auto;object-fit:contain;}
+.f-copy{font-size:12px;color:rgba(255,255,255,0.28);}
+.f-links{display:flex;gap:24px;}
+.f-links a{font-size:12px;color:rgba(255,255,255,0.35);text-decoration:none;transition:color 0.2s;}
+.f-links a:hover{color:var(--gold-light);}
+
+/* HIDDEN UTILITY */
+.hidden{display:none !important;}
+
+/* RESPONSIVE */
+@media(max-width:1000px){
+  .templates-grid{grid-template-columns:repeat(2,1fr);}
+}
+@media(max-width:700px){
+  nav{padding:0 20px;}
+  .nav-links{display:none;}
+  .page-hero{padding:100px 24px 60px;}
+  .filter-bar,.templates-section,.back-bar{padding-left:24px;padding-right:24px;}
+  .templates-grid{grid-template-columns:1fr;}
+  footer{padding:24px 20px;flex-direction:column;}
+  .modal-box{padding:32px 24px;}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="index.html" class="nav-logo"><img src="logo.png" alt="The PTA/PTO Shoppe"></a>
+  <div class="nav-links">
+    <a href="index.html#tools">Tools</a>
+    <a href="index.html#pricing">Pricing</a>
+    <a href="reviews.html">Reviews</a>
+    <a href="contact.html">Contact</a>
+  </div>
+  <a href="checkout.html" class="nav-cta">Get Started →</a>
+</nav>
+<div class="gold-divider" style="margin-top:120px;"></div>
+
+<!-- BACK BAR -->
+<div class="back-bar">
+  <a href="tool-agenda-builder.html">← Back to Agenda Builder</a>
+</div>
+
+<!-- PAGE HERO -->
+<section class="page-hero">
+  <div class="page-hero-inner">
+    <div class="page-eyebrow">✦ Agenda Templates</div>
+    <h1>25 ready-to-use<br><span>agenda templates.</span></h1>
+    <p>Free and premium templates for every type of PTA/PTO meeting. Download in Google Slides or PowerPoint — fully editable.</p>
+  </div>
+</section>
+<div class="gold-divider"></div>
+
+<!-- FILTER BAR -->
+<div class="filter-bar">
+  <span class="filter-label">Filter:</span>
+  <button class="filter-btn active" data-filter="all">All</button>
+  <button class="filter-btn" data-filter="free">Free</button>
+  <button class="filter-btn" data-filter="premium">Premium</button>
+  <button class="filter-btn" data-filter="Monthly Meeting">Monthly Meeting</button>
+  <button class="filter-btn" data-filter="Special Event">Special Event</button>
+  <button class="filter-btn" data-filter="Annual">Annual</button>
+  <button class="filter-btn" data-filter="Budget">Budget</button>
+  <button class="filter-btn" data-filter="Election">Election</button>
+</div>
+
+<!-- TEMPLATE GRID -->
+<section class="templates-section">
+  <div class="templates-inner">
+    <div class="templates-grid" id="templateGrid">
+
+      <!-- ── FREE TEMPLATES (1–8) ── -->
+
+      <!-- 1 -->
+      <div class="t-card" data-tier="free" data-cat="Monthly Meeting">
+        <div class="t-thumb" style="background:linear-gradient(135deg,#1a4fa8 0%,#2E7BC4 100%);">
+          <div class="t-thumb-doc">
+            <div class="t-thumb-doc-header" style="background:white;width:55%;"></div>
+            <div class="t-thumb-doc-line w90" style="background:white;"></div>
+            <div class="t-thumb-doc-line w60" style="background:white;"></div>
+            <div class="t-thumb-doc-block" style="background:white;width:100%;"></div>
+            <div class="t-thumb-doc-line w80" style="background:white;"></div>
+            <div class="t-thumb-doc-line w70" style="background:white;"></div>
+          </div>
+        </div>
+        <div class="t-card-body">
+          <div class="t-card-top">
+            <div class="t-name">Simple Monthly Meeting</div>
+            <span class="t-price-badge free">FREE</span>
+          </div>
+          <div class="t-desc">Clean single-column format perfect for regular board updates.</div>
+          <span class="t-cat-badge" style="background:var(--blue-pale);color:var(--blue);">Monthly Meeting</span>
+          <div class="t-actions">
+            <button class="t-btn t-btn-purple" onclick="downloadFree('Simple Monthly Meeting','slides')">Google Slides</button>
+            <button class="t-btn t-btn-blue" onclick="downloadFree('Simple Monthly Meeting','pptx')">PowerPoint</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 2 -->
+      <div class="t-card" data-tier="free" data-cat="Monthly Meeting">
+        <div class="t-thumb" style="background:linear-gradient(135deg,#c2185b 0%,var(--pink) 100%);">
+          <div class="t-thumb-doc">
+            <div class="t-thumb-doc-header" style="background:white;width:40%;"></div>
+            <div class="t-thumb-doc-line w50" style="background:white;"></div>
+            <div class="t-thumb-doc-block" style="background:white;width:100%;"></div>
+            <div class="t-thumb-doc-line w70" style="background:white;"></div>
+            <div class="t-thumb-doc-line w60" style="background:white;"></div>
+          </div>
+        </div>
+        <div class="t-card-body">
+          <div class="t-card-top">
+            <div class="t-name">Quick Huddle</div>
+            <span class="t-price-badge free">FREE</span>
+          </div>
+          <div class="t-desc">30-minute focused format — keep it tight, keep it moving.</div>
+          <span class="t-cat-badge" style="background:var(--pink-pale);color:var(--pink);">Monthly Meeting</span>
+          <div class="t-actions">
+            <button class="t-btn t-btn-purple" onclick="downloadFree('Quick Huddle','slides')">Google Slides</button>
+            <button class="t-btn t-btn-blue" onclick="downloadFree('Quick Huddle','pptx')">PowerPoint</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 3 -->
+      <div class="t-card" data-tier="free" data-cat="Annual">
+        <div class="t-thumb" style="background:linear-gradient(135deg,#5a1fa8 0%,var(--purple) 100%);">
+          <div class="t-thumb-doc">
+            <div class="t-thumb-doc-header" style="background:white;width:65%;"></div>
+            <div class="t-thumb-doc-line w80" style="background:white;"></div>
+            <div class="t-thumb-doc-block" style="background:white;width:100%;"></div>
+            <div class="t-thumb-doc-line w70" style="background:white;"></div>
+            <div class="t-thumb-doc-line w50" style="background:white;"></div>
+            <div class="t-thumb-doc-line w90" style="background:white;"></div>
+          </div>
+        </div>
+        <div class="t-card-body">
+          <div class="t-card-top">
+            <div class="t-name">Annual Kickoff Meeting</div>
+            <span class="t-price-badge free">FREE</span>
+          </div>
+          <div class="t-desc">Includes officer intro section and year-ahead planning blocks.</div>
+          <span class="t-cat-badge" style="background:var(--purple-pale);color:var(--purple);">Annual</span>
+          <div class="t-actions">
+            <button class="t-btn t-btn-purple" onclick="downloadFree('Annual Kickoff Meeting','slides')">Google Slides</button>
+            <button class="t-btn t-btn-blue" onclick="downloadFree('Annual Kickoff Meeting','pptx')">PowerPoint</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 4 -->
+      <div class="t-card" data-tier="free" data-cat="Budget">
+        <div class="t-thumb" style="background:linear-gradient(135deg,#1a6b35 0%,var(--green) 100%);">
+          <div class="t-thumb-doc">
+            <div class="t-thumb-doc-header" style="background:white;width:50%;"></div>
+            <div class="t-thumb-doc-line w90" style="background:white;"></div>
+            <div class="t-thumb-doc-block" style="background:white;width:100%;"></div>
+            <div class="t-thumb-doc-line w80" style="background:white;"></div>
+            <div class="t-thumb-doc-line w60" style="background:white;"></div>
+            <div class="t-thumb-doc-block" style="background:white;width:100%;"></div>
+          </div>
+        </div>
+        <div class="t-card-body">
+          <div class="t-card-top">
+            <div class="t-name">Budget Review Meeting</div>
+            <span class="t-price-badge free">FREE</span>
+          </div>
+          <div class="t-desc">Structured with line items, approvals, and discussion prompts.</div>
+          <span class="t-cat-badge" style="background:var(--green-pale);color:var(--green);">Budget</span>
+          <div class="t-actions">
+            <button class="t-btn t-btn-purple" onclick="downloadFree('Budget Review Meeting','slides')">Google Slides</button>
+            <button class="t-btn t-btn-blue" onclick="downloadFree('Budget Review Meeting','pptx')">PowerPoint</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 5 -->
+      <div class="t-card" data-tier="free" data-cat="Special Event">
+        <div class="t-thumb" style="background:linear-gradient(135deg,#b55a10 0%,var(--orange) 100%);">
+          <div class="t-thumb-doc">
+            <div class="t-thumb-doc-header" style="background:white;width:60%;"></div>
+            <div class="t-thumb-doc-line w70" style="background:white;"></div>
+            <div class="t-thumb-doc-block" style="background:white;width:100%;"></div>
+            <div class="t-thumb-doc-line w80" style="background:white;"></div>
+            <div class="t-thumb-doc-line w50" style="background:white;"></div>
+          </div>
+        </div>
+        <div class="t-card-body">
+          <div class="t-card-top">
+            <div class="t-name">Volunteer Recruitment</div>
+            <span class="t-price-badge free">FREE</span>
+          </div>
+          <div class="t-desc">Built-in sign-up section and role descriptions for volunteers.</div>
+          <span class="t-cat-badge" style="background:var(--orange-pale);color:var(--orange);">Special Event</span>
+          <div class="t-actions">
+            <button class="t-btn t-btn-purple" onclick="downloadFree('Volunteer Recruitment','slides')">Google Slides</button>
+            <button class="t-btn t-btn-blue" onclick="downloadFree('Volunteer Recruitment','pptx')">PowerPoint</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 6 -->
+      <div class="t-card" data-tier="free" data-cat="Annual">
+        <div class="t-thumb" style="background:linear-gradient(135deg,#9a6d10 0%,var(--gold) 100%);">
+          <div class="t-thumb-doc">
+            <div class="t-thumb-doc-header" style="background:white;width:55%;"></div>
+            <div class="t-thumb-doc-line w90" style="background:white;"></div>
+            <div class="t-thumb-doc-block" style="background:white;width:100%;"></div>
+            <div class="t-thumb-doc-line w60" style="background:white;"></div>
+            <div class="t-thumb-doc-line w80" style="background:white;"></div>
+            <div class="t-thumb-doc-line w70" style="background:white;"></div>
+          </div>
+        </div>
+        <div class="t-card-body">
+          <div class="t-card-top">
+            <div class="t-name">End of Year Wrap-Up</div>
+            <span class="t-price-badge free">FREE</span>
+          </div>
+          <div class="t-desc">Includes awards section, highlight recap, and farewell notes.</div>
+          <span class="t-cat-badge" style="background:#FDF6E3;color:var(--gold);">Annual</span>
+          <div class="t-actions">
+            <button class="t-btn t-btn-purple" onclick="downloadFree('End of Year Wrap-Up','slides')">Google Slides</button>
+            <button class="t-btn t-btn-blue" onclick="downloadFree('End of Year Wrap-Up','pptx')">PowerPoint</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 7 -->
+      <div class="t-card" data-tier="free" data-cat="Special Event">
+        <div class="t-thumb" style="background:linear-gradient(135deg,#086b62 0%,var(--teal) 100%);">
+          <div class="t-thumb-doc">
+            <div class="t-thumb-doc-header" style="background:white;width:60%;"></div>
+            <div class="t-thumb-doc-line w80" style="background:white;"></div>
+            <div class="t-thumb-doc-block" style="background:white;width:100%;"></div>
+            <div class="t-thumb-doc-line w70" style="background:white;"></div>
+            <div class="t-thumb-doc-line w50" style="background:white;"></div>
+            <div class="t-thumb-doc-line w90" style="background:white;"></div>
+          </div>
+        </div>
+        <div class="t-card-body">
+          <div class="t-card-top">
+            <div class="t-name">Special Event Planning</div>
+            <span class="t-price-badge free">FREE</span>
+          </div>
+          <div class="t-desc">Timeline section, task owners, and deadline tracking built in.</div>
+          <span class="t-cat-badge" style="background:var(--teal-pale);color:var(--teal);">Special Event</span>
+          <div class="t-actions">
+            <button class="t-btn t-btn-purple" onclick="downloadFree('Special Event Planning','slides')">Google Slides</button>
+            <button class="t-btn t-btn-blue" onclick="downloadFree('Special Event Planning','pptx')">PowerPoint</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 8 -->
+      <div class="t-card" data-tier="free" data-cat="Monthly Meeting">
+        <div class="t-thumb" style="background:linear-gradient(135deg,#9b1a12 0%,var(--red) 100%);">
+          <div class="t-thumb-doc">
+            <div class="t-thumb-doc-header" style="background:white;width:50%;"></div>
+            <div class="t-thumb-doc-line w70" style="background:white;"></div>
+            <div class="t-thumb-doc-line w90" style="background:white;"></div>
+            <div class="t-thumb-doc-block" style="background:white;width:100%;"></div>
+            <div class="t-thumb-doc-line w60" style="background:white;"></div>
+          </div>
+        </div>
+        <div class="t-card-body">
+          <div class="t-card-top">
+            <div class="t-name">Emergency Meeting</div>
+            <span class="t-price-badge free">FREE</span>
+          </div>
+          <div class="t-desc">Urgent format with fast decision framework and action items.</div>
+          <span class="t-cat-badge" style="background:var(--red-pale);color:var(--red);">Monthly Meeting</span>
+          <div class="t-actions">
+            <button class="t-btn t-btn-purple" onclick="downloadFree('Emergency Meeting','slides')">Google Slides</button>
+            <button class="t-btn t-btn-blue" onclick="downloadFree('Emergency Meeting','pptx')">PowerPoint</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── PREMIUM TEMPLATES (9–25) ── -->
+
+      <!-- 9 -->
+      <div class="t-card" data-tier="premium" data-cat="Monthly Meeting">
+        <div class="t-thumb" style="background:linear-gradient(135deg,#040e26 0%,#1C2F5E 100%);">
+          <div class="t-thumb-doc">
+            <div class="t-thumb-doc-header" style="background:white;width:55%;"></div>
+            <div class="t-thumb-doc-line w80" style="background:white;"></div>
+            <div class="t-thumb-doc-block" style="background:white;width:100%;"></div>
+            <div class="t-thumb-doc-line w60" style="background:white;"></div>
+            <div class="t-thumb-doc-line w70" style="background:white;"></div>
+            <div class="t-thumb-doc-block" style="background:white;width:100%;"></div>
+          </div>
+        </div>
+        <div class="t-card-body">
+          <div class="t-card-top">
+            <div class="t-name">Executive Board Meeting</div>
+            <span class="t-price-badge premium">$2.99</span>
+          </div>
+          <div class="t-desc">Formal navy layout with parliamentary procedure sections.</div>
+          <span class="t-cat-badge" style="background:var(--blue-pale);color:var(--navy);">Monthly Meeting</span>
+          <div class="t-actions">
+            <button class="t-btn t-btn-purple" onclick="openPremiumModal('Executive Board Meeting')">Google Slides</button>
+            <button class="t-btn t-btn-blue" onclick="openPremiumModal('Executive Board Meeting')">PowerPoint</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 10 -->
+      <div class="t-card" data-tier="premium" data-cat="Special Event">
+        <div class="t-thumb" style="background:linear-gradient(135deg,#c2185b 0%,#FF2D87 50%,#C084FC 100%);">
+          <div class="t-thumb-doc">
+            <div class="t-thumb-doc-header" style="background:white;width:60%;"></div>
+            <div class="t-thumb-doc-line w80" style="background:white;"></div>
+            <div class="t-thumb-doc-block" style="background:white;width:100%;"></div>
+            <div class="t-thumb-doc-line w70" style="background:white;"></div>
+            <div class="t-thumb-doc-line w50" style="background:white;"></div>
+          </div>
+        </div>
+        <div class="t-card-body">
+          <div class="t-card-top">
+            <div class="t-name">Fundraiser Planning Session</div>
+            <span class="t-price-badge premium">$2.99</span>
+          </div>
+          <div class="t-desc">Goal-setting, sponsor outreach, and campaign milestone tracker.</div>
+          <span class="t-cat-badge" style="background:var(--pink-pale);color:var(--pink);">Special Event</span>
+          <div class="t-actions">
+            <button class="t-btn t-btn-purple" onclick="openPremiumModal('Fundraiser Planning Session')">Google Slides</button>
+            <button class="t-btn t-btn-blue" onclick="openPremiumModal('Fundraiser Planning Session')">PowerPoint</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 11 -->
+      <div class="t-card" data-tier="premium" data-cat="Election">
+        <div class="t-thumb" style="background:linear-gradient(135deg,#5a1fa8 0%,#9d6bde 100%);">
+          <div class="t-thumb-doc">
+            <div class="t-thumb-doc-header" style="background:white;width:50%;"></div>
+            <div class="t-thumb-doc-line w70" style="background:white;"></div>
+            <div class="t-thumb-doc-block" style="background:white;width:100%;"></div>
+            <div class="t-thumb-doc-line w90" style="background:white;"></div>
+            <div class="t-thumb-doc-block" style="background:white;width:100%;"></div>
+            <div class="t-thumb-doc-line w60" style="background:white;"></div>
+          </div>
+        </div>
+        <div class="t-card-body">
+          <div class="t-card-top">
+            <div class="t-name">Election &amp; Voting Meeting</div>
+            <span class="t-price-badge premium">$2.99</span>
+          </div>
+          <div class="t-desc">Candidate intro, ballot section, and result announcement slides.</div>
+          <span class="t-cat-badge" style="background:var(--purple-pale);color:var(--purple);">Election</span>
+          <div class="t-actions">
+            <button class="t-btn t-btn-purple" onclick="openPremiumModal('Election &amp; Voting Meeting')">Google Slides</button>
+            <button class="t-btn t-btn-blue" onclick="openPremiumModal('Election &amp; Voting Meeting')">PowerPoint</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 12 -->
+      <div class="t-card" data-tier="premium" data-cat="Special Event">
+        <div class="t-thumb" style="background:linear-gradient(135deg,#9a6d10 0%,#F5D78E 50%,#FF85C2 100%);">
+          <div class="t-thumb-doc">
+            <div class="t-thumb-doc-header" style="background:white;width:65%;"></div>
+            <div class="t-thumb-doc-line w80" style="background:white;"></div>
+            <div class="t-thumb-doc-block" style="background:white;width:100%;"></div>
+            <div class="t-thumb-doc-line w60" style="background:white;"></div>
+            <div class="t-thumb-doc-line w70" style="background:white;"></div>
+          </div>
+        </div>
+        <div class="t-card-body">
+          <div class="t-card-top">
+            <div class="t-name">Spring Gala Planning</div>
+            <span class="t-price-badge premium">$2.99</span>
+          </div>
+          <div class="t-desc">Elegant gold/pink theme with vendor, decor, and program slides.</div>
+          <span class="t-cat-badge" style="background:#FDF6E3;color:var(--gold);">Special Event</span>
+          <div class="t-actions">
+            <button class="t-btn t-btn-purple" onclick="openPremiumModal('Spring Gala Planning')">Google Slides</button>
+            <button class="t-btn t-btn-blue" onclick="openPremiumModal('Spring Gala Planning')">PowerPoint</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 13 -->
+      <div class="t-card" data-tier="premium" data-cat="Special Event">
+        <div class="t-thumb" style="background:linear-gradient(135deg,#1a4fa8 0%,#086b62 100%);">
+          <div class="t-thumb-doc">
+            <div class="t-thumb-doc-header" style="background:white;width:55%;"></div>
+            <div class="t-thumb-doc-line w80" style="background:white;"></div>
+            <div class="t-thumb-doc-block" style="background:white;width:100%;"></div>
+            <div class="t-thumb-doc-line w70" style="background:white;"></div>
+            <div class="t-thumb-doc-line w50" style="background:white;"></div>
+            <div class="t-thumb-doc-line w90" style="background:white;"></div>
+          </div>
+        </div>
+        <div class="t-card-body">
+          <div class="t-card-top">
+            <div class="t-name">Back to School Night Prep</div>
+            <span class="t-price-badge premium">$2.99</span>
+          </div>
+          <div class="t-desc">Welcome flow, table assignments, and Q&amp;A planning sections.</div>
+          <span class="t-cat-badge" style="background:var(--teal-pale);color:var(--teal);">Special Event</span>
+          <div class="t-actions">
+            <button class="t-btn t-btn-purple" onclick="openPremiumModal('Back to School Night Prep')">Google Slides</button>
+            <button class="t-btn t-btn-blue" onclick="openPremiumModal('Back to School Night Prep')">PowerPoint</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 14 -->
+      <div class="t-card" data-tier="premium" data-cat="Special Event">
+        <div class="t-thumb" style="background:linear-gradient(135deg,#c2185b 0%,#F07A1A 33%,#f7c200 66%,#2E7BC4 100%);">
+          <div class="t-thumb-doc">
+            <div class="t-thumb-doc-header" style="background:white;width:55%;"></div>
+            <div class="t-thumb-doc-line w80" style="background:white;"></div>
+            <div class="t-thumb-doc-block" style="background:white;width:100%;"></div>
+            <div class="t-thumb-doc-line w60" style="background:white;"></div>
+            <div class="t-thumb-doc-line w70" style="background:white;"></div>
+          </div>
+        </div>
+        <div class="t-card-body">
+          <div class="t-card-top">
+            <div class="t-name">Carnival Planning Committee</div>
+            <span class="t-price-badge premium">$2.99</span>
+          </div>
+          <div class="t-desc">Booth assignments, game roster, and vendor coordination slides.</div>
+          <span class="t-cat-badge" style="background:var(--orange-pale);color:var(--orange);">Special Event</span>
+          <div class="t-actions">
+            <button class="t-btn t-btn-purple" onclick="openPremiumModal('Carnival Planning Committee')">Google Slides</button>
+            <button class="t-btn t-btn-blue" onclick="openPremiumModal('Carnival Planning Committee')">PowerPoint</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 15 -->
+      <div class="t-card" data-tier="premium" data-cat="Special Event">
+        <div class="t-thumb" style="background:linear-gradient(135deg,#b55a10 0%,#D93025 100%);">
+          <div class="t-thumb-doc">
+            <div class="t-thumb-doc-header" style="background:white;width:50%;"></div>
+            <div class="t-thumb-doc-line w70" style="background:white;"></div>
+            <div class="t-thumb-doc-block" style="background:white;width:100%;"></div>
+            <div class="t-thumb-doc-line w90" style="background:white;"></div>
+            <div class="t-thumb-doc-line w60" style="background:white;"></div>
+          </div>
+        </div>
+        <div class="t-card-body">
+          <div class="t-card-top">
+            <div class="t-name">Fun Run Kickoff</div>
+            <span class="t-price-badge premium">$2.99</span>
+          </div>
+          <div class="t-desc">Energetic layout with pledge goals, sponsor tiers, and route map.</div>
+          <span class="t-cat-badge" style="background:var(--red-pale);color:var(--red);">Special Event</span>
+          <div class="t-actions">
+            <button class="t-btn t-btn-purple" onclick="openPremiumModal('Fun Run Kickoff')">Google Slides</button>
+            <button class="t-btn t-btn-blue" onclick="openPremiumModal('Fun Run Kickoff')">PowerPoint</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 16 -->
+      <div class="t-card" data-tier="premium" data-cat="Special Event">
+        <div class="t-thumb" style="background:linear-gradient(135deg,#086b62 0%,#1a9090 100%);">
+          <div class="t-thumb-doc">
+            <div class="t-thumb-doc-header" style="background:white;width:60%;"></div>
+            <div class="t-thumb-doc-line w80" style="background:white;"></div>
+            <div class="t-thumb-doc-block" style="background:white;width:100%;"></div>
+            <div class="t-thumb-doc-line w70" style="background:white;"></div>
+            <div class="t-thumb-doc-line w50" style="background:white;"></div>
+            <div class="t-thumb-doc-line w90" style="background:white;"></div>
+          </div>
+        </div>
+        <div class="t-card-body">
+          <div class="t-card-top">
+            <div class="t-name">Book Fair Planning</div>
+            <span class="t-price-badge premium">$2.99</span>
+          </div>
+          <div class="t-desc">Scholastic-ready layout with scheduling, staffing, and goals.</div>
+          <span class="t-cat-badge" style="background:var(--teal-pale);color:var(--teal);">Special Event</span>
+          <div class="t-actions">
+            <button class="t-btn t-btn-purple" onclick="openPremiumModal('Book Fair Planning')">Google Slides</button>
+            <button class="t-btn t-btn-blue" onclick="openPremiumModal('Book Fair Planning')">PowerPoint</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 17 -->
+      <div class="t-card" data-tier="premium" data-cat="Special Event">
+        <div class="t-thumb" style="background:linear-gradient(135deg,#9b1a12 0%,#1a6b35 100%);">
+          <div class="t-thumb-doc">
+            <div class="t-thumb-doc-header" style="background:white;width:55%;"></div>
+            <div class="t-thumb-doc-line w80" style="background:white;"></div>
+            <div class="t-thumb-doc-block" style="background:white;width:100%;"></div>
+            <div class="t-thumb-doc-line w60" style="background:white;"></div>
+            <div class="t-thumb-doc-line w70" style="background:white;"></div>
+          </div>
+        </div>
+        <div class="t-card-body">
+          <div class="t-card-top">
+            <div class="t-name">Holiday Party Planning</div>
+            <span class="t-price-badge premium">$2.99</span>
+          </div>
+          <div class="t-desc">Festive red/green theme with activity roster and snack sign-ups.</div>
+          <span class="t-cat-badge" style="background:var(--green-pale);color:var(--green);">Special Event</span>
+          <div class="t-actions">
+            <button class="t-btn t-btn-purple" onclick="openPremiumModal('Holiday Party Planning')">Google Slides</button>
+            <button class="t-btn t-btn-blue" onclick="openPremiumModal('Holiday Party Planning')">PowerPoint</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 18 -->
+      <div class="t-card" data-tier="premium" data-cat="Special Event">
+        <div class="t-thumb" style="background:linear-gradient(135deg,#e06090 0%,#ffb6c8 100%);">
+          <div class="t-thumb-doc">
+            <div class="t-thumb-doc-header" style="background:white;width:60%;"></div>
+            <div class="t-thumb-doc-line w80" style="background:white;"></div>
+            <div class="t-thumb-doc-block" style="background:white;width:100%;"></div>
+            <div class="t-thumb-doc-line w70" style="background:white;"></div>
+            <div class="t-thumb-doc-line w50" style="background:white;"></div>
+          </div>
+        </div>
+        <div class="t-card-body">
+          <div class="t-card-top">
+            <div class="t-name">Teacher Appreciation Week</div>
+            <span class="t-price-badge premium">$2.99</span>
+          </div>
+          <div class="t-desc">Warm layout with daily event schedule and staff gift coordination.</div>
+          <span class="t-cat-badge" style="background:var(--pink-pale);color:var(--pink);">Special Event</span>
+          <div class="t-actions">
+            <button class="t-btn t-btn-purple" onclick="openPremiumModal('Teacher Appreciation Week')">Google Slides</button>
+            <button class="t-btn t-btn-blue" onclick="openPremiumModal('Teacher Appreciation Week')">PowerPoint</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 19 -->
+      <div class="t-card" data-tier="premium" data-cat="Budget">
+        <div class="t-thumb" style="background:linear-gradient(135deg,#040e26 0%,#2E7BC4 100%);">
+          <div class="t-thumb-doc">
+            <div class="t-thumb-doc-header" style="background:white;width:55%;"></div>
+            <div class="t-thumb-doc-line w90" style="background:white;"></div>
+            <div class="t-thumb-doc-block" style="background:white;width:100%;"></div>
+            <div class="t-thumb-doc-line w70" style="background:white;"></div>
+            <div class="t-thumb-doc-line w80" style="background:white;"></div>
+            <div class="t-thumb-doc-block" style="background:white;width:100%;"></div>
+          </div>
+        </div>
+        <div class="t-card-body">
+          <div class="t-card-top">
+            <div class="t-name">Grant &amp; Donation Review</div>
+            <span class="t-price-badge premium">$2.99</span>
+          </div>
+          <div class="t-desc">Professional format for grant tracking and donation reporting.</div>
+          <span class="t-cat-badge" style="background:var(--blue-pale);color:var(--blue);">Budget</span>
+          <div class="t-actions">
+            <button class="t-btn t-btn-purple" onclick="openPremiumModal('Grant &amp; Donation Review')">Google Slides</button>
+            <button class="t-btn t-btn-blue" onclick="openPremiumModal('Grant &amp; Donation Review')">PowerPoint</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 20 -->
+      <div class="t-card" data-tier="premium" data-cat="Monthly Meeting">
+        <div class="t-thumb" style="background:linear-gradient(135deg,#5a1fa8 0%,#1a4fa8 100%);">
+          <div class="t-thumb-doc">
+            <div class="t-thumb-doc-header" style="background:white;width:60%;"></div>
+            <div class="t-thumb-doc-line w70" style="background:white;"></div>
+            <div class="t-thumb-doc-block" style="background:white;width:100%;"></div>
+            <div class="t-thumb-doc-line w80" style="background:white;"></div>
+            <div class="t-thumb-doc-line w50" style="background:white;"></div>
+          </div>
+        </div>
+        <div class="t-card-body">
+          <div class="t-card-top">
+            <div class="t-name">Community Outreach Meeting</div>
+            <span class="t-price-badge premium">$2.99</span>
+          </div>
+          <div class="t-desc">Partnership goals, outreach tracking, and community action items.</div>
+          <span class="t-cat-badge" style="background:var(--purple-pale);color:var(--purple);">Monthly Meeting</span>
+          <div class="t-actions">
+            <button class="t-btn t-btn-purple" onclick="openPremiumModal('Community Outreach Meeting')">Google Slides</button>
+            <button class="t-btn t-btn-blue" onclick="openPremiumModal('Community Outreach Meeting')">PowerPoint</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 21 -->
+      <div class="t-card" data-tier="premium" data-cat="Monthly Meeting">
+        <div class="t-thumb" style="background:linear-gradient(135deg,#1a6b35 0%,#2ba84a 100%);">
+          <div class="t-thumb-doc">
+            <div class="t-thumb-doc-header" style="background:white;width:55%;"></div>
+            <div class="t-thumb-doc-line w80" style="background:white;"></div>
+            <div class="t-thumb-doc-block" style="background:white;width:100%;"></div>
+            <div class="t-thumb-doc-line w60" style="background:white;"></div>
+            <div class="t-thumb-doc-line w90" style="background:white;"></div>
+          </div>
+        </div>
+        <div class="t-card-body">
+          <div class="t-card-top">
+            <div class="t-name">New Member Welcome Meeting</div>
+            <span class="t-price-badge premium">$2.99</span>
+          </div>
+          <div class="t-desc">Friendly green layout with org overview and involvement paths.</div>
+          <span class="t-cat-badge" style="background:var(--green-pale);color:var(--green);">Monthly Meeting</span>
+          <div class="t-actions">
+            <button class="t-btn t-btn-purple" onclick="openPremiumModal('New Member Welcome Meeting')">Google Slides</button>
+            <button class="t-btn t-btn-blue" onclick="openPremiumModal('New Member Welcome Meeting')">PowerPoint</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 22 -->
+      <div class="t-card" data-tier="premium" data-cat="Annual">
+        <div class="t-thumb" style="background:linear-gradient(135deg,#111827 0%,#1C2F5E 100%);">
+          <div class="t-thumb-doc">
+            <div class="t-thumb-doc-header" style="background:white;width:65%;"></div>
+            <div class="t-thumb-doc-line w80" style="background:white;"></div>
+            <div class="t-thumb-doc-block" style="background:white;width:100%;"></div>
+            <div class="t-thumb-doc-line w70" style="background:white;"></div>
+            <div class="t-thumb-doc-line w50" style="background:white;"></div>
+            <div class="t-thumb-doc-block" style="background:white;width:100%;"></div>
+          </div>
+        </div>
+        <div class="t-card-body">
+          <div class="t-card-top">
+            <div class="t-name">Strategic Planning Session</div>
+            <span class="t-price-badge premium">$2.99</span>
+          </div>
+          <div class="t-desc">Dark professional layout for goal-setting and multi-year planning.</div>
+          <span class="t-cat-badge" style="background:var(--blue-pale);color:var(--navy);">Annual</span>
+          <div class="t-actions">
+            <button class="t-btn t-btn-purple" onclick="openPremiumModal('Strategic Planning Session')">Google Slides</button>
+            <button class="t-btn t-btn-blue" onclick="openPremiumModal('Strategic Planning Session')">PowerPoint</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 23 -->
+      <div class="t-card" data-tier="premium" data-cat="Monthly Meeting">
+        <div class="t-thumb" style="background:linear-gradient(135deg,#c2185b 0%,#5a1fa8 50%,#1a4fa8 100%);">
+          <div class="t-thumb-doc">
+            <div class="t-thumb-doc-header" style="background:white;width:55%;"></div>
+            <div class="t-thumb-doc-line w80" style="background:white;"></div>
+            <div class="t-thumb-doc-block" style="background:white;width:100%;"></div>
+            <div class="t-thumb-doc-line w60" style="background:white;"></div>
+            <div class="t-thumb-doc-line w70" style="background:white;"></div>
+          </div>
+        </div>
+        <div class="t-card-body">
+          <div class="t-card-top">
+            <div class="t-name">Multi-School Collaboration</div>
+            <span class="t-price-badge premium">$2.99</span>
+          </div>
+          <div class="t-desc">Multi-org format with shared agenda and cross-school action items.</div>
+          <span class="t-cat-badge" style="background:var(--purple-pale);color:var(--purple);">Monthly Meeting</span>
+          <div class="t-actions">
+            <button class="t-btn t-btn-purple" onclick="openPremiumModal('Multi-School Collaboration')">Google Slides</button>
+            <button class="t-btn t-btn-blue" onclick="openPremiumModal('Multi-School Collaboration')">PowerPoint</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 24 -->
+      <div class="t-card" data-tier="premium" data-cat="Annual">
+        <div class="t-thumb" style="background:linear-gradient(135deg,#7a5200 0%,var(--gold) 100%);">
+          <div class="t-thumb-doc">
+            <div class="t-thumb-doc-header" style="background:white;width:65%;"></div>
+            <div class="t-thumb-doc-line w90" style="background:white;"></div>
+            <div class="t-thumb-doc-block" style="background:white;width:100%;"></div>
+            <div class="t-thumb-doc-line w70" style="background:white;"></div>
+            <div class="t-thumb-doc-line w60" style="background:white;"></div>
+            <div class="t-thumb-doc-line w80" style="background:white;"></div>
+          </div>
+        </div>
+        <div class="t-card-body">
+          <div class="t-card-top">
+            <div class="t-name">District PTA Joint Meeting</div>
+            <span class="t-price-badge premium">$2.99</span>
+          </div>
+          <div class="t-desc">Formal gold layout for district-level joint board proceedings.</div>
+          <span class="t-cat-badge" style="background:#FDF6E3;color:var(--gold);">Annual</span>
+          <div class="t-actions">
+            <button class="t-btn t-btn-purple" onclick="openPremiumModal('District PTA Joint Meeting')">Google Slides</button>
+            <button class="t-btn t-btn-blue" onclick="openPremiumModal('District PTA Joint Meeting')">PowerPoint</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 25 -->
+      <div class="t-card" data-tier="premium" data-cat="Budget">
+        <div class="t-thumb" style="background:linear-gradient(135deg,#145a25 0%,#2BA84A 100%);">
+          <div class="t-thumb-doc">
+            <div class="t-thumb-doc-header" style="background:white;width:55%;"></div>
+            <div class="t-thumb-doc-line w90" style="background:white;"></div>
+            <div class="t-thumb-doc-block" style="background:white;width:100%;"></div>
+            <div class="t-thumb-doc-line w80" style="background:white;"></div>
+            <div class="t-thumb-doc-block" style="background:white;width:100%;"></div>
+            <div class="t-thumb-doc-line w70" style="background:white;"></div>
+          </div>
+        </div>
+        <div class="t-card-body">
+          <div class="t-card-top">
+            <div class="t-name">Year-End Financial Report</div>
+            <span class="t-price-badge premium">$2.99</span>
+          </div>
+          <div class="t-desc">Accounting-ready layout with income, expenses, and surplus sections.</div>
+          <span class="t-cat-badge" style="background:var(--green-pale);color:var(--green);">Budget</span>
+          <div class="t-actions">
+            <button class="t-btn t-btn-purple" onclick="openPremiumModal('Year-End Financial Report')">Google Slides</button>
+            <button class="t-btn t-btn-blue" onclick="openPremiumModal('Year-End Financial Report')">PowerPoint</button>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /templates-grid -->
+  </div>
+</section>
+
+<div class="gold-divider"></div>
+
+<!-- FOOTER -->
+<footer>
+  <img src="logo.png" alt="The PTA/PTO Shoppe" class="f-logo">
+  <div class="f-copy">© 2026 The PTA/PTO Shoppe. All rights reserved.</div>
+  <div class="f-links">
+    <a href="#">Privacy</a>
+    <a href="#">Terms</a>
+    <a href="contact.html">Contact</a>
+  </div>
+</footer>
+
+<!-- PREMIUM UPGRADE MODAL -->
+<div class="modal-overlay" id="premiumModal" onclick="closePremiumModal(event)">
+  <div class="modal-box">
+    <button class="modal-close" onclick="document.getElementById('premiumModal').classList.remove('open')">✕</button>
+    <span class="modal-icon">⭐</span>
+    <div class="modal-eyebrow">Premium Template</div>
+    <h3 id="modalTemplateName">Premium Template</h3>
+    <p>This template is available with the Pro Board plan or as a one-time purchase. Unlock all 17 premium templates with Pro Board.</p>
+    <div class="modal-actions">
+      <a href="checkout.html?plan=pro" class="modal-btn-primary">Get Pro Board ($35/mo) →</a>
+      <a href="checkout.html" class="modal-btn-secondary">Buy This Template ($2.99)</a>
+    </div>
+    <p class="modal-note">Instant download after purchase. Works in Google Slides and PowerPoint.</p>
+  </div>
+</div>
+
+<script>
+/* ── FILTER LOGIC ── */
+const filterBtns = document.querySelectorAll('.filter-btn');
+const cards = document.querySelectorAll('.t-card');
+
+filterBtns.forEach(btn => {
+  btn.addEventListener('click', function() {
+    filterBtns.forEach(b => b.classList.remove('active'));
+    this.classList.add('active');
+    const filter = this.dataset.filter;
+
+    cards.forEach(card => {
+      if (filter === 'all') {
+        card.classList.remove('hidden');
+      } else if (filter === 'free') {
+        card.classList.toggle('hidden', card.dataset.tier !== 'free');
+      } else if (filter === 'premium') {
+        card.classList.toggle('hidden', card.dataset.tier !== 'premium');
+      } else {
+        card.classList.toggle('hidden', card.dataset.cat !== filter);
+      }
+    });
+  });
+});
+
+/* ── FREE TEMPLATE DOWNLOAD ── */
+function downloadFree(name, format) {
+  const ext = format === 'slides' ? 'gslides' : 'pptx';
+  const label = format === 'slides' ? 'Google Slides' : 'PowerPoint';
+
+  if (format === 'pptx') {
+    // Generate a minimal stub PPTX (ZIP-based stub)
+    // We create a tiny text file disguised as a placeholder
+    const content = `PTA/PTO Shoppe — ${name}\nThis is a stub template file.\nFor the full template, visit theptashoppe.com.\n\n[Agenda Template: ${name}]\n\n1. Call to Order\n2. Approval of Minutes\n3. Treasurer's Report\n4. Committee Reports\n5. Old Business\n6. New Business\n7. Open Forum\n8. Adjournment`;
+    const blob = new Blob([content], { type: 'application/vnd.openxmlformats-officedocument.presentationml.presentation' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = name.replace(/[^a-z0-9]/gi, '-').toLowerCase() + '.pptx';
+    a.click();
+    URL.revokeObjectURL(url);
+  } else {
+    // Google Slides: open a pre-made Google Slides template (placeholder link)
+    // In production this would be a real shareable Google Slides URL
+    const stubContent = `PTA/PTO Shoppe — ${name}\nGoogle Slides Template\n\nVisit theptashoppe.com to access the full template library.`;
+    const blob = new Blob([stubContent], { type: 'text/plain' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = name.replace(/[^a-z0-9]/gi, '-').toLowerCase() + '-google-slides.txt';
+    a.click();
+    URL.revokeObjectURL(url);
+  }
+}
+
+/* ── PREMIUM MODAL ── */
+function openPremiumModal(templateName) {
+  document.getElementById('modalTemplateName').textContent = templateName;
+  document.getElementById('premiumModal').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closePremiumModal(e) {
+  if (e.target === document.getElementById('premiumModal')) {
+    document.getElementById('premiumModal').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+}
+
+// Close modal on close button (already handled inline), restore scroll on any close
+document.querySelector('.modal-close').addEventListener('click', function() {
+  document.body.style.overflow = '';
+});
+</script>
+</body>
+</html>

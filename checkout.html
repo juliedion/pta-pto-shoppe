@@ -2,31 +2,29 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+<link rel="icon" type="image/x-icon" href="favicon.ico">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+<link rel="apple-touch-icon" sizes="192x192" href="favicon-192.png">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Get Started — The PTA/PTO Shoppe</title>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,400&display=swap" rel="stylesheet">
 
 <!-- ═══════════════════════════════════════════════════════════════
-     LEMON SQUEEZY SETUP
-     Replace the 3 URLs below with your actual checkout URLs from
-     your Lemon Squeezy dashboard (Products → click product → copy
-     the "Checkout URL").
-     Format: https://yourstore.lemonsqueezy.com/buy/xxxxxxxx
+     STRIPE PAYMENT LINKS SETUP
+     1. Go to stripe.com → Dashboard → Payment Links → Create a link
+        for each plan (Starter and Pro Board).
+     2. Replace the placeholder URLs below with your real links.
+        Format: https://buy.stripe.com/xxxxxxxxxxxxxxxx
      ═══════════════════════════════════════════════════════════════ -->
 <script>
-  window.LS_URLS = {
-    starter:  'https://YOUR-STORE.lemonsqueezy.com/buy/STARTER-VARIANT-ID',
-    pro:      'https://YOUR-STORE.lemonsqueezy.com/buy/PRO-VARIANT-ID',
-    district: 'https://YOUR-STORE.lemonsqueezy.com/buy/DISTRICT-VARIANT-ID',
-    // Annual variants (optional — add when ready)
-    starter_annual:  'https://YOUR-STORE.lemonsqueezy.com/buy/STARTER-ANNUAL-ID',
-    pro_annual:      'https://YOUR-STORE.lemonsqueezy.com/buy/PRO-ANNUAL-ID',
-    district_annual: 'https://YOUR-STORE.lemonsqueezy.com/buy/DISTRICT-ANNUAL-ID',
+  window.STRIPE_URLS = {
+    starter:  'https://buy.stripe.com/cNifZifpCeyY0Cd4uq4c800',
+    pro:      'https://buy.stripe.com/6oUdRa3GUbmMbgR2mi4c801',
+    // Annual variants — add when ready
+    starter_annual:  'https://buy.stripe.com/00wbJ22CQ0I84Stgd84c803',
+    pro_annual:      'https://buy.stripe.com/5kQ6oI2CQgH60Cd7GC4c805',
   };
 </script>
-
-<!-- Lemon Squeezy JS — enables the overlay checkout popup -->
-<script src="https://app.lemonsqueezy.com/js/lemon.js" defer></script>
 
 <style>
 :root{--navy:#0D1B3E;--navy-mid:#142248;--pink:#E8357A;--pink-bright:#FF2D87;--pink-pale:#FFF0F7;--purple:#7B3FB5;--purple-pale:#F5EEFF;--blue:#2E7BC4;--blue-pale:#EAF4FF;--green:#2BA84A;--green-bright:#00C853;--green-pale:#EDFFF4;--gold:#C9943A;--gold-light:#F5D78E;--off-white:#F8F9FF;--light-bg:#F2F4FB;}
@@ -35,9 +33,9 @@ html{scroll-behavior:smooth;}
 body{font-family:'Poppins',sans-serif;background:var(--light-bg);color:var(--navy);overflow-x:hidden;}
 
 /* NAV */
-.checkout-nav{background:var(--navy);padding:0 48px;height:64px;display:flex;align-items:center;justify-content:space-between;border-bottom:3px solid transparent;border-image:linear-gradient(90deg,var(--pink),var(--purple),var(--blue),var(--green)) 1;}
-.checkout-nav-logo img{height:40px;width:auto;}
-.checkout-nav-secure{display:flex;align-items:center;gap:6px;font-size:12px;font-weight:600;color:rgba(255,255,255,0.5);}
+.checkout-nav{background:var(--navy);padding:0 48px;height:120px;display:flex;align-items:center;justify-content:space-between;border-bottom:3px solid transparent;border-image:linear-gradient(90deg,var(--pink),var(--purple),var(--blue),var(--green)) 1;}
+.checkout-nav-logo img{height:150px;width:auto;}
+.checkout-nav-links{display:flex;align-items:center;gap:28px;}.checkout-nav-links a{font-size:16px;font-weight:700;color:rgba(255,255,255,0.88);text-decoration:none;transition:color 0.2s;letter-spacing:0.3px;}.checkout-nav-links a:hover{color:#F5D78E;}.checkout-nav-secure{display:flex;align-items:center;gap:6px;font-size:12px;font-weight:600;color:rgba(255,255,255,0.5);}
 .gold-divider{height:3px;background:linear-gradient(90deg,var(--pink),var(--purple),var(--blue),var(--green),#F07A1A,var(--pink));background-size:200% 100%;animation:shimmer 3s linear infinite;}
 @keyframes shimmer{0%{background-position:0%}100%{background-position:200%}}
 
@@ -134,7 +132,7 @@ body{font-family:'Poppins',sans-serif;background:var(--light-bg);color:var(--nav
 .setup-banner code{background:rgba(13,27,62,0.07);border-radius:4px;padding:1px 6px;font-size:11px;font-family:monospace;}
 
 @media(max-width:900px){
-  .checkout-nav{padding:0 20px;}
+  .checkout-nav{padding:0 20px;}.checkout-nav-links{display:none;}
   .steps-bar{padding:16px 20px;overflow-x:auto;}
   .checkout-main{grid-template-columns:1fr;padding:24px 16px;}
   .order-summary{position:static;}
@@ -146,8 +144,8 @@ body{font-family:'Poppins',sans-serif;background:var(--light-bg);color:var(--nav
 <body>
 
 <div class="checkout-nav">
-  <a href="pta-shoppe-landing.html"><img src="logo.png" alt="The PTA/PTO Shoppe" style="height:40px;"></a>
-  <div class="checkout-nav-secure">🔒 <span style="color:var(--green-bright);">Secure Checkout · Lemon Squeezy</span></div>
+  <a href="index.html"><img src="logo.png" alt="The PTA/PTO Shoppe" style="height:150px;"></a>
+  <div class="checkout-nav-links"><a href="index.html#tools">Tools</a><a href="index.html#pricing">Pricing</a><a href="reviews.html">Reviews</a><a href="contact.html">Contact</a></div><div class="checkout-nav-secure">🔒 <span style="color:var(--green-bright);">Secure Checkout · Stripe</span></div>
 </div>
 <div class="gold-divider"></div>
 
@@ -170,8 +168,8 @@ body{font-family:'Poppins',sans-serif;background:var(--light-bg);color:var(--nav
     <div class="setup-banner" id="setupBanner" style="display:none;">
       <div class="setup-banner-icon">⚠️</div>
       <div>
-        <h4>Almost there — add your Lemon Squeezy URLs</h4>
-        <p>Open <code>checkout.html</code>, find <code>window.LS_URLS</code> at the top, and replace the placeholder URLs with your actual Lemon Squeezy checkout links. Takes 2 minutes.</p>
+        <h4>Almost there — add your Stripe Payment Links</h4>
+        <p>Open <code>checkout.html</code>, find <code>window.STRIPE_URLS</code> at the top, and replace the placeholder URLs with your actual Stripe Payment Links. Takes 2 minutes.</p>
       </div>
     </div>
 
@@ -192,12 +190,12 @@ body{font-family:'Poppins',sans-serif;background:var(--light-bg);color:var(--nav
         <div class="plan-radio"></div>
         <div class="plan-body">
           <div class="plan-name-row"><span class="plan-name">Starter</span></div>
-          <div class="plan-desc">10 AI generations/mo · Core tools · 50 directory entries</div>
+          <div class="plan-desc">10 AI generations/mo · Core tools</div>
         </div>
         <div class="plan-price-col">
-          <div class="plan-price" id="price-starter">$19</div>
+          <div class="plan-price" id="price-starter">$25</div>
           <div class="plan-price-sub">/month</div>
-          <div class="plan-savings" id="save-starter" style="display:none;">$49 off — $179/yr</div>
+          <div class="plan-savings" id="save-starter" style="display:none;">$51 off — $249/yr</div>
         </div>
       </div>
 
@@ -211,22 +209,9 @@ body{font-family:'Poppins',sans-serif;background:var(--light-bg);color:var(--nav
           <div class="plan-desc">Unlimited generations · All 11 tools · Full directory</div>
         </div>
         <div class="plan-price-col">
-          <div class="plan-price" id="price-pro">$24</div>
+          <div class="plan-price" id="price-pro">$35</div>
           <div class="plan-price-sub">/month</div>
-          <div class="plan-savings" id="save-pro" style="display:none;">$89 off — $199/yr</div>
-        </div>
-      </div>
-
-      <div class="plan-option" id="plan-district" onclick="selectPlan('district')">
-        <div class="plan-radio"></div>
-        <div class="plan-body">
-          <div class="plan-name-row"><span class="plan-name">District</span></div>
-          <div class="plan-desc">Up to 10 schools · Admin dashboard · Priority support</div>
-        </div>
-        <div class="plan-price-col">
-          <div class="plan-price" id="price-district">$69</div>
-          <div class="plan-price-sub">/month</div>
-          <div class="plan-savings" id="save-district" style="display:none;">$229 off — $599/yr</div>
+          <div class="plan-savings" id="save-pro" style="display:none;">$71 off — $349/yr</div>
         </div>
       </div>
     </div>
@@ -238,7 +223,7 @@ body{font-family:'Poppins',sans-serif;background:var(--light-bg);color:var(--nav
 
       <div class="lsq-note">
         <div class="lsq-note-icon">🛡️</div>
-        <div>Your card and payment info are handled entirely by <strong>Lemon Squeezy</strong> — a secure, PCI-compliant payment processor. We never see or store your card details.</div>
+        <div>Your card and payment info are handled entirely by <strong>Stripe</strong> — a secure, PCI-compliant payment processor trusted by millions of businesses. We never see or store your card details.</div>
       </div>
 
       <div class="form-row-2">
@@ -264,7 +249,7 @@ body{font-family:'Poppins',sans-serif;background:var(--light-bg);color:var(--nav
         🔒 Continue to Payment →
       </button>
       <p class="checkout-terms">
-        Secure checkout by Lemon Squeezy · <a href="#">Terms</a> · <a href="#">Privacy</a><br>
+        Secure checkout by Stripe · <a href="#">Terms</a> · <a href="#">Privacy</a><br>
         Cancel anytime. No contracts.
       </p>
     </div>
@@ -278,7 +263,7 @@ body{font-family:'Poppins',sans-serif;background:var(--light-bg);color:var(--nav
     <div class="os-plan-card">
       <div class="os-plan-name" id="os-name">Pro Board</div>
       <div class="os-plan-billing" id="os-billing">Billed monthly · Cancel anytime</div>
-      <div class="os-plan-price" id="os-price">$24 <span>/mo</span></div>
+      <div class="os-plan-price" id="os-price">$35 <span>/mo</span></div>
     </div>
 
     <div class="os-features" id="os-features">
@@ -287,22 +272,21 @@ body{font-family:'Poppins',sans-serif;background:var(--light-bg);color:var(--nav
       <div class="os-feature"><div class="os-check">✓</div>Event Builder + planning kits</div>
       <div class="os-feature"><div class="os-check">✓</div>Donor directory + letters</div>
       <div class="os-feature"><div class="os-check">✓</div>Social + ad copy tools</div>
-      <div class="os-feature"><div class="os-check">✓</div>Full parent directory</div>
-    </div>
+          </div>
 
     <div class="os-divider"></div>
-    <div class="os-row"><span class="os-row-label">Subtotal</span><span class="os-row-val" id="os-subtotal">$24.00</span></div>
+    <div class="os-row"><span class="os-row-label">Subtotal</span><span class="os-row-val" id="os-subtotal">$35.00</span></div>
     <div class="os-row savings" id="os-savings-row" style="display:none;"><span class="os-row-label">Annual discount</span><span class="os-row-val" id="os-savings-val">—</span></div>
     <div class="os-row"><span class="os-row-label">Tax</span><span class="os-row-val">Calculated at checkout</span></div>
     <div class="os-divider"></div>
-    <div class="os-row grand"><span class="os-row-label">Due today</span><span class="os-row-val" id="os-total">$24.00</span></div>
+    <div class="os-row grand"><span class="os-row-label">Due today</span><span class="os-row-val" id="os-total">$35.00</span></div>
 
     <div class="os-guarantee">
       <div class="os-guarantee-icon">🛡️</div>
       <div class="os-guarantee-text">30-day money-back guarantee. If it's not right for your board, email us and we'll refund you — no questions asked.</div>
     </div>
 
-    <div class="os-trust">🔒 Secured by Lemon Squeezy &nbsp;·&nbsp; PCI compliant</div>
+    <div class="os-trust">🔒 Secured by Stripe &nbsp;·&nbsp; PCI compliant</div>
   </div>
 
 </div>
@@ -312,40 +296,26 @@ body{font-family:'Poppins',sans-serif;background:var(--light-bg);color:var(--nav
 const PLANS = {
   starter: {
     name: 'Starter',
-    monthly: 19, annual: 179, annualMonthly: 14.92,
-    savings: '$49', annualDisplay: '$179/yr',
+    monthly: 25, annual: 249, annualMonthly: 20.75,
+    savings: '$51', annualDisplay: '$249/yr',
     features: [
       '10 AI generations per month',
       'Flyer Writer + Newsletter Blurb',
       'Permission Slip generator',
-      '50 parent directory entries',
       'Email support'
     ]
   },
   pro: {
     name: 'Pro Board',
-    monthly: 24, annual: 199, annualMonthly: 16.58,
-    savings: '$89', annualDisplay: '$199/yr',
+    monthly: 35, annual: 349, annualMonthly: 29.08,
+    savings: '$71', annualDisplay: '$349/yr',
     features: [
       'Unlimited AI generations',
       'All 11 tools unlocked',
       'Event Builder + planning kits',
       'Donor directory + letters',
       'Social + ad copy tools',
-      'Full parent directory'
-    ]
-  },
-  district: {
-    name: 'District',
-    monthly: 69, annual: 599, annualMonthly: 49.92,
-    savings: '$229', annualDisplay: '$599/yr',
-    features: [
-      'Everything in Pro Board',
-      'Up to 10 school accounts',
-      'District admin dashboard',
-      'Shared brand settings',
-      'Priority support + onboarding',
-      'Early access to new tools'
+      'Donor directory + letters'
     ]
   }
 };
@@ -355,7 +325,7 @@ let currentBilling = 'monthly';
 
 // ─── Check if URLs are configured ────────────────────────────────────────────
 function urlsAreSet() {
-  return !Object.values(window.LS_URLS).some(u => u.includes('YOUR-STORE'));
+  return window.STRIPE_URLS.starter && !window.STRIPE_URLS.starter.includes('REPLACE-WITH');
 }
 
 window.addEventListener('DOMContentLoaded', () => {
@@ -434,38 +404,27 @@ function updateSummary() {
     '🔒 ' + (first ? `Continue, ${first} →` : 'Continue to Payment →');
 }
 
-// ─── Open Lemon Squeezy overlay ───────────────────────────────────────────────
+// ─── Redirect to Stripe Payment Link ─────────────────────────────────────────
 function openCheckout() {
-  const isAnnual  = currentBilling === 'annual';
-  const urlKey    = currentPlan + (isAnnual ? '_annual' : '');
-  let   url       = window.LS_URLS[urlKey] || window.LS_URLS[currentPlan];
+  const isAnnual = currentBilling === 'annual';
+  const urlKey   = currentPlan + (isAnnual ? '_annual' : '');
+  const url      = window.STRIPE_URLS[urlKey] || window.STRIPE_URLS[currentPlan];
 
   // Abort with friendly message if URLs not set yet
   if (!urlsAreSet()) {
-    alert('⚠️ Lemon Squeezy checkout URLs are not set yet.\n\nOpen checkout.html and replace the placeholder URLs in window.LS_URLS with your actual Lemon Squeezy product links.');
+    alert('⚠️ Stripe Payment Links are not set yet.\n\nOpen checkout.html and replace the placeholder URLs in window.STRIPE_URLS with your actual Stripe Payment Links (buy.stripe.com/...).');
     return;
   }
 
-  // Pre-fill customer info via URL params
+  // Pre-fill email via Stripe's prefilled_email param
   const email  = document.getElementById('co-email').value.trim();
-  const first  = document.getElementById('co-first').value.trim();
-  const last   = document.getElementById('co-last').value.trim();
-  const school = document.getElementById('co-school').value.trim();
-
   const params = new URLSearchParams();
-  if (email)  params.set('checkout[email]',         email);
-  if (first || last) params.set('checkout[name]',   [first, last].filter(Boolean).join(' '));
-  if (school) params.set('checkout[custom][school]', school);
+  if (email) params.set('prefilled_email', email);
 
-  const finalUrl = url + (url.includes('?') ? '&' : '?') + params.toString();
+  const finalUrl = url + (params.toString() ? '?' + params.toString() : '');
 
-  // Use LemonSqueezy.com's JS overlay if available, otherwise open in new tab
-  if (window.LemonSqueezy) {
-    window.LemonSqueezy.Url.Open(finalUrl);
-  } else {
-    // Lemon.js not loaded yet — open in new tab as fallback
-    window.open(finalUrl, '_blank');
-  }
+  // Redirect to Stripe Payment Link
+  window.location.href = finalUrl;
 }
 </script>
 </body>

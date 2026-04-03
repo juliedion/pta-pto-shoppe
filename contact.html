@@ -2,6 +2,9 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+<link rel="icon" type="image/x-icon" href="favicon.ico">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+<link rel="apple-touch-icon" sizes="192x192" href="favicon-192.png">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Contact Us — The PTA/PTO Shoppe</title>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,400&display=swap" rel="stylesheet">
@@ -10,9 +13,9 @@
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
 html{scroll-behavior:smooth;}
 body{font-family:'Poppins',sans-serif;background:var(--off-white);color:var(--navy);overflow-x:hidden;}
-nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(13,27,62,0.97);backdrop-filter:blur(12px);border-bottom:3px solid transparent;border-image:linear-gradient(90deg,var(--pink),var(--purple),var(--blue),var(--green)) 1;padding:0 48px;height:72px;display:flex;align-items:center;justify-content:space-between;}
+nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(13,27,62,0.97);backdrop-filter:blur(12px);border-bottom:3px solid transparent;border-image:linear-gradient(90deg,var(--pink),var(--purple),var(--blue),var(--green)) 1;padding:0 48px;height:120px;display:flex;align-items:center;justify-content:space-between;}
 .nav-logo{display:flex;align-items:center;text-decoration:none;}
-.nav-logo img{height:48px;width:auto;object-fit:contain;}
+.nav-logo img{height:150px;width:auto;object-fit:contain;}
 .nav-links{display:flex;align-items:center;gap:28px;}
 .nav-links a{font-size:16px;font-weight:700;color:rgba(255,255,255,0.88);text-decoration:none;transition:color 0.2s;}
 .nav-links a:hover{color:var(--gold-light);}
@@ -111,22 +114,23 @@ footer{background:var(--navy-mid,#142248);border-top:3px solid transparent;borde
 <body>
 
 <nav>
-  <a href="pta-shoppe-landing.html" class="nav-logo"><img src="logo.png" alt="The PTA/PTO Shoppe"></a>
+  <a href="index.html" class="nav-logo"><img src="logo.png" alt="The PTA/PTO Shoppe"></a>
   <div class="nav-links">
-    <a href="pta-shoppe-landing.html#tools">Tools</a>
-    <a href="pta-shoppe-landing.html#pricing">Pricing</a>
+    <a href="index.html#tools">Tools</a>
+    <a href="index.html#pricing">Pricing</a>
     <a href="reviews.html">Reviews</a>
     <a href="contact.html" class="active">Contact</a>
   </div>
-  <a href="pta-shoppe-landing.html#pricing" class="nav-cta">Get Started →</a>
+  <a href="index.html#pricing" class="nav-cta">Get Started →</a>
 </nav>
-<div class="gold-divider" style="margin-top:72px;"></div>
+<div class="gold-divider" style="margin-top:120px;"></div>
 
 <section class="page-hero">
   <div class="page-hero-inner">
     <div class="page-eyebrow">✉️ Get in Touch</div>
-    <h1>We'd love to <span>hear from you.</span></h1>
+    <h1>We'd love to<br><span>hear from you.</span></h1>
     <p>Questions, feedback, or just want to tell us about your board — we read every message and respond within one business day.</p>
+    <a href="reviews.html#submit" class="hero-review-link">⭐ Share your experience — leave a review →</a>
   </div>
 </section>
 <div class="gold-divider"></div>
@@ -137,9 +141,9 @@ footer{background:var(--navy-mid,#142248);border-top:3px solid transparent;borde
   <div class="contact-sidebar">
     <div class="sidebar-title">Other ways to reach us</div>
 
-    <a href="mailto:hello@ptaptoshoppe.com" class="contact-way">
+    <a href="mailto:connect@theptashoppe.com" class="contact-way">
       <div class="cw-icon cw-email">📧</div>
-      <div><div class="cw-label">Email directly</div><div class="cw-sub">hello@ptaptoshoppe.com<br>We reply within 1 business day</div></div>
+      <div><div class="cw-label">Email directly</div><div class="cw-sub">connect@theptashoppe.com<br>We reply within 1 business day</div></div>
     </a>
 
     <a href="reviews.html" class="contact-way">
@@ -147,12 +151,12 @@ footer{background:var(--navy-mid,#142248);border-top:3px solid transparent;borde
       <div><div class="cw-label">Leave a review</div><div class="cw-sub">Share your experience with other PTA/PTO boards</div></div>
     </a>
 
-    <a href="pta-shoppe-landing.html#pricing" class="contact-way">
+    <a href="index.html#pricing" class="contact-way">
       <div class="cw-icon cw-pricing">💳</div>
-      <div><div class="cw-label">View pricing</div><div class="cw-sub">Plans starting at $19/mo — no contracts</div></div>
+      <div><div class="cw-label">View pricing</div><div class="cw-sub">Plans starting at $25/mo — no contracts</div></div>
     </a>
 
-    <a href="pta-shoppe-landing.html#tools" class="contact-way">
+    <a href="index.html#tools" class="contact-way">
       <div class="cw-icon cw-social">🛠️</div>
       <div><div class="cw-label">Explore the tools</div><div class="cw-sub">See all 11 AI-powered tools for your board</div></div>
     </a>
@@ -226,7 +230,7 @@ footer{background:var(--navy-mid,#142248);border-top:3px solid transparent;borde
       <h3>Message sent!</h3>
       <p>Thanks for reaching out. We'll get back to you at your email address within one business day.<br><br>In the meantime, explore our tools or check out what other boards are saying.</p>
       <div style="display:flex;gap:12px;justify-content:center;margin-top:24px;flex-wrap:wrap;">
-        <a href="pta-shoppe-landing.html#tools" style="background:linear-gradient(135deg,var(--pink),var(--purple));color:white;font-family:'Poppins',sans-serif;font-size:13px;font-weight:700;padding:12px 24px;border-radius:100px;text-decoration:none;">Explore Tools →</a>
+        <a href="index.html#tools" style="background:linear-gradient(135deg,var(--pink),var(--purple));color:white;font-family:'Poppins',sans-serif;font-size:13px;font-weight:700;padding:12px 24px;border-radius:100px;text-decoration:none;">Explore Tools →</a>
         <a href="reviews.html" style="color:var(--navy);font-family:'Poppins',sans-serif;font-size:13px;font-weight:600;padding:12px 24px;border-radius:100px;text-decoration:none;border:2px solid rgba(13,27,62,0.15);">Read Reviews</a>
       </div>
     </div>
@@ -244,7 +248,7 @@ footer{background:var(--navy-mid,#142248);border-top:3px solid transparent;borde
 
     <div class="faq-item">
       <div class="faq-q" onclick="toggleFaq(this)">What does a subscription include?</div>
-      <div class="faq-a">The Starter plan ($19/mo) gives you 10 AI generations per month, the Flyer Writer, Newsletter Blurb, Permission Slip generator, and 50 directory entries. The Pro Board plan ($24/mo) unlocks all 11 tools with unlimited generations. See the full breakdown on our <a href="pta-shoppe-landing.html#pricing" style="color:var(--pink);">pricing page</a>.</div>
+      <div class="faq-a">The Starter plan ($25/mo) gives you 10 AI generations per month, the Flyer Writer, Newsletter Blurb, Permission Slip generator. The Pro Board plan ($35/mo) unlocks all 11 tools with unlimited generations. See the full breakdown on our <a href="index.html#pricing" style="color:var(--pink);">pricing page</a>.</div>
     </div>
 
     <div class="faq-item">
@@ -283,15 +287,54 @@ footer{background:var(--navy-mid,#142248);border-top:3px solid transparent;borde
 
 <script>
 function submitForm() {
-  const first = document.getElementById('firstName').value.trim();
-  const email = document.getElementById('email').value.trim();
+  const first   = document.getElementById('firstName').value.trim();
+  const last    = document.getElementById('lastName').value.trim();
+  const email   = document.getElementById('email').value.trim();
+  const school  = document.getElementById('school').value.trim();
+  const subject = document.getElementById('subject').value;
   const message = document.getElementById('message').value.trim();
+  const newsletter = document.getElementById('newsletter').checked;
+
   if (!first || !email || !message) {
     alert('Please fill in your name, email, and message.');
     return;
   }
-  document.getElementById('contactForm').style.display = 'none';
-  document.getElementById('formSuccess').style.display = 'block';
+
+  const btn = document.querySelector('.cf-btn');
+  btn.textContent = 'Sending…';
+  btn.disabled = true;
+
+  const data = new FormData();
+  data.append('first_name', first);
+  data.append('last_name', last);
+  data.append('email', email);
+  data.append('school', school);
+  data.append('subject', subject);
+  data.append('message', message);
+  data.append('newsletter', newsletter ? 'Yes' : 'No');
+  data.append('_subject', 'New Message — The PTA/PTO Shoppe');
+  data.append('_replyto', email);
+
+  fetch('https://formspree.io/f/xojpnpyv', {
+    method: 'POST',
+    body: data,
+    headers: { 'Accept': 'application/json' }
+  })
+  .then(r => {
+    if (r.ok) {
+      document.getElementById('contactForm').style.display = 'none';
+      document.getElementById('formSuccess').style.display = 'block';
+    } else {
+      btn.textContent = 'Send Message →';
+      btn.disabled = false;
+      alert('Something went wrong. Please email us directly at connect@theptashoppe.com.');
+    }
+  })
+  .catch(() => {
+    btn.textContent = 'Send Message →';
+    btn.disabled = false;
+    alert('Something went wrong. Please email us directly at connect@theptashoppe.com.');
+  });
 }
 
 function toggleFaq(el) {

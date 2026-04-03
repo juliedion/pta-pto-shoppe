@@ -1,0 +1,1043 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<link rel="icon" type="image/x-icon" href="favicon.ico">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+<link rel="apple-touch-icon" sizes="192x192" href="favicon-192.png">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The PTA/PTO Shoppe — Community · School · Spirit</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,400&display=swap" rel="stylesheet">
+<!-- ═══════════════════════════════════════════════════════════════
+     STRIPE PAYMENT LINKS SETUP
+     1. Go to stripe.com → Dashboard → Payment Links → Create a link for each plan
+     2. Replace the placeholder URLs below with your real buy.stripe.com/... links
+     ═══════════════════════════════════════════════════════════════ -->
+<script>
+  window.STRIPE_URLS = {
+    starter:         'https://buy.stripe.com/8x2eVe4KYaiI2Kl0ea4c802',
+    starter_annual:  'https://buy.stripe.com/00wbJ22CQ0I84Stgd84c803',
+    pro:             'https://buy.stripe.com/aFa7sM2CQ4Yofx7aSO4c804',
+    pro_annual:      'https://buy.stripe.com/5kQ6oI2CQgH60Cd7GC4c805',
+  };
+</script>
+<style>
+:root {
+  --navy: #0D1B3E;
+  --navy-mid: #142248;
+  --navy-light: #1C2F5E;
+  --pink: #E8357A;
+  --pink-bright: #FF2D87;
+  --pink-pale: #FFF0F7;
+  --purple: #7B3FB5;
+  --purple-pale: #F5EEFF;
+  --blue: #2E7BC4;
+  --blue-pale: #EAF4FF;
+  --green: #2BA84A;
+  --green-bright: #00C853;
+  --green-pale: #EDFFF4;
+  --orange: #F07A1A;
+  --orange-pale: #FFF3EC;
+  --gold: #C9943A;
+  --gold-light: #F5D78E;
+  --white: #FFFFFF;
+  --off-white: #F8F9FF;
+  --light-bg: #F2F4FB;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { font-family: 'Poppins', sans-serif; background: var(--off-white); color: var(--navy); overflow-x: hidden; }
+
+/* SPARKLE UTILITY */
+.sparkle { position: relative; }
+.sparkle::before, .sparkle::after {
+  content: '✦';
+  position: absolute;
+  color: var(--gold-light);
+  font-size: 10px;
+  animation: twinkle 2s infinite alternate;
+}
+.sparkle::before { top: -4px; right: -8px; }
+.sparkle::after { bottom: -4px; left: -8px; animation-delay: 1s; }
+@keyframes twinkle { from { opacity: 0.3; transform: scale(0.8); } to { opacity: 1; transform: scale(1.2); } }
+
+/* NAV */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  background: rgba(13,27,62,0.97); backdrop-filter: blur(12px);
+  border-bottom: 3px solid transparent;
+  border-image: linear-gradient(90deg, var(--pink), var(--purple), var(--blue), var(--green)) 1;
+  padding: 0 48px; height: 120px;
+  display: flex; align-items: center; justify-content: space-between;
+}
+.nav-logo { display: flex; align-items: center; text-decoration: none; }
+.nav-logo img { height: 150px; width: auto; object-fit: contain; }
+.nav-links { display: flex; align-items: center; gap: 28px; }
+.nav-links a { font-size: 16px; font-weight: 700; color: rgba(255,255,255,0.88); text-decoration: none; transition: color 0.2s; letter-spacing: 0.3px; }
+.nav-links a:hover { color: var(--gold-light); }
+.nav-cta {
+  background: linear-gradient(135deg, var(--pink), var(--purple));
+  color: white; font-family: 'Poppins', sans-serif;
+  font-size: 13px; font-weight: 700; padding: 10px 22px;
+  border-radius: 100px; text-decoration: none; transition: all 0.2s;
+  box-shadow: 0 4px 16px rgba(232,53,122,0.4); border: none; cursor: pointer;
+}
+.nav-cta:hover { transform: translateY(-1px); box-shadow: 0 6px 24px rgba(232,53,122,0.55); }
+
+/* HERO */
+.hero {
+  min-height: 70vh;
+  background-color: #010D2A;
+  background-image:
+    radial-gradient(ellipse 70% 60% at 15% 40%, rgba(20,100,255,0.28) 0%, transparent 55%),
+    radial-gradient(ellipse 55% 55% at 85% 15%, rgba(80,160,255,0.18) 0%, transparent 50%),
+    radial-gradient(ellipse 50% 50% at 50% 95%, rgba(10,60,200,0.24) 0%, transparent 50%),
+    linear-gradient(155deg, #010D2A 0%, #031B52 28%, #053A9E 58%, #0848C8 80%, #0535A0 100%);
+  display: flex; align-items: center; justify-content: center; padding-top: 150px; padding-bottom: 60px; 
+  position: relative; overflow: hidden;
+}
+
+/* gold sparkle dots */
+.hero::before {
+  content: '';
+  position: absolute; inset: 0; z-index: 0;
+  background-image:
+    radial-gradient(circle at center, rgba(0,0,0,0.4), transparent 70%),
+      z-index: 0;
+  pointer-events: none;
+}
+
+.hero-center {
+  position: relative; z-index: 1;
+  text-align: center;
+  max-width: 820px;
+  margin: 0 auto;
+  animation: floatUp 0.8s ease both;
+}
+.hero-logo {
+  width: min(700px, 90vw); height: auto; object-fit: contain;
+  display: block; margin: 30px auto 20px;
+  filter: drop-shadow(0 16px 48px rgba(30,80,255,0.35));
+  animation: float 5s ease-in-out infinite;
+}
+@keyframes float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-8px)} }
+@keyframes floatUp { from{opacity:0;transform:translateY(30px)} to{opacity:1;transform:translateY(0)} }
+
+.hero-graphic {
+  width: min(320px, 70vw); height: auto;
+  display: block; margin: 0 auto 12px;
+  filter: drop-shadow(0 8px 24px rgba(0,0,0,0.4));
+  animation: float 5s ease-in-out infinite;
+  
+}
+.hero-eyebrow {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: rgba(201,148,58,0.15); border: 1px solid rgba(201,148,58,0.3);
+  border-radius: 100px; padding: 6px 16px;
+  font-size: 10px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase;
+  color: var(--gold-light); margin: 0 auto 20px;
+}
+.hero h1 {
+  font-size: clamp(32px, 3.5vw, 52px);
+  font-weight: 900; line-height: 1.1;
+  letter-spacing: -1.5px; color: white; margin-bottom: 16px;
+}
+.hero h1 .grad {
+  background: linear-gradient(135deg, #FF2D87, #FF85C2, #E040FF, #9B59FF);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+  filter: drop-shadow(0 0 12px rgba(255,45,135,0.65)) drop-shadow(0 0 28px rgba(224,64,255,0.3));
+}
+.hero-built-by {
+  font-size: 13px; font-weight: 700; letter-spacing: 1.5px;
+  color: var(--gold-light); font-style: italic;
+  margin-bottom: 24px; opacity: 0.9;
+}
+.hero-tagline {
+  font-size: 15px; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase;
+  margin-bottom: 16px;
+}
+.hero-tagline span { color: var(--pink-bright); }
+.hero-tagline span:nth-child(2) { color: var(--gold-light); }
+.hero-tagline span:nth-child(3) { color: var(--green-bright); }
+.hero-sub {
+  font-size: 16px; font-weight: 300; color: rgba(255,255,255,0.65);
+  line-height: 1.75; margin: 0 auto 28px; max-width: 620px;
+}
+.hero-actions { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; margin-bottom: 28px; justify-content: center; }
+.btn-hero {
+  background: linear-gradient(135deg, var(--pink), var(--purple));
+  color: white; font-family: 'Poppins', sans-serif;
+  font-size: 14px; font-weight: 700; padding: 14px 32px;
+  border-radius: 100px; text-decoration: none; border: none; cursor: pointer;
+  transition: all 0.2s; box-shadow: 0 6px 24px rgba(232,53,122,0.4);
+  display: inline-flex; align-items: center; gap: 8px;
+}
+.btn-hero:hover { transform: translateY(-2px); box-shadow: 0 10px 32px rgba(232,53,122,0.55); }
+.btn-out {
+  background: transparent; color: white;
+  font-family: 'Poppins', sans-serif; font-size: 14px; font-weight: 600;
+  padding: 14px 28px; border-radius: 100px; text-decoration: none;
+  border: 2px solid rgba(255,255,255,0.25); cursor: pointer; transition: all 0.2s;
+  display: inline-flex; align-items: center; gap: 8px;
+}
+.btn-out:hover { border-color: var(--gold-light); color: var(--gold-light); }
+
+.hero-stats {
+  display: flex; align-items: center; gap: 24px; flex-wrap: wrap; justify-content: center; margin-bottom: 0;
+}
+.stat { text-align: center; }
+.stat-n { font-size: 28px; font-weight: 900; letter-spacing: -1px; }
+.stat-n.pink { color: var(--pink-bright); }
+.stat-n.purple { color: #A86DE0; }
+.stat-n.green { color: var(--green-bright); }
+.stat-n.gold { color: var(--gold-light); }
+.stat-l { font-size: 9px; font-weight: 700; color: rgba(255,255,255,0.4); text-transform: uppercase; letter-spacing: 1.5px; margin-top: 2px; }
+.stat-div { width: 1px; height: 36px; background: rgba(255,255,255,0.1); }
+
+/* GOLD DIVIDER */
+.gold-divider {
+  height: 4px;
+  background: linear-gradient(90deg, var(--pink), var(--purple), var(--blue), var(--green), var(--orange), var(--pink));
+  background-size: 200% 100%;
+  animation: shimmer 3s linear infinite;
+}
+@keyframes shimmer { 0%{background-position:0% 0%} 100%{background-position:200% 0%} }
+
+/* LOGO SHOWCASE */
+.logo-section {
+  padding: 80px 60px;
+  background: white;
+  border-bottom: 1px solid rgba(13,27,62,0.08);
+}
+.section-label {
+  text-align: center; font-size: 9px; font-weight: 700;
+  letter-spacing: 3px; text-transform: uppercase;
+  color: rgba(13,27,62,0.3); margin-bottom: 48px;
+}
+.logo-grid {
+  display: grid; grid-template-columns: repeat(2, 1fr);
+  gap: 20px; max-width: 900px; margin: 0 auto;
+}
+.logo-box {
+  border-radius: 20px; padding: 32px;
+  display: flex; flex-direction: column; align-items: center; gap: 16px;
+  border: 2px solid rgba(13,27,62,0.08);
+}
+.logo-box.dark { background: var(--navy); }
+.logo-box.light { background: var(--off-white); }
+.logo-box img { width: 100%; max-width: 340px; height: auto; object-fit: contain; }
+.logo-box-label { font-size: 9px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; }
+.logo-box.dark .logo-box-label { color: rgba(255,255,255,0.3); }
+.logo-box.light .logo-box-label { color: rgba(13,27,62,0.3); }
+
+/* TOOLS */
+.tools-section { padding: 100px 60px; max-width: 1200px; margin: 0 auto; }
+.section-header { margin-bottom: 56px; }
+.section-pill {
+  display: inline-block; font-size: 10px; font-weight: 700;
+  letter-spacing: 2px; text-transform: uppercase;
+  padding: 5px 14px; border-radius: 100px; margin-bottom: 14px;
+}
+.pill-pink { background: var(--pink-pale); color: var(--pink); }
+.pill-purple { background: var(--purple-pale); color: var(--purple); }
+.pill-green { background: var(--green-pale); color: var(--green); }
+.pill-gold { background: #FDF6E3; color: var(--gold); }
+
+.section-h {
+  font-size: clamp(32px, 4vw, 48px); font-weight: 900;
+  letter-spacing: -1.5px; color: var(--navy); line-height: 1.05; margin-bottom: 12px;
+}
+.section-h .grad {
+  background: linear-gradient(135deg, var(--pink), var(--purple), var(--blue));
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+}
+.section-p { font-size: 15px; font-weight: 300; color: rgba(13,27,62,0.55); line-height: 1.7; max-width: 520px; }
+
+.tools-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+.tc {
+  background: white; border: 2px solid rgba(13,27,62,0.07);
+  border-radius: 18px; padding: 22px 18px;
+  transition: all 0.25s; position: relative; overflow: hidden;
+  box-shadow: 0 2px 12px rgba(13,27,62,0.05);
+}
+.tc::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+  border-radius: 0; opacity: 0; transition: opacity 0.25s;
+}
+.tc:hover { transform: translateY(-4px); box-shadow: 0 12px 40px rgba(13,27,62,0.1); }
+.tc:hover::before { opacity: 1; }
+.tc-pink:hover { border-color: var(--pink); } .tc-pink::before { background: linear-gradient(90deg, var(--pink), var(--purple)); }
+.tc-purple:hover { border-color: var(--purple); } .tc-purple::before { background: linear-gradient(90deg, var(--purple), var(--blue)); }
+.tc-blue:hover { border-color: var(--blue); } .tc-blue::before { background: linear-gradient(90deg, var(--blue), var(--green)); }
+.tc-green:hover { border-color: var(--green); } .tc-green::before { background: linear-gradient(90deg, var(--green), var(--orange)); }
+
+.ti {
+  width: 46px; height: 46px; border-radius: 13px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 20px; margin-bottom: 13px;
+}
+.ti-pink { background: var(--pink-pale); }
+.ti-purple { background: var(--purple-pale); }
+.ti-blue { background: var(--blue-pale); }
+.ti-green { background: var(--green-pale); }
+.tn { font-size: 13px; font-weight: 700; color: var(--navy); margin-bottom: 6px; }
+.td { font-size: 11px; font-weight: 300; color: rgba(13,27,62,0.55); line-height: 1.6; }
+
+
+/* SHOP CATEGORIES */
+.shop-section { padding: 100px 60px; background: var(--off-white); }
+.shop-inner { max-width: 1200px; margin: 0 auto; }
+.cat-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+.cat-card { border-radius: 20px; padding: 32px 28px; border: 2px solid transparent; transition: all 0.25s; cursor: pointer; }
+.cat-card:hover { transform: translateY(-4px); box-shadow: 0 16px 48px rgba(13,27,62,0.1); }
+.cat-fundraise { background: var(--pink-pale); border-color: rgba(232,53,122,0.25); }
+.cat-spirit { background: var(--purple-pale); border-color: rgba(123,63,181,0.25); }
+.cat-events { background: var(--blue-pale); border-color: rgba(46,123,196,0.25); }
+.cat-digital { background: var(--green-pale); border-color: rgba(43,168,74,0.25); }
+.cat-recognition { background: #FDF6E3; border-color: rgba(201,148,58,0.25); }
+.cat-office { background: var(--light-bg); border-color: rgba(13,27,62,0.1); }
+.cat-icon { font-size: 36px; margin-bottom: 14px; }
+.cat-name { font-size: 17px; font-weight: 800; color: var(--navy); margin-bottom: 8px; }
+.cat-desc { font-size: 13px; font-weight: 300; color: rgba(13,27,62,0.6); line-height: 1.6; margin-bottom: 16px; }
+.cat-count { font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: rgba(13,27,62,0.35); }
+
+/* BESTSELLERS */
+.best-section { padding: 100px 60px; background: white; }
+.best-inner { max-width: 1200px; margin: 0 auto; }
+.best-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; margin-top: 48px; }
+.best-card { background: var(--off-white); border-radius: 20px; border: 1.5px solid rgba(13,27,62,0.07); overflow: hidden; transition: all 0.25s; display: flex; flex-direction: column; }
+.best-card:hover { transform: translateY(-4px); box-shadow: 0 16px 48px rgba(13,27,62,0.1); border-color: transparent; }
+.best-img { height: 120px; display: flex; align-items: center; justify-content: center; font-size: 48px; }
+.best-badge { display: inline-block; margin: 16px 16px 0; background: var(--pink-pale); color: var(--pink); font-size: 10px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; padding: 4px 12px; border-radius: 100px; }
+.best-badge-new { background: var(--purple-pale) !important; color: var(--purple) !important; }
+.best-name { font-size: 14px; font-weight: 700; color: var(--navy); padding: 10px 16px 4px; line-height: 1.4; }
+.best-desc { font-size: 12px; font-weight: 300; color: rgba(13,27,62,0.55); padding: 0 16px 16px; line-height: 1.6; flex: 1; }
+.best-footer { padding: 16px; border-top: 1px solid rgba(13,27,62,0.06); display: flex; align-items: center; justify-content: space-between; }
+.best-price { font-size: 22px; font-weight: 900; color: var(--navy); letter-spacing: -0.5px; }
+.best-btn { font-family: 'Poppins', sans-serif; font-size: 12px; font-weight: 700; background: var(--navy); color: white; padding: 8px 16px; border-radius: 100px; text-decoration: none; transition: all 0.2s; }
+.best-btn:hover { background: var(--pink); }
+
+/* DIGITAL DOWNLOADS */
+.digital-section { padding: 100px 60px; background: var(--light-bg); }
+.digital-inner { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
+.digital-list { list-style: none; margin-top: 20px; display: flex; flex-direction: column; gap: 12px; }
+.digital-list li { font-size: 14px; font-weight: 500; color: var(--navy); }
+.digital-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.d-card { border-radius: 16px; padding: 24px 20px; display: flex; flex-direction: column; gap: 8px; border: 2px solid rgba(13,27,62,0.06); transition: all 0.25s; cursor: pointer; }
+.d-card:hover { box-shadow: 0 12px 36px rgba(13,27,62,0.08); }
+.d-card-1 { background: var(--pink-pale); }
+.d-card-2 { background: var(--purple-pale); transform: translateY(16px); }
+.d-card-2:hover { transform: translateY(10px); }
+.d-card-3 { background: var(--green-pale); }
+.d-card-4 { background: #FDF6E3; transform: translateY(16px); }
+.d-card-4:hover { transform: translateY(10px); }
+.d-icon { font-size: 28px; }
+.d-name { font-size: 13px; font-weight: 700; color: var(--navy); line-height: 1.4; }
+.d-price { font-size: 18px; font-weight: 900; color: var(--navy); letter-spacing: -0.5px; }
+
+/* PRICING */
+.pricing-section {
+  padding: 100px 60px;
+  background: var(--navy);
+  position: relative; overflow: hidden;
+}
+.pricing-section::before {
+  content: '';
+  position: absolute; inset: 0;
+  background:
+    radial-gradient(ellipse 60% 50% at 20% 50%, rgba(123,63,181,0.15) 0%, transparent 60%),
+    radial-gradient(ellipse 50% 40% at 80% 30%, rgba(232,53,122,0.12) 0%, transparent 60%);
+  pointer-events: none;
+}
+/* gold sparkle dots on pricing */
+.pricing-section::after {
+  content: '';
+  position: absolute; inset: 0;
+  background-image:
+    radial-gradient(circle 1.5px at 10% 20%, rgba(201,148,58,0.5) 0%, transparent 100%),
+    radial-gradient(circle 1px at 90% 10%, rgba(201,148,58,0.4) 0%, transparent 100%),
+    radial-gradient(circle 2px at 80% 80%, rgba(201,148,58,0.35) 0%, transparent 100%),
+    radial-gradient(circle 1px at 20% 85%, rgba(201,148,58,0.45) 0%, transparent 100%),
+    radial-gradient(circle 1px at 50% 50%, rgba(201,148,58,0.25) 0%, transparent 100%);
+  pointer-events: none;
+}
+.pricing-inner { position: relative; z-index: 1; }
+.pricing-header { text-align: center; margin-bottom: 60px; }
+.pricing-header .section-h { color: white; }
+.pricing-header .section-p { color: rgba(255,255,255,0.5); margin: 0 auto; }
+.pricing-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; max-width: 720px; margin: 0 auto; }
+
+.pc {
+  background: rgba(255,255,255,0.05);
+  border: 1.5px solid rgba(255,255,255,0.1);
+  border-radius: 24px; padding: 36px 28px; position: relative; transition: all 0.2s;
+}
+.pc.feat {
+  background: white;
+  border: 2px solid var(--gold);
+  box-shadow: 0 0 0 3px rgba(201,148,58,0.2), 0 24px 60px rgba(0,0,0,0.3);
+  transform: scale(1.04);
+}
+.pc:not(.feat):hover { background: rgba(255,255,255,0.08); }
+.feat-pill {
+  position: absolute; top: -14px; left: 50%; transform: translateX(-50%);
+  background: linear-gradient(135deg, var(--gold), #F5D78E);
+  color: var(--navy); font-size: 10px; font-weight: 800;
+  letter-spacing: 1.5px; text-transform: uppercase;
+  padding: 5px 18px; border-radius: 100px; white-space: nowrap;
+}
+.plan-n { font-size: 22px; font-weight: 800; color: white; margin-bottom: 4px; }
+.feat .plan-n { color: var(--navy); }
+.plan-t { font-size: 12px; font-weight: 300; color: rgba(255,255,255,0.45); margin-bottom: 28px; }
+.feat .plan-t { color: rgba(13,27,62,0.5); }
+.price-row { display: flex; align-items: baseline; gap: 2px; margin-bottom: 4px; justify-content: center; }
+.price-n { font-size: 52px; font-weight: 900; letter-spacing: -2px; color: white; line-height: 1; }
+.feat .price-n { color: var(--navy); }
+.price-p { font-size: 14px; color: rgba(255,255,255,0.4); }
+.feat .price-p { color: rgba(13,27,62,0.4); }
+.price-block { text-align: center; margin-bottom: 4px; }
+.price-annual-yr { font-size: 52px; font-weight: 900; letter-spacing: -2px; color: white; line-height: 1; }
+.feat .price-annual-yr { color: var(--navy); }
+.price-annual-mo { font-size: 13px; font-weight: 500; color: rgba(255,255,255,0.45); margin-top: 4px; }
+.feat .price-annual-mo { color: rgba(13,27,62,0.4); }
+.price-b { font-size: 11px; color: rgba(255,255,255,0.3); margin-bottom: 28px; }
+.feat .price-b { color: rgba(13,27,62,0.4); }
+.pdiv { height: 1px; background: rgba(255,255,255,0.1); margin-bottom: 24px; }
+.feat .pdiv { background: rgba(13,27,62,0.1); }
+.pf { list-style: none; margin-bottom: 32px; }
+.pf li { display: flex; align-items: flex-start; gap: 10px; font-size: 12px; padding: 6px 0; line-height: 1.5; color: rgba(255,255,255,0.7); }
+.feat .pf li { color: rgba(13,27,62,0.7); }
+.fd { width: 18px; height: 18px; border-radius: 50%; flex-shrink: 0; margin-top: 1px; display: flex; align-items: center; justify-content: center; font-size: 9px; font-weight: 700; }
+.fd-g { background: var(--green-pale); color: var(--green); }
+.fd-gold { background: #FDF6E3; color: var(--gold); }
+.fd-x { background: rgba(255,255,255,0.07); color: rgba(255,255,255,0.2); }
+.feat .fd-x { background: rgba(13,27,62,0.07); color: rgba(13,27,62,0.2); }
+.pb {
+  display: block; width: 100%; text-align: center;
+  font-family: 'Poppins', sans-serif; font-size: 13px; font-weight: 700;
+  padding: 14px; border-radius: 100px; text-decoration: none; cursor: pointer;
+  transition: all 0.2s; border: none; letter-spacing: 0.3px;
+}
+.pb-out { border: 2px solid rgba(255,255,255,0.2); color: white; background: transparent; }
+.pb-out:hover { border-color: var(--gold-light); color: var(--gold-light); }
+.pb-grad { background: linear-gradient(135deg, var(--pink), var(--purple)); color: white; box-shadow: 0 4px 20px rgba(232,53,122,0.4); }
+.pb-grad:hover { transform: translateY(-1px); box-shadow: 0 6px 28px rgba(232,53,122,0.55); }
+
+
+/* PRICING TOGGLE */
+.pricing-toggle{display:flex;align-items:center;justify-content:center;gap:8px;margin-bottom:40px;}
+.toggle-track{display:flex;background:rgba(255,255,255,0.08);border:1.5px solid rgba(255,255,255,0.12);border-radius:100px;padding:4px;gap:4px;}
+.toggle-opt{font-size:12px;font-weight:700;padding:8px 22px;border-radius:100px;cursor:pointer;transition:all 0.2s;color:rgba(255,255,255,0.45);border:none;background:none;font-family:'Poppins',sans-serif;}
+.toggle-opt.active{background:white;color:var(--navy);box-shadow:0 2px 8px rgba(0,0,0,0.15);}
+.toggle-save-pill{font-size:10px;font-weight:800;background:linear-gradient(135deg,var(--green),#00C853);color:white;padding:4px 10px;border-radius:100px;letter-spacing:0.5px;}
+.price-annual-note{font-size:11px;color:rgba(255,255,255,0.3);margin-bottom:28px;min-height:16px;text-align:center;}
+.feat .price-annual-note{color:rgba(13,27,62,0.4);}
+.price-monthly-block { display: block; }
+.price-annual-block  { display: none;  }
+
+/* TESTIMONIALS */
+.t-section { padding: 100px 60px; }
+.t-section-inner { max-width: 1200px; margin: 0 auto; }
+.t-scroll-wrap { position: relative; margin-top: 56px; }
+.t-scroll {
+  display: flex; gap: 20px; overflow-x: auto; padding-bottom: 24px;
+  scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin; scrollbar-color: rgba(123,63,181,0.3) transparent;
+}
+.t-scroll::-webkit-scrollbar { height: 4px; }
+.t-scroll::-webkit-scrollbar-track { background: transparent; }
+.t-scroll::-webkit-scrollbar-thumb { background: rgba(123,63,181,0.3); border-radius: 4px; }
+.t-card { border-radius: 20px; padding: 28px; border: 2px solid transparent; transition: all 0.2s; min-width: 320px; max-width: 360px; flex-shrink: 0; scroll-snap-align: start; }
+.t-card:hover { transform: translateY(-4px); box-shadow: 0 12px 40px rgba(13,27,62,0.09); }
+.t-see-all { text-align: center; margin-top: 36px; }
+.t-see-all a { display: inline-flex; align-items: center; gap: 8px; font-size: 14px; font-weight: 700; color: var(--purple); text-decoration: none; border: 2px solid rgba(123,63,181,0.25); padding: 12px 28px; border-radius: 100px; transition: all 0.2s; }
+.t-see-all a:hover { background: var(--purple-pale); border-color: var(--purple); }
+
+/* CONTACT SECTION */
+.contact-section { padding: 100px 60px; background: var(--light-bg); }
+.contact-inner { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+.contact-text .section-pill { margin-bottom: 14px; }
+.contact-text .section-h { margin-bottom: 12px; }
+.contact-text .section-p { margin-bottom: 32px; }
+.contact-ways { display: flex; flex-direction: column; gap: 16px; }
+.contact-way { display: flex; align-items: center; gap: 16px; background: white; border-radius: 16px; padding: 20px 24px; border: 2px solid rgba(13,27,62,0.07); text-decoration: none; color: var(--navy); transition: all 0.2s; }
+.contact-way:hover { border-color: var(--pink); transform: translateX(4px); }
+.contact-way-icon { font-size: 24px; width: 48px; height: 48px; border-radius: 12px; background: var(--pink-pale); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.contact-way-label { font-size: 13px; font-weight: 700; color: var(--navy); }
+.contact-way-sub { font-size: 11px; font-weight: 300; color: rgba(13,27,62,0.5); margin-top: 2px; }
+.contact-form-card { background: white; border-radius: 24px; padding: 40px; border: 2px solid rgba(13,27,62,0.07); box-shadow: 0 8px 40px rgba(13,27,62,0.08); }
+.contact-form-card h3 { font-size: 18px; font-weight: 800; color: var(--navy); margin-bottom: 24px; }
+.cf-row { margin-bottom: 16px; }
+.cf-label { font-size: 11px; font-weight: 700; color: rgba(13,27,62,0.55); letter-spacing: 0.5px; text-transform: uppercase; margin-bottom: 6px; display: block; }
+.cf-input { width: 100%; padding: 12px 16px; border: 1.5px solid rgba(13,27,62,0.12); border-radius: 10px; font-family: 'Poppins', sans-serif; font-size: 13px; color: var(--navy); outline: none; transition: border-color 0.2s; background: var(--off-white); }
+.cf-input:focus { border-color: var(--pink); background: white; }
+.cf-textarea { resize: vertical; min-height: 100px; }
+.cf-btn { width: 100%; background: linear-gradient(135deg, var(--pink), var(--purple)); color: white; font-family: 'Poppins', sans-serif; font-size: 14px; font-weight: 700; padding: 14px; border-radius: 100px; border: none; cursor: pointer; transition: all 0.2s; margin-top: 8px; }
+.cf-btn:hover { transform: translateY(-1px); box-shadow: 0 8px 24px rgba(232,53,122,0.4); }
+.t-pink { background: var(--pink-pale); border-color: var(--pink); }
+.t-purple { background: var(--purple-pale); border-color: var(--purple); }
+.t-green { background: var(--green-pale); border-color: var(--green); }
+.t-stars { font-size: 14px; letter-spacing: 3px; margin-bottom: 14px; }
+.t-pink .t-stars { color: var(--pink); }
+.t-purple .t-stars { color: var(--purple); }
+.t-green .t-stars { color: var(--green); }
+.t-quote { font-size: 15px; font-weight: 500; font-style: italic; color: var(--navy); line-height: 1.6; margin-bottom: 20px; }
+.t-author { display: flex; align-items: center; gap: 10px; }
+.t-av { width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; flex-shrink: 0; }
+.av-pink { background: var(--pink); color: white; }
+.av-purple { background: var(--purple); color: white; }
+.av-green { background: var(--green); color: white; }
+.t-nm { font-size: 13px; font-weight: 700; color: var(--navy); }
+.t-rl { font-size: 11px; font-weight: 400; color: rgba(13,27,62,0.55); }
+
+/* CTA */
+.cta-section {
+  padding: 100px 60px;
+  background: var(--navy);
+  text-align: center; position: relative; overflow: hidden;
+}
+.cta-section::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse 80% 60% at 50% 100%, rgba(123,63,181,0.2) 0%, transparent 70%);
+}
+.cta-inner { position: relative; z-index: 1; max-width: 700px; margin: 0 auto; }
+.cta-logo { width: 280px; margin: 0 auto 32px; display: block; filter: drop-shadow(0 8px 32px rgba(201,148,58,0.3)); }
+.cta-h {
+  font-size: clamp(32px, 4.5vw, 54px); font-weight: 900;
+  color: white; letter-spacing: -1.5px; line-height: 1.05; margin-bottom: 18px;
+}
+.cta-h .grad {
+  background: linear-gradient(135deg, var(--pink-bright), var(--purple), #A86DE0);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+}
+.cta-p { font-size: 16px; color: rgba(255,255,255,0.6); margin-bottom: 40px; line-height: 1.7; font-weight: 300; }
+.cta-tagline { font-size: 13px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--gold-light); margin-bottom: 36px; }
+.cta-tagline span { margin: 0 8px; }
+
+.btn-cta {
+  background: linear-gradient(135deg, var(--pink), var(--purple));
+  color: white; font-family: 'Poppins', sans-serif;
+  font-size: 15px; font-weight: 800; padding: 18px 44px;
+  border-radius: 100px; text-decoration: none; border: none; cursor: pointer;
+  transition: all 0.2s; box-shadow: 0 8px 32px rgba(232,53,122,0.4);
+  display: inline-flex; align-items: center; gap: 10px;
+}
+.btn-cta:hover { transform: translateY(-2px); box-shadow: 0 14px 44px rgba(232,53,122,0.55); }
+
+
+/* FOOTER */
+footer {
+  background: var(--navy-mid);
+  border-top: 3px solid transparent;
+  border-image: linear-gradient(90deg, var(--pink), var(--purple), var(--blue), var(--green)) 1;
+  padding: 36px 60px;
+  display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px;
+}
+.f-logo { height: 110px; width: auto; object-fit: contain; }
+.f-copy { font-size: 12px; color: rgba(255,255,255,0.28); }
+.f-links { display: flex; gap: 24px; }
+.f-links a { font-size: 12px; color: rgba(255,255,255,0.35); text-decoration: none; transition: color 0.2s; }
+.f-links a:hover { color: var(--gold-light); }
+.f-tagline { font-size: 10px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; }
+.f-tagline .fp { color: var(--pink); }
+.f-tagline .fd2 { color: var(--gold-light); }
+.f-tagline .fg { color: var(--green-bright); }
+
+@keyframes fadeUp { from{opacity:0;transform:translateY(22px)} to{opacity:1;transform:translateY(0)} }
+
+@media(max-width:900px){
+  nav{padding:0 20px;}
+  .nav-links{display:none;}
+  .hero{padding:80px 24px 60px;}
+  .tools-grid{grid-template-columns:repeat(2,1fr);}
+  .pricing-grid{grid-template-columns:1fr;}
+  .pc.feat{transform:none;}
+  .tools-section,.t-section{padding:60px 24px;}
+  .pricing-section,.logo-section,.cta-section{padding:60px 24px;}
+  footer{padding:28px 24px;flex-direction:column;align-items:flex-start;}
+  .logo-grid{grid-template-columns:1fr;}
+  .stat-div{display:none;}
+  .cat-grid{grid-template-columns:1fr;}
+  .best-grid{grid-template-columns:repeat(2,1fr);}
+  .digital-inner{grid-template-columns:1fr;}
+  .d-card-2,.d-card-4{transform:none;}
+  .shop-section,.best-section,.digital-section{padding:60px 24px;}
+  .contact-inner{grid-template-columns:1fr;}
+  .contact-section{padding:60px 24px;}
+  .t-card{min-width:280px;}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">
+    <img src="logo.png" alt="The PTA/PTO Shoppe">
+  </a>
+  <div class="nav-links">
+    <a href="#tools">Tools</a>
+    <a href="#pricing">Pricing</a>
+    <a href="#testimonials">Reviews</a>
+    <a href="contact.html">Contact</a>
+  </div>
+  <a href="checkout.html" class="nav-cta">Get Started →</a>
+</nav>
+
+<!-- GOLD DIVIDER -->
+<div class="gold-divider"></div>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-center">
+    <img src="graphic.png" alt="" class="hero-graphic">
+    <div class="hero-eyebrow">✦ AI-Powered Tools for School Boards</div>
+    <div class="hero-tagline">
+      <span>Community</span> · <span>School</span> · <span>Spirit</span>
+    </div>
+    <h1>Stop surviving <span class="grad">your PTA/PTO.</span><br><span class="grad">Start running it.</span></h1>
+    <div class="hero-built-by">✦ Built by PTA/PTOs, for PTA/PTOs ✦</div>
+    <p class="hero-sub">The PTA/PTO Shoppe gives your board 10 AI-powered tools — flyers, emails, event kits, social posts, donor letters, and more — done in seconds, not hours.</p>
+    <div class="hero-actions">
+      <a href="checkout.html" class="btn-hero">Get Started — $25/mo ✦</a>
+      <a href="#tools" class="btn-out">See All Tools →</a>
+    </div>
+    <div class="hero-stats" style="justify-content:center;">
+      <div class="stat"><div class="stat-n pink">10+</div><div class="stat-l">AI Tools</div></div>
+      <div class="stat-div"></div>
+      <div class="stat"><div class="stat-n purple">&lt;60s</div><div class="stat-l">Per Generation</div></div>
+      <div class="stat-div"></div>
+      <div class="stat"><div class="stat-n green">$25</div><div class="stat-l">To Start</div></div>
+      <div class="stat-div"></div>
+      <div class="stat"><div class="stat-n gold">100%</div><div class="stat-l">School Focused</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- TOOLS -->
+<section class="tools-section" style="padding-top:48px;" id="tools">
+  <div class="section-header">
+    <div class="section-pill pill-pink">Everything you need</div>
+    <h2 class="section-h">10 tools. <span class="grad">One Shoppe.</span></h2>
+    <p class="section-p">Every tool your PTA or PTO board needs — powered by AI, built for school communities.</p>
+  </div>
+  <div class="tools-grid">
+    <a href="tool-flyer-writer.html" class="tc tc-pink" style="text-decoration:none;"><div class="ti ti-pink">📢</div><div class="tn">Flyer Writer</div><div class="td">Attention-grabbing announcements that get parents to actually show up.</div><div style="margin-top:12px;font-size:11px;font-weight:700;color:var(--pink);">Learn more →</div></a>
+    <a href="tool-agenda-builder.html" class="tc tc-purple" style="text-decoration:none;"><div class="ti ti-purple">📋</div><div class="tn">Agenda Builder</div><div class="td">Timed, professional meeting agendas with action items — auto-generated.</div><div style="margin-top:12px;font-size:11px;font-weight:700;color:var(--purple);">Learn more →</div></a>
+    <a href="tool-fundraiser-email.html" class="tc tc-blue" style="text-decoration:none;"><div class="ti ti-blue">💌</div><div class="tn">Fundraiser Email</div><div class="td">Heartfelt emails that inspire parents to give without feeling pressured.</div><div style="margin-top:12px;font-size:11px;font-weight:700;color:var(--blue);">Learn more →</div></a>
+    <a href="tool-newsletter-blurb.html" class="tc tc-green" style="text-decoration:none;"><div class="ti ti-green">📰</div><div class="tn">Newsletter Blurb</div><div class="td">Polished, copy-paste ready blurbs in your school's voice.</div><div style="margin-top:12px;font-size:11px;font-weight:700;color:var(--green);">Learn more →</div></a>
+    <a href="tool-permission-slip.html" class="tc tc-pink" style="text-decoration:none;"><div class="ti ti-pink">📝</div><div class="tn">Permission Slip</div><div class="td">Complete forms with tear-off sections, emergency contacts, and media release.</div><div style="margin-top:12px;font-size:11px;font-weight:700;color:var(--pink);">Learn more →</div></a>
+    <a href="tool-event-builder.html" class="tc tc-purple" style="text-decoration:none;"><div class="ti ti-purple">🎪</div><div class="tn">Event Builder</div><div class="td">Full planning kits for carnivals, coin wars, craft fairs, movie nights & more.</div><div style="margin-top:12px;font-size:11px;font-weight:700;color:var(--purple);">Learn more →</div></a>
+    <a href="tool-calendar-builder.html" class="tc tc-blue" style="text-decoration:none;"><div class="ti ti-blue">📅</div><div class="tn">Calendar Builder</div><div class="td">AI-suggested school year calendar based on your goals and budget.</div><div style="margin-top:12px;font-size:11px;font-weight:700;color:var(--blue);">Learn more →</div></a>
+    
+    <a href="tool-donor-directory.html" class="tc tc-pink" style="text-decoration:none;"><div class="ti ti-pink">🤝</div><div class="tn">Donor Directory</div><div class="td">Find companies that donate to schools + personalized outreach letters.</div><div style="margin-top:12px;font-size:11px;font-weight:700;color:var(--pink);">Learn more →</div></a>
+    <a href="tool-social-posts.html" class="tc tc-purple" style="text-decoration:none;"><div class="ti ti-purple">📱</div><div class="tn">Social Posts</div><div class="td">Platform-native posts for Facebook, Instagram, X, and Nextdoor.</div><div style="margin-top:12px;font-size:11px;font-weight:700;color:var(--purple);">Learn more →</div></a>
+    <a href="tool-ad-copy.html" class="tc tc-blue" style="text-decoration:none;"><div class="ti ti-blue">📣</div><div class="tn">Ad Copy</div><div class="td">Scroll-stopping Facebook & Instagram ad copy with headline, text & CTA.</div><div style="margin-top:12px;font-size:11px;font-weight:700;color:var(--blue);">Learn more →</div></a>
+    <div class="tc tc-green" style="border:2px dashed rgba(13,27,62,0.1);background:var(--off-white);"><div class="ti ti-green">✦</div><div class="tn">More Coming</div><div class="td">Budget tracker, volunteer scheduler — built with real PTA board input.</div></div>
+  </div>
+</section>
+
+<div class="gold-divider"></div>
+
+<!-- SHOP CATEGORIES -->
+<section class="shop-section" id="shop">
+  <div class="shop-inner">
+    <div class="section-header">
+      <div class="section-pill pill-pink">Shop the Shoppe</div>
+      <h2 class="section-h">Products built for <span class="grad">real school life.</span></h2>
+      <p class="section-p">From fundraising kits to spirit wear — everything your PTA needs, delivered to your door.</p>
+    </div>
+    <div class="cat-grid">
+      <div class="cat-card cat-fundraise">
+        <div class="cat-icon">🎯</div>
+        <div class="cat-name">Fundraising Kits</div>
+        <div class="cat-desc">Everything you need to run a successful campaign — pledge forms, tracking sheets, and planning guides included.</div>
+        <div class="cat-count">32 products</div>
+      </div>
+      <div class="cat-card cat-spirit">
+        <div class="cat-icon">👕</div>
+        <div class="cat-name">Spirit Wear</div>
+        <div class="cat-desc">Custom-ready tees, hoodies, and accessories that build school pride all year long.</div>
+        <div class="cat-count">24 products</div>
+      </div>
+      <div class="cat-card cat-events">
+        <div class="cat-icon">🎉</div>
+        <div class="cat-name">Event Supplies</div>
+        <div class="cat-desc">Banners, decorations, and supply kits for carnivals, auctions, movie nights, and more.</div>
+        <div class="cat-count">41 products</div>
+      </div>
+      <div class="cat-card cat-digital">
+        <div class="cat-icon">💻</div>
+        <div class="cat-name">Digital Downloads</div>
+        <div class="cat-desc">Print-ready flyers, templates, and planners. Instant delivery — endlessly customizable.</div>
+        <div class="cat-count">28 products</div>
+      </div>
+      <div class="cat-card cat-recognition">
+        <div class="cat-icon">🏆</div>
+        <div class="cat-name">Recognition & Awards</div>
+        <div class="cat-desc">Certificates, trophies, and thank-you kits that make volunteers and students feel seen.</div>
+        <div class="cat-count">19 products</div>
+      </div>
+      <div class="cat-card cat-office">
+        <div class="cat-icon">📋</div>
+        <div class="cat-name">Office & Admin</div>
+        <div class="cat-desc">Meeting kits, budget binders, and organizational tools that keep your board on track.</div>
+        <div class="cat-count">15 products</div>
+      </div>
+    </div>
+    <div style="text-align:center;margin-top:44px;">
+      <a href="pta-shoppe.html" class="btn-hero" style="display:inline-flex;">Browse All Products →</a>
+    </div>
+  </div>
+</section>
+
+<div class="gold-divider"></div>
+
+<!-- BESTSELLERS -->
+<section class="best-section">
+  <div class="best-inner">
+    <div class="section-header">
+      <div class="section-pill pill-purple">Community favorites</div>
+      <h2 class="section-h">What boards are <span class="grad">buying right now.</span></h2>
+    </div>
+    <div class="best-grid">
+      <div class="best-card">
+        <div class="best-img" style="background:var(--pink-pale);">🎯</div>
+        <div class="best-badge">Bestseller</div>
+        <div class="best-name">Ultimate Fundraising Starter Kit</div>
+        <div class="best-desc">Everything for your first campaign — pledge forms, donor letters, tracking sheets, and a full planning guide.</div>
+        <div class="best-footer">
+          <div class="best-price">$29</div>
+          <a href="pta-shoppe.html" class="best-btn">Shop Now →</a>
+        </div>
+      </div>
+      <div class="best-card">
+        <div class="best-img" style="background:var(--purple-pale);">🎪</div>
+        <div class="best-badge best-badge-new">New</div>
+        <div class="best-name">Spring Carnival Planning Kit</div>
+        <div class="best-desc">Complete event bundle with vendor checklist, ticket templates, game instructions, and a countdown timeline.</div>
+        <div class="best-footer">
+          <div class="best-price">$45</div>
+          <a href="pta-shoppe.html" class="best-btn">Shop Now →</a>
+        </div>
+      </div>
+      <div class="best-card">
+        <div class="best-img" style="background:var(--green-pale);">📰</div>
+        <div class="best-badge" style="background:var(--green-pale);color:var(--green);">Popular</div>
+        <div class="best-name">Year-Round Newsletter Pack</div>
+        <div class="best-desc">12 months of print-ready newsletter templates — just add your content and hit send. Parents actually read these.</div>
+        <div class="best-footer">
+          <div class="best-price">$25</div>
+          <a href="pta-shoppe.html" class="best-btn">Shop Now →</a>
+        </div>
+      </div>
+      <div class="best-card">
+        <div class="best-img" style="background:#FDF6E3;">🏆</div>
+        <div class="best-badge" style="background:#FDF6E3;color:var(--gold);">Fan Fave</div>
+        <div class="best-name">Volunteer Thank-You Bundle</div>
+        <div class="best-desc">Printable certificates, appreciation cards, and gift tags that make your volunteers want to come back next year.</div>
+        <div class="best-footer">
+          <div class="best-price">$15</div>
+          <a href="pta-shoppe.html" class="best-btn">Shop Now →</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="gold-divider"></div>
+
+<!-- DIGITAL DOWNLOADS SPOTLIGHT -->
+<section class="digital-section">
+  <div class="digital-inner">
+    <div class="digital-text">
+      <div class="section-pill pill-green" style="margin-bottom:14px;">Instant access</div>
+      <h2 class="section-h">Download it.<br><span class="grad">Use it today.</span></h2>
+      <p class="section-p">Our digital downloads are ready the second you buy. No waiting, no shipping — just open, customize, and print. Perfect for the board leader who needed it yesterday.</p>
+      <ul class="digital-list">
+        <li>✓ &nbsp;Instant PDF + editable file delivery</li>
+        <li>✓ &nbsp;Print at home or send to your local copy shop</li>
+        <li>✓ &nbsp;School-year value packs available</li>
+        <li>✓ &nbsp;Always formatted and ready to use</li>
+      </ul>
+      <a href="pta-shoppe.html" class="btn-hero" style="display:inline-flex;margin-top:32px;">Browse Downloads →</a>
+    </div>
+    <div class="digital-cards">
+      <div class="d-card d-card-1">
+        <div class="d-icon">📋</div>
+        <div class="d-name">Meeting Agenda Templates</div>
+        <div class="d-price">$8</div>
+      </div>
+      <div class="d-card d-card-2">
+        <div class="d-icon">📢</div>
+        <div class="d-name">Event Flyer Pack (20 designs)</div>
+        <div class="d-price">$14</div>
+      </div>
+      <div class="d-card d-card-3">
+        <div class="d-icon">💰</div>
+        <div class="d-name">Budget Tracker Bundle</div>
+        <div class="d-price">$12</div>
+      </div>
+      <div class="d-card d-card-4">
+        <div class="d-icon">🗓️</div>
+        <div class="d-name">School Year Planner Kit</div>
+        <div class="d-price">$18</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="gold-divider"></div>
+
+<!-- PRICING -->
+<section class="pricing-section" id="pricing">
+  <div class="pricing-inner">
+    <div class="pricing-header">
+      <div class="section-pill pill-gold" style="margin-bottom:14px;">Simple pricing</div>
+      <h2 class="section-h">Plans for <span class="grad">every board.</span></h2>
+      <p class="section-p">Start for $25/mo. Upgrade when ready. No contracts, no surprises.</p>
+    </div>
+    <div class="pricing-toggle">
+      <div class="toggle-track">
+        <button class="toggle-opt active" id="tog-monthly" onclick="setPricingBilling('monthly')">Monthly</button>
+        <button class="toggle-opt" id="tog-annual" onclick="setPricingBilling('annual')">Annual</button>
+      </div>
+      <span class="toggle-save-pill" id="tog-save-pill">Save 17%</span>
+    </div>
+    <div class="pricing-grid">
+
+      <div class="pc">
+        <div class="plan-n">Starter</div>
+        <div class="plan-t">Everything to get your board going</div>
+        <div class="price-monthly-block" id="hp-starter-monthly">
+          <div class="price-row"><div class="price-n">$25</div><div class="price-p">/mo</div></div>
+          <div class="price-annual-note"></div>
+        </div>
+        <div class="price-annual-block" id="hp-starter-annual">
+          <div class="price-block">
+            <div class="price-annual-yr">$249<span style="font-size:18px;font-weight:600;letter-spacing:-0.5px;">/yr</span></div>
+            <div class="price-annual-mo">$20.75/mo · billed annually</div>
+          </div>
+          <div class="price-annual-note"></div>
+        </div>
+        <div class="pdiv"></div>
+        <ul class="pf">
+          <li><div class="fd fd-g">✓</div>10 AI generations per month</li>
+          <li><div class="fd fd-g">✓</div>Flyer writer + newsletter blurb</li>
+          <li><div class="fd fd-g">✓</div>Permission slip generator</li>
+          <li><div class="fd fd-x">–</div><span style="opacity:.35">Event Builder</span></li>
+          <li><div class="fd fd-x">–</div><span style="opacity:.35">Social & Ad tools</span></li>
+        </ul>
+        <a href="checkout.html?plan=starter" class="pb pb-out" id="hp-starter-btn" onclick="goToCheckoutBilling('starter')">Get Started</a>
+      </div>
+
+      <div class="pc feat">
+        <div class="feat-pill">⭐ Most Popular</div>
+        <div class="plan-n">Pro Board</div>
+        <div class="plan-t">Everything your board needs</div>
+        <div class="price-monthly-block" id="hp-pro-monthly">
+          <div class="price-row"><div class="price-n">$35</div><div class="price-p">/mo</div></div>
+          <div class="price-annual-note"></div>
+        </div>
+        <div class="price-annual-block" id="hp-pro-annual">
+          <div class="price-block">
+            <div class="price-annual-yr">$349<span style="font-size:18px;font-weight:600;letter-spacing:-0.5px;">/yr</span></div>
+            <div class="price-annual-mo">$29.08/mo · billed annually</div>
+          </div>
+          <div class="price-annual-note"></div>
+        </div>
+        <div class="pdiv"></div>
+        <ul class="pf">
+          <li><div class="fd fd-g">✓</div><span style="color:var(--navy)">Unlimited AI generations</span></li>
+          <li><div class="fd fd-g">✓</div><span style="color:var(--navy)">All 10 tools unlocked</span></li>
+          <li><div class="fd fd-g">✓</div><span style="color:var(--navy)">Event Builder + planning kits</span></li>
+          <li><div class="fd fd-g">✓</div><span style="color:var(--navy)">Smart Calendar Builder</span></li>
+          <li><div class="fd fd-g">✓</div><span style="color:var(--navy)">Social + ad copy tools</span></li>
+          <li><div class="fd fd-gold">★</div><span style="color:var(--navy)">Donor directory + letters</span></li>
+        </ul>
+        <a href="checkout.html?plan=pro" class="pb pb-grad" id="hp-pro-btn" onclick="goToCheckoutBilling('pro')">Get Pro Board →</a>
+      </div>
+
+
+    </div>
+    <p style="text-align:center;margin-top:36px;font-size:11px;color:rgba(255,255,255,0.28);position:relative;z-index:1;">
+      ✦ No contracts &nbsp;·&nbsp; Cancel anytime &nbsp;·&nbsp; School-year billing available
+    </p>
+  </div>
+</section>
+
+<div class="gold-divider"></div>
+
+<!-- TESTIMONIALS -->
+<section class="t-section" id="testimonials">
+  <div class="t-section-inner">
+    <div class="section-header">
+      <div class="section-pill pill-purple">Loved by boards like yours</div>
+      <h2 class="section-h">Real PTAs. <span class="grad">Real results.</span></h2>
+      <p class="section-p">Hundreds of PTA and PTO boards across the country are saving hours every week.</p>
+    </div>
+    <div class="t-scroll-wrap">
+      <div class="t-scroll">
+        <div class="t-card t-pink">
+          <div class="t-stars">★★★★★</div>
+          <div class="t-quote">"I used to spend 3 hours on our monthly newsletter. Now it takes 10 minutes. I actually enjoy the events now."</div>
+          <div class="t-author"><div class="t-av av-pink">MR</div><div><div class="t-nm">Maria R.</div><div class="t-rl">PTA President · Jefferson Elementary</div></div></div>
+        </div>
+        <div class="t-card t-purple">
+          <div class="t-stars">★★★★★</div>
+          <div class="t-quote">"The Event Builder is worth every penny. Our Spring Carnival planning was done in a weekend. The checklist was a lifesaver."</div>
+          <div class="t-author"><div class="t-av av-purple">DK</div><div><div class="t-nm">Dana K.</div><div class="t-rl">Volunteer Coordinator · Lakewood PTO</div></div></div>
+        </div>
+        <div class="t-card t-green">
+          <div class="t-stars">★★★★★</div>
+          <div class="t-quote">"The donor letters got us $4,200 in sponsorships. I never would have reached out to those companies on my own."</div>
+          <div class="t-author"><div class="t-av av-green">TC</div><div><div class="t-nm">Tanya C.</div><div class="t-rl">Treasurer · Riverside School PTA</div></div></div>
+        </div>
+        <div class="t-card t-pink">
+          <div class="t-stars">★★★★★</div>
+          <div class="t-quote">"Permission slips used to be a nightmare every field trip. Now I generate one in 45 seconds and parents actually return them because they're so clear."</div>
+          <div class="t-author"><div class="t-av av-pink">SL</div><div><div class="t-nm">Sarah L.</div><div class="t-rl">Secretary · Maple Grove PTO</div></div></div>
+        </div>
+        <div class="t-card t-purple">
+          <div class="t-stars">★★★★★</div>
+          <div class="t-quote">"We raised $11,000 at our Fun Run this year — our best ever. The fundraiser email series and social posts brought in parents we'd never heard from before."</div>
+          <div class="t-author"><div class="t-av av-purple">RB</div><div><div class="t-nm">Rachel B.</div><div class="t-rl">Fundraising Chair · Summit School PTA</div></div></div>
+        </div>
+        <div class="t-card t-green">
+          <div class="t-stars">★★★★★</div>
+          <div class="t-quote">"I'm a first-year PTO president and I felt completely lost. This tool made me feel like I actually knew what I was doing at every meeting."</div>
+          <div class="t-author"><div class="t-av av-green">JP</div><div><div class="t-nm">Jess P.</div><div class="t-rl">PTO President · Cedar Hill Elementary</div></div></div>
+        </div>
+        <div class="t-card t-pink">
+          <div class="t-stars">★★★★★</div>
+          <div class="t-quote">"Our board spent 20 minutes at our August meeting and had our entire year's event calendar mapped out. That has never happened before in 6 years."</div>
+          <div class="t-author"><div class="t-av av-pink">AM</div><div><div class="t-nm">Anna M.</div><div class="t-rl">Vice President · Riverside PTA</div></div></div>
+        </div>
+        <div class="t-card t-purple">
+          <div class="t-stars">★★★★★</div>
+          <div class="t-quote">"The Agenda Builder alone is worth the subscription. Meetings that used to run 2+ hours now finish in 75 minutes and we get more done."</div>
+          <div class="t-author"><div class="t-av av-purple">CT</div><div><div class="t-nm">Chris T.</div><div class="t-rl">Board Member · Westfield School PTO</div></div></div>
+        </div>
+      </div>
+    </div>
+    <div class="t-see-all">
+      <a href="reviews.html">Read all reviews →</a>
+    </div>
+  </div>
+</section>
+
+<div class="gold-divider"></div>
+
+<!-- CTA -->
+<section class="cta-section">
+  <div class="cta-inner">
+        <div class="cta-tagline">
+      <span class="fp">Community</span> · <span class="fd2">School</span> · <span class="fg">Spirit</span>
+    </div>
+    <h2 class="cta-h">Your board deserves<br><span class="grad">better tools.</span></h2>
+    <p class="cta-p">Join thousands of PTA and PTO volunteers who've taken back their evenings. Plans start at just $25/mo.</p>
+    <a href="checkout.html" class="btn-cta">Get Started ✦</a>
+  </div>
+</section>
+
+<!-- CONTACT SECTION -->
+<section class="contact-section" id="contact">
+  <div class="contact-inner">
+    <div class="contact-text">
+      <div class="section-pill pill-pink" style="display:inline-block;margin-bottom:14px;">Get in touch</div>
+      <h2 class="section-h">We're here to <span class="grad">help your board.</span></h2>
+      <p class="section-p">Questions about pricing, tools, or your school's specific needs? We'd love to hear from you — real humans respond within one business day.</p>
+      <div class="contact-ways">
+        <a href="contact.html" class="contact-way">
+          <div class="contact-way-icon">✉️</div>
+          <div><div class="contact-way-label">Send us a message</div><div class="contact-way-sub">We respond within 1 business day</div></div>
+        </a>
+        <a href="mailto:hello@ptaptoshoppe.com" class="contact-way">
+          <div class="contact-way-icon">📧</div>
+          <div><div class="contact-way-label">hello@ptaptoshoppe.com</div><div class="contact-way-sub">Direct email — always monitored</div></div>
+        </a>
+        <a href="reviews.html" class="contact-way">
+          <div class="contact-way-icon">⭐</div>
+          <div><div class="contact-way-label">Read what boards are saying</div><div class="contact-way-sub">100+ reviews from real PTA/PTO members</div></div>
+        </a>
+      </div>
+    </div>
+    <div class="contact-form-card">
+      <h3>Send us a message</h3>
+      <form action="contact.html" method="get">
+        <div class="cf-row">
+          <label class="cf-label">Your name</label>
+          <input class="cf-input" type="text" placeholder="Jane Smith" name="name">
+        </div>
+        <div class="cf-row">
+          <label class="cf-label">Email address</label>
+          <input class="cf-input" type="email" placeholder="you@school.org" name="email">
+        </div>
+        <div class="cf-row">
+          <label class="cf-label">Subject</label>
+          <input class="cf-input" type="text" placeholder="Question about pricing..." name="subject">
+        </div>
+        <div class="cf-row">
+          <label class="cf-label">Message</label>
+          <textarea class="cf-input cf-textarea" placeholder="Tell us about your board and what you're looking for..." name="message"></textarea>
+        </div>
+        <button type="submit" class="cf-btn">Send Message →</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <img src="logo.png" alt="The PTA/PTO Shoppe" class="f-logo">
+  <div class="f-tagline">
+    <span class="fp">Community</span> · <span class="fd2">School</span> · <span class="fg">Spirit</span>
+  </div>
+  <div class="f-copy">© 2026 The PTA/PTO Shoppe. All rights reserved.</div>
+  <div class="f-links">
+    <a href="#">Privacy</a>
+    <a href="#">Terms</a>
+    <a href="contact.html">Contact</a>
+  </div>
+</footer>
+
+
+<script>
+var _hpBilling = 'monthly';
+
+function setPricingBilling(type) {
+  _hpBilling = type;
+  document.getElementById('tog-monthly').classList.toggle('active', type === 'monthly');
+  document.getElementById('tog-annual').classList.toggle('active', type === 'annual');
+  document.getElementById('tog-save-pill').style.display = type === 'annual' ? '' : 'none';
+
+  if (type === 'annual') {
+    ['starter','pro'].forEach(function(p) {
+      document.getElementById('hp-' + p + '-monthly').style.display = 'none';
+      document.getElementById('hp-' + p + '-annual').style.display  = 'block';
+    });
+  } else {
+    ['starter','pro'].forEach(function(p) {
+      document.getElementById('hp-' + p + '-monthly').style.display = 'block';
+      document.getElementById('hp-' + p + '-annual').style.display  = 'none';
+    });
+  }
+}
+
+function goToCheckoutBilling(plan) {
+  var key = plan + (_hpBilling === 'annual' ? '_annual' : '');
+  var url = window.STRIPE_URLS && window.STRIPE_URLS[key];
+  if (url && !url.includes('REPLACE-WITH')) {
+    window.location.href = url;
+  } else {
+    window.location.href = 'checkout.html?plan=' + plan + '&billing=' + _hpBilling;
+  }
+}
+
+function goToCheckout(plan) {
+  goToCheckoutBilling(plan);
+}
+</script>
+</body>
+</html>
