@@ -247,6 +247,44 @@ footer{background:var(--navy-mid,#142248);border-top:3px solid transparent;borde
 .f-links{display:flex;gap:24px;}
 .f-links a{font-size:12px;color:rgba(255,255,255,0.35);text-decoration:none;transition:color 0.2s;}
 .f-links a:hover{color:var(--gold-light);}
+/* color palette presets */
+.color-palettes{display:flex;flex-wrap:wrap;gap:6px;margin-top:12px;}
+.color-palette{display:flex;border-radius:100px;overflow:hidden;cursor:pointer;border:2.5px solid transparent;transition:all 0.18s;height:26px;}
+.color-palette:hover{transform:scale(1.06);}
+.color-palette.active{border-color:var(--navy);}
+.cp-swatch{width:26px;height:100%;}
+.cp-palette-label{font-size:9px;font-weight:700;letter-spacing:0.5px;padding:0 8px;background:var(--off-white);color:rgba(13,27,62,0.5);display:flex;align-items:center;white-space:nowrap;}
+/* tone box rewrite btn */
+.tone-rewrite-btn{width:100%;margin-top:14px;padding:11px;background:linear-gradient(135deg,var(--pink),var(--purple));color:white;font-family:'Poppins',sans-serif;font-size:12px;font-weight:700;border:none;border-radius:100px;cursor:pointer;transition:all 0.2s;box-shadow:0 4px 16px rgba(232,53,122,0.3);}
+.tone-rewrite-btn:hover{transform:translateY(-1px);box-shadow:0 6px 20px rgba(232,53,122,0.45);}
+.tone-rewrite-btn:disabled{opacity:0.6;cursor:not-allowed;transform:none;}
+/* graphic upload zone */
+.gfx-upload-zone{border:2px dashed rgba(13,27,62,0.15);border-radius:12px;padding:14px;text-align:center;cursor:pointer;transition:all 0.2s;background:var(--off-white);margin-bottom:10px;font-size:12px;font-weight:600;color:rgba(13,27,62,0.55);}
+.gfx-upload-zone:hover{border-color:var(--purple);background:var(--purple-pale);}
+.gfx-upload-note{font-size:10px;color:rgba(13,27,62,0.4);line-height:1.5;margin-top:8px;}
+.gfx-tabs{display:flex;gap:4px;margin-bottom:10px;}
+.gfx-tab{flex:1;padding:6px;border-radius:8px;border:2px solid rgba(13,27,62,0.1);background:var(--off-white);cursor:pointer;font-size:10px;font-weight:700;color:rgba(13,27,62,0.5);transition:all 0.18s;text-align:center;}
+.gfx-tab.active{border-color:var(--purple);background:var(--purple);color:white;}
+/* fo image */
+.fo-image{text-align:center;padding:10px 0 4px;display:none;}
+.fo-image img{max-width:100%;max-height:120px;border-radius:10px;object-fit:cover;box-shadow:0 4px 16px rgba(13,27,62,0.12);}
+/* share panel */
+.share-panel{background:var(--light-bg);border-radius:16px;padding:14px 16px;margin-top:12px;border:1.5px solid rgba(13,27,62,0.07);}
+.share-panel-title{font-size:11px;font-weight:800;color:var(--navy);margin-bottom:10px;display:flex;align-items:center;gap:6px;}
+.share-btns{display:flex;gap:8px;}
+.share-btn{flex:1;padding:10px 8px;border-radius:100px;font-family:'Poppins',sans-serif;font-size:11px;font-weight:700;cursor:pointer;border:none;transition:all 0.2s;display:flex;align-items:center;justify-content:center;gap:6px;}
+.share-email{background:#0D1B3E;color:white;}
+.share-email:hover{background:#1C2F5E;}
+.share-text{background:#2BA84A;color:white;}
+.share-text:hover{background:#1a7a32;}
+.share-copy{background:white;color:var(--navy);border:2px solid rgba(13,27,62,0.12);}
+.share-copy:hover{border-color:var(--purple);color:var(--purple);}
+/* ink warning toast */
+.ink-toast{position:fixed;bottom:28px;left:50%;transform:translateX(-50%) translateY(80px);background:#1a1a2e;color:white;padding:14px 20px;border-radius:16px;font-size:13px;font-weight:600;max-width:380px;width:90%;z-index:999;box-shadow:0 8px 32px rgba(0,0,0,0.35);transition:transform 0.35s ease;display:flex;align-items:flex-start;gap:12px;}
+.ink-toast.show{transform:translateX(-50%) translateY(0);}
+.ink-toast-icon{font-size:22px;flex-shrink:0;}
+.ink-toast-text{flex:1;line-height:1.5;}
+.ink-toast-close{background:rgba(255,255,255,0.15);border:none;color:white;border-radius:50%;width:22px;height:22px;cursor:pointer;font-size:14px;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;}
 /* ── STARTING POINT SECTION ── */
 .start-section{background:#010D2A;padding:60px 60px 0;}
 .start-inner{max-width:1200px;margin:0 auto;}
@@ -326,6 +364,13 @@ footer{background:var(--navy-mid,#142248);border-top:3px solid transparent;borde
 </style>
 </head>
 <body>
+
+<!-- INK WARNING TOAST -->
+<div class="ink-toast" id="inkToast">
+  <span class="ink-toast-icon">🖨️</span>
+  <div class="ink-toast-text"><strong>Heads up!</strong> A colored background uses a lot of ink when printing. Consider using a light or white background if you're printing copies.</div>
+  <button class="ink-toast-close" onclick="document.getElementById('inkToast').classList.remove('show')">✕</button>
+</div>
 
 <nav>
   <a href="index.html" class="nav-logo"><img src="logo.png" alt="The PTA/PTO Shoppe"></a>
@@ -465,7 +510,9 @@ footer{background:var(--navy-mid,#142248);border-top:3px solid transparent;borde
             </div>
             <img id="logoPreviewThumb" alt="Logo preview" style="display:none;max-height:72px;max-width:180px;border-radius:8px;margin:0 auto;">
           </div>
-          <div class="color-row">
+          <label class="fw-label" style="margin-top:14px;">Logo Position</label>
+          <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:5px;" id="brandLogoGrid"></div>
+          <div class="color-row" style="margin-top:16px;">
             <div class="color-field">
               <label>Primary Color</label>
               <div class="color-input-wrap">
@@ -481,6 +528,8 @@ footer{background:var(--navy-mid,#142248);border-top:3px solid transparent;borde
               </div>
             </div>
           </div>
+          <label class="fw-label">Color Palettes</label>
+          <div class="color-palettes" id="colorPalettes"></div>
         </div>
 
         <div class="fw-group">
@@ -526,10 +575,8 @@ footer{background:var(--navy-mid,#142248);border-top:3px solid transparent;borde
               <input type="radio" name="tone" value="formal">
               <div class="tone-card"><div class="tone-emoji">📋</div><div class="tone-name">Formal</div><div class="tone-desc">Professional tone</div></div>
             </label>
-          </div>
+          <button class="tone-rewrite-btn" id="generateBtn" onclick="generateFlyer()">✦ Rewrite Copy with AI</button>
         </div>
-
-        <button class="fw-generate-btn" id="generateBtn" onclick="generateFlyer()">✦ Rewrite Copy</button>
 
         <div class="customize-panel" id="customizePanel">
           <div class="cp-heading">🎨 Design Options</div>
@@ -578,8 +625,25 @@ footer{background:var(--navy-mid,#142248);border-top:3px solid transparent;borde
           </div>
 
           <div class="cp-section">
-            <div class="cp-label">Graphic</div>
-            <div class="gfx-grid" id="gfxGrid"></div>
+            <div class="cp-label">Image &amp; Graphic</div>
+            <div class="gfx-tabs">
+              <button class="gfx-tab active" id="gfxTabClipArt" onclick="switchGfxTab('clipart',this)">📚 Clip Art</button>
+              <button class="gfx-tab" id="gfxTabUpload" onclick="switchGfxTab('upload',this)">📷 Upload Photo</button>
+            </div>
+            <div id="gfxPanelClipart">
+              <div class="gfx-grid" id="gfxGrid"></div>
+            </div>
+            <div id="gfxPanelUpload" style="display:none;">
+              <div class="gfx-upload-zone" onclick="document.getElementById('gfxImageUpload').click()">
+                <input type="file" id="gfxImageUpload" accept="image/*" style="display:none" onchange="handleGfxUpload(event)">
+                📷 Click to upload a photo or image
+              </div>
+              <div class="gfx-upload-note">⚠️ For best print quality, use images at least <strong>1200 × 800 px</strong> and <strong>150 DPI or higher</strong>. JPG or PNG format recommended. Very large files may slow the preview.</div>
+              <div id="gfxUploadPreview" style="display:none;margin-top:8px;text-align:center;">
+                <img id="gfxUploadThumb" style="max-height:80px;max-width:100%;border-radius:8px;border:2px solid rgba(13,27,62,0.1);">
+                <button onclick="clearGfxImage()" style="display:block;margin:6px auto 0;font-size:10px;font-weight:700;color:var(--pink);background:none;border:none;cursor:pointer;">✕ Remove image</button>
+              </div>
+            </div>
           </div>
 
           <div class="cp-section">
@@ -599,11 +663,6 @@ footer{background:var(--navy-mid,#142248);border-top:3px solid transparent;borde
           <div class="cp-section">
             <div class="cp-label">Sticker</div>
             <div class="sticker-opts" id="stickerOpts"></div>
-          </div>
-
-          <div class="cp-section">
-            <div class="cp-label">Logo Position</div>
-            <div class="cp-logo-grid" id="cpLogoGrid"></div>
           </div>
 
           <div class="cp-section">
@@ -650,6 +709,15 @@ footer{background:var(--navy-mid,#142248);border-top:3px solid transparent;borde
         <div class="preview-actions" id="previewActions">
           <button class="pa-btn pa-primary" onclick="printFlyer()">🖨️ Print / Save as PDF</button>
           <button class="pa-btn pa-secondary" id="copyBtn" onclick="copyFlyerText()">📋 Copy Text</button>
+        </div>
+
+        <div class="share-panel">
+          <div class="share-panel-title">📤 Share this flyer</div>
+          <div class="share-btns">
+            <button class="share-btn share-email" onclick="shareViaEmail()">✉️ Email</button>
+            <button class="share-btn share-text" onclick="shareViaText()">💬 Text</button>
+            <button class="share-btn share-copy" id="shareCopyBtn" onclick="shareCopyLink()">🔗 Copy Link</button>
+          </div>
         </div>
 
         <div class="canva-cta" id="canvaCta" style="display:none;">
@@ -760,6 +828,18 @@ footer{background:var(--navy-mid,#142248);border-top:3px solid transparent;borde
 
 <script>
 let schoolLogoDataUrl = null;
+let uploadedGfxDataUrl = null;
+
+var COLOR_PALETTES = [
+  {label:'Forest',  c1:'#0f5c28', c2:'#2BA84A'},
+  {label:'Sky',     c1:'#1a4fa8', c2:'#2E7BC4'},
+  {label:'Crimson', c1:'#8a0010', c2:'#E8357A'},
+  {label:'Ember',   c1:'#8a3000', c2:'#F07A1A'},
+  {label:'Royal',   c1:'#3d0d80', c2:'#7B3FB5'},
+  {label:'Teal',    c1:'#0a5f6e', c2:'#0B9E8F'},
+  {label:'Navy',    c1:'#0D1B3E', c2:'#1C2F5E'},
+  {label:'Gold',    c1:'#080808', c2:'#C9943A'}
+];
 
 function handleLogoUpload(e) {
   const file = e.target.files[0];
@@ -851,6 +931,7 @@ function _foTop() {
 }
 function _foBdy(d, ctaBg) {
   return '<div class="fo-body">'
+    +'<div class="fo-image" id="foImage"></div>'
     +'<div class="fo-graphic" id="foGraphic"></div>'
     +'<div class="fo-blurb" id="foBlurb" contenteditable="true" spellcheck="false">'+d.body+'</div>'
     +'<div class="fo-dtl-block" id="foDtlBlock">'
@@ -1521,6 +1602,91 @@ var LOGO_POSITIONS = [
   {id:'bottom-right',label:'↘ BR'}
 ];
 
+var _inkWarningTimer = null;
+function showInkWarning() {
+  var toast = document.getElementById('inkToast');
+  if (!toast) return;
+  clearTimeout(_inkWarningTimer);
+  toast.classList.add('show');
+  _inkWarningTimer = setTimeout(function(){ toast.classList.remove('show'); }, 6000);
+}
+
+function handleGfxUpload(e) {
+  var file = e.target.files[0];
+  if (!file) return;
+  var reader = new FileReader();
+  reader.onload = function(ev) {
+    uploadedGfxDataUrl = ev.target.result;
+    var thumb = document.getElementById('gfxUploadThumb');
+    if (thumb) { thumb.src = uploadedGfxDataUrl; }
+    var preview = document.getElementById('gfxUploadPreview');
+    if (preview) preview.style.display = 'block';
+    // clear emoji graphic
+    flyerCustom.graphic = null;
+    document.querySelectorAll('.gfx-btn').forEach(function(b){b.classList.remove('active');});
+    applyCustomizations();
+  };
+  reader.readAsDataURL(file);
+}
+
+function clearGfxImage() {
+  uploadedGfxDataUrl = null;
+  document.getElementById('gfxImageUpload').value = '';
+  var preview = document.getElementById('gfxUploadPreview');
+  if (preview) preview.style.display = 'none';
+  applyCustomizations();
+}
+
+function switchGfxTab(tab, btn) {
+  document.querySelectorAll('.gfx-tab').forEach(function(b){b.classList.remove('active');});
+  btn.classList.add('active');
+  document.getElementById('gfxPanelClipart').style.display = tab === 'clipart' ? 'block' : 'none';
+  document.getElementById('gfxPanelUpload').style.display  = tab === 'upload'   ? 'block' : 'none';
+}
+
+function applyColorPalette(c1, c2, btn) {
+  document.getElementById('primaryColor').value   = c1;
+  document.getElementById('secondaryColor').value = c2;
+  document.getElementById('primaryHex').textContent   = c1;
+  document.getElementById('secondaryHex').textContent = c2;
+  document.querySelectorAll('.color-palette').forEach(function(b){b.classList.remove('active');});
+  if (btn) btn.classList.add('active');
+  if (lastFlyerData) { renderFlyerOutput(lastFlyerData); applyLogo(); }
+}
+
+function shareViaEmail() {
+  var d = lastFlyerData || {};
+  var subject = encodeURIComponent(d.title || 'Check out this flyer!');
+  var body = encodeURIComponent(
+    (d.title||'') + '\n' + (d.subtitle||'') + '\n\n'
+    + (d.body||'') + '\n\n'
+    + (d.dateStr||'') + '\n' + (d.timeStr||'') + '\n' + (d.locStr||'') + '\n\n'
+    + (d.cta||'') + '\n' + (d.contact||'')
+  );
+  window.location.href = 'mailto:?subject='+subject+'&body='+body;
+}
+
+function shareViaText() {
+  var d = lastFlyerData || {};
+  var msg = encodeURIComponent(
+    (d.title||'Event') + ' — ' + (d.dateStr||'') + ' ' + (d.locStr||'')
+    + '\n\n' + (d.body||'').substring(0,160)
+    + '\n\n' + (d.cta||'')
+  );
+  window.location.href = 'sms:?body='+msg;
+}
+
+function shareCopyLink() {
+  var d = lastFlyerData || {};
+  var text = [d.title, d.subtitle, '', d.body, '', d.dateStr, d.timeStr, d.locStr, '', d.cta, d.contact]
+    .filter(function(l){return l && l.trim();}).join('\n');
+  navigator.clipboard.writeText(text).then(function(){
+    var btn = document.getElementById('shareCopyBtn');
+    btn.textContent = '✓ Copied!';
+    setTimeout(function(){ btn.textContent = '🔗 Copy Link'; }, 2000);
+  });
+}
+
 function buildCustomizePanel() {
   // Template strip
   var freeTmpls = FLYER_TMPLS.filter(function(t){return t.tier==='free';});
@@ -1563,10 +1729,25 @@ function buildCustomizePanel() {
   document.getElementById('stickerOpts').innerHTML = STICKERS.map(function(s) {
     return '<button class="sticker-opt" style="background:'+s.bg+';color:'+s.fg+';border-color:'+s.bg+';" onclick="toggleSticker(\''+s.id+'\',this)">'+s.text+'</button>';
   }).join('');
-  // Logo position grid
-  document.getElementById('cpLogoGrid').innerHTML = LOGO_POSITIONS.map(function(p) {
-    return '<button class="cp-logo-btn'+(p.id==='top-left'?' active':'')+'" onclick="setLogoPos(\''+p.id+'\',this)">'+p.label+'</button>';
-  }).join('');
+  // Brand logo position grid (in form panel)
+  var brandLogoGrid = document.getElementById('brandLogoGrid');
+  if (brandLogoGrid) {
+    brandLogoGrid.innerHTML = LOGO_POSITIONS.map(function(p) {
+      return '<button class="cp-logo-btn'+(p.id==='top-left'?' active':'')+'" onclick="setLogoPos(\''+p.id+'\',this)" style="font-size:11px;">'+p.label+'</button>';
+    }).join('');
+  }
+
+  // Color palettes
+  var cpEl = document.getElementById('colorPalettes');
+  if (cpEl) {
+    cpEl.innerHTML = COLOR_PALETTES.map(function(p) {
+      return '<div class="color-palette" onclick="applyColorPalette(\''+p.c1+'\',\''+p.c2+'\',this)" title="'+p.label+'">'
+        +'<div class="cp-swatch" style="background:'+p.c1+';"></div>'
+        +'<div class="cp-swatch" style="background:'+p.c2+';"></div>'
+        +'<div class="cp-palette-label">'+p.label+'</div>'
+        +'</div>';
+    }).join('');
+  }
 
   // Social inputs
   document.getElementById('socialInputs').innerHTML = SOCIALS.map(function(s) {
@@ -1723,6 +1904,21 @@ function applyCustomizations() {
   if (bgc) {
     var bodyEl = output.querySelector('.fo-body');
     if (bodyEl) bodyEl.style.background = bgc.value;
+    if (bgc.value.toLowerCase() !== '#ffffff' && bgc.value.toLowerCase() !== '#fff') {
+      showInkWarning();
+    }
+  }
+
+  // Uploaded image
+  var imgEl = document.getElementById('foImage');
+  if (imgEl) {
+    if (uploadedGfxDataUrl) {
+      imgEl.innerHTML = '<img src="'+uploadedGfxDataUrl+'">';
+      imgEl.style.display = 'block';
+    } else {
+      imgEl.style.display = 'none';
+      imgEl.innerHTML = '';
+    }
   }
 
   // Graphic
