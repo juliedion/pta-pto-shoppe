@@ -601,13 +601,143 @@ function applyLogo() {
   document.getElementById('foLogoBar').style.display = 'block';
 }
 
+var selectedFlyerTmpl = null;
+
 function updateColors() {
-  const p = document.getElementById('primaryColor').value;
-  const s = document.getElementById('secondaryColor').value;
+  var p = document.getElementById('primaryColor').value;
+  var s = document.getElementById('secondaryColor').value;
   document.getElementById('primaryHex').textContent = p;
   document.getElementById('secondaryHex').textContent = s;
-  document.getElementById('foHeader').style.background = 'linear-gradient(135deg,' + p + ',' + s + ')';
-  document.getElementById('foCta').style.background = p;
+  var hdr = document.getElementById('foHeader');
+  if (hdr) hdr.style.background = 'linear-gradient(135deg,'+p+','+s+')';
+  var cta = document.getElementById('foCta');
+  if (cta && !selectedFlyerTmpl) cta.style.background = p;
+}
+
+/* ── FLYER OUTPUT RENDERERS ── */
+function _foLogo() {
+  return '<div class="fo-logo-bar" id="foLogoBar" style="display:none;"><img id="foLogo" src="" alt="School Logo"></div>';
+}
+function _foBdy(d, ctaBg) {
+  return '<div class="fo-body">'
+    +'<div class="fo-blurb" id="foBlurb" contenteditable="true" spellcheck="false">'+d.body+'</div>'
+    +'<div class="fo-details">'
+    +'<div class="fo-detail" id="foDate" contenteditable="true" spellcheck="false" data-placeholder="📅 Date">'+d.dateStr+'</div>'
+    +'<div class="fo-detail" id="foTime" contenteditable="true" spellcheck="false" data-placeholder="🕒 Time">'+d.timeStr+'</div>'
+    +'<div class="fo-detail" id="foLocation" contenteditable="true" spellcheck="false" data-placeholder="📍 Location">'+d.locStr+'</div>'
+    +'</div>'
+    +'<div class="fo-details-extra" id="foExtra" contenteditable="true" spellcheck="false"></div>'
+    +'<div class="fo-cta-bar" id="foCta" contenteditable="true" spellcheck="false" style="background:'+ctaBg+';">'+d.cta+'</div>'
+    +'<div class="fo-contact" id="foContact" contenteditable="true" spellcheck="false">'+d.contact+'</div>'
+    +'</div>';
+}
+
+function buildFlyerDefault(d, c1, c2) {
+  return _foLogo()
+    +'<div class="fo-header" id="foHeader" style="background:linear-gradient(135deg,'+c1+','+c2+');">'
+    +'<div class="fo-title" id="foTitle" contenteditable="true" spellcheck="false">'+d.title+'</div>'
+    +'<div class="fo-subtitle" id="foSubtitle" contenteditable="true" spellcheck="false">'+d.subtitle+'</div>'
+    +'</div>'
+    +_foBdy(d, c1);
+}
+
+function buildFlyerPennant(d, tmpl, c1, c2) {
+  var fs=['#E8357A','#fff','#2E7BC4','#F07A1A','#2BA84A','#fff','#7B3FB5','#F5D78E'];
+  var flags=fs.map(function(c){return '<span style="display:inline-block;width:0;height:0;border-left:10px solid transparent;border-right:10px solid transparent;border-top:20px solid '+c+';margin:0 2px;"></span>';}).join('');
+  return _foLogo()
+    +'<div style="background:'+c1+';padding:16px 28px 24px;text-align:center;">'
+    +'<div style="margin-bottom:12px;line-height:0;">'+flags+'</div>'
+    +'<div id="foSubtitle" contenteditable="true" spellcheck="false" style="font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,0.65);margin-bottom:8px;outline:none;border-radius:4px;">'+d.subtitle+'</div>'
+    +'<div id="foTitle" contenteditable="true" spellcheck="false" style="font-size:26px;font-weight:900;color:#fff;text-transform:uppercase;letter-spacing:-0.5px;line-height:1.1;text-shadow:0 3px 10px rgba(0,0,0,0.35);outline:none;border-radius:4px;">'+d.title+'</div>'
+    +'</div>'
+    +_foBdy(d, c1);
+}
+
+function buildFlyerBadge(d, tmpl, c1, c2) {
+  return _foLogo()
+    +'<div style="background:linear-gradient(155deg,'+c1+','+c2+');padding:32px 28px 28px;text-align:center;position:relative;overflow:hidden;">'
+    +'<div style="position:absolute;width:240px;height:240px;border-radius:50%;border:2px solid rgba(255,255,255,0.1);top:50%;left:50%;transform:translate(-50%,-50%);pointer-events:none;"></div>'
+    +'<div style="position:absolute;width:170px;height:170px;border-radius:50%;border:1.5px solid rgba(255,255,255,0.08);top:50%;left:50%;transform:translate(-50%,-50%);pointer-events:none;"></div>'
+    +'<div style="position:absolute;top:12px;left:16px;font-size:16px;color:rgba(255,255,255,0.15);">★</div>'
+    +'<div style="position:absolute;top:12px;right:16px;font-size:16px;color:rgba(255,255,255,0.15);">★</div>'
+    +'<div id="foSubtitle" contenteditable="true" spellcheck="false" style="font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,0.65);margin-bottom:8px;outline:none;border-radius:4px;position:relative;z-index:1;">'+d.subtitle+'</div>'
+    +'<div id="foTitle" contenteditable="true" spellcheck="false" style="font-size:28px;font-weight:900;color:#fff;text-transform:uppercase;letter-spacing:-0.5px;line-height:1.1;text-shadow:0 3px 12px rgba(0,0,0,0.45);outline:none;border-radius:4px;position:relative;z-index:1;">'+d.title+'</div>'
+    +'</div>'
+    +_foBdy(d, c2);
+}
+
+function buildFlyerElegant(d, tmpl, c1, c2) {
+  var gold = tmpl.gold || '#C9943A', gold2 = '#7a5400';
+  return _foLogo()
+    +'<div style="background:'+c1+';">'
+    +'<div style="background:linear-gradient(90deg,'+gold2+','+gold+','+gold2+');padding:12px 28px;text-align:center;">'
+    +'<div id="foSubtitle" contenteditable="true" spellcheck="false" style="font-size:9px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:rgba(255,255,255,0.9);outline:none;border-radius:4px;">'+d.subtitle+'</div>'
+    +'</div>'
+    +'<div style="padding:28px 28px 20px;text-align:center;">'
+    +'<div id="foTitle" contenteditable="true" spellcheck="false" style="font-size:24px;font-weight:900;color:#fff;text-transform:uppercase;letter-spacing:-0.5px;line-height:1.1;text-shadow:0 3px 12px rgba(0,0,0,0.55);outline:none;border-radius:4px;">'+d.title+'</div>'
+    +'<div style="width:48px;height:2px;background:'+gold+';margin:12px auto 0;"></div>'
+    +'</div>'
+    +'<div style="background:linear-gradient(90deg,'+gold2+','+gold+','+gold2+');padding:8px 28px;display:flex;align-items:center;gap:8px;">'
+    +'<div style="height:1px;flex:1;background:rgba(0,0,0,0.2);"></div>'
+    +'<span style="font-size:14px;color:rgba(255,255,255,0.8);">★</span>'
+    +'<div style="height:1px;flex:1;background:rgba(0,0,0,0.2);"></div>'
+    +'</div></div>'
+    +_foBdy(d, gold2);
+}
+
+function buildFlyerEnergetic(d, tmpl, c1, c2) {
+  return _foLogo()
+    +'<div>'
+    +'<div style="background:'+c1+';padding:10px 28px;position:relative;overflow:hidden;">'
+    +'<div id="foSubtitle" contenteditable="true" spellcheck="false" style="font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,0.75);outline:none;border-radius:4px;position:relative;z-index:1;">'+d.subtitle+'</div>'
+    +'<div style="position:absolute;right:-24px;top:0;bottom:0;width:100px;background:'+c2+';transform:skewX(-12deg);"></div>'
+    +'</div>'
+    +'<div style="background:linear-gradient(135deg,'+c1+','+c2+');padding:22px 28px 26px;text-align:center;">'
+    +'<div id="foTitle" contenteditable="true" spellcheck="false" style="font-size:26px;font-weight:900;color:#fff;text-transform:uppercase;letter-spacing:-0.5px;line-height:1.1;text-shadow:0 3px 10px rgba(0,0,0,0.4);outline:none;border-radius:4px;">'+d.title+'</div>'
+    +'</div></div>'
+    +_foBdy(d, c1);
+}
+
+function buildFlyerSplash(d, tmpl, c1, c2) {
+  return _foLogo()
+    +'<div style="background:linear-gradient(135deg,'+c1+','+c2+');padding:30px 28px;text-align:center;position:relative;overflow:hidden;">'
+    +'<div style="position:absolute;width:220px;height:220px;border-radius:50%;background:rgba(255,255,255,0.07);top:-70px;left:-60px;pointer-events:none;"></div>'
+    +'<div style="position:absolute;width:160px;height:160px;border-radius:50%;background:rgba(255,255,255,0.06);bottom:-50px;right:-40px;pointer-events:none;"></div>'
+    +'<div id="foSubtitle" contenteditable="true" spellcheck="false" style="font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,0.65);margin-bottom:8px;outline:none;border-radius:4px;position:relative;z-index:1;">'+d.subtitle+'</div>'
+    +'<div id="foTitle" contenteditable="true" spellcheck="false" style="font-size:26px;font-weight:900;color:#fff;text-transform:uppercase;letter-spacing:-0.5px;line-height:1.1;text-shadow:0 3px 10px rgba(0,0,0,0.35);outline:none;border-radius:4px;position:relative;z-index:1;">'+d.title+'</div>'
+    +'</div>'
+    +_foBdy(d, c1);
+}
+
+function buildFlyerDoc(d, tmpl, c1, c2) {
+  var eyebrow = tmpl ? tmpl.eyebrow : '';
+  return _foLogo()
+    +'<div style="background:'+c1+';padding:20px 28px;">'
+    +(eyebrow ? '<div style="font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,0.6);margin-bottom:4px;">'+eyebrow+'</div>' : '')
+    +'<div id="foTitle" contenteditable="true" spellcheck="false" style="font-size:22px;font-weight:900;color:#fff;text-transform:uppercase;letter-spacing:-0.5px;line-height:1.1;outline:none;border-radius:4px;">'+d.title+'</div>'
+    +'<div id="foSubtitle" contenteditable="true" spellcheck="false" style="font-size:11px;color:rgba(255,255,255,0.8);margin-top:4px;outline:none;border-radius:4px;">'+d.subtitle+'</div>'
+    +'</div>'
+    +_foBdy(d, c2);
+}
+
+function renderFlyerOutput(d) {
+  var tmpl = selectedFlyerTmpl;
+  var c1 = tmpl ? tmpl.c1 : document.getElementById('primaryColor').value;
+  var c2 = tmpl ? tmpl.c2 : document.getElementById('secondaryColor').value;
+  var html;
+  if (!tmpl) {
+    html = buildFlyerDefault(d, c1, c2);
+  } else {
+    switch(tmpl.type) {
+      case 'pennant':   html = buildFlyerPennant(d, tmpl, c1, c2);   break;
+      case 'badge':     html = buildFlyerBadge(d, tmpl, c1, c2);     break;
+      case 'elegant':   html = buildFlyerElegant(d, tmpl, c1, c2);   break;
+      case 'energetic': html = buildFlyerEnergetic(d, tmpl, c1, c2); break;
+      case 'splash':    html = buildFlyerSplash(d, tmpl, c1, c2);    break;
+      default:          html = buildFlyerDoc(d, tmpl, c1, c2);       break;
+    }
+  }
+  document.getElementById('flyerOutput').innerHTML = html;
 }
 
 function buildBody(tone, eventName, details, org) {
@@ -666,16 +796,16 @@ function generateFlyer() {
       formal:    "We look forward to your attendance and participation."
     };
 
-    document.getElementById('foTitle').textContent    = title;
-    document.getElementById('foSubtitle').textContent = subtitle;
-    document.getElementById('foBlurb').textContent    = body;
-    document.getElementById('foDate').textContent     = dateStr;
-    document.getElementById('foTime').textContent     = timeVal ? '🕒 ' + timeVal : '';
-    document.getElementById('foLocation').textContent = location ? '📍 ' + location : '';
-    document.getElementById('foExtra').textContent    = '';
-    document.getElementById('foCta').textContent      = ctaMap[tone];
-    document.getElementById('foContact').textContent  = contact ? '✉️  ' + contact : '';
-
+    renderFlyerOutput({
+      title:   title,
+      subtitle: subtitle,
+      body:    body,
+      dateStr: dateStr,
+      timeStr: timeVal ? '🕒 ' + timeVal : '',
+      locStr:  location ? '📍 ' + location : '',
+      cta:     ctaMap[tone],
+      contact: contact ? '✉️  ' + contact : ''
+    });
     updateColors();
     applyLogo();
 
@@ -869,6 +999,7 @@ function useFlyerTmpl(id, e) {
     }
     return;
   }
+  selectedFlyerTmpl = tmpl;
   document.getElementById('primaryColor').value = tmpl.c1;
   document.getElementById('secondaryColor').value = tmpl.c2;
   updateColors();
