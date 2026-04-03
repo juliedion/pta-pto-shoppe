@@ -575,6 +575,7 @@ footer{background:var(--navy-mid,#142248);border-top:3px solid transparent;borde
               <input type="radio" name="tone" value="formal">
               <div class="tone-card"><div class="tone-emoji">📋</div><div class="tone-name">Formal</div><div class="tone-desc">Professional tone</div></div>
             </label>
+          </div>
           <button class="tone-rewrite-btn" id="generateBtn" onclick="generateFlyer()">✦ Rewrite Copy with AI</button>
         </div>
 
@@ -884,28 +885,31 @@ function applyLogoPosition() {
 function renderDecorStrip(decor) {
   if (!decor || decor === 'none') return '';
   if (decor === 'pennant') {
-    var fc = ['#E8357A','#F07A1A','#F5D78E','#2BA84A','#2E7BC4','#7B3FB5','#E8357A','#F07A1A','#2BA84A','#2E7BC4'];
+    var fc = ['#E8357A','#F07A1A','#C9943A','#2BA84A','#2E7BC4','#7B3FB5','#E8357A','#F07A1A','#2BA84A','#2E7BC4'];
     var flags = fc.map(function(c) {
       return '<div style="display:inline-flex;flex-direction:column;align-items:center;margin:0 2px;">'
-        +'<div style="width:1px;height:10px;background:rgba(255,255,255,0.55);"></div>'
-        +'<div style="width:0;height:0;border-left:10px solid transparent;border-right:10px solid transparent;border-top:22px solid '+c+';filter:drop-shadow(0 2px 3px rgba(0,0,0,0.35));"></div>'
+        +'<div style="width:1px;height:10px;background:rgba(13,27,62,0.25);"></div>'
+        +'<div style="width:0;height:0;border-left:10px solid transparent;border-right:10px solid transparent;border-top:22px solid '+c+';filter:drop-shadow(0 2px 3px rgba(0,0,0,0.2));"></div>'
         +'</div>';
     }).join('');
-    return '<div style="text-align:center;padding:6px 4px 2px;display:flex;align-items:flex-start;justify-content:center;position:relative;">'
-      +'<div style="position:absolute;top:16px;left:0;right:0;height:1px;background:rgba(255,255,255,0.3);"></div>'
+    return '<div style="background:var(--off-white,#f8f9ff);padding:8px 4px 4px;display:flex;align-items:flex-start;justify-content:center;position:relative;border-bottom:1px solid rgba(13,27,62,0.06);">'
+      +'<div style="position:absolute;top:18px;left:0;right:0;height:1px;background:rgba(13,27,62,0.1);"></div>'
       +flags+'</div>';
   }
   if (decor === 'stars') {
-    return '<div style="text-align:center;padding:8px 0 4px;font-size:13px;letter-spacing:6px;color:rgba(255,255,255,0.75);">★ ☆ ★ ☆ ★ ☆ ★ ☆ ★</div>';
+    var sc = ['#E8357A','#F07A1A','#2BA84A','#2E7BC4','#7B3FB5','#C9943A','#E8357A','#2BA84A','#2E7BC4'];
+    return '<div style="background:var(--off-white,#f8f9ff);padding:8px 4px 6px;display:flex;justify-content:center;gap:6px;border-bottom:1px solid rgba(13,27,62,0.06);">'
+      +sc.map(function(c){ return '<span style="font-size:14px;color:'+c+';line-height:1;">★</span>'; }).join('')
+      +'</div>';
   }
   if (decor === 'dots') {
-    var dc = ['#E8357A','#F07A1A','#F5D78E','#2BA84A','#2E7BC4','#7B3FB5','#E8357A','#F07A1A','#2BA84A','#2E7BC4','#F5D78E','#E8357A'];
-    return '<div style="text-align:center;padding:8px 4px 4px;display:flex;justify-content:center;gap:5px;">'
+    var dc = ['#E8357A','#F07A1A','#C9943A','#2BA84A','#2E7BC4','#7B3FB5','#E8357A','#F07A1A','#2BA84A','#2E7BC4','#C9943A','#E8357A'];
+    return '<div style="background:var(--off-white,#f8f9ff);padding:8px 4px 6px;display:flex;justify-content:center;gap:5px;border-bottom:1px solid rgba(13,27,62,0.06);">'
       +dc.map(function(c){ return '<div style="width:9px;height:9px;border-radius:50%;background:'+c+';"></div>'; }).join('')
       +'</div>';
   }
   if (decor === 'gradient') {
-    return '<div style="height:7px;background:linear-gradient(90deg,#E8357A,#F07A1A,#F5D78E,#2BA84A,#2E7BC4,#7B3FB5,#E8357A);"></div>';
+    return '<div style="height:7px;background:linear-gradient(90deg,#E8357A,#F07A1A,#C9943A,#2BA84A,#2E7BC4,#7B3FB5,#E8357A);"></div>';
   }
   return '';
 }
@@ -926,11 +930,11 @@ function updateColors() {
 
 /* ── FLYER OUTPUT RENDERERS ── */
 function _foTop() {
-  return '<div class="fo-logo-bar" id="foLogoBar" style="display:none;"><img id="foLogo" src="" alt="School Logo"></div>'
-    +'<div class="fo-decor" id="foDecor" style="display:none;"></div>';
+  return '<div class="fo-logo-bar" id="foLogoBar" style="display:none;"><img id="foLogo" src="" alt="School Logo"></div>';
 }
 function _foBdy(d, ctaBg) {
-  return '<div class="fo-body">'
+  return '<div class="fo-decor" id="foDecor" style="display:none;"></div>'
+    +'<div class="fo-body">'
     +'<div class="fo-image" id="foImage"></div>'
     +'<div class="fo-graphic" id="foGraphic"></div>'
     +'<div class="fo-blurb" id="foBlurb" contenteditable="true" spellcheck="false">'+d.body+'</div>'
