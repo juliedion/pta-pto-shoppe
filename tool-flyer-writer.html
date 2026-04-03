@@ -101,9 +101,9 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(13,27,62,0.9
 .gen-spinner{display:inline-block;width:40px;height:40px;border:3px solid rgba(232,53,122,0.2);border-top-color:var(--pink);border-radius:50%;animation:spin 0.7s linear infinite;margin-bottom:16px;}
 .gen-text{font-size:14px;font-weight:600;color:rgba(13,27,62,0.5);}
 .gen-sub{font-size:12px;font-weight:300;color:rgba(13,27,62,0.35);margin-top:4px;}
-.flyer-output{background:white;border-radius:16px;box-shadow:0 16px 56px rgba(13,27,62,0.18);width:100%;max-width:480px;overflow:hidden;}
-.fo-logo-bar{padding:16px 24px 0;text-align:center;}
-.fo-logo-bar img{max-height:64px;max-width:160px;object-fit:contain;}
+.flyer-output{background:white;border-radius:16px;box-shadow:0 16px 56px rgba(13,27,62,0.18);width:100%;max-width:480px;overflow:hidden;position:relative;}
+.fo-logo-bar{position:absolute;z-index:10;background:rgba(255,255,255,0.92);border-radius:8px;padding:5px 8px;display:none;max-width:90px;}
+.fo-logo-bar img{width:100%;height:auto;max-height:38px;object-fit:contain;display:block;}
 .fo-header{padding:28px 28px 24px;text-align:center;}
 .fo-title{font-size:22px;font-weight:900;color:white;letter-spacing:-0.5px;line-height:1.15;margin-bottom:6px;outline:none;border-radius:4px;}
 .fo-title:focus{background:rgba(255,255,255,0.18);}
@@ -138,33 +138,69 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(13,27,62,0.9
 /* ── CUSTOMIZE PANEL ── */
 .customize-panel{background:white;border:2px solid rgba(13,27,62,0.07);border-radius:20px;padding:20px;margin-top:14px;box-shadow:0 2px 16px rgba(13,27,62,0.06);}
 .cp-heading{font-size:13px;font-weight:800;color:var(--navy);margin-bottom:16px;display:flex;align-items:center;gap:8px;}
-.cp-section{margin-bottom:18px;}
-.cp-section:last-child{margin-bottom:0;}
+.cp-section{margin-bottom:18px;padding-bottom:18px;border-bottom:1px solid rgba(13,27,62,0.06);}
+.cp-section:last-child{margin-bottom:0;padding-bottom:0;border-bottom:none;}
 .cp-label{font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:rgba(13,27,62,0.45);margin-bottom:8px;}
+/* template strip */
+.cp-tmpl-strip{display:flex;gap:8px;overflow-x:auto;padding-bottom:4px;scrollbar-width:thin;}
+.cp-tmpl-item{flex-shrink:0;width:90px;cursor:pointer;border-radius:10px;overflow:hidden;border:2.5px solid transparent;transition:all 0.18s;}
+.cp-tmpl-item:hover{border-color:rgba(123,63,181,0.35);}
+.cp-tmpl-item.active{border-color:var(--purple);box-shadow:0 0 0 3px rgba(123,63,181,0.18);}
+.cp-tmpl-item.scratch{display:flex;align-items:center;justify-content:center;height:60px;background:var(--off-white);font-size:11px;font-weight:700;color:var(--navy);}
+.cp-tmpl-thumb{height:60px;overflow:hidden;pointer-events:none;}
+.cp-tmpl-thumb>div{transform:scale(0.5);transform-origin:top left;width:200%;height:200%;}
+.cp-tmpl-name{font-size:8px;font-weight:700;text-align:center;padding:3px 4px;color:var(--navy);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;background:white;}
+/* decor strip */
+.cp-decor-opts{display:flex;gap:6px;flex-wrap:wrap;}
+.cp-decor-btn{padding:7px 12px;border-radius:10px;border:2px solid rgba(13,27,62,0.1);background:var(--off-white);cursor:pointer;font-size:11px;font-weight:700;color:var(--navy);transition:all 0.18s;display:flex;align-items:center;gap:5px;}
+.cp-decor-btn:hover{border-color:var(--purple);}
+.cp-decor-btn.active{border-color:var(--purple);background:var(--purple);color:white;}
+/* font */
 .font-opts{display:flex;flex-wrap:wrap;gap:6px;}
 .font-opt{padding:6px 12px;border-radius:100px;border:2px solid rgba(13,27,62,0.1);background:white;cursor:pointer;font-size:12px;font-weight:700;color:var(--navy);transition:all 0.18s;white-space:nowrap;}
 .font-opt:hover{border-color:var(--purple);color:var(--purple);}
 .font-opt.active{border-color:var(--purple);background:var(--purple);color:white;}
+/* colors */
 .cp-colors{display:flex;gap:10px;flex-wrap:wrap;}
 .cp-color-item{display:flex;flex-direction:column;align-items:center;gap:5px;}
 .cp-color-item label{font-size:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:rgba(13,27,62,0.5);}
 .cp-color-item input[type=color]{width:36px;height:36px;border-radius:50%;border:2px solid rgba(13,27,62,0.1);cursor:pointer;padding:2px;background:none;}
+/* graphics */
 .gfx-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:5px;}
 .gfx-btn{font-size:22px;padding:6px;border-radius:10px;border:2px solid transparent;background:var(--off-white);cursor:pointer;text-align:center;transition:all 0.15s;line-height:1;}
 .gfx-btn:hover{background:var(--purple-pale);border-color:rgba(123,63,181,0.2);}
 .gfx-btn.active{background:var(--purple-pale);border-color:var(--purple);}
+/* callout banner */
+.cp-callout{display:flex;flex-direction:column;gap:8px;}
+.cp-callout-row{display:flex;align-items:center;gap:8px;}
+.cp-toggle{display:flex;align-items:center;gap:8px;font-size:12px;font-weight:600;color:var(--navy);cursor:pointer;}
+.cp-toggle input[type=checkbox]{width:16px;height:16px;cursor:pointer;accent-color:var(--purple);}
+.cp-text-input{flex:1;padding:8px 10px;border-radius:8px;border:1.5px solid rgba(13,27,62,0.12);font-family:'Poppins',sans-serif;font-size:11px;color:var(--navy);outline:none;transition:border-color 0.18s;}
+.cp-text-input:focus{border-color:var(--purple);}
+.cp-text-input::placeholder{color:rgba(13,27,62,0.3);}
+/* stickers */
 .sticker-opts{display:flex;flex-wrap:wrap;gap:6px;}
 .sticker-opt{padding:6px 12px;border-radius:100px;border:2px solid transparent;cursor:pointer;font-size:10px;font-weight:800;letter-spacing:0.5px;text-transform:uppercase;transition:all 0.18s;}
 .sticker-opt:hover{filter:brightness(1.1);transform:scale(1.03);}
 .sticker-opt.active{box-shadow:0 0 0 3px rgba(123,63,181,0.35);transform:scale(1.04);}
+/* logo placement */
+.cp-logo-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:5px;max-width:160px;}
+.cp-logo-btn{padding:6px;border-radius:8px;border:2px solid rgba(13,27,62,0.1);background:var(--off-white);cursor:pointer;font-size:10px;font-weight:700;color:var(--navy);transition:all 0.18s;text-align:center;}
+.cp-logo-btn:hover{border-color:var(--purple);}
+.cp-logo-btn.active{border-color:var(--purple);background:var(--purple);color:white;}
+/* social */
 .social-inputs{display:flex;flex-direction:column;gap:8px;}
 .social-row{display:flex;align-items:center;gap:8px;}
 .social-icon{width:28px;height:28px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800;color:white;flex-shrink:0;}
 .social-input{flex:1;padding:7px 10px;border-radius:8px;border:1.5px solid rgba(13,27,62,0.12);font-family:'Poppins',sans-serif;font-size:11px;color:var(--navy);outline:none;transition:border-color 0.18s;}
 .social-input:focus{border-color:var(--purple);}
 .social-input::placeholder{color:rgba(13,27,62,0.3);}
-/* ── FLYER GRAPHIC / STICKER / SOCIALS ── */
+/* ── FLYER DECORATIONS / GRAPHIC / CALLOUT / STICKER / SOCIALS ── */
+.fo-decor{text-align:center;display:none;}
 .fo-graphic{text-align:center;padding:8px 0 4px;font-size:56px;line-height:1;display:none;}
+.fo-callout{display:none;margin:8px 0;}
+.fo-callout-text{display:block;padding:10px 16px;border-radius:8px;font-size:13px;font-weight:700;text-align:center;outline:none;cursor:text;}
+.fo-callout-text:focus{filter:brightness(1.08);}
 .fo-sticker{text-align:center;margin:8px 0;}
 .fo-sticker span{display:inline-block;padding:6px 18px;border-radius:100px;font-size:12px;font-weight:800;letter-spacing:0.8px;text-transform:uppercase;}
 .fo-socials{display:none;justify-content:center;align-items:center;flex-wrap:wrap;gap:8px;padding:12px 0 4px;border-top:1px solid rgba(13,27,62,0.08);margin-top:4px;}
@@ -481,8 +517,18 @@ footer{background:var(--navy-mid,#142248);border-top:3px solid transparent;borde
 
         <button class="fw-generate-btn" id="generateBtn" onclick="generateFlyer()">✦ Generate My Flyer</button>
 
-        <div class="customize-panel" id="customizePanel" style="display:none;">
-          <div class="cp-heading">🎨 Customize Your Flyer</div>
+        <div class="customize-panel" id="customizePanel">
+          <div class="cp-heading">🎨 Design Options</div>
+
+          <div class="cp-section">
+            <div class="cp-label">Template</div>
+            <div class="cp-tmpl-strip" id="cpTmplStrip"></div>
+          </div>
+
+          <div class="cp-section">
+            <div class="cp-label">Header Decoration</div>
+            <div class="cp-decor-opts" id="cpDecorOpts"></div>
+          </div>
 
           <div class="cp-section">
             <div class="cp-label">Font</div>
@@ -513,8 +559,27 @@ footer{background:var(--navy-mid,#142248);border-top:3px solid transparent;borde
           </div>
 
           <div class="cp-section">
+            <div class="cp-label">Highlight Banner</div>
+            <div class="cp-callout">
+              <label class="cp-toggle">
+                <input type="checkbox" id="cpCalloutOn" onchange="applyCustomizations()">
+                Add a highlight banner
+              </label>
+              <div class="cp-callout-row">
+                <input type="color" id="cpCalloutColor" value="#E8357A" oninput="applyCustomizations()" style="width:36px;height:36px;border-radius:50%;border:2px solid rgba(13,27,62,0.1);cursor:pointer;padding:2px;background:none;flex-shrink:0;">
+                <input class="cp-text-input" type="text" id="cpCalloutText" placeholder='e.g. "Buy 1 Get 1 Free!"' oninput="applyCustomizations()" value="Special announcement goes here!">
+              </div>
+            </div>
+          </div>
+
+          <div class="cp-section">
             <div class="cp-label">Sticker</div>
             <div class="sticker-opts" id="stickerOpts"></div>
+          </div>
+
+          <div class="cp-section">
+            <div class="cp-label">Logo Position</div>
+            <div class="cp-logo-grid" id="cpLogoGrid"></div>
           </div>
 
           <div class="cp-section">
@@ -696,6 +761,52 @@ function applyLogo() {
   if (!schoolLogoDataUrl) return;
   document.getElementById('foLogo').src = schoolLogoDataUrl;
   document.getElementById('foLogoBar').style.display = 'block';
+  applyLogoPosition();
+}
+
+function applyLogoPosition() {
+  var bar = document.getElementById('foLogoBar');
+  if (!bar) return;
+  var pos = flyerCustom.logoPos || 'top-left';
+  bar.style.top = bar.style.right = bar.style.bottom = bar.style.left = '';
+  bar.style.transform = '';
+  switch (pos) {
+    case 'top-left':     bar.style.top='8px';    bar.style.left='8px';                                      break;
+    case 'top-center':   bar.style.top='8px';    bar.style.left='50%'; bar.style.transform='translateX(-50%)'; break;
+    case 'top-right':    bar.style.top='8px';    bar.style.right='8px';                                     break;
+    case 'bottom-left':  bar.style.bottom='8px'; bar.style.left='8px';                                      break;
+    case 'bottom-center':bar.style.bottom='8px'; bar.style.left='50%'; bar.style.transform='translateX(-50%)'; break;
+    case 'bottom-right': bar.style.bottom='8px'; bar.style.right='8px';                                     break;
+  }
+}
+
+function renderDecorStrip(decor) {
+  if (!decor || decor === 'none') return '';
+  if (decor === 'pennant') {
+    var fc = ['#E8357A','#F07A1A','#F5D78E','#2BA84A','#2E7BC4','#7B3FB5','#E8357A','#F07A1A','#2BA84A','#2E7BC4'];
+    var flags = fc.map(function(c) {
+      return '<div style="display:inline-flex;flex-direction:column;align-items:center;margin:0 2px;">'
+        +'<div style="width:1px;height:10px;background:rgba(255,255,255,0.55);"></div>'
+        +'<div style="width:0;height:0;border-left:10px solid transparent;border-right:10px solid transparent;border-top:22px solid '+c+';filter:drop-shadow(0 2px 3px rgba(0,0,0,0.35));"></div>'
+        +'</div>';
+    }).join('');
+    return '<div style="text-align:center;padding:6px 4px 2px;display:flex;align-items:flex-start;justify-content:center;position:relative;">'
+      +'<div style="position:absolute;top:16px;left:0;right:0;height:1px;background:rgba(255,255,255,0.3);"></div>'
+      +flags+'</div>';
+  }
+  if (decor === 'stars') {
+    return '<div style="text-align:center;padding:8px 0 4px;font-size:13px;letter-spacing:6px;color:rgba(255,255,255,0.75);">★ ☆ ★ ☆ ★ ☆ ★ ☆ ★</div>';
+  }
+  if (decor === 'dots') {
+    var dc = ['#E8357A','#F07A1A','#F5D78E','#2BA84A','#2E7BC4','#7B3FB5','#E8357A','#F07A1A','#2BA84A','#2E7BC4','#F5D78E','#E8357A'];
+    return '<div style="text-align:center;padding:8px 4px 4px;display:flex;justify-content:center;gap:5px;">'
+      +dc.map(function(c){ return '<div style="width:9px;height:9px;border-radius:50%;background:'+c+';"></div>'; }).join('')
+      +'</div>';
+  }
+  if (decor === 'gradient') {
+    return '<div style="height:7px;background:linear-gradient(90deg,#E8357A,#F07A1A,#F5D78E,#2BA84A,#2E7BC4,#7B3FB5,#E8357A);"></div>';
+  }
+  return '';
 }
 
 var selectedFlyerTmpl = null;
@@ -713,8 +824,9 @@ function updateColors() {
 }
 
 /* ── FLYER OUTPUT RENDERERS ── */
-function _foLogo() {
-  return '<div class="fo-logo-bar" id="foLogoBar" style="display:none;"><img id="foLogo" src="" alt="School Logo"></div>';
+function _foTop() {
+  return '<div class="fo-logo-bar" id="foLogoBar" style="display:none;"><img id="foLogo" src="" alt="School Logo"></div>'
+    +'<div class="fo-decor" id="foDecor" style="display:none;"></div>';
 }
 function _foBdy(d, ctaBg) {
   return '<div class="fo-body">'
@@ -727,6 +839,7 @@ function _foBdy(d, ctaBg) {
     +'</div>'
     +'<div class="fo-details-extra" id="foExtra" contenteditable="true" spellcheck="false"></div>'
     +'<div class="fo-sticker" id="foSticker"></div>'
+    +'<div class="fo-callout" id="foCallout"><div class="fo-callout-text" id="foCalloutText" contenteditable="true" spellcheck="false"></div></div>'
     +'<div class="fo-cta-bar" id="foCta" contenteditable="true" spellcheck="false" style="background:'+ctaBg+';">'+d.cta+'</div>'
     +'<div class="fo-contact" id="foContact" contenteditable="true" spellcheck="false">'+d.contact+'</div>'
     +'<div class="fo-socials" id="foSocials"></div>'
@@ -734,7 +847,7 @@ function _foBdy(d, ctaBg) {
 }
 
 function buildFlyerDefault(d, c1, c2) {
-  return _foLogo()
+  return _foTop()
     +'<div class="fo-header" id="foHeader" style="background:linear-gradient(135deg,'+c1+','+c2+');">'
     +'<div class="fo-title" id="foTitle" contenteditable="true" spellcheck="false">'+d.title+'</div>'
     +'<div class="fo-subtitle" id="foSubtitle" contenteditable="true" spellcheck="false">'+d.subtitle+'</div>'
@@ -750,7 +863,7 @@ function buildFlyerPennant(d, tmpl, c1, c2) {
       +'<div style="width:0;height:0;border-left:12px solid transparent;border-right:12px solid transparent;border-top:26px solid '+c+';filter:drop-shadow(0 2px 3px rgba(0,0,0,0.35));"></div>'
       +'</div>';
   }).join('');
-  return _foLogo()
+  return _foTop()
     +'<div style="background:'+c1+';padding:14px 20px 22px;text-align:center;">'
     +'<div style="display:inline-flex;align-items:flex-start;margin-bottom:14px;position:relative;">'
     +'<div style="position:absolute;top:10px;left:0;right:0;height:1px;background:rgba(255,255,255,0.35);"></div>'
@@ -768,7 +881,7 @@ function buildFlyerPennant(d, tmpl, c1, c2) {
 }
 
 function buildFlyerBadge(d, tmpl, c1, c2) {
-  return _foLogo()
+  return _foTop()
     +'<div style="position:relative;overflow:hidden;padding:34px 28px 30px;text-align:center;">'
     +'<div style="position:absolute;inset:0;background:radial-gradient(ellipse at 50% 45%,'+c2+' 0%,'+c1+' 70%);"></div>'
     +'<div style="position:absolute;width:280px;height:280px;border-radius:50%;border:3px solid rgba(255,255,255,0.2);top:50%;left:50%;transform:translate(-50%,-50%);"></div>'
@@ -786,7 +899,7 @@ function buildFlyerBadge(d, tmpl, c1, c2) {
 
 function buildFlyerElegant(d, tmpl, c1, c2) {
   var gold = tmpl&&tmpl.gold ? tmpl.gold : '#C9943A', gold2 = '#5a3800';
-  return _foLogo()
+  return _foTop()
     +'<div style="background:'+c1+';">'
     +'<div style="background:linear-gradient(90deg,'+gold2+','+gold+','+gold2+');padding:14px 28px;text-align:center;">'
     +'<div id="foSubtitle" contenteditable="true" spellcheck="false" style="font-size:10px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,0.95);outline:none;border-radius:4px;">'+d.subtitle+'</div>'
@@ -810,7 +923,7 @@ function buildFlyerElegant(d, tmpl, c1, c2) {
 }
 
 function buildFlyerEnergetic(d, tmpl, c1, c2) {
-  return _foLogo()
+  return _foTop()
     +'<div style="position:relative;overflow:hidden;">'
     +'<div style="position:absolute;inset:0;background:'+c2+';"></div>'
     +'<div style="position:absolute;top:0;left:0;bottom:0;right:0;background:'+c1+';clip-path:polygon(0 0,72% 0,50% 100%,0 100%);"></div>'
@@ -827,7 +940,7 @@ function buildFlyerEnergetic(d, tmpl, c1, c2) {
 }
 
 function buildFlyerSplash(d, tmpl, c1, c2) {
-  return _foLogo()
+  return _foTop()
     +'<div style="position:relative;overflow:hidden;padding:32px 28px;text-align:center;background:#111;">'
     +'<div style="position:absolute;width:260px;height:260px;border-radius:50%;background:'+c1+';top:-80px;left:-60px;opacity:0.9;"></div>'
     +'<div style="position:absolute;width:200px;height:200px;border-radius:50%;background:'+c2+';top:0px;right:-60px;opacity:0.85;"></div>'
@@ -842,7 +955,7 @@ function buildFlyerSplash(d, tmpl, c1, c2) {
 
 function buildFlyerDoc(d, tmpl, c1, c2) {
   var eyebrow = tmpl ? tmpl.eyebrow : '';
-  return _foLogo()
+  return _foTop()
     +'<div style="background:'+c1+';padding:22px 28px 20px;">'
     +(eyebrow ? '<div style="font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,0.55);margin-bottom:5px;">'+eyebrow+'</div>' : '')
     +'<div id="foTitle" contenteditable="true" spellcheck="false" style="font-size:24px;font-weight:900;color:#fff;text-transform:uppercase;letter-spacing:-0.5px;line-height:1.1;outline:none;border-radius:4px;">'+d.title+'</div>'
@@ -951,12 +1064,11 @@ function generateFlyer() {
     document.getElementById('socialPostLink').style.display  = 'flex';
     document.getElementById('editBadge').style.display       = 'inline-flex';
     showCanvaCta(selectedFlyerTmpl);
-    document.getElementById('customizePanel').style.display = 'block';
 
     btn.textContent = '↺ Regenerate Flyer';
     btn.disabled    = false;
 
-    document.getElementById('customizePanel').scrollIntoView({behavior:'smooth', block:'nearest'});
+    document.getElementById('flyerOutput').scrollIntoView({behavior:'smooth', block:'nearest'});
   }, 1300);
 }
 
@@ -1218,10 +1330,46 @@ var flyerCustom = {
   bodyColor: null,
   bgColor: null,
   sticker: null,
-  socials: {}
+  socials: {},
+  decor: 'none',
+  callout: { active: false, text: 'Special announcement goes here!', color: '#E8357A' },
+  logoPos: 'top-left'
 };
 
+var DECORS = [
+  {id:'none',    label:'None',    icon:'✕'},
+  {id:'pennant', label:'Pennant', icon:'🚩'},
+  {id:'stars',   label:'Stars',   icon:'⭐'},
+  {id:'dots',    label:'Circles', icon:'●'},
+  {id:'gradient',label:'Gradient',icon:'🌈'}
+];
+
+var LOGO_POSITIONS = [
+  {id:'top-left',    label:'↖ TL'},
+  {id:'top-center',  label:'↑ TC'},
+  {id:'top-right',   label:'↗ TR'},
+  {id:'bottom-left', label:'↙ BL'},
+  {id:'bottom-center',label:'↓ BC'},
+  {id:'bottom-right',label:'↘ BR'}
+];
+
 function buildCustomizePanel() {
+  // Template strip
+  var freeTmpls = FLYER_TMPLS.filter(function(t){return t.tier==='free';});
+  document.getElementById('cpTmplStrip').innerHTML =
+    '<div class="cp-tmpl-item scratch active" data-tmpl-id="none" onclick="pickCpTmpl(null,this)">✦ None</div>'
+    + freeTmpls.map(function(t) {
+      return '<div class="cp-tmpl-item" data-tmpl-id="'+t.id+'" onclick="pickCpTmpl('+t.id+',this)">'
+        +'<div class="cp-tmpl-thumb"><div>'+mkFlyerThumb(t)+'</div></div>'
+        +'<div class="cp-tmpl-name">'+t.name+'</div>'
+        +'</div>';
+    }).join('');
+
+  // Decoration options
+  document.getElementById('cpDecorOpts').innerHTML = DECORS.map(function(d) {
+    return '<button class="cp-decor-btn'+(d.id==='none'?' active':'')+'" onclick="setDecor(\''+d.id+'\',this)">'+d.icon+' '+d.label+'</button>';
+  }).join('');
+
   // Fonts
   document.getElementById('fontOpts').innerHTML = FONTS.map(function(f) {
     return '<button class="font-opt'+(f.id==='poppins'?' active':'')+'" style="font-family:'+f.family+'" onclick="setFont(\''+f.id+'\',this)">'+f.label+'</button>';
@@ -1234,6 +1382,11 @@ function buildCustomizePanel() {
   document.getElementById('stickerOpts').innerHTML = STICKERS.map(function(s) {
     return '<button class="sticker-opt" style="background:'+s.bg+';color:'+s.fg+';border-color:'+s.bg+';" onclick="toggleSticker(\''+s.id+'\',this)">'+s.text+'</button>';
   }).join('');
+  // Logo position grid
+  document.getElementById('cpLogoGrid').innerHTML = LOGO_POSITIONS.map(function(p) {
+    return '<button class="cp-logo-btn'+(p.id==='top-left'?' active':'')+'" onclick="setLogoPos(\''+p.id+'\',this)">'+p.label+'</button>';
+  }).join('');
+
   // Social inputs
   document.getElementById('socialInputs').innerHTML = SOCIALS.map(function(s) {
     return '<div class="social-row">'
@@ -1241,6 +1394,44 @@ function buildCustomizePanel() {
       +'<input class="social-input" id="social_'+s.id+'" placeholder="'+s.placeholder+'" oninput="updateSocials()" />'
       +'</div>';
   }).join('');
+}
+
+function pickCpTmpl(id, btn) {
+  if (id === null) {
+    selectedFlyerTmpl = null;
+  } else {
+    var tmpl = FLYER_TMPLS.find(function(t){return t.id===id;});
+    if (!tmpl || tmpl.tier==='premium') return;
+    selectedFlyerTmpl = tmpl;
+    document.getElementById('primaryColor').value = tmpl.c1;
+    document.getElementById('secondaryColor').value = tmpl.c2;
+    updateColors();
+    showCanvaCta(tmpl);
+    // sync main template grid selection
+    document.querySelectorAll('.ft-card').forEach(function(c){c.classList.remove('selected');});
+    var mainCard = document.querySelector('.ft-card[onclick*="useFlyerTmpl('+id+',"]');
+    if (mainCard) mainCard.classList.add('selected');
+  }
+  document.querySelectorAll('.cp-tmpl-item').forEach(function(el){el.classList.remove('active');});
+  if (btn) btn.classList.add('active');
+  if (lastFlyerData && document.getElementById('flyerOutput').style.display !== 'none') {
+    renderFlyerOutput(lastFlyerData);
+    applyLogo();
+  }
+}
+
+function setDecor(style, btn) {
+  flyerCustom.decor = style;
+  document.querySelectorAll('.cp-decor-btn').forEach(function(b){b.classList.remove('active');});
+  if (btn) btn.classList.add('active');
+  applyCustomizations();
+}
+
+function setLogoPos(pos, btn) {
+  flyerCustom.logoPos = pos;
+  document.querySelectorAll('.cp-logo-btn').forEach(function(b){b.classList.remove('active');});
+  if (btn) btn.classList.add('active');
+  applyLogoPosition();
 }
 
 function setFont(id, btn) {
@@ -1361,6 +1552,44 @@ function applyCustomizations() {
       socEl.innerHTML = '';
     }
   }
+
+  // Decoration strip
+  var decorEl = document.getElementById('foDecor');
+  if (decorEl) {
+    var strip = renderDecorStrip(flyerCustom.decor);
+    if (strip) {
+      decorEl.innerHTML = strip;
+      decorEl.style.display = 'block';
+    } else {
+      decorEl.style.display = 'none';
+      decorEl.innerHTML = '';
+    }
+  }
+
+  // Callout / highlight banner
+  var calloutEl = document.getElementById('foCallout');
+  var calloutTextEl = document.getElementById('foCalloutText');
+  var cpCalloutOn = document.getElementById('cpCalloutOn');
+  var cpCalloutColor = document.getElementById('cpCalloutColor');
+  var cpCalloutText = document.getElementById('cpCalloutText');
+  if (calloutEl) {
+    flyerCustom.callout.active = cpCalloutOn ? cpCalloutOn.checked : flyerCustom.callout.active;
+    flyerCustom.callout.color  = cpCalloutColor ? cpCalloutColor.value : flyerCustom.callout.color;
+    flyerCustom.callout.text   = cpCalloutText ? cpCalloutText.value : flyerCustom.callout.text;
+    if (flyerCustom.callout.active) {
+      calloutEl.style.display = 'block';
+      calloutEl.style.background = flyerCustom.callout.color;
+      if (calloutTextEl && calloutTextEl.textContent.trim() === '') {
+        calloutTextEl.textContent = flyerCustom.callout.text;
+      }
+      calloutTextEl.style.color = '#fff';
+    } else {
+      calloutEl.style.display = 'none';
+    }
+  }
+
+  // Logo position
+  applyLogoPosition();
 }
 
 buildCustomizePanel();
