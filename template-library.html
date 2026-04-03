@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<link rel="icon" type="image/x-icon" href="favicon.ico">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+<link rel="apple-touch-icon" sizes="192x192" href="favicon-192.png">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Template Library — The PTA/PTO Shoppe</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,400&display=swap" rel="stylesheet">
+<style>
+:root{--navy:#0D1B3E;--navy-mid:#142248;--navy-light:#1C2F5E;--pink:#E8357A;--pink-bright:#FF2D87;--pink-pale:#FFF0F7;--purple:#7B3FB5;--purple-pale:#F5EEFF;--blue:#2E7BC4;--blue-pale:#EAF4FF;--green:#2BA84A;--green-bright:#00C853;--green-pale:#EDFFF4;--gold:#C9943A;--gold-light:#F5D78E;--teal:#0B9E8F;--teal-pale:#E6FAF8;--orange:#F07A1A;--orange-pale:#FFF4EA;--white:#FFFFFF;--off-white:#F8F9FF;--light-bg:#F2F4FB;}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{font-family:'Poppins',sans-serif;background:var(--off-white);color:var(--navy);overflow-x:hidden;}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(13,27,62,0.97);backdrop-filter:blur(12px);border-bottom:3px solid transparent;border-image:linear-gradient(90deg,var(--pink),var(--purple),var(--blue),var(--green)) 1;padding:0 48px;height:120px;display:flex;align-items:center;justify-content:space-between;}
+.nav-logo{display:flex;align-items:center;text-decoration:none;}
+.nav-logo img{height:150px;width:auto;object-fit:contain;}
+.nav-links{display:flex;align-items:center;gap:28px;}
+.nav-links a{font-size:16px;font-weight:700;color:rgba(255,255,255,0.88);text-decoration:none;transition:color 0.2s;letter-spacing:0.3px;}
+.nav-links a:hover{color:var(--gold-light);}
+.nav-cta{background:linear-gradient(135deg,var(--pink),var(--purple));color:white;font-family:'Poppins',sans-serif;font-size:13px;font-weight:700;padding:10px 22px;border-radius:100px;text-decoration:none;transition:all 0.2s;box-shadow:0 4px 16px rgba(232,53,122,0.4);}
+.nav-cta:hover{transform:translateY(-1px);box-shadow:0 6px 24px rgba(232,53,122,0.55);}
+
+/* DIVIDER */
+.gold-divider{height:4px;background:linear-gradient(90deg,var(--pink),var(--purple),var(--blue),var(--green),#F07A1A,var(--pink));background-size:200% 100%;animation:shimmer 3s linear infinite;}
+@keyframes shimmer{0%{background-position:0%}100%{background-position:200%}}
+@keyframes floatUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+
+/* BACK BAR */
+.back-bar{background:var(--off-white);border-bottom:1px solid rgba(13,27,62,0.08);padding:0 60px;}
+.back-bar a{display:inline-flex;align-items:center;gap:8px;font-size:12px;font-weight:600;color:rgba(13,27,62,0.5);text-decoration:none;padding:12px 0;transition:color 0.2s;}
+.back-bar a:hover{color:var(--purple);}
+
+/* HERO */
+.page-hero{padding:120px 60px 80px;background:#010D2A;background-image:radial-gradient(ellipse 65% 55% at 15% 60%,rgba(123,63,181,0.22) 0%,transparent 60%),radial-gradient(ellipse 50% 45% at 85% 20%,rgba(232,53,122,0.16) 0%,transparent 55%),linear-gradient(155deg,#010D2A 0%,#031B52 40%,#0D1B3E 100%);text-align:center;}
+.page-hero-inner{max-width:780px;margin:0 auto;animation:floatUp 0.7s ease both;}
+.page-eyebrow{display:inline-flex;align-items:center;gap:8px;background:rgba(123,63,181,0.12);border:1px solid rgba(123,63,181,0.3);border-radius:100px;padding:6px 16px;font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#C084FC;margin-bottom:20px;}
+.page-hero h1{font-size:clamp(36px,5vw,58px);font-weight:900;color:white;letter-spacing:-2px;line-height:1.05;margin-bottom:14px;}
+.page-hero h1 span{background:linear-gradient(135deg,#FF2D87,#FF85C2,#C084FC);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;filter:drop-shadow(0 0 14px rgba(255,45,135,0.6));}
+.page-hero p{font-size:16px;font-weight:300;color:rgba(255,255,255,0.6);line-height:1.75;max-width:580px;margin:0 auto 28px;}
+.hero-stats{display:flex;justify-content:center;gap:40px;flex-wrap:wrap;}
+.hero-stat-val{font-size:28px;font-weight:900;color:white;letter-spacing:-1px;}
+.hero-stat-val span{background:linear-gradient(135deg,var(--gold-light),var(--gold));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.hero-stat-label{font-size:11px;font-weight:300;color:rgba(255,255,255,0.45);margin-top:2px;}
+
+/* TOOL TABS */
+.tool-tabs-bar{background:white;border-bottom:2px solid rgba(13,27,62,0.08);padding:0 60px;overflow-x:auto;position:sticky;top:120px;z-index:50;}
+.tool-tabs-inner{display:flex;gap:0;white-space:nowrap;min-width:max-content;}
+.tool-tab{font-size:12px;font-weight:700;color:rgba(13,27,62,0.45);text-decoration:none;padding:16px 22px;border-bottom:3px solid transparent;transition:all 0.2s;cursor:pointer;background:none;border-top:none;border-left:none;border-right:none;font-family:'Poppins',sans-serif;display:inline-flex;align-items:center;gap:7px;}
+.tool-tab:hover{color:var(--navy);}
+.tool-tab.active{color:var(--pink);border-bottom-color:var(--pink);}
+
+/* MAIN CONTENT */
+.library-section{padding:60px 60px 100px;}
+.library-inner{max-width:1200px;margin:0 auto;}
+
+/* TOOL GROUP */
+.tool-group{margin-bottom:72px;}
+.tool-group-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:24px;flex-wrap:wrap;gap:12px;}
+.tool-group-left{display:flex;align-items:center;gap:14px;}
+.tool-group-icon{width:48px;height:48px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0;}
+.tool-group-name{font-size:clamp(20px,2.5vw,28px);font-weight:900;color:var(--navy);letter-spacing:-0.8px;}
+.tool-group-count{font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:rgba(13,27,62,0.38);margin-top:2px;}
+.tool-group-link{font-size:12px;font-weight:700;color:var(--purple);text-decoration:none;display:flex;align-items:center;gap:5px;transition:color 0.2s;white-space:nowrap;}
+.tool-group-link:hover{color:var(--pink);}
+
+/* TEMPLATE GRID */
+.tmpl-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:16px;}
+
+/* TEMPLATE CARD */
+.t-card{background:white;border-radius:16px;overflow:hidden;border:2px solid rgba(13,27,62,0.06);box-shadow:0 2px 10px rgba(13,27,62,0.05);transition:all 0.22s;cursor:pointer;display:flex;flex-direction:column;}
+.t-card:hover{transform:translateY(-4px);box-shadow:0 14px 40px rgba(13,27,62,0.12);border-color:rgba(123,63,181,0.2);}
+.t-thumb{height:100px;display:flex;flex-direction:column;padding:11px 12px;}
+.t-thumb-title{font-size:8px;font-weight:900;color:white;letter-spacing:0.8px;text-transform:uppercase;margin-bottom:5px;line-height:1.2;}
+.t-line{height:5px;border-radius:2px;background:rgba(255,255,255,0.45);margin-bottom:4px;}
+.t-line.w90{width:90%;}
+.t-line.w70{width:70%;}
+.t-line.w50{width:50%;}
+.t-cta-bar{margin-top:auto;height:18px;border-radius:9px;background:rgba(255,255,255,0.22);}
+.t-body{padding:10px 12px 13px;}
+.t-name{font-size:11px;font-weight:800;color:var(--navy);margin-bottom:2px;line-height:1.3;}
+.t-meta{font-size:9px;font-weight:700;letter-spacing:0.8px;text-transform:uppercase;color:rgba(13,27,62,0.38);margin-bottom:8px;}
+.t-actions{display:flex;gap:5px;align-items:center;}
+.t-btn{flex:1;font-family:'Poppins',sans-serif;font-size:10px;font-weight:700;padding:6px 8px;border-radius:100px;cursor:pointer;border:none;text-align:center;transition:all 0.18s;}
+.t-tier{font-size:8px;font-weight:800;letter-spacing:1px;text-transform:uppercase;padding:3px 7px;border-radius:100px;flex-shrink:0;}
+.t-tier.free{background:var(--green-pale);color:var(--green);}
+.t-tier.premium{background:#FDF6E3;color:var(--gold);}
+
+/* UPGRADE MODAL */
+.modal-overlay{display:none;position:fixed;inset:0;background:rgba(1,13,42,0.75);backdrop-filter:blur(6px);z-index:500;align-items:center;justify-content:center;padding:24px;}
+.modal-overlay.open{display:flex;}
+.modal-box{background:white;border-radius:28px;padding:48px;max-width:460px;width:100%;position:relative;box-shadow:0 32px 80px rgba(1,13,42,0.4);text-align:center;}
+.modal-close{position:absolute;top:18px;right:22px;background:none;border:none;font-size:22px;color:rgba(13,27,62,0.35);cursor:pointer;font-family:'Poppins',sans-serif;}
+.modal-icon{font-size:52px;margin-bottom:12px;display:block;}
+.modal-eyebrow{font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--gold);margin-bottom:10px;}
+.modal-box h3{font-size:22px;font-weight:900;color:var(--navy);letter-spacing:-0.5px;margin-bottom:8px;}
+.modal-box p{font-size:14px;font-weight:300;color:rgba(13,27,62,0.55);line-height:1.7;margin-bottom:28px;}
+.modal-actions{display:flex;flex-direction:column;gap:12px;}
+.modal-btn-primary{display:block;width:100%;padding:15px;background:linear-gradient(135deg,var(--pink),var(--purple));color:white;font-family:'Poppins',sans-serif;font-size:14px;font-weight:700;border:none;border-radius:100px;cursor:pointer;text-decoration:none;transition:all 0.2s;box-shadow:0 6px 24px rgba(232,53,122,0.35);}
+.modal-btn-primary:hover{transform:translateY(-1px);}
+.modal-btn-secondary{display:block;width:100%;padding:15px;background:transparent;color:var(--navy);font-family:'Poppins',sans-serif;font-size:14px;font-weight:700;border:2px solid rgba(13,27,62,0.15);border-radius:100px;cursor:pointer;text-decoration:none;transition:all 0.2s;}
+.modal-btn-secondary:hover{border-color:var(--gold);color:var(--gold);}
+
+/* FOOTER */
+footer{background:var(--navy-mid);border-top:3px solid transparent;border-image:linear-gradient(90deg,var(--pink),var(--purple),var(--blue),var(--green)) 1;padding:28px 60px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px;}
+.f-logo{height:110px;width:auto;object-fit:contain;}
+.f-copy{font-size:12px;color:rgba(255,255,255,0.28);}
+.f-links{display:flex;gap:24px;}
+.f-links a{font-size:12px;color:rgba(255,255,255,0.35);text-decoration:none;transition:color 0.2s;}
+.f-links a:hover{color:var(--gold-light);}
+
+.hidden{display:none!important;}
+
+@media(max-width:1100px){.tmpl-grid{grid-template-columns:repeat(4,1fr);}}
+@media(max-width:900px){
+  nav{padding:0 20px;}.nav-links{display:none;}
+  .page-hero{padding:100px 24px 60px;}
+  .back-bar,.tool-tabs-bar,.library-section{padding-left:24px;padding-right:24px;}
+  .tmpl-grid{grid-template-columns:repeat(2,1fr);}
+  footer{padding:24px 20px;flex-direction:column;}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo"><img src="logo.png" alt="The PTA/PTO Shoppe"></a>
+  <div class="nav-links">
+    <a href="index.html#tools">Tools</a>
+    <a href="index.html#pricing">Pricing</a>
+    <a href="reviews.html">Reviews</a>
+    <a href="contact.html">Contact</a>
+  </div>
+  <a href="checkout.html" class="nav-cta">Get Started →</a>
+</nav>
+<div class="gold-divider" style="margin-top:120px;"></div>
+
+<div class="back-bar">
+  <a href="index.html#tools">← Back to All Tools</a>
+</div>
+
+<!-- HERO -->
+<section class="page-hero">
+  <div class="page-hero-inner">
+    <div class="page-eyebrow">✦ Template Library</div>
+    <h1>Every template.<br><span>Every tool.</span></h1>
+    <p>Browse over 150 professionally designed templates across all PTA/PTO Shoppe tools — free and premium. Pick one and customize it in minutes.</p>
+    <div class="hero-stats">
+      <div>
+        <div class="hero-stat-val"><span>150+</span></div>
+        <div class="hero-stat-label">Total Templates</div>
+      </div>
+      <div>
+        <div class="hero-stat-val"><span>7</span></div>
+        <div class="hero-stat-label">Tool Types</div>
+      </div>
+      <div>
+        <div class="hero-stat-val"><span>Free</span></div>
+        <div class="hero-stat-label">to Start</div>
+      </div>
+    </div>
+  </div>
+</section>
+<div class="gold-divider"></div>
+
+<!-- TOOL TABS -->
+<div class="tool-tabs-bar">
+  <div class="tool-tabs-inner">
+    <button class="tool-tab active" onclick="filterByTool('all',this)">All Templates</button>
+    <button class="tool-tab" onclick="filterByTool('flyer',this)">📢 Flyers</button>
+    <button class="tool-tab" onclick="filterByTool('agenda',this)">📋 Agendas</button>
+    <button class="tool-tab" onclick="filterByTool('newsletter',this)">📰 Newsletter Blurbs</button>
+    <button class="tool-tab" onclick="filterByTool('email',this)">💌 Fundraiser Emails</button>
+    <button class="tool-tab" onclick="filterByTool('permission',this)">📝 Permission Slips</button>
+    <button class="tool-tab" onclick="filterByTool('social',this)">📱 Social Posts</button>
+    <button class="tool-tab" onclick="filterByTool('event',this)">🎪 Event Builder</button>
+  </div>
+</div>
+
+<!-- LIBRARY -->
+<section class="library-section">
+  <div class="library-inner" id="libraryInner">
+    <!-- rendered by JS -->
+  </div>
+</section>
+
+<!-- UPGRADE MODAL -->
+<div class="modal-overlay" id="upgradeModal">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeModal()">✕</button>
+    <span class="modal-icon">⭐</span>
+    <div class="modal-eyebrow">Premium Template</div>
+    <h3>Upgrade to unlock this template</h3>
+    <p>This template is available on the Pro plan. Get unlimited premium templates across every tool for $35/mo.</p>
+    <div class="modal-actions">
+      <a href="checkout.html?plan=pro" class="modal-btn-primary">Get Pro Board — $35/mo</a>
+      <a href="checkout.html" class="modal-btn-secondary">View all plans</a>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <img src="logo.png" alt="The PTA/PTO Shoppe" class="f-logo">
+  <div class="f-copy">© 2026 The PTA/PTO Shoppe. All rights reserved.</div>
+  <div class="f-links"><a href="#">Privacy</a><a href="#">Terms</a><a href="contact.html">Contact</a></div>
+</footer>
+
+<script>
+var ALL_TEMPLATES = [
+
+  /* ── FLYERS ── */
+  {tool:"flyer",toolLabel:"Flyer Writer",toolIcon:"📢",toolColor:"#E8357A",toolBg:"var(--pink-pale)",link:"tool-flyer-writer.html",
+   templates:[
+    {name:"Monthly Meeting",cat:"Meeting",tier:"free",grad:"linear-gradient(135deg,#1a4fa8,#2E7BC4)"},
+    {name:"Fun Run Fundraiser",cat:"Fundraiser",tier:"free",grad:"linear-gradient(135deg,#1a8040,#2BA84A)"},
+    {name:"Book Fair",cat:"Event",tier:"free",grad:"linear-gradient(135deg,#c45000,#F07A1A)"},
+    {name:"School Dance",cat:"Event",tier:"free",grad:"linear-gradient(135deg,#5a1ea0,#7B3FB5)"},
+    {name:"Back to School Night",cat:"Seasonal",tier:"free",grad:"linear-gradient(135deg,#0a7a70,#0B9E8F)"},
+    {name:"Volunteer Drive",cat:"Meeting",tier:"free",grad:"linear-gradient(135deg,#0D1B3E,#1C2F5E)"},
+    {name:"Parent Workshop",cat:"Meeting",tier:"free",grad:"linear-gradient(135deg,#1560a8,#2E7BC4)"},
+    {name:"Classroom Celebration",cat:"Event",tier:"free",grad:"linear-gradient(135deg,#b02060,#E8357A)"},
+    {name:"Gala Fundraiser",cat:"Fundraiser",tier:"premium",grad:"linear-gradient(135deg,#7a5400,#C9943A)"},
+    {name:"Carnival Night",cat:"Event",tier:"premium",grad:"linear-gradient(135deg,#E8357A,#F07A1A)"},
+    {name:"Science Fair",cat:"Event",tier:"premium",grad:"linear-gradient(135deg,#1a4fa8,#0B9E8F)"},
+    {name:"Art Show",cat:"Event",tier:"premium",grad:"linear-gradient(135deg,#7B3FB5,#E8357A)"},
+    {name:"Food Drive",cat:"Fundraiser",tier:"premium",grad:"linear-gradient(135deg,#c45000,#7a5400)"},
+    {name:"Movie Night",cat:"Event",tier:"premium",grad:"linear-gradient(135deg,#0D0829,#1C2F5E)"},
+    {name:"Spring Fling",cat:"Seasonal",tier:"premium",grad:"linear-gradient(135deg,#b02060,#7B3FB5)"},
+    {name:"Holiday Party",cat:"Seasonal",tier:"premium",grad:"linear-gradient(135deg,#b01008,#7a5400)"},
+    {name:"Sports Day",cat:"Event",tier:"premium",grad:"linear-gradient(135deg,#1a8040,#0B9E8F)"},
+    {name:"Math Night",cat:"Meeting",tier:"premium",grad:"linear-gradient(135deg,#0D1B3E,#2E7BC4)"},
+    {name:"Cultural Fair",cat:"Event",tier:"premium",grad:"linear-gradient(135deg,#F07A1A,#7B3FB5)"},
+    {name:"Auction Night",cat:"Fundraiser",tier:"premium",grad:"linear-gradient(135deg,#0D1B3E,#C9943A)"},
+    {name:"Plant Sale",cat:"Fundraiser",tier:"premium",grad:"linear-gradient(135deg,#1a8040,#7a5400)"},
+    {name:"Teacher Appreciation",cat:"Seasonal",tier:"premium",grad:"linear-gradient(135deg,#b02060,#c45000)"},
+    {name:"Graduation Celebration",cat:"Seasonal",tier:"premium",grad:"linear-gradient(135deg,#5a1ea0,#7a5400)"},
+    {name:"Summer Reading",cat:"Seasonal",tier:"premium",grad:"linear-gradient(135deg,#0a7a70,#1a4fa8)"},
+    {name:"Family Game Night",cat:"Event",tier:"premium",grad:"linear-gradient(135deg,#E8357A,#2E7BC4)"}
+  ]},
+
+  /* ── AGENDAS ── */
+  {tool:"agenda",toolLabel:"Agenda Builder",toolIcon:"📋",toolColor:"#2E7BC4",toolBg:"var(--blue-pale)",link:"tool-agenda-builder.html",
+   templates:[
+    {name:"Monthly General Meeting",cat:"Monthly Meeting",tier:"free",grad:"linear-gradient(135deg,#1a4fa8,#2E7BC4)"},
+    {name:"Budget Review",cat:"Budget",tier:"free",grad:"linear-gradient(135deg,#1a8040,#0B9E8F)"},
+    {name:"Back to School Kickoff",cat:"Annual",tier:"free",grad:"linear-gradient(135deg,#0a7a70,#1a4fa8)"},
+    {name:"Officer Elections",cat:"Election",tier:"free",grad:"linear-gradient(135deg,#5a1ea0,#7B3FB5)"},
+    {name:"End of Year Wrap-Up",cat:"Annual",tier:"free",grad:"linear-gradient(135deg,#7a5400,#C9943A)"},
+    {name:"Emergency Meeting",cat:"Special Event",tier:"free",grad:"linear-gradient(135deg,#b01008,#c45000)"},
+    {name:"Fundraiser Planning",cat:"Special Event",tier:"free",grad:"linear-gradient(135deg,#b02060,#E8357A)"},
+    {name:"Volunteer Orientation",cat:"Special Event",tier:"free",grad:"linear-gradient(135deg,#0D1B3E,#2E7BC4)"},
+    {name:"Annual Report Presentation",cat:"Annual",tier:"premium",grad:"linear-gradient(135deg,#0D1B3E,#7B3FB5)"},
+    {name:"Principal Q&A Session",cat:"Special Event",tier:"premium",grad:"linear-gradient(135deg,#1a4fa8,#0B9E8F)"},
+    {name:"Strategic Planning Retreat",cat:"Annual",tier:"premium",grad:"linear-gradient(135deg,#5a1ea0,#1a4fa8)"},
+    {name:"New Member Welcome",cat:"Monthly Meeting",tier:"premium",grad:"linear-gradient(135deg,#1a8040,#2E7BC4)"},
+    {name:"Spring Budget Approval",cat:"Budget",tier:"premium",grad:"linear-gradient(135deg,#0a7a70,#7a5400)"},
+    {name:"School Board Liaison",cat:"Special Event",tier:"premium",grad:"linear-gradient(135deg,#0D1B3E,#1a4fa8)"},
+    {name:"Nominating Committee",cat:"Election",tier:"premium",grad:"linear-gradient(135deg,#5a1ea0,#b02060)"},
+    {name:"Fall Budget Workshop",cat:"Budget",tier:"premium",grad:"linear-gradient(135deg,#c45000,#7a5400)"},
+    {name:"Carnival Planning Committee",cat:"Special Event",tier:"premium",grad:"linear-gradient(135deg,#E8357A,#F07A1A)"},
+    {name:"Bylaws Review Meeting",cat:"Annual",tier:"premium",grad:"linear-gradient(135deg,#1C2F5E,#0B9E8F)"},
+    {name:"Teacher Appreciation Planning",cat:"Special Event",tier:"premium",grad:"linear-gradient(135deg,#b02060,#c45000)"},
+    {name:"Executive Board Session",cat:"Monthly Meeting",tier:"premium",grad:"linear-gradient(135deg,#0D1B3E,#C9943A)"},
+    {name:"Grant Application Review",cat:"Budget",tier:"premium",grad:"linear-gradient(135deg,#1a8040,#7a5400)"},
+    {name:"Science Fair Coordination",cat:"Special Event",tier:"premium",grad:"linear-gradient(135deg,#1a4fa8,#7B3FB5)"},
+    {name:"Cultural Night Planning",cat:"Special Event",tier:"premium",grad:"linear-gradient(135deg,#F07A1A,#7B3FB5)"},
+    {name:"Audit & Finance Review",cat:"Budget",tier:"premium",grad:"linear-gradient(135deg,#0D1B3E,#1a8040)"},
+    {name:"Year-End Recognition",cat:"Annual",tier:"premium",grad:"linear-gradient(135deg,#7a5400,#b02060)"}
+  ]},
+
+  /* ── NEWSLETTER BLURBS ── */
+  {tool:"newsletter",toolLabel:"Newsletter Blurb",toolIcon:"📰",toolColor:"#0B9E8F",toolBg:"var(--teal-pale)",link:"tool-newsletter-blurb.html",
+   templates:[
+    {name:"Event Reminder Blurb",cat:"Announcement",tier:"free",grad:"linear-gradient(135deg,#0a7a70,#0B9E8F)"},
+    {name:"Fundraiser Launch",cat:"Fundraiser",tier:"free",grad:"linear-gradient(135deg,#b02060,#E8357A)"},
+    {name:"Volunteer Call to Action",cat:"Volunteer",tier:"free",grad:"linear-gradient(135deg,#1a8040,#0B9E8F)"},
+    {name:"Meeting Recap",cat:"Recap",tier:"free",grad:"linear-gradient(135deg,#1a4fa8,#2E7BC4)"},
+    {name:"Principal's Corner Intro",cat:"Spotlight",tier:"free",grad:"linear-gradient(135deg,#0D1B3E,#1C2F5E)"},
+    {name:"Thank You Spotlight",cat:"Recognition",tier:"free",grad:"linear-gradient(135deg,#7a5400,#C9943A)"},
+    {name:"Back to School Welcome",cat:"Seasonal",tier:"free",grad:"linear-gradient(135deg,#0a7a70,#1a4fa8)"},
+    {name:"Board Election Notice",cat:"Election",tier:"free",grad:"linear-gradient(135deg,#5a1ea0,#7B3FB5)"},
+    {name:"Spring Carnival Preview",cat:"Event",tier:"premium",grad:"linear-gradient(135deg,#E8357A,#F07A1A)"},
+    {name:"Budget Transparency Update",cat:"Finance",tier:"premium",grad:"linear-gradient(135deg,#1a8040,#7a5400)"},
+    {name:"Student Spotlight Feature",cat:"Spotlight",tier:"premium",grad:"linear-gradient(135deg,#7B3FB5,#2E7BC4)"},
+    {name:"Community Partner Shoutout",cat:"Recognition",tier:"premium",grad:"linear-gradient(135deg,#0B9E8F,#1a4fa8)"}
+  ]},
+
+  /* ── FUNDRAISER EMAILS ── */
+  {tool:"email",toolLabel:"Fundraiser Email",toolIcon:"💌",toolColor:"#E8357A",toolBg:"var(--pink-pale)",link:"tool-fundraiser-email.html",
+   templates:[
+    {name:"Kickoff Announcement",cat:"Launch",tier:"free",grad:"linear-gradient(135deg,#b02060,#E8357A)"},
+    {name:"Mid-Campaign Check-In",cat:"Update",tier:"free",grad:"linear-gradient(135deg,#c45000,#F07A1A)"},
+    {name:"Final Push Reminder",cat:"Reminder",tier:"free",grad:"linear-gradient(135deg,#1a4fa8,#7B3FB5)"},
+    {name:"Thank You + Results",cat:"Wrap-Up",tier:"free",grad:"linear-gradient(135deg,#1a8040,#0B9E8F)"},
+    {name:"Corporate Sponsor Ask",cat:"Sponsorship",tier:"free",grad:"linear-gradient(135deg,#0D1B3E,#2E7BC4)"},
+    {name:"Matching Gift Drive",cat:"Special",tier:"free",grad:"linear-gradient(135deg,#7a5400,#C9943A)"},
+    {name:"Box Tops Collection Drive",cat:"Ongoing",tier:"free",grad:"linear-gradient(135deg,#0a7a70,#1a8040)"},
+    {name:"Spirit Night Promo",cat:"Event",tier:"free",grad:"linear-gradient(135deg,#5a1ea0,#b02060)"},
+    {name:"Amazon Smile Enrollment",cat:"Ongoing",tier:"premium",grad:"linear-gradient(135deg,#F07A1A,#7a5400)"},
+    {name:"Silent Auction Preview",cat:"Event",tier:"premium",grad:"linear-gradient(135deg,#0D1B3E,#C9943A)"},
+    {name:"Gala Save the Date",cat:"Event",tier:"premium",grad:"linear-gradient(135deg,#5a1ea0,#C9943A)"},
+    {name:"Grant Donor Cultivation",cat:"Sponsorship",tier:"premium",grad:"linear-gradient(135deg,#0D1B3E,#1a8040)"}
+  ]},
+
+  /* ── PERMISSION SLIPS ── */
+  {tool:"permission",toolLabel:"Permission Slip",toolIcon:"📝",toolColor:"#7B3FB5",toolBg:"var(--purple-pale)",link:"tool-permission-slip.html",
+   templates:[
+    {name:"Field Trip — Local Museum",cat:"Field Trip",tier:"free",grad:"linear-gradient(135deg,#5a1ea0,#7B3FB5)"},
+    {name:"Field Trip — Zoo",cat:"Field Trip",tier:"free",grad:"linear-gradient(135deg,#1a8040,#0B9E8F)"},
+    {name:"After-School Activity",cat:"Activity",tier:"free",grad:"linear-gradient(135deg,#1a4fa8,#2E7BC4)"},
+    {name:"Photo & Media Release",cat:"Media",tier:"free",grad:"linear-gradient(135deg,#0D1B3E,#7B3FB5)"},
+    {name:"Volunteer Background Check",cat:"Volunteer",tier:"free",grad:"linear-gradient(135deg,#c45000,#7a5400)"},
+    {name:"Sports Program Sign-Up",cat:"Activity",tier:"free",grad:"linear-gradient(135deg,#1a8040,#1a4fa8)"},
+    {name:"Overnight Field Trip",cat:"Field Trip",tier:"premium",grad:"linear-gradient(135deg,#5a1ea0,#1a4fa8)"},
+    {name:"Medical Emergency Release",cat:"Medical",tier:"premium",grad:"linear-gradient(135deg,#b01008,#5a1ea0)"}
+  ]},
+
+  /* ── SOCIAL POSTS ── */
+  {tool:"social",toolLabel:"Social Posts",toolIcon:"📱",toolColor:"#F07A1A",toolBg:"var(--orange-pale)",link:"tool-social-posts.html",
+   templates:[
+    {name:"Event Hype Post",cat:"Announcement",tier:"free",grad:"linear-gradient(135deg,#E8357A,#F07A1A)"},
+    {name:"Fundraiser Launch Post",cat:"Fundraiser",tier:"free",grad:"linear-gradient(135deg,#b02060,#E8357A)"},
+    {name:"Volunteer Recruitment",cat:"Volunteer",tier:"free",grad:"linear-gradient(135deg,#1a8040,#0B9E8F)"},
+    {name:"Meeting Reminder",cat:"Reminder",tier:"free",grad:"linear-gradient(135deg,#1a4fa8,#7B3FB5)"},
+    {name:"Thank You Post",cat:"Recognition",tier:"free",grad:"linear-gradient(135deg,#7a5400,#C9943A)"},
+    {name:"Results & Recap",cat:"Recap",tier:"free",grad:"linear-gradient(135deg,#0a7a70,#1a4fa8)"},
+    {name:"Instagram Story Takeover",cat:"Instagram",tier:"premium",grad:"linear-gradient(135deg,#7B3FB5,#E8357A)"},
+    {name:"Facebook Cover Announce",cat:"Facebook",tier:"premium",grad:"linear-gradient(135deg,#1a4fa8,#0B9E8F)"},
+    {name:"Countdown Series (3-day)",cat:"Campaign",tier:"premium",grad:"linear-gradient(135deg,#E8357A,#7B3FB5)"},
+    {name:"Sponsor Thank-You Graphic",cat:"Recognition",tier:"premium",grad:"linear-gradient(135deg,#0D1B3E,#C9943A)"}
+  ]},
+
+  /* ── EVENT BUILDER ── */
+  {tool:"event",toolLabel:"Event Builder",toolIcon:"🎪",toolColor:"#2BA84A",toolBg:"var(--green-pale)",link:"tool-event-builder.html",
+   templates:[
+    {name:"Family Fun Run",cat:"Fundraiser",tier:"free",grad:"linear-gradient(135deg,#1a8040,#2BA84A)"},
+    {name:"Spring Carnival",cat:"Seasonal",tier:"free",grad:"linear-gradient(135deg,#E8357A,#F07A1A)"},
+    {name:"Science Night",cat:"Academic",tier:"free",grad:"linear-gradient(135deg,#1a4fa8,#0B9E8F)"},
+    {name:"Book Fair Weekend",cat:"Academic",tier:"free",grad:"linear-gradient(135deg,#c45000,#F07A1A)"},
+    {name:"Movie Night",cat:"Social",tier:"free",grad:"linear-gradient(135deg,#0D0829,#1C2F5E)"},
+    {name:"Bingo Night Fundraiser",cat:"Fundraiser",tier:"free",grad:"linear-gradient(135deg,#5a1ea0,#7B3FB5)"},
+    {name:"Silent Auction Gala",cat:"Fundraiser",tier:"premium",grad:"linear-gradient(135deg,#0D1B3E,#C9943A)"},
+    {name:"End of Year Celebration",cat:"Seasonal",tier:"premium",grad:"linear-gradient(135deg,#7a5400,#b02060)"}
+  ]}
+];
+
+var currentToolFilter = 'all';
+
+function renderLibrary(toolFilter) {
+  var inner = document.getElementById('libraryInner');
+  var groups = toolFilter === 'all' ? ALL_TEMPLATES : ALL_TEMPLATES.filter(function(g){return g.tool===toolFilter;});
+
+  inner.innerHTML = groups.map(function(group) {
+    var freeCount = group.templates.filter(function(t){return t.tier==='free';}).length;
+    var total = group.templates.length;
+    var cards = group.templates.map(function(t) {
+      var isFree = t.tier==='free';
+      var btnBg = isFree ? 'background:var(--purple);color:white;' : 'background:linear-gradient(135deg,#C9943A,#7a5400);color:white;';
+      return '<div class="t-card" onclick="handleTmplClick(\''+t.tier+'\',\''+group.link+'\')">'
+        +'<div class="t-thumb" style="background:'+t.grad+';">'
+        +'<div class="t-thumb-title">'+t.name.toUpperCase()+'</div>'
+        +'<div class="t-line w90"></div>'
+        +'<div class="t-line w70"></div>'
+        +'<div class="t-line w50"></div>'
+        +'<div class="t-cta-bar"></div>'
+        +'</div>'
+        +'<div class="t-body">'
+        +'<div class="t-name">'+t.name+'</div>'
+        +'<div class="t-meta">'+t.cat+'</div>'
+        +'<div class="t-actions">'
+        +'<button class="t-btn" style="'+btnBg+'">'+(isFree?'Use Free':'$2.99')+'</button>'
+        +'<span class="t-tier '+t.tier+'">'+(isFree?'FREE':'PRO')+'</span>'
+        +'</div></div></div>';
+    }).join('');
+
+    return '<div class="tool-group" id="group-'+group.tool+'">'
+      +'<div class="tool-group-header">'
+      +'<div class="tool-group-left">'
+      +'<div class="tool-group-icon" style="background:'+group.toolBg+';">'+group.toolIcon+'</div>'
+      +'<div><div class="tool-group-name">'+group.toolLabel+'</div>'
+      +'<div class="tool-group-count">'+total+' templates · '+freeCount+' free</div></div>'
+      +'</div>'
+      +'<a href="'+group.link+'" class="tool-group-link">Open tool →</a>'
+      +'</div>'
+      +'<div class="tmpl-grid">'+cards+'</div>'
+      +'</div>';
+  }).join('');
+}
+
+function filterByTool(tool, btn) {
+  currentToolFilter = tool;
+  document.querySelectorAll('.tool-tab').forEach(function(b){b.classList.remove('active');});
+  btn.classList.add('active');
+  renderLibrary(tool);
+}
+
+function handleTmplClick(tier, link) {
+  if (tier === 'premium') {
+    document.getElementById('upgradeModal').classList.add('open');
+  } else {
+    window.location.href = link;
+  }
+}
+
+function closeModal() {
+  document.getElementById('upgradeModal').classList.remove('open');
+}
+
+document.getElementById('upgradeModal').addEventListener('click', function(e) {
+  if (e.target === this) closeModal();
+});
+
+renderLibrary('all');
+</script>
+</body>
+</html>

@@ -163,7 +163,76 @@ footer{background:var(--navy-mid,#142248);border-top:3px solid transparent;borde
 .f-links{display:flex;gap:24px;}
 .f-links a{font-size:12px;color:rgba(255,255,255,0.35);text-decoration:none;transition:color 0.2s;}
 .f-links a:hover{color:var(--gold-light);}
-@media(max-width:1000px){.fw-layout{grid-template-columns:1fr;}.fw-preview-panel{position:static;}}
+/* ── STARTING POINT SECTION ── */
+.start-section{background:#010D2A;padding:60px 60px 0;}
+.start-inner{max-width:1200px;margin:0 auto;}
+.start-section .start-label{font-size:10px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:rgba(245,215,142,0.6);margin-bottom:10px;}
+.start-section .start-title{font-size:clamp(22px,2.5vw,30px);font-weight:900;color:white;letter-spacing:-1px;margin-bottom:36px;}
+.start-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;padding-bottom:60px;}
+
+/* SCRATCH CARD */
+.scratch-card{position:relative;border-radius:28px;padding:3px;cursor:pointer;transition:all 0.3s;background:linear-gradient(135deg,var(--pink),var(--purple),var(--blue),var(--pink));background-size:300% 300%;animation:gradBorder 3s ease infinite;}
+@keyframes gradBorder{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
+.scratch-card-inner{background:linear-gradient(135deg,#0D0829 0%,#18093A 45%,#0A1232 100%);border-radius:26px;padding:44px 40px;position:relative;overflow:hidden;height:100%;}
+.scratch-card-inner::after{content:'✦';position:absolute;top:20px;right:28px;font-size:48px;color:rgba(255,45,135,0.18);animation:floatStar 3s ease-in-out infinite;}
+@keyframes floatStar{0%,100%{transform:translateY(0) rotate(0deg);opacity:0.18}50%{transform:translateY(-10px) rotate(20deg);opacity:0.35}}
+.scratch-dots-bg{position:absolute;bottom:18px;right:24px;display:flex;gap:7px;}
+.scratch-dot-bg{width:9px;height:9px;border-radius:50%;}
+.scratch-eyebrow{font-size:9px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--pink-bright);display:block;margin-bottom:12px;}
+.scratch-icon-main{font-size:52px;display:block;margin-bottom:14px;filter:drop-shadow(0 0 18px rgba(255,45,135,0.55));}
+.scratch-card h2{font-size:clamp(22px,2.5vw,30px);font-weight:900;color:white;letter-spacing:-1px;line-height:1.1;margin-bottom:12px;}
+.scratch-card h2 span{background:linear-gradient(135deg,#FF2D87,#FF85C2,#C084FC);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.scratch-card p{font-size:13px;font-weight:300;color:rgba(255,255,255,0.58);line-height:1.75;margin-bottom:28px;}
+.scratch-btn{display:inline-flex;align-items:center;gap:8px;background:linear-gradient(135deg,var(--pink),var(--purple));color:white;font-family:'Poppins',sans-serif;font-size:14px;font-weight:800;padding:16px 32px;border-radius:100px;border:none;cursor:pointer;transition:all 0.2s;box-shadow:0 8px 32px rgba(232,53,122,0.5);}
+.scratch-btn:hover{transform:translateY(-2px);box-shadow:0 14px 48px rgba(232,53,122,0.65);}
+
+/* TEMPLATES START CARD */
+.tmpl-start-card{background:white;border:2px solid rgba(13,27,62,0.1);border-radius:28px;padding:40px;cursor:pointer;transition:all 0.25s;position:relative;overflow:hidden;display:flex;flex-direction:column;}
+.tmpl-start-card:hover{transform:translateY(-4px);box-shadow:0 20px 60px rgba(13,27,62,0.12);border-color:rgba(123,63,181,0.3);}
+.tmpl-start-eyebrow{font-size:9px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--purple);display:block;margin-bottom:12px;}
+.tmpl-start-icon{font-size:52px;display:block;margin-bottom:14px;}
+.tmpl-start-card h2{font-size:clamp(20px,2.2vw,28px);font-weight:900;color:var(--navy);letter-spacing:-0.8px;line-height:1.15;margin-bottom:10px;}
+.tmpl-start-card h2 span{background:linear-gradient(135deg,var(--purple),var(--blue));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.tmpl-start-card p{font-size:13px;font-weight:300;color:rgba(13,27,62,0.6);line-height:1.75;margin-bottom:24px;}
+.tmpl-start-btn{display:inline-flex;align-items:center;gap:8px;background:var(--navy);color:white;font-family:'Poppins',sans-serif;font-size:13px;font-weight:700;padding:13px 28px;border-radius:100px;border:none;cursor:pointer;transition:all 0.2s;align-self:flex-start;}
+.tmpl-start-btn:hover{background:var(--navy-light);}
+.tmpl-mini-grid{position:absolute;bottom:-12px;right:-6px;display:flex;gap:10px;opacity:0.1;}
+.tmpl-mini-swatch{width:64px;height:88px;border-radius:10px;}
+
+/* FLYER TEMPLATES SECTION */
+.ft-section{background:var(--light-bg);padding:80px 60px;}
+.ft-inner{max-width:1200px;margin:0 auto;}
+.ft-header{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:28px;flex-wrap:wrap;gap:16px;}
+.ft-header h2{font-size:clamp(26px,3vw,38px);font-weight:900;color:var(--navy);letter-spacing:-1.2px;line-height:1.1;}
+.ft-header h2 span{background:linear-gradient(135deg,var(--purple),var(--blue));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.ft-view-all{font-size:12px;font-weight:700;color:var(--purple);text-decoration:none;display:flex;align-items:center;gap:6px;transition:color 0.2s;white-space:nowrap;}
+.ft-view-all:hover{color:var(--pink);}
+.ft-filter{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:28px;}
+.ft-filter-btn{font-size:11px;font-weight:700;padding:6px 16px;border-radius:100px;border:none;cursor:pointer;transition:all 0.2s;font-family:'Poppins',sans-serif;}
+.ft-filter-btn.active{background:var(--purple);color:white;}
+.ft-filter-btn:not(.active){background:white;color:rgba(13,27,62,0.5);border:1.5px solid rgba(13,27,62,0.1);}
+.ft-filter-btn:hover:not(.active){border-color:var(--purple);color:var(--purple);}
+.ft-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;}
+.ft-card{background:white;border-radius:18px;overflow:hidden;border:2px solid rgba(13,27,62,0.06);box-shadow:0 2px 10px rgba(13,27,62,0.05);transition:all 0.22s;cursor:pointer;}
+.ft-card:hover{transform:translateY(-4px);box-shadow:0 14px 40px rgba(13,27,62,0.12);border-color:rgba(123,63,181,0.25);}
+.ft-card.selected{border-color:var(--purple);box-shadow:0 0 0 3px rgba(123,63,181,0.2);}
+.ft-thumb{height:110px;display:flex;flex-direction:column;padding:12px 14px;}
+.ft-thumb-title{font-size:9px;font-weight:900;color:white;letter-spacing:0.8px;text-transform:uppercase;margin-bottom:6px;line-height:1.2;}
+.ft-thumb-line{height:5px;border-radius:2px;background:rgba(255,255,255,0.5);margin-bottom:4px;}
+.ft-thumb-line.w90{width:90%;}
+.ft-thumb-line.w70{width:70%;}
+.ft-thumb-line.w50{width:50%;}
+.ft-thumb-cta{margin-top:auto;height:20px;border-radius:10px;background:rgba(255,255,255,0.25);}
+.ft-card-body{padding:12px 14px 14px;}
+.ft-card-name{font-size:12px;font-weight:800;color:var(--navy);margin-bottom:3px;line-height:1.3;}
+.ft-card-cat{font-size:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:rgba(13,27,62,0.38);margin-bottom:9px;}
+.ft-card-actions{display:flex;gap:6px;align-items:center;}
+.ft-use-btn{flex:1;font-family:'Poppins',sans-serif;font-size:10px;font-weight:700;padding:7px 8px;border-radius:100px;cursor:pointer;border:none;transition:all 0.18s;text-align:center;}
+.ft-badge{font-size:8px;font-weight:800;letter-spacing:1px;text-transform:uppercase;padding:3px 8px;border-radius:100px;flex-shrink:0;}
+.ft-badge.free{background:var(--green-pale);color:var(--green);}
+.ft-badge.premium{background:#FDF6E3;color:var(--gold);}
+
+@media(max-width:1000px){.fw-layout{grid-template-columns:1fr;}.fw-preview-panel{position:static;}.start-grid{grid-template-columns:1fr;}.ft-grid{grid-template-columns:repeat(2,1fr);}}
 @media(max-width:900px){nav{padding:0 20px;}.nav-links{display:none;}.tool-hero{padding:140px 24px 60px;}.section{padding:60px 24px;}.fw-section{padding:60px 24px;}.hiw-grid,.feat-grid{grid-template-columns:1fr;}.use-grid{grid-template-columns:1fr 1fr;}.tool-cta{padding:60px 24px;}.back-bar,.tools-nav{padding:0 20px;}footer{padding:24px 20px;flex-direction:column;align-items:flex-start;}.fw-row-2{grid-template-columns:1fr;}}
 @media print{nav,.gold-divider,.back-bar,.tools-nav,.tool-hero,.fw-form-panel,.preview-header-bar,.preview-actions,.social-post-link,.fw-header,.section,.feat-section,.tool-cta,footer,.flyer-empty,.flyer-generating{display:none!important;}body{background:white;}.fw-section,.fw-inner,.fw-layout,.fw-preview-panel,.fw-canvas{padding:0!important;margin:0!important;background:white!important;border:none!important;box-shadow:none!important;display:block!important;}.flyer-output{box-shadow:none!important;max-width:100%!important;display:block!important;}[contenteditable]{outline:none!important;}}
 </style>
@@ -174,6 +243,7 @@ footer{background:var(--navy-mid,#142248);border-top:3px solid transparent;borde
   <a href="index.html" class="nav-logo"><img src="logo.png" alt="The PTA/PTO Shoppe"></a>
   <div class="nav-links">
     <a href="index.html#tools">Tools</a>
+    <a href="template-library.html">Templates</a>
     <a href="index.html#pricing">Pricing</a>
     <a href="reviews.html">Reviews</a>
     <a href="contact.html">Contact</a>
@@ -211,6 +281,72 @@ footer{background:var(--navy-mid,#142248);border-top:3px solid transparent;borde
     <h1>Flyers that <br><span>actually get read.</span></h1>
     <p>Tell us your event, date, and key details. Our AI writes a polished, attention-grabbing flyer in under 60 seconds — ready to print, email, or share.</p>
     <a href="#tool" class="btn-hero">Start Writing Flyers ✦</a>
+  </div>
+</section>
+
+<!-- STARTING POINT PICKER -->
+<section class="start-section">
+  <div class="start-inner">
+    <div class="start-label">Step 1 — Choose Your Approach</div>
+    <div class="start-title">How do you want to start?</div>
+    <div class="start-grid">
+
+      <!-- SCRATCH CARD — spectacular -->
+      <div class="scratch-card" onclick="document.getElementById('tool').scrollIntoView({behavior:'smooth'})">
+        <div class="scratch-card-inner">
+          <div class="scratch-dots-bg">
+            <div class="scratch-dot-bg" style="background:var(--pink);opacity:0.25;"></div>
+            <div class="scratch-dot-bg" style="background:var(--purple);opacity:0.25;"></div>
+            <div class="scratch-dot-bg" style="background:var(--blue);opacity:0.25;"></div>
+          </div>
+          <span class="scratch-icon-main">⚡</span>
+          <span class="scratch-eyebrow">Fully Custom · No template needed</span>
+          <h2>Build Something<br><span>Completely Unique.</span></h2>
+          <p>Describe your event, upload your logo, pick your school colors — and our AI writes a one-of-a-kind flyer in under 60 seconds. Nothing cookie-cutter about it.</p>
+          <button class="scratch-btn">✦ Start from Scratch</button>
+        </div>
+      </div>
+
+      <!-- TEMPLATES START CARD -->
+      <div class="tmpl-start-card" onclick="document.getElementById('flyer-templates').scrollIntoView({behavior:'smooth'})">
+        <div class="tmpl-mini-grid" aria-hidden="true">
+          <div class="tmpl-mini-swatch" style="background:linear-gradient(135deg,#E8357A,#7B3FB5);transform:rotate(8deg);"></div>
+          <div class="tmpl-mini-swatch" style="background:linear-gradient(135deg,#2E7BC4,#0B9E8F);transform:rotate(-4deg);"></div>
+          <div class="tmpl-mini-swatch" style="background:linear-gradient(135deg,#F07A1A,#C9943A);transform:rotate(12deg);"></div>
+        </div>
+        <span class="tmpl-start-icon">🗂️</span>
+        <span class="tmpl-start-eyebrow">25 Templates Available</span>
+        <h2>Start with a<br><span>ready-made design.</span></h2>
+        <p>Browse 25 professionally designed flyer templates — free and premium. Pick one, swap in your details, and you're done in under a minute.</p>
+        <button class="tmpl-start-btn">Browse Templates →</button>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<div class="gold-divider"></div>
+
+<!-- FLYER TEMPLATES -->
+<section class="ft-section" id="flyer-templates">
+  <div class="ft-inner">
+    <div class="ft-header">
+      <div>
+        <div class="section-label">Flyer Templates</div>
+        <h2>25 templates, <span>ready to customize.</span></h2>
+      </div>
+      <a href="template-library.html" class="ft-view-all">Browse all tool templates →</a>
+    </div>
+    <div class="ft-filter">
+      <button class="ft-filter-btn active" onclick="filterFlyerTmpls('all',this)">All 25</button>
+      <button class="ft-filter-btn" onclick="filterFlyerTmpls('free',this)">Free (8)</button>
+      <button class="ft-filter-btn" onclick="filterFlyerTmpls('premium',this)">Premium (17)</button>
+      <button class="ft-filter-btn" onclick="filterFlyerTmpls('Meeting',this)">Meetings</button>
+      <button class="ft-filter-btn" onclick="filterFlyerTmpls('Fundraiser',this)">Fundraising</button>
+      <button class="ft-filter-btn" onclick="filterFlyerTmpls('Event',this)">Events</button>
+      <button class="ft-filter-btn" onclick="filterFlyerTmpls('Seasonal',this)">Seasonal</button>
+    </div>
+    <div class="ft-grid" id="flyerTmplGrid"></div>
   </div>
 </section>
 
@@ -565,6 +701,93 @@ function generateFlyer() {
     }
   }, 1300);
 }
+
+/* ── FLYER TEMPLATES ── */
+var FLYER_TMPLS = [
+  {id:1,name:"Monthly Meeting",cat:"Meeting",tier:"free",grad:"linear-gradient(135deg,#1a4fa8,#2E7BC4)"},
+  {id:2,name:"Fun Run Fundraiser",cat:"Fundraiser",tier:"free",grad:"linear-gradient(135deg,#1a8040,#2BA84A)"},
+  {id:3,name:"Book Fair",cat:"Event",tier:"free",grad:"linear-gradient(135deg,#c45000,#F07A1A)"},
+  {id:4,name:"School Dance",cat:"Event",tier:"free",grad:"linear-gradient(135deg,#5a1ea0,#7B3FB5)"},
+  {id:5,name:"Back to School Night",cat:"Seasonal",tier:"free",grad:"linear-gradient(135deg,#0a7a70,#0B9E8F)"},
+  {id:6,name:"Volunteer Drive",cat:"Meeting",tier:"free",grad:"linear-gradient(135deg,#0D1B3E,#1C2F5E)"},
+  {id:7,name:"Parent Workshop",cat:"Meeting",tier:"free",grad:"linear-gradient(135deg,#1560a8,#2E7BC4)"},
+  {id:8,name:"Classroom Celebration",cat:"Event",tier:"free",grad:"linear-gradient(135deg,#b02060,#E8357A)"},
+  {id:9,name:"Gala Fundraiser",cat:"Fundraiser",tier:"premium",grad:"linear-gradient(135deg,#7a5400,#C9943A)"},
+  {id:10,name:"Carnival Night",cat:"Event",tier:"premium",grad:"linear-gradient(135deg,#E8357A,#F07A1A)"},
+  {id:11,name:"Science Fair",cat:"Event",tier:"premium",grad:"linear-gradient(135deg,#1a4fa8,#0B9E8F)"},
+  {id:12,name:"Art Show",cat:"Event",tier:"premium",grad:"linear-gradient(135deg,#7B3FB5,#E8357A)"},
+  {id:13,name:"Food Drive",cat:"Fundraiser",tier:"premium",grad:"linear-gradient(135deg,#c45000,#7a5400)"},
+  {id:14,name:"Movie Night",cat:"Event",tier:"premium",grad:"linear-gradient(135deg,#0D0829,#1C2F5E)"},
+  {id:15,name:"Spring Fling",cat:"Seasonal",tier:"premium",grad:"linear-gradient(135deg,#b02060,#7B3FB5)"},
+  {id:16,name:"Holiday Party",cat:"Seasonal",tier:"premium",grad:"linear-gradient(135deg,#b01008,#7a5400)"},
+  {id:17,name:"Sports Day",cat:"Event",tier:"premium",grad:"linear-gradient(135deg,#1a8040,#0B9E8F)"},
+  {id:18,name:"Math Night",cat:"Meeting",tier:"premium",grad:"linear-gradient(135deg,#0D1B3E,#2E7BC4)"},
+  {id:19,name:"Cultural Fair",cat:"Event",tier:"premium",grad:"linear-gradient(135deg,#F07A1A,#7B3FB5)"},
+  {id:20,name:"Auction Night",cat:"Fundraiser",tier:"premium",grad:"linear-gradient(135deg,#0D1B3E,#C9943A)"},
+  {id:21,name:"Plant Sale",cat:"Fundraiser",tier:"premium",grad:"linear-gradient(135deg,#1a8040,#7a5400)"},
+  {id:22,name:"Teacher Appreciation",cat:"Seasonal",tier:"premium",grad:"linear-gradient(135deg,#b02060,#c45000)"},
+  {id:23,name:"Graduation Celebration",cat:"Seasonal",tier:"premium",grad:"linear-gradient(135deg,#5a1ea0,#7a5400)"},
+  {id:24,name:"Summer Reading",cat:"Seasonal",tier:"premium",grad:"linear-gradient(135deg,#0a7a70,#1a4fa8)"},
+  {id:25,name:"Family Game Night",cat:"Event",tier:"premium",grad:"linear-gradient(135deg,#E8357A,#2E7BC4)"}
+];
+
+function renderFlyerTmpls(filter) {
+  var grid = document.getElementById('flyerTmplGrid');
+  var list = FLYER_TMPLS.filter(function(t){
+    if (filter==='all') return true;
+    if (filter==='free'||filter==='premium') return t.tier===filter;
+    return t.cat.indexOf(filter)>=0;
+  });
+  grid.innerHTML = list.map(function(t){
+    var isFree = t.tier==='free';
+    var btnBg = isFree ? 'background:var(--purple);color:white;' : 'background:linear-gradient(135deg,#C9943A,#7a5400);color:white;';
+    return '<div class="ft-card" data-tier="'+t.tier+'" onclick="useFlyerTmpl('+t.id+',event)">'
+      +'<div class="ft-thumb" style="background:'+t.grad+';">'
+      +'<div class="ft-thumb-title">'+t.name.toUpperCase()+'</div>'
+      +'<div class="ft-thumb-line w90"></div>'
+      +'<div class="ft-thumb-line w70"></div>'
+      +'<div class="ft-thumb-line w50"></div>'
+      +'<div class="ft-thumb-cta"></div>'
+      +'</div>'
+      +'<div class="ft-card-body">'
+      +'<div class="ft-card-name">'+t.name+'</div>'
+      +'<div class="ft-card-cat">'+t.cat+'</div>'
+      +'<div class="ft-card-actions">'
+      +'<button class="ft-use-btn" style="'+btnBg+'">'+(isFree?'Use Free':'Use — $2.99')+'</button>'
+      +'<span class="ft-badge '+t.tier+'">'+(isFree?'FREE':'PRO')+'</span>'
+      +'</div></div></div>';
+  }).join('');
+}
+
+function filterFlyerTmpls(filter, btn) {
+  document.querySelectorAll('.ft-filter-btn').forEach(function(b){b.classList.remove('active');});
+  btn.classList.add('active');
+  renderFlyerTmpls(filter);
+}
+
+function useFlyerTmpl(id, e) {
+  var tmpl = FLYER_TMPLS.find(function(t){return t.id===id;});
+  if (!tmpl) return;
+  if (tmpl.tier==='premium') {
+    if (confirm('This is a premium template ($2.99). Upgrade to Pro for unlimited premium templates.\n\nView pricing?')) {
+      window.location.href='checkout.html';
+    }
+    return;
+  }
+  var colors = tmpl.grad.match(/#[0-9a-fA-F]{6}/g);
+  if (colors && colors.length>=2) {
+    document.getElementById('primaryColor').value = colors[0];
+    document.getElementById('secondaryColor').value = colors[1];
+    updateColors();
+  }
+  var nameField = document.getElementById('eventName');
+  if (!nameField.value) nameField.placeholder = 'e.g. '+tmpl.name;
+  document.querySelectorAll('.ft-card').forEach(function(c){c.classList.remove('selected');});
+  if (e && e.currentTarget) e.currentTarget.classList.add('selected');
+  document.getElementById('tool').scrollIntoView({behavior:'smooth'});
+}
+
+renderFlyerTmpls('all');
 
 function printFlyer() { window.print(); }
 
