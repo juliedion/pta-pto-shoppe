@@ -111,7 +111,14 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(13,27,62,0.9
 .flyer-output{background:white;border-radius:16px;box-shadow:0 16px 56px rgba(13,27,62,0.18);width:100%;overflow:hidden;position:relative;transition:all 0.2s;}
 .flyer-output.size-print{max-width:480px;aspect-ratio:8.5/11;}
 .flyer-output.size-poster{max-width:480px;aspect-ratio:11/17;}
-.flyer-output.size-web{max-width:420px;aspect-ratio:1/1;}
+.flyer-output.size-social-square{max-width:420px;aspect-ratio:1/1;}
+.flyer-output.size-social-story{max-width:280px;aspect-ratio:9/16;}
+.flyer-output.size-social-landscape{max-width:480px;aspect-ratio:1.91/1;}
+/* social sub-toggle */
+.social-sub-toggle{display:flex;gap:5px;margin-top:-8px;margin-bottom:10px;padding:0 2px;}
+.social-sub-btn{flex:1;padding:5px 4px;border-radius:8px;border:1.5px solid rgba(13,27,62,0.1);background:var(--off-white);cursor:pointer;font-family:'Poppins',sans-serif;font-size:9px;font-weight:700;color:rgba(13,27,62,0.5);transition:all 0.18s;text-align:center;}
+.social-sub-btn:hover{border-color:var(--pink);color:var(--pink);}
+.social-sub-btn.active{border-color:var(--pink);background:var(--pink);color:white;}
 .fo-logo-bar{position:absolute;z-index:10;background:rgba(255,255,255,0.92);border-radius:8px;padding:5px 8px;display:none;max-width:90px;}
 .fo-logo-bar img{width:100%;height:auto;max-height:38px;object-fit:contain;display:block;}
 .fo-header{padding:28px 28px 24px;text-align:center;}
@@ -716,7 +723,12 @@ footer{background:var(--navy-mid,#142248);border-top:3px solid transparent;borde
         <div class="size-toggle">
           <button class="size-btn active" id="sizePrint" onclick="setFlyerSize('print',this)">🖨️ Print<span>8.5 × 11"</span></button>
           <button class="size-btn" id="sizePoster" onclick="setFlyerSize('poster',this)">📋 Poster<span>11 × 17"</span></button>
-          <button class="size-btn" id="sizeWeb" onclick="setFlyerSize('web',this)">📱 Web<span>Square</span></button>
+          <button class="size-btn" id="sizeSocial" onclick="setFlyerSize('social',this)">📱 Social<span>Square / Story</span></button>
+        </div>
+        <div class="social-sub-toggle" id="socialSubToggle" style="display:none;">
+          <button class="social-sub-btn active" onclick="setSocialFormat('square',this)">⬛ Square<br>1080×1080</button>
+          <button class="social-sub-btn" onclick="setSocialFormat('story',this)">📱 Story<br>1080×1920</button>
+          <button class="social-sub-btn" onclick="setSocialFormat('landscape',this)">🖼️ Landscape<br>1200×628</button>
         </div>
 
         <div class="fw-canvas" id="fwCanvas">
@@ -771,14 +783,6 @@ footer{background:var(--navy-mid,#142248);border-top:3px solid transparent;borde
           <a id="canvaCtaLink" href="#" target="_blank" rel="noopener" class="canva-cta-btn">Open in Canva →</a>
         </div>
 
-        <div class="social-post-link" id="socialPostLink" style="display:none;">
-          <div class="spl-icon">📱</div>
-          <div>
-            <div class="spl-title">Turn this into a social post</div>
-            <div class="spl-sub">Use the same event details to create an Instagram, Facebook, or X post in seconds.</div>
-          </div>
-          <a href="tool-social-posts.html" class="spl-btn">Try Social Posts →</a>
-        </div>
       </div>
 
     </div>
@@ -1303,7 +1307,6 @@ function generateFlyer() {
     document.getElementById('flyerOutput').style.display = 'block';
     document.getElementById('flyerOutput').classList.add('editable');
     document.getElementById('editBadge').style.display = 'inline-flex';
-    document.getElementById('socialPostLink').style.display = 'flex';
     showCanvaCta(selectedFlyerTmpl);
 
     btn.textContent = '✦ Rewrite Copy';
@@ -1320,7 +1323,6 @@ function initLiveFlyer() {
   output.style.display = 'block';
   output.classList.add('editable');
   document.getElementById('editBadge').style.display = 'inline-flex';
-  document.getElementById('socialPostLink').style.display = 'flex';
 
   // Wire up live updates on all form fields
   ['eventName','orgName','eventTime','eventLocation','eventDetails','contactInfo'].forEach(function(id) {
@@ -1878,9 +1880,29 @@ function setLogoPos(pos, btn) {
 function setFlyerSize(size, btn) {
   flyerCustom.flyerSize = size;
   var fo = document.getElementById('flyerOutput');
-  fo.classList.remove('size-print','size-poster','size-web');
-  fo.classList.add('size-'+size);
+  var subToggle = document.getElementById('socialSubToggle');
+  fo.classList.remove('size-print','size-poster','size-social-square','size-social-story','size-social-landscape');
   document.querySelectorAll('.size-btn').forEach(function(b){b.classList.remove('active');});
+  if (btn) btn.classList.add('active');
+  if (size === 'social') {
+    fo.classList.add('size-social-square');
+    if (subToggle) subToggle.style.display = 'flex';
+    document.querySelectorAll('.social-sub-btn').forEach(function(b){b.classList.remove('active');});
+    var firstSub = document.querySelector('.social-sub-btn');
+    if (firstSub) firstSub.classList.add('active');
+    flyerCustom.flyerSize = 'social-square';
+  } else {
+    fo.classList.add('size-'+size);
+    if (subToggle) subToggle.style.display = 'none';
+  }
+}
+
+function setSocialFormat(format, btn) {
+  var fo = document.getElementById('flyerOutput');
+  fo.classList.remove('size-social-square','size-social-story','size-social-landscape');
+  fo.classList.add('size-social-'+format);
+  flyerCustom.flyerSize = 'social-'+format;
+  document.querySelectorAll('.social-sub-btn').forEach(function(b){b.classList.remove('active');});
   if (btn) btn.classList.add('active');
 }
 
