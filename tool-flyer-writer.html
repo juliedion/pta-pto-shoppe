@@ -515,7 +515,7 @@ footer{background:var(--navy-mid,#142248);border-top:3px solid transparent;borde
           </div>
         </div>
 
-        <button class="fw-generate-btn" id="generateBtn" onclick="generateFlyer()">✦ Generate My Flyer</button>
+        <button class="fw-generate-btn" id="generateBtn" onclick="generateFlyer()">✦ Rewrite Copy</button>
 
         <div class="customize-panel" id="customizePanel">
           <div class="cp-heading">🎨 Design Options</div>
@@ -597,16 +597,13 @@ footer{background:var(--navy-mid,#142248);border-top:3px solid transparent;borde
         </div>
 
         <div class="fw-canvas" id="fwCanvas">
-          <div class="flyer-empty" id="flyerEmpty">
-            <div class="flyer-empty-icon">📄</div>
-            <div>Fill in your event details and click<br><strong>Generate My Flyer</strong> to see it here.</div>
-          </div>
+          <div class="flyer-empty" id="flyerEmpty" style="display:none;"></div>
           <div class="flyer-generating" id="flyerGenerating" style="display:none;">
             <div class="gen-spinner"></div>
             <div class="gen-text">Writing your flyer…</div>
             <div class="gen-sub">Crafting your copy now</div>
           </div>
-          <div class="flyer-output" id="flyerOutput" style="display:none;">
+          <div class="flyer-output" id="flyerOutput">
             <div class="fo-logo-bar" id="foLogoBar" style="display:none;"><img id="foLogo" src="" alt="School Logo"></div>
             <div class="fo-header" id="foHeader" style="background:linear-gradient(135deg,#E8357A,#7B3FB5);">
               <div class="fo-title" id="foTitle" contenteditable="true" spellcheck="false">Event Name</div>
@@ -626,7 +623,7 @@ footer{background:var(--navy-mid,#142248);border-top:3px solid transparent;borde
           </div>
         </div>
 
-        <div class="preview-actions" id="previewActions" style="display:none;">
+        <div class="preview-actions" id="previewActions">
           <button class="pa-btn pa-primary" onclick="printFlyer()">🖨️ Print / Save as PDF</button>
           <button class="pa-btn pa-secondary" id="copyBtn" onclick="copyFlyerText()">📋 Copy Text</button>
         </div>
@@ -998,10 +995,58 @@ function buildBody(tone, eventName, details, org) {
   }
 }
 
+function buildFlyerDataFromForm() {
+  var eventName = document.getElementById('eventName').value.trim();
+  var org       = document.getElementById('orgName').value.trim();
+  var dateVal   = document.getElementById('eventDate').value;
+  var timeVal   = document.getElementById('eventTime').value.trim();
+  var location  = document.getElementById('eventLocation').value.trim();
+  var details   = document.getElementById('eventDetails').value.trim();
+  var contact   = document.getElementById('contactInfo').value.trim();
+  var tone      = document.querySelector('input[name="tone"]:checked').value;
+
+  var displayName = eventName || 'Your Event';
+  var title    = displayName.toUpperCase();
+  var subtitle = org ? org + ' Presents' : 'Your PTA/PTO Presents';
+  var body     = buildBody(tone, displayName, details, org);
+  var dateStr  = '';
+  if (dateVal) {
+    var d = new Date(dateVal + 'T12:00:00');
+    dateStr = '📅 ' + d.toLocaleDateString('en-US', {weekday:'long', month:'long', day:'numeric', year:'numeric'});
+  }
+  var ctaMap = {
+    friendly:  "We hope to see you there — don't miss it! 🎉",
+    energetic: "MARK YOUR CALENDAR — this one's gonna be AMAZING! 🙌",
+    formal:    "We look forward to your attendance and participation."
+  };
+  return {
+    title:    title,
+    subtitle: subtitle,
+    body:     body,
+    dateStr:  dateStr,
+    timeStr:  timeVal ? '🕒 ' + timeVal : '',
+    locStr:   location ? '📍 ' + location : '',
+    cta:      ctaMap[tone],
+    contact:  contact ? '✉️  ' + contact : ''
+  };
+}
+
+var _liveTimer = null;
+function liveUpdate() {
+  clearTimeout(_liveTimer);
+  _liveTimer = setTimeout(function() {
+    lastFlyerData = buildFlyerDataFromForm();
+    renderFlyerOutput(lastFlyerData);
+    updateColors();
+    applyLogo();
+  }, 180);
+}
+
 function generateFlyer() {
-  const eventName = document.getElementById('eventName').value.trim();
+  // Full regenerate with spinner (rewrites copy on demand)
+  var eventName = document.getElementById('eventName').value.trim();
   if (!eventName) {
-    const el = document.getElementById('eventName');
+    var el = document.getElementById('eventName');
     el.style.borderColor = 'var(--pink)';
     el.placeholder = 'Please enter an event name first';
     el.focus();
@@ -1009,67 +1054,57 @@ function generateFlyer() {
   }
   document.getElementById('eventName').style.borderColor = '';
 
-  const org      = document.getElementById('orgName').value.trim();
-  const dateVal  = document.getElementById('eventDate').value;
-  const timeVal  = document.getElementById('eventTime').value.trim();
-  const location = document.getElementById('eventLocation').value.trim();
-  const details  = document.getElementById('eventDetails').value.trim();
-  const contact  = document.getElementById('contactInfo').value.trim();
-  const tone     = document.querySelector('input[name="tone"]:checked').value;
-
-  const btn = document.getElementById('generateBtn');
-  btn.textContent = '⚡ Writing your flyer…';
+  var btn = document.getElementById('generateBtn');
+  btn.textContent = '⚡ Rewriting…';
   btn.disabled = true;
-  document.getElementById('flyerEmpty').style.display = 'none';
   document.getElementById('flyerGenerating').style.display = 'block';
   document.getElementById('flyerOutput').style.display = 'none';
-  document.getElementById('previewActions').style.display = 'none';
-  document.getElementById('socialPostLink').style.display = 'none';
-  document.getElementById('editBadge').style.display = 'none';
 
   setTimeout(function() {
-    var title    = eventName.toUpperCase();
-    var subtitle = org ? org + ' Presents' : 'Your PTA/PTO Presents';
-    var body     = buildBody(tone, eventName, details, org);
-    var dateStr  = '';
-    if (dateVal) {
-      var d = new Date(dateVal + 'T12:00:00');
-      dateStr = '📅 ' + d.toLocaleDateString('en-US', {weekday:'long', month:'long', day:'numeric', year:'numeric'});
-    }
-    var ctaMap = {
-      friendly:  "We hope to see you there — don't miss it! 🎉",
-      energetic: "MARK YOUR CALENDAR — this one's gonna be AMAZING! 🙌",
-      formal:    "We look forward to your attendance and participation."
-    };
-
-    lastFlyerData = {
-      title:   title,
-      subtitle: subtitle,
-      body:    body,
-      dateStr: dateStr,
-      timeStr: timeVal ? '🕒 ' + timeVal : '',
-      locStr:  location ? '📍 ' + location : '',
-      cta:     ctaMap[tone],
-      contact: contact ? '✉️  ' + contact : ''
-    };
+    lastFlyerData = buildFlyerDataFromForm();
     renderFlyerOutput(lastFlyerData);
     updateColors();
     applyLogo();
 
     document.getElementById('flyerGenerating').style.display = 'none';
-    var output = document.getElementById('flyerOutput');
-    output.style.display = 'block';
-    output.classList.add('editable');
-    document.getElementById('previewActions').style.display  = 'flex';
-    document.getElementById('socialPostLink').style.display  = 'flex';
-    document.getElementById('editBadge').style.display       = 'inline-flex';
+    document.getElementById('flyerOutput').style.display = 'block';
+    document.getElementById('flyerOutput').classList.add('editable');
+    document.getElementById('editBadge').style.display = 'inline-flex';
+    document.getElementById('socialPostLink').style.display = 'flex';
     showCanvaCta(selectedFlyerTmpl);
 
-    btn.textContent = '↺ Regenerate Flyer';
-    btn.disabled    = false;
+    btn.textContent = '✦ Rewrite Copy';
+    btn.disabled = false;
+  }, 800);
+}
 
-    document.getElementById('flyerOutput').scrollIntoView({behavior:'smooth', block:'nearest'});
-  }, 1300);
+function initLiveFlyer() {
+  // Show flyer immediately on load
+  lastFlyerData = buildFlyerDataFromForm();
+  renderFlyerOutput(lastFlyerData);
+  updateColors();
+  var output = document.getElementById('flyerOutput');
+  output.style.display = 'block';
+  output.classList.add('editable');
+  document.getElementById('editBadge').style.display = 'inline-flex';
+  document.getElementById('socialPostLink').style.display = 'flex';
+
+  // Wire up live updates on all form fields
+  ['eventName','orgName','eventTime','eventLocation','eventDetails','contactInfo'].forEach(function(id) {
+    var el = document.getElementById(id);
+    if (el) el.addEventListener('input', liveUpdate);
+  });
+  document.getElementById('eventDate').addEventListener('change', liveUpdate);
+  document.querySelectorAll('input[name="tone"]').forEach(function(r) {
+    r.addEventListener('change', liveUpdate);
+  });
+  // Colors already call updateColors() which updates header — also trigger full re-render
+  ['primaryColor','secondaryColor'].forEach(function(id) {
+    var el = document.getElementById(id);
+    if (el) el.addEventListener('input', function() {
+      if (lastFlyerData) { renderFlyerOutput(lastFlyerData); applyLogo(); }
+    });
+  });
 }
 
 /* ── FLYER TEMPLATES ── */
@@ -1593,6 +1628,7 @@ function applyCustomizations() {
 }
 
 buildCustomizePanel();
+initLiveFlyer();
 
 function showCanvaCta(tmpl) {
   var cta = document.getElementById('canvaCta');
