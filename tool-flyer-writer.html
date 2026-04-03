@@ -602,6 +602,7 @@ function applyLogo() {
 }
 
 var selectedFlyerTmpl = null;
+var lastFlyerData = null;
 
 function updateColors() {
   var p = document.getElementById('primaryColor').value;
@@ -796,7 +797,7 @@ function generateFlyer() {
       formal:    "We look forward to your attendance and participation."
     };
 
-    renderFlyerOutput({
+    lastFlyerData = {
       title:   title,
       subtitle: subtitle,
       body:    body,
@@ -805,7 +806,8 @@ function generateFlyer() {
       locStr:  location ? '📍 ' + location : '',
       cta:     ctaMap[tone],
       contact: contact ? '✉️  ' + contact : ''
-    });
+    };
+    renderFlyerOutput(lastFlyerData);
     updateColors();
     applyLogo();
 
@@ -1007,6 +1009,11 @@ function useFlyerTmpl(id, e) {
   if (!nameField.value) nameField.placeholder = 'e.g. '+tmpl.name;
   document.querySelectorAll('.ft-card').forEach(function(c){c.classList.remove('selected');});
   if (e && e.currentTarget) e.currentTarget.classList.add('selected');
+  // if a flyer was already generated, re-render it immediately in the new template style
+  if (lastFlyerData && document.getElementById('flyerOutput').style.display !== 'none') {
+    renderFlyerOutput(lastFlyerData);
+    applyLogo();
+  }
   document.getElementById('tool').scrollIntoView({behavior:'smooth'});
 }
 
