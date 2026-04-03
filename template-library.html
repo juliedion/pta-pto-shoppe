@@ -73,13 +73,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(13,27,62,0.9
 /* TEMPLATE CARD */
 .t-card{background:white;border-radius:16px;overflow:hidden;border:2px solid rgba(13,27,62,0.06);box-shadow:0 2px 10px rgba(13,27,62,0.05);transition:all 0.22s;cursor:pointer;display:flex;flex-direction:column;}
 .t-card:hover{transform:translateY(-4px);box-shadow:0 14px 40px rgba(13,27,62,0.12);border-color:rgba(123,63,181,0.2);}
-.t-thumb{height:100px;display:flex;flex-direction:column;padding:11px 12px;}
-.t-thumb-title{font-size:8px;font-weight:900;color:white;letter-spacing:0.8px;text-transform:uppercase;margin-bottom:5px;line-height:1.2;}
-.t-line{height:5px;border-radius:2px;background:rgba(255,255,255,0.45);margin-bottom:4px;}
-.t-line.w90{width:90%;}
-.t-line.w70{width:70%;}
-.t-line.w50{width:50%;}
-.t-cta-bar{margin-top:auto;height:18px;border-radius:9px;background:rgba(255,255,255,0.22);}
+.t-thumb{height:110px;position:relative;overflow:hidden;}
 .t-body{padding:10px 12px 13px;}
 .t-name{font-size:11px;font-weight:800;color:var(--navy);margin-bottom:2px;line-height:1.3;}
 .t-meta{font-size:9px;font-weight:700;letter-spacing:0.8px;text-transform:uppercase;color:rgba(13,27,62,0.38);margin-bottom:8px;}
@@ -209,141 +203,269 @@ footer{background:var(--navy-mid);border-top:3px solid transparent;border-image:
 </footer>
 
 <script>
+/* ── thumbnail renderers (shared) ── */
+function _pf(c){return '<span style="display:inline-block;width:0;height:0;border-left:7px solid transparent;border-right:7px solid transparent;border-top:14px solid '+c+';margin:0 1px;"></span>';}
+function mkPennant(c1,c2,title,eyebrow,pill,h){
+  h=h||110;
+  var fs=['#E8357A','#fff','#2E7BC4','#F07A1A','#2BA84A','#fff','#7B3FB5','#F5D78E'];
+  var flags=fs.map(_pf).join('');
+  var ws=title.toUpperCase().split(' '), m=Math.ceil(ws.length/2), l1=ws.slice(0,m).join(' '), l2=ws.slice(m).join(' ');
+  return '<div style="background:'+c1+';height:'+h+'px;display:flex;flex-direction:column;overflow:hidden;">'
+    +'<div style="text-align:center;padding:2px 4px 0;line-height:0;flex-shrink:0;">'+flags+'</div>'
+    +'<div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:2px 8px;">'
+    +'<div style="font-size:5px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,0.6);text-align:center;margin-bottom:1px;">'+eyebrow+'</div>'
+    +'<div style="font-size:14px;font-weight:900;color:#fff;text-transform:uppercase;letter-spacing:-0.5px;text-align:center;line-height:1.0;text-shadow:0 2px 6px rgba(0,0,0,0.4);">'+l1+'</div>'
+    +(l2?'<div style="font-size:14px;font-weight:900;color:#fff;text-transform:uppercase;letter-spacing:-0.5px;text-align:center;line-height:1.0;text-shadow:0 2px 6px rgba(0,0,0,0.4);">'+l2+'</div>':'')
+    +(pill?'<div style="margin-top:4px;"><span style="display:inline-block;background:rgba(255,255,255,0.9);color:'+c1+';border-radius:100px;padding:2px 8px;font-size:5.5px;font-weight:800;text-transform:uppercase;letter-spacing:0.8px;">'+pill+'</span></div>':'')
+    +'</div>'
+    +'<div style="flex-shrink:0;background:rgba(0,0,0,0.28);padding:4px 10px;display:flex;gap:4px;align-items:center;">'
+    +'<div style="height:2px;flex:1;border-radius:1px;background:rgba(255,255,255,0.25);"></div>'
+    +'<div style="height:2px;flex:0.4;border-radius:1px;background:rgba(255,255,255,0.15);"></div>'
+    +'</div></div>';
+}
+function mkBadge(c1,c2,title,eyebrow,pill,h){
+  h=h||110;
+  return '<div style="background:linear-gradient(155deg,'+c1+','+c2+');height:'+h+'px;overflow:hidden;position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;">'
+    +'<div style="position:absolute;width:86px;height:86px;border-radius:50%;border:2px solid rgba(255,255,255,0.12);top:12px;left:50%;transform:translateX(-50%);"></div>'
+    +'<div style="position:absolute;width:64px;height:64px;border-radius:50%;border:1.5px solid rgba(255,255,255,0.09);top:23px;left:50%;transform:translateX(-50%);"></div>'
+    +'<div style="position:absolute;top:7px;left:9px;font-size:10px;color:rgba(255,255,255,0.17);">★</div>'
+    +'<div style="position:absolute;top:7px;right:9px;font-size:10px;color:rgba(255,255,255,0.17);">★</div>'
+    +'<div style="z-index:1;text-align:center;padding:0 10px;">'
+    +'<div style="font-size:5px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,0.6);margin-bottom:2px;">'+eyebrow+'</div>'
+    +'<div style="font-size:13px;font-weight:900;color:#fff;text-transform:uppercase;letter-spacing:-0.3px;line-height:1.1;text-shadow:0 2px 8px rgba(0,0,0,0.45);">'+title.toUpperCase()+'</div>'
+    +(pill?'<div style="margin-top:4px;"><span style="display:inline-block;background:rgba(255,255,255,0.18);border:1px solid rgba(255,255,255,0.35);border-radius:100px;padding:2px 7px;font-size:5px;font-weight:700;color:#fff;text-transform:uppercase;letter-spacing:0.8px;">'+pill+'</span></div>':'')
+    +'</div></div>';
+}
+function mkElegant(c1,title,eyebrow,pill,gold,h){
+  h=h||110; gold=gold||'#C9943A';
+  return '<div style="background:'+c1+';height:'+h+'px;display:flex;flex-direction:column;">'
+    +'<div style="background:linear-gradient(90deg,#7a5400,'+gold+',#7a5400);padding:5px 10px;text-align:center;flex-shrink:0;">'
+    +'<div style="font-size:5px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,0.9);">'+eyebrow+'</div>'
+    +'</div>'
+    +'<div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:7px;">'
+    +'<div style="font-size:12px;font-weight:900;color:#fff;text-transform:uppercase;letter-spacing:-0.3px;text-align:center;line-height:1.1;text-shadow:0 2px 8px rgba(0,0,0,0.6);">'+title.toUpperCase()+'</div>'
+    +'<div style="width:30px;height:1.5px;background:'+gold+';margin:4px auto;"></div>'
+    +(pill?'<div style="font-size:5px;color:rgba(255,255,255,0.36);text-align:center;letter-spacing:1px;text-transform:uppercase;">'+pill+'</div>':'')
+    +'</div>'
+    +'<div style="background:linear-gradient(90deg,#7a5400,'+gold+',#7a5400);padding:4px 10px;display:flex;align-items:center;gap:5px;flex-shrink:0;">'
+    +'<div style="height:1.5px;flex:1;background:rgba(0,0,0,0.2);border-radius:1px;"></div>'
+    +'<span style="font-size:8px;color:rgba(255,255,255,0.75);">★</span>'
+    +'<div style="height:1.5px;flex:1;background:rgba(0,0,0,0.2);border-radius:1px;"></div>'
+    +'</div></div>';
+}
+function mkEnergetic(c1,c2,title,eyebrow,pill,h){
+  h=h||110;
+  return '<div style="height:'+h+'px;overflow:hidden;display:flex;flex-direction:column;">'
+    +'<div style="background:'+c1+';height:22px;display:flex;align-items:center;padding:0 9px;flex-shrink:0;position:relative;overflow:hidden;">'
+    +'<div style="font-size:5px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,0.78);">'+eyebrow+'</div>'
+    +'<div style="position:absolute;right:-7px;top:0;bottom:0;width:26px;background:'+c2+';transform:skewX(-14deg);"></div>'
+    +'</div>'
+    +'<div style="background:linear-gradient(135deg,'+c1+','+c2+');flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:5px;">'
+    +'<div style="font-size:13px;font-weight:900;color:#fff;text-transform:uppercase;letter-spacing:-0.4px;text-align:center;line-height:1.05;text-shadow:0 2px 8px rgba(0,0,0,0.4);">'+title.toUpperCase()+'</div>'
+    +(pill?'<div style="margin-top:3px;"><span style="display:inline-block;background:rgba(255,255,255,0.2);border:1px solid rgba(255,255,255,0.3);border-radius:100px;padding:1.5px 6px;font-size:5px;font-weight:700;color:#fff;text-transform:uppercase;letter-spacing:0.8px;">'+pill+'</span></div>':'')
+    +'</div>'
+    +'<div style="background:white;height:16px;padding:0 9px;display:flex;align-items:center;gap:4px;flex-shrink:0;">'
+    +'<div style="height:3px;border-radius:2px;background:rgba(13,27,62,0.1);flex:1;"></div>'
+    +'<div style="height:3px;border-radius:2px;background:rgba(13,27,62,0.07);flex:0.45;"></div>'
+    +'</div></div>';
+}
+function mkSplash(c1,c2,title,eyebrow,pill,h){
+  h=h||110;
+  return '<div style="background:linear-gradient(135deg,'+c1+','+c2+');height:'+h+'px;overflow:hidden;position:relative;display:flex;flex-direction:column;">'
+    +'<div style="position:absolute;width:72px;height:72px;border-radius:50%;background:rgba(255,255,255,0.07);top:-20px;left:-16px;pointer-events:none;"></div>'
+    +'<div style="position:absolute;width:52px;height:52px;border-radius:50%;background:rgba(255,255,255,0.06);top:12px;right:-10px;pointer-events:none;"></div>'
+    +'<div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:7px;z-index:1;">'
+    +'<div style="font-size:5px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,0.65);margin-bottom:2px;">'+eyebrow+'</div>'
+    +'<div style="font-size:13px;font-weight:900;color:#fff;text-transform:uppercase;letter-spacing:-0.3px;text-align:center;line-height:1.1;text-shadow:0 2px 8px rgba(0,0,0,0.35);">'+title.toUpperCase()+'</div>'
+    +(pill?'<div style="margin-top:3px;"><span style="display:inline-block;background:rgba(255,255,255,0.22);border:1px solid rgba(255,255,255,0.4);border-radius:100px;padding:1.5px 7px;font-size:5px;font-weight:700;color:#fff;text-transform:uppercase;letter-spacing:0.8px;">'+pill+'</span></div>':'')
+    +'</div>'
+    +'<div style="background:rgba(0,0,0,0.2);padding:4px 9px;display:flex;gap:4px;align-items:center;flex-shrink:0;z-index:1;">'
+    +'<div style="height:2px;flex:1;border-radius:1px;background:rgba(255,255,255,0.2);"></div>'
+    +'<div style="height:2px;flex:0.35;border-radius:1px;background:rgba(255,255,255,0.13);"></div>'
+    +'</div></div>';
+}
+function mkDoc(c1,c2,title,eyebrow,h){
+  h=h||110;
+  return '<div style="background:'+c1+';height:'+h+'px;display:flex;flex-direction:column;">'
+    +'<div style="padding:8px 9px 5px;flex-shrink:0;">'
+    +'<div style="font-size:4.5px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,0.52);margin-bottom:2px;">'+eyebrow+'</div>'
+    +'<div style="font-size:10px;font-weight:900;color:#fff;text-transform:uppercase;letter-spacing:-0.3px;line-height:1.1;">'+title.toUpperCase()+'</div>'
+    +'</div>'
+    +'<div style="background:white;flex:1;padding:6px 9px;display:flex;flex-direction:column;gap:4px;">'
+    +'<div style="display:flex;align-items:center;gap:4px;"><div style="width:10px;height:10px;border-radius:50%;flex-shrink:0;background:'+c1+';"></div><div style="height:3.5px;border-radius:2px;background:rgba(13,27,62,0.12);flex:1;"></div></div>'
+    +'<div style="display:flex;align-items:center;gap:4px;"><div style="width:10px;height:10px;border-radius:50%;flex-shrink:0;background:'+c2+';"></div><div style="height:3.5px;border-radius:2px;background:rgba(13,27,62,0.1);flex:1;"></div><div style="height:3.5px;border-radius:2px;background:rgba(13,27,62,0.07);flex:0.4;"></div></div>'
+    +'<div style="display:flex;align-items:center;gap:4px;"><div style="width:10px;height:10px;border-radius:50%;flex-shrink:0;background:'+c1+';opacity:0.45;"></div><div style="height:3.5px;border-radius:2px;background:rgba(13,27,62,0.1);flex:0.65;"></div></div>'
+    +'</div>'
+    +'<div style="background:'+c2+';padding:4px 9px;display:flex;gap:4px;align-items:center;flex-shrink:0;">'
+    +'<div style="height:2px;flex:1;border-radius:1px;background:rgba(255,255,255,0.2);"></div>'
+    +'<div style="height:2px;flex:0.35;border-radius:1px;background:rgba(255,255,255,0.13);"></div>'
+    +'</div></div>';
+}
+function mkAgenda(c1,c2,title,cat,h){
+  h=h||110;
+  return '<div style="background:'+c1+';height:'+h+'px;display:flex;flex-direction:column;">'
+    +'<div style="padding:8px 9px 5px;flex-shrink:0;">'
+    +'<div style="font-size:4.5px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,0.52);margin-bottom:2px;">'+cat+' · AGENDA</div>'
+    +'<div style="font-size:10px;font-weight:900;color:#fff;text-transform:uppercase;letter-spacing:-0.3px;line-height:1.1;">'+title.toUpperCase()+'</div>'
+    +'</div>'
+    +'<div style="background:#F8F9FF;flex:1;padding:6px 9px;display:flex;flex-direction:column;gap:4px;">'
+    +'<div style="display:flex;align-items:center;gap:4px;"><div style="font-size:5px;font-weight:800;color:'+c1+';width:10px;flex-shrink:0;line-height:1;">01</div><div style="height:3.5px;border-radius:2px;background:rgba(13,27,62,0.11);flex:1;"></div></div>'
+    +'<div style="display:flex;align-items:center;gap:4px;"><div style="font-size:5px;font-weight:800;color:'+c1+';width:10px;flex-shrink:0;line-height:1;">02</div><div style="height:3.5px;border-radius:2px;background:rgba(13,27,62,0.1);flex:1;"></div><div style="height:3.5px;border-radius:2px;background:rgba(13,27,62,0.06);flex:0.35;"></div></div>'
+    +'<div style="display:flex;align-items:center;gap:4px;"><div style="font-size:5px;font-weight:800;color:'+c1+';width:10px;flex-shrink:0;line-height:1;">03</div><div style="height:3.5px;border-radius:2px;background:rgba(13,27,62,0.1);flex:0.65;"></div></div>'
+    +'</div>'
+    +'<div style="background:'+c2+';padding:4px 9px;display:flex;align-items:center;gap:4px;flex-shrink:0;">'
+    +'<div style="height:2px;flex:1;border-radius:1px;background:rgba(255,255,255,0.22);"></div>'
+    +'<div style="height:2px;flex:0.3;border-radius:1px;background:rgba(255,255,255,0.14);"></div>'
+    +'</div></div>';
+}
+function mkThumb(t, toolKey) {
+  var h = 110;
+  if (toolKey==='agenda') return mkAgenda(t.c1,t.c2,t.name,t.cat,h);
+  switch(t.type){
+    case 'pennant':   return mkPennant(t.c1,t.c2,t.name,t.eyebrow,t.pill,h);
+    case 'badge':     return mkBadge(t.c1,t.c2,t.name,t.eyebrow,t.pill,h);
+    case 'elegant':   return mkElegant(t.c1,t.name,t.eyebrow,t.pill,t.gold,h);
+    case 'energetic': return mkEnergetic(t.c1,t.c2,t.name,t.eyebrow,t.pill,h);
+    case 'splash':    return mkSplash(t.c1,t.c2,t.name,t.eyebrow,t.pill,h);
+    default:          return mkDoc(t.c1,t.c2,t.name,t.eyebrow||t.cat,h);
+  }
+}
+
 var ALL_TEMPLATES = [
 
   /* ── FLYERS ── */
   {tool:"flyer",toolLabel:"Flyer Writer",toolIcon:"📢",toolColor:"#E8357A",toolBg:"var(--pink-pale)",link:"tool-flyer-writer.html",
    templates:[
-    {name:"Monthly Meeting",cat:"Meeting",tier:"free",grad:"linear-gradient(135deg,#1a4fa8,#2E7BC4)"},
-    {name:"Fun Run Fundraiser",cat:"Fundraiser",tier:"free",grad:"linear-gradient(135deg,#1a8040,#2BA84A)"},
-    {name:"Book Fair",cat:"Event",tier:"free",grad:"linear-gradient(135deg,#c45000,#F07A1A)"},
-    {name:"School Dance",cat:"Event",tier:"free",grad:"linear-gradient(135deg,#5a1ea0,#7B3FB5)"},
-    {name:"Back to School Night",cat:"Seasonal",tier:"free",grad:"linear-gradient(135deg,#0a7a70,#0B9E8F)"},
-    {name:"Volunteer Drive",cat:"Meeting",tier:"free",grad:"linear-gradient(135deg,#0D1B3E,#1C2F5E)"},
-    {name:"Parent Workshop",cat:"Meeting",tier:"free",grad:"linear-gradient(135deg,#1560a8,#2E7BC4)"},
-    {name:"Classroom Celebration",cat:"Event",tier:"free",grad:"linear-gradient(135deg,#b02060,#E8357A)"},
-    {name:"Gala Fundraiser",cat:"Fundraiser",tier:"premium",grad:"linear-gradient(135deg,#7a5400,#C9943A)"},
-    {name:"Carnival Night",cat:"Event",tier:"premium",grad:"linear-gradient(135deg,#E8357A,#F07A1A)"},
-    {name:"Science Fair",cat:"Event",tier:"premium",grad:"linear-gradient(135deg,#1a4fa8,#0B9E8F)"},
-    {name:"Art Show",cat:"Event",tier:"premium",grad:"linear-gradient(135deg,#7B3FB5,#E8357A)"},
-    {name:"Food Drive",cat:"Fundraiser",tier:"premium",grad:"linear-gradient(135deg,#c45000,#7a5400)"},
-    {name:"Movie Night",cat:"Event",tier:"premium",grad:"linear-gradient(135deg,#0D0829,#1C2F5E)"},
-    {name:"Spring Fling",cat:"Seasonal",tier:"premium",grad:"linear-gradient(135deg,#b02060,#7B3FB5)"},
-    {name:"Holiday Party",cat:"Seasonal",tier:"premium",grad:"linear-gradient(135deg,#b01008,#7a5400)"},
-    {name:"Sports Day",cat:"Event",tier:"premium",grad:"linear-gradient(135deg,#1a8040,#0B9E8F)"},
-    {name:"Math Night",cat:"Meeting",tier:"premium",grad:"linear-gradient(135deg,#0D1B3E,#2E7BC4)"},
-    {name:"Cultural Fair",cat:"Event",tier:"premium",grad:"linear-gradient(135deg,#F07A1A,#7B3FB5)"},
-    {name:"Auction Night",cat:"Fundraiser",tier:"premium",grad:"linear-gradient(135deg,#0D1B3E,#C9943A)"},
-    {name:"Plant Sale",cat:"Fundraiser",tier:"premium",grad:"linear-gradient(135deg,#1a8040,#7a5400)"},
-    {name:"Teacher Appreciation",cat:"Seasonal",tier:"premium",grad:"linear-gradient(135deg,#b02060,#c45000)"},
-    {name:"Graduation Celebration",cat:"Seasonal",tier:"premium",grad:"linear-gradient(135deg,#5a1ea0,#7a5400)"},
-    {name:"Summer Reading",cat:"Seasonal",tier:"premium",grad:"linear-gradient(135deg,#0a7a70,#1a4fa8)"},
-    {name:"Family Game Night",cat:"Event",tier:"premium",grad:"linear-gradient(135deg,#E8357A,#2E7BC4)"}
+    {name:"Monthly Meeting",        cat:"Meeting",    tier:"free",    c1:"#1a4fa8",c2:"#2E7BC4", type:"doc",      eyebrow:"PTA/PTO PRESENTS",    pill:"RSVP INSIDE"},
+    {name:"Fun Run Fundraiser",     cat:"Fundraiser", tier:"free",    c1:"#0f5c28",c2:"#2BA84A", type:"energetic",eyebrow:"JOIN THE FUN",        pill:"ALL GRADES"},
+    {name:"Book Fair",              cat:"Event",      tier:"free",    c1:"#0a5f6e",c2:"#0B9E8F", type:"pennant",  eyebrow:"SCHOLASTIC PRESENTS", pill:"BUY 1 GET 1 FREE"},
+    {name:"School Dance",           cat:"Event",      tier:"free",    c1:"#1a0538",c2:"#7B3FB5", type:"badge",    eyebrow:"YOU'RE INVITED",      pill:"SAVE THE DATE"},
+    {name:"Back to School Night",   cat:"Seasonal",   tier:"free",    c1:"#064860",c2:"#2E7BC4", type:"pennant",  eyebrow:"WELCOME BACK",        pill:"FAMILIES WELCOME"},
+    {name:"Volunteer Drive",        cat:"Meeting",    tier:"free",    c1:"#0D1B3E",c2:"#1C2F5E", type:"doc",      eyebrow:"WE NEED YOU",         pill:"SIGN UP NOW"},
+    {name:"Parent Workshop",        cat:"Meeting",    tier:"free",    c1:"#0e3d80",c2:"#2E7BC4", type:"doc",      eyebrow:"FREE WORKSHOP",       pill:"SEATS LIMITED"},
+    {name:"Classroom Celebration",  cat:"Event",      tier:"free",    c1:"#8a0040",c2:"#E8357A", type:"pennant",  eyebrow:"LET'S CELEBRATE",     pill:"ALL FAMILIES"},
+    {name:"Gala Fundraiser",        cat:"Fundraiser", tier:"premium", c1:"#080808",c2:"#1a1a2e", type:"elegant",  eyebrow:"AN EVENING OF",       pill:"BLACK TIE OPTIONAL",  gold:"#C9943A"},
+    {name:"Carnival Night",         cat:"Event",      tier:"premium", c1:"#b01050",c2:"#F07A1A", type:"pennant",  eyebrow:"STEP RIGHT UP!",      pill:"RIDES · GAMES · FOOD"},
+    {name:"Science Fair",           cat:"Event",      tier:"premium", c1:"#0a2050",c2:"#2E7BC4", type:"badge",    eyebrow:"ANNUAL EXHIBITION",   pill:"GRADES K–5"},
+    {name:"Art Show",               cat:"Event",      tier:"premium", c1:"#2a0850",c2:"#7B3FB5", type:"splash",   eyebrow:"STUDENT ARTWORK",     pill:"GALLERY OPENING"},
+    {name:"Food Drive",             cat:"Fundraiser", tier:"premium", c1:"#8a3000",c2:"#F07A1A", type:"energetic",eyebrow:"GIVE BACK",           pill:"ALL DONATIONS WELCOME"},
+    {name:"Movie Night",            cat:"Event",      tier:"premium", c1:"#02020e",c2:"#0D1B3E", type:"elegant",  eyebrow:"UNDER THE STARS",     pill:"BRING A BLANKET",     gold:"#F5D78E"},
+    {name:"Spring Fling",           cat:"Seasonal",   tier:"premium", c1:"#6a0030",c2:"#E8357A", type:"pennant",  eyebrow:"SPRING IS HERE",      pill:"LIVE MUSIC · FOOD"},
+    {name:"Holiday Party",          cat:"Seasonal",   tier:"premium", c1:"#6a0000",c2:"#b01008", type:"elegant",  eyebrow:"'TIS THE SEASON",     pill:"TOYS FOR TOTS DRIVE", gold:"#C9943A"},
+    {name:"Sports Day",             cat:"Event",      tier:"premium", c1:"#083a18",c2:"#2BA84A", type:"energetic",eyebrow:"GAME ON!",             pill:"FIELD · TRACK · FUN"},
+    {name:"Math Night",             cat:"Meeting",    tier:"premium", c1:"#0a1830",c2:"#1C2F5E", type:"doc",      eyebrow:"STEM NIGHT",          pill:"ALL GRADES WELCOME"},
+    {name:"Cultural Fair",          cat:"Event",      tier:"premium", c1:"#8a3000",c2:"#7B3FB5", type:"splash",   eyebrow:"CELEBRATE TOGETHER",  pill:"FOOD · MUSIC · ART"},
+    {name:"Auction Night",          cat:"Fundraiser", tier:"premium", c1:"#050510",c2:"#1a1a2e", type:"elegant",  eyebrow:"SILENT AUCTION",      pill:"BID TO WIN",          gold:"#C9943A"},
+    {name:"Plant Sale",             cat:"Fundraiser", tier:"premium", c1:"#073818",c2:"#2BA84A", type:"pennant",  eyebrow:"SPRING SALE",         pill:"ALL PROCEEDS TO PTO"},
+    {name:"Teacher Appreciation",   cat:"Seasonal",   tier:"premium", c1:"#7a0830",c2:"#E8357A", type:"pennant",  eyebrow:"THANK A TEACHER",     pill:"WEEK-LONG CELEBRATION"},
+    {name:"Graduation Celebration", cat:"Seasonal",   tier:"premium", c1:"#200848",c2:"#5a1ea0", type:"elegant",  eyebrow:"CONGRATULATIONS",     pill:"CLASS OF 2026",       gold:"#C9943A"},
+    {name:"Summer Reading",         cat:"Seasonal",   tier:"premium", c1:"#044858",c2:"#2E7BC4", type:"badge",    eyebrow:"SUMMER PROGRAM",      pill:"AGES 5–12"},
+    {name:"Family Game Night",      cat:"Event",      tier:"premium", c1:"#b01050",c2:"#2E7BC4", type:"energetic",eyebrow:"FAMILY FUN NIGHT",    pill:"GAMES FOR ALL AGES"}
   ]},
 
   /* ── AGENDAS ── */
   {tool:"agenda",toolLabel:"Agenda Builder",toolIcon:"📋",toolColor:"#2E7BC4",toolBg:"var(--blue-pale)",link:"tool-agenda-builder.html",
    templates:[
-    {name:"Monthly General Meeting",cat:"Monthly Meeting",tier:"free",grad:"linear-gradient(135deg,#1a4fa8,#2E7BC4)"},
-    {name:"Budget Review",cat:"Budget",tier:"free",grad:"linear-gradient(135deg,#1a8040,#0B9E8F)"},
-    {name:"Back to School Kickoff",cat:"Annual",tier:"free",grad:"linear-gradient(135deg,#0a7a70,#1a4fa8)"},
-    {name:"Officer Elections",cat:"Election",tier:"free",grad:"linear-gradient(135deg,#5a1ea0,#7B3FB5)"},
-    {name:"End of Year Wrap-Up",cat:"Annual",tier:"free",grad:"linear-gradient(135deg,#7a5400,#C9943A)"},
-    {name:"Emergency Meeting",cat:"Special Event",tier:"free",grad:"linear-gradient(135deg,#b01008,#c45000)"},
-    {name:"Fundraiser Planning",cat:"Special Event",tier:"free",grad:"linear-gradient(135deg,#b02060,#E8357A)"},
-    {name:"Volunteer Orientation",cat:"Special Event",tier:"free",grad:"linear-gradient(135deg,#0D1B3E,#2E7BC4)"},
-    {name:"Annual Report Presentation",cat:"Annual",tier:"premium",grad:"linear-gradient(135deg,#0D1B3E,#7B3FB5)"},
-    {name:"Principal Q&A Session",cat:"Special Event",tier:"premium",grad:"linear-gradient(135deg,#1a4fa8,#0B9E8F)"},
-    {name:"Strategic Planning Retreat",cat:"Annual",tier:"premium",grad:"linear-gradient(135deg,#5a1ea0,#1a4fa8)"},
-    {name:"New Member Welcome",cat:"Monthly Meeting",tier:"premium",grad:"linear-gradient(135deg,#1a8040,#2E7BC4)"},
-    {name:"Spring Budget Approval",cat:"Budget",tier:"premium",grad:"linear-gradient(135deg,#0a7a70,#7a5400)"},
-    {name:"School Board Liaison",cat:"Special Event",tier:"premium",grad:"linear-gradient(135deg,#0D1B3E,#1a4fa8)"},
-    {name:"Nominating Committee",cat:"Election",tier:"premium",grad:"linear-gradient(135deg,#5a1ea0,#b02060)"},
-    {name:"Fall Budget Workshop",cat:"Budget",tier:"premium",grad:"linear-gradient(135deg,#c45000,#7a5400)"},
-    {name:"Carnival Planning Committee",cat:"Special Event",tier:"premium",grad:"linear-gradient(135deg,#E8357A,#F07A1A)"},
-    {name:"Bylaws Review Meeting",cat:"Annual",tier:"premium",grad:"linear-gradient(135deg,#1C2F5E,#0B9E8F)"},
-    {name:"Teacher Appreciation Planning",cat:"Special Event",tier:"premium",grad:"linear-gradient(135deg,#b02060,#c45000)"},
-    {name:"Executive Board Session",cat:"Monthly Meeting",tier:"premium",grad:"linear-gradient(135deg,#0D1B3E,#C9943A)"},
-    {name:"Grant Application Review",cat:"Budget",tier:"premium",grad:"linear-gradient(135deg,#1a8040,#7a5400)"},
-    {name:"Science Fair Coordination",cat:"Special Event",tier:"premium",grad:"linear-gradient(135deg,#1a4fa8,#7B3FB5)"},
-    {name:"Cultural Night Planning",cat:"Special Event",tier:"premium",grad:"linear-gradient(135deg,#F07A1A,#7B3FB5)"},
-    {name:"Audit & Finance Review",cat:"Budget",tier:"premium",grad:"linear-gradient(135deg,#0D1B3E,#1a8040)"},
-    {name:"Year-End Recognition",cat:"Annual",tier:"premium",grad:"linear-gradient(135deg,#7a5400,#b02060)"}
+    {name:"Monthly General Meeting",        cat:"Monthly Meeting", tier:"free",    c1:"#1a4fa8",c2:"#2E7BC4"},
+    {name:"Budget Review",                  cat:"Budget",          tier:"free",    c1:"#1a8040",c2:"#0B9E8F"},
+    {name:"Back to School Kickoff",         cat:"Annual",          tier:"free",    c1:"#0a7a70",c2:"#1a4fa8"},
+    {name:"Officer Elections",              cat:"Election",        tier:"free",    c1:"#5a1ea0",c2:"#7B3FB5"},
+    {name:"End of Year Wrap-Up",            cat:"Annual",          tier:"free",    c1:"#7a5400",c2:"#C9943A"},
+    {name:"Emergency Meeting",             cat:"Special Event",   tier:"free",    c1:"#b01008",c2:"#c45000"},
+    {name:"Fundraiser Planning",            cat:"Special Event",   tier:"free",    c1:"#b02060",c2:"#E8357A"},
+    {name:"Volunteer Orientation",          cat:"Special Event",   tier:"free",    c1:"#0D1B3E",c2:"#2E7BC4"},
+    {name:"Annual Report Presentation",     cat:"Annual",          tier:"premium", c1:"#0D1B3E",c2:"#7B3FB5"},
+    {name:"Principal Q&A Session",          cat:"Special Event",   tier:"premium", c1:"#1a4fa8",c2:"#0B9E8F"},
+    {name:"Strategic Planning Retreat",     cat:"Annual",          tier:"premium", c1:"#5a1ea0",c2:"#1a4fa8"},
+    {name:"New Member Welcome",             cat:"Monthly Meeting", tier:"premium", c1:"#1a8040",c2:"#2E7BC4"},
+    {name:"Spring Budget Approval",         cat:"Budget",          tier:"premium", c1:"#0a7a70",c2:"#7a5400"},
+    {name:"School Board Liaison",           cat:"Special Event",   tier:"premium", c1:"#0D1B3E",c2:"#1a4fa8"},
+    {name:"Nominating Committee",           cat:"Election",        tier:"premium", c1:"#5a1ea0",c2:"#b02060"},
+    {name:"Fall Budget Workshop",           cat:"Budget",          tier:"premium", c1:"#c45000",c2:"#7a5400"},
+    {name:"Carnival Planning Committee",    cat:"Special Event",   tier:"premium", c1:"#b01050",c2:"#F07A1A"},
+    {name:"Bylaws Review Meeting",          cat:"Annual",          tier:"premium", c1:"#1C2F5E",c2:"#0B9E8F"},
+    {name:"Teacher Appreciation Planning",  cat:"Special Event",   tier:"premium", c1:"#b02060",c2:"#c45000"},
+    {name:"Executive Board Session",        cat:"Monthly Meeting", tier:"premium", c1:"#0D1B3E",c2:"#C9943A"},
+    {name:"Grant Application Review",       cat:"Budget",          tier:"premium", c1:"#1a8040",c2:"#7a5400"},
+    {name:"Science Fair Coordination",      cat:"Special Event",   tier:"premium", c1:"#1a4fa8",c2:"#7B3FB5"},
+    {name:"Cultural Night Planning",        cat:"Special Event",   tier:"premium", c1:"#8a3000",c2:"#7B3FB5"},
+    {name:"Audit & Finance Review",         cat:"Budget",          tier:"premium", c1:"#0D1B3E",c2:"#1a8040"},
+    {name:"Year-End Recognition",           cat:"Annual",          tier:"premium", c1:"#7a5400",c2:"#b02060"}
   ]},
 
   /* ── NEWSLETTER BLURBS ── */
   {tool:"newsletter",toolLabel:"Newsletter Blurb",toolIcon:"📰",toolColor:"#0B9E8F",toolBg:"var(--teal-pale)",link:"tool-newsletter-blurb.html",
    templates:[
-    {name:"Event Reminder Blurb",cat:"Announcement",tier:"free",grad:"linear-gradient(135deg,#0a7a70,#0B9E8F)"},
-    {name:"Fundraiser Launch",cat:"Fundraiser",tier:"free",grad:"linear-gradient(135deg,#b02060,#E8357A)"},
-    {name:"Volunteer Call to Action",cat:"Volunteer",tier:"free",grad:"linear-gradient(135deg,#1a8040,#0B9E8F)"},
-    {name:"Meeting Recap",cat:"Recap",tier:"free",grad:"linear-gradient(135deg,#1a4fa8,#2E7BC4)"},
-    {name:"Principal's Corner Intro",cat:"Spotlight",tier:"free",grad:"linear-gradient(135deg,#0D1B3E,#1C2F5E)"},
-    {name:"Thank You Spotlight",cat:"Recognition",tier:"free",grad:"linear-gradient(135deg,#7a5400,#C9943A)"},
-    {name:"Back to School Welcome",cat:"Seasonal",tier:"free",grad:"linear-gradient(135deg,#0a7a70,#1a4fa8)"},
-    {name:"Board Election Notice",cat:"Election",tier:"free",grad:"linear-gradient(135deg,#5a1ea0,#7B3FB5)"},
-    {name:"Spring Carnival Preview",cat:"Event",tier:"premium",grad:"linear-gradient(135deg,#E8357A,#F07A1A)"},
-    {name:"Budget Transparency Update",cat:"Finance",tier:"premium",grad:"linear-gradient(135deg,#1a8040,#7a5400)"},
-    {name:"Student Spotlight Feature",cat:"Spotlight",tier:"premium",grad:"linear-gradient(135deg,#7B3FB5,#2E7BC4)"},
-    {name:"Community Partner Shoutout",cat:"Recognition",tier:"premium",grad:"linear-gradient(135deg,#0B9E8F,#1a4fa8)"}
+    {name:"Event Reminder Blurb",      cat:"Announcement", tier:"free",    c1:"#0a7a70",c2:"#0B9E8F", type:"doc",      eyebrow:"NEWSLETTER"},
+    {name:"Fundraiser Launch",         cat:"Fundraiser",   tier:"free",    c1:"#b02060",c2:"#E8357A", type:"energetic",eyebrow:"BIG NEWS"},
+    {name:"Volunteer Call to Action",  cat:"Volunteer",    tier:"free",    c1:"#1a8040",c2:"#0B9E8F", type:"doc",      eyebrow:"WE NEED YOU"},
+    {name:"Meeting Recap",             cat:"Recap",        tier:"free",    c1:"#1a4fa8",c2:"#2E7BC4", type:"doc",      eyebrow:"MEETING NOTES"},
+    {name:"Principal's Corner Intro",  cat:"Spotlight",    tier:"free",    c1:"#0D1B3E",c2:"#1C2F5E", type:"elegant",  eyebrow:"PRINCIPAL'S CORNER", gold:"#C9943A"},
+    {name:"Thank You Spotlight",       cat:"Recognition",  tier:"free",    c1:"#7a5400",c2:"#C9943A", type:"elegant",  eyebrow:"THANK YOU",          gold:"#C9943A"},
+    {name:"Back to School Welcome",    cat:"Seasonal",     tier:"free",    c1:"#064860",c2:"#2E7BC4", type:"pennant",  eyebrow:"WELCOME BACK",       pill:"NEW YEAR AHEAD"},
+    {name:"Board Election Notice",     cat:"Election",     tier:"free",    c1:"#5a1ea0",c2:"#7B3FB5", type:"badge",    eyebrow:"ELECTION NOTICE",    pill:"CAST YOUR VOTE"},
+    {name:"Spring Carnival Preview",   cat:"Event",        tier:"premium", c1:"#b01050",c2:"#F07A1A", type:"pennant",  eyebrow:"COMING SOON",        pill:"MARK YOUR CALENDAR"},
+    {name:"Budget Transparency Update",cat:"Finance",      tier:"premium", c1:"#1a8040",c2:"#7a5400", type:"doc",      eyebrow:"FINANCE UPDATE"},
+    {name:"Student Spotlight Feature", cat:"Spotlight",    tier:"premium", c1:"#2a0850",c2:"#7B3FB5", type:"splash",   eyebrow:"STUDENT SPOTLIGHT",  pill:"THIS MONTH"},
+    {name:"Community Partner Shoutout",cat:"Recognition",  tier:"premium", c1:"#0a7a70",c2:"#1a4fa8", type:"doc",      eyebrow:"SHOUTOUT"}
   ]},
 
   /* ── FUNDRAISER EMAILS ── */
   {tool:"email",toolLabel:"Fundraiser Email",toolIcon:"💌",toolColor:"#E8357A",toolBg:"var(--pink-pale)",link:"tool-fundraiser-email.html",
    templates:[
-    {name:"Kickoff Announcement",cat:"Launch",tier:"free",grad:"linear-gradient(135deg,#b02060,#E8357A)"},
-    {name:"Mid-Campaign Check-In",cat:"Update",tier:"free",grad:"linear-gradient(135deg,#c45000,#F07A1A)"},
-    {name:"Final Push Reminder",cat:"Reminder",tier:"free",grad:"linear-gradient(135deg,#1a4fa8,#7B3FB5)"},
-    {name:"Thank You + Results",cat:"Wrap-Up",tier:"free",grad:"linear-gradient(135deg,#1a8040,#0B9E8F)"},
-    {name:"Corporate Sponsor Ask",cat:"Sponsorship",tier:"free",grad:"linear-gradient(135deg,#0D1B3E,#2E7BC4)"},
-    {name:"Matching Gift Drive",cat:"Special",tier:"free",grad:"linear-gradient(135deg,#7a5400,#C9943A)"},
-    {name:"Box Tops Collection Drive",cat:"Ongoing",tier:"free",grad:"linear-gradient(135deg,#0a7a70,#1a8040)"},
-    {name:"Spirit Night Promo",cat:"Event",tier:"free",grad:"linear-gradient(135deg,#5a1ea0,#b02060)"},
-    {name:"Amazon Smile Enrollment",cat:"Ongoing",tier:"premium",grad:"linear-gradient(135deg,#F07A1A,#7a5400)"},
-    {name:"Silent Auction Preview",cat:"Event",tier:"premium",grad:"linear-gradient(135deg,#0D1B3E,#C9943A)"},
-    {name:"Gala Save the Date",cat:"Event",tier:"premium",grad:"linear-gradient(135deg,#5a1ea0,#C9943A)"},
-    {name:"Grant Donor Cultivation",cat:"Sponsorship",tier:"premium",grad:"linear-gradient(135deg,#0D1B3E,#1a8040)"}
+    {name:"Kickoff Announcement",     cat:"Launch",       tier:"free",    c1:"#b02060",c2:"#E8357A", type:"energetic",eyebrow:"IT'S HERE!",          pill:"READ INSIDE"},
+    {name:"Mid-Campaign Check-In",    cat:"Update",       tier:"free",    c1:"#c45000",c2:"#F07A1A", type:"doc",      eyebrow:"CAMPAIGN UPDATE"},
+    {name:"Final Push Reminder",      cat:"Reminder",     tier:"free",    c1:"#1a4fa8",c2:"#7B3FB5", type:"energetic",eyebrow:"LAST CHANCE",         pill:"DON'T MISS OUT"},
+    {name:"Thank You + Results",      cat:"Wrap-Up",      tier:"free",    c1:"#1a8040",c2:"#0B9E8F", type:"doc",      eyebrow:"THANK YOU"},
+    {name:"Corporate Sponsor Ask",    cat:"Sponsorship",  tier:"free",    c1:"#0D1B3E",c2:"#2E7BC4", type:"elegant",  eyebrow:"PARTNERSHIP REQUEST",  gold:"#C9943A"},
+    {name:"Matching Gift Drive",      cat:"Special",      tier:"free",    c1:"#7a5400",c2:"#C9943A", type:"elegant",  eyebrow:"DOUBLE YOUR IMPACT",   gold:"#C9943A"},
+    {name:"Box Tops Collection Drive",cat:"Ongoing",      tier:"free",    c1:"#0a7a70",c2:"#1a8040", type:"doc",      eyebrow:"CLIP & COLLECT"},
+    {name:"Spirit Night Promo",       cat:"Event",        tier:"free",    c1:"#5a1ea0",c2:"#b02060", type:"pennant",  eyebrow:"DINE OUT & GIVE BACK",pill:"% GOES TO US"},
+    {name:"Amazon Smile Enrollment",  cat:"Ongoing",      tier:"premium", c1:"#F07A1A",c2:"#7a5400", type:"doc",      eyebrow:"SHOP & GIVE"},
+    {name:"Silent Auction Preview",   cat:"Event",        tier:"premium", c1:"#0D1B3E",c2:"#C9943A", type:"elegant",  eyebrow:"PREVIEW ITEMS",        gold:"#C9943A"},
+    {name:"Gala Save the Date",       cat:"Event",        tier:"premium", c1:"#200848",c2:"#C9943A", type:"elegant",  eyebrow:"SAVE THE DATE",        gold:"#C9943A"},
+    {name:"Grant Donor Cultivation",  cat:"Sponsorship",  tier:"premium", c1:"#0D1B3E",c2:"#1a8040", type:"elegant",  eyebrow:"GRANT OPPORTUNITY",    gold:"#C9943A"}
   ]},
 
   /* ── PERMISSION SLIPS ── */
   {tool:"permission",toolLabel:"Permission Slip",toolIcon:"📝",toolColor:"#7B3FB5",toolBg:"var(--purple-pale)",link:"tool-permission-slip.html",
    templates:[
-    {name:"Field Trip — Local Museum",cat:"Field Trip",tier:"free",grad:"linear-gradient(135deg,#5a1ea0,#7B3FB5)"},
-    {name:"Field Trip — Zoo",cat:"Field Trip",tier:"free",grad:"linear-gradient(135deg,#1a8040,#0B9E8F)"},
-    {name:"After-School Activity",cat:"Activity",tier:"free",grad:"linear-gradient(135deg,#1a4fa8,#2E7BC4)"},
-    {name:"Photo & Media Release",cat:"Media",tier:"free",grad:"linear-gradient(135deg,#0D1B3E,#7B3FB5)"},
-    {name:"Volunteer Background Check",cat:"Volunteer",tier:"free",grad:"linear-gradient(135deg,#c45000,#7a5400)"},
-    {name:"Sports Program Sign-Up",cat:"Activity",tier:"free",grad:"linear-gradient(135deg,#1a8040,#1a4fa8)"},
-    {name:"Overnight Field Trip",cat:"Field Trip",tier:"premium",grad:"linear-gradient(135deg,#5a1ea0,#1a4fa8)"},
-    {name:"Medical Emergency Release",cat:"Medical",tier:"premium",grad:"linear-gradient(135deg,#b01008,#5a1ea0)"}
+    {name:"Field Trip — Local Museum",    cat:"Field Trip", tier:"free",    c1:"#5a1ea0",c2:"#7B3FB5", type:"doc",      eyebrow:"PERMISSION REQUIRED"},
+    {name:"Field Trip — Zoo",             cat:"Field Trip", tier:"free",    c1:"#1a8040",c2:"#0B9E8F", type:"doc",      eyebrow:"PERMISSION REQUIRED"},
+    {name:"After-School Activity",        cat:"Activity",   tier:"free",    c1:"#1a4fa8",c2:"#2E7BC4", type:"doc",      eyebrow:"SIGN & RETURN"},
+    {name:"Photo & Media Release",        cat:"Media",      tier:"free",    c1:"#0D1B3E",c2:"#7B3FB5", type:"doc",      eyebrow:"MEDIA CONSENT"},
+    {name:"Volunteer Background Check",   cat:"Volunteer",  tier:"free",    c1:"#c45000",c2:"#7a5400", type:"doc",      eyebrow:"VOLUNTEER FORM"},
+    {name:"Sports Program Sign-Up",       cat:"Activity",   tier:"free",    c1:"#083a18",c2:"#1a4fa8", type:"energetic",eyebrow:"LET'S PLAY!",         pill:"SIGN UP TODAY"},
+    {name:"Overnight Field Trip",         cat:"Field Trip", tier:"premium", c1:"#5a1ea0",c2:"#1a4fa8", type:"doc",      eyebrow:"OVERNIGHT TRIP"},
+    {name:"Medical Emergency Release",    cat:"Medical",    tier:"premium", c1:"#b01008",c2:"#5a1ea0", type:"doc",      eyebrow:"MEDICAL AUTHORIZATION"}
   ]},
 
   /* ── SOCIAL POSTS ── */
   {tool:"social",toolLabel:"Social Posts",toolIcon:"📱",toolColor:"#F07A1A",toolBg:"var(--orange-pale)",link:"tool-social-posts.html",
    templates:[
-    {name:"Event Hype Post",cat:"Announcement",tier:"free",grad:"linear-gradient(135deg,#E8357A,#F07A1A)"},
-    {name:"Fundraiser Launch Post",cat:"Fundraiser",tier:"free",grad:"linear-gradient(135deg,#b02060,#E8357A)"},
-    {name:"Volunteer Recruitment",cat:"Volunteer",tier:"free",grad:"linear-gradient(135deg,#1a8040,#0B9E8F)"},
-    {name:"Meeting Reminder",cat:"Reminder",tier:"free",grad:"linear-gradient(135deg,#1a4fa8,#7B3FB5)"},
-    {name:"Thank You Post",cat:"Recognition",tier:"free",grad:"linear-gradient(135deg,#7a5400,#C9943A)"},
-    {name:"Results & Recap",cat:"Recap",tier:"free",grad:"linear-gradient(135deg,#0a7a70,#1a4fa8)"},
-    {name:"Instagram Story Takeover",cat:"Instagram",tier:"premium",grad:"linear-gradient(135deg,#7B3FB5,#E8357A)"},
-    {name:"Facebook Cover Announce",cat:"Facebook",tier:"premium",grad:"linear-gradient(135deg,#1a4fa8,#0B9E8F)"},
-    {name:"Countdown Series (3-day)",cat:"Campaign",tier:"premium",grad:"linear-gradient(135deg,#E8357A,#7B3FB5)"},
-    {name:"Sponsor Thank-You Graphic",cat:"Recognition",tier:"premium",grad:"linear-gradient(135deg,#0D1B3E,#C9943A)"}
+    {name:"Event Hype Post",           cat:"Announcement", tier:"free",    c1:"#b01050",c2:"#F07A1A", type:"energetic",eyebrow:"SPREAD THE WORD",    pill:"SHARE THIS POST"},
+    {name:"Fundraiser Launch Post",    cat:"Fundraiser",   tier:"free",    c1:"#b02060",c2:"#E8357A", type:"pennant",  eyebrow:"FUNDRAISER IS LIVE",  pill:"HELP US REACH OUR GOAL"},
+    {name:"Volunteer Recruitment",     cat:"Volunteer",    tier:"free",    c1:"#1a8040",c2:"#0B9E8F", type:"doc",      eyebrow:"VOLUNTEERS NEEDED"},
+    {name:"Meeting Reminder",          cat:"Reminder",     tier:"free",    c1:"#1a4fa8",c2:"#7B3FB5", type:"badge",    eyebrow:"DON'T FORGET",        pill:"TOMORROW NIGHT"},
+    {name:"Thank You Post",            cat:"Recognition",  tier:"free",    c1:"#7a5400",c2:"#C9943A", type:"elegant",  eyebrow:"THANK YOU",           gold:"#C9943A"},
+    {name:"Results & Recap",           cat:"Recap",        tier:"free",    c1:"#0a7a70",c2:"#1a4fa8", type:"doc",      eyebrow:"WE DID IT!"},
+    {name:"Instagram Story Takeover",  cat:"Instagram",    tier:"premium", c1:"#2a0850",c2:"#E8357A", type:"splash",   eyebrow:"INSTAGRAM STORY",     pill:"TAP TO SEE MORE"},
+    {name:"Facebook Cover Announce",   cat:"Facebook",     tier:"premium", c1:"#1a4fa8",c2:"#0B9E8F", type:"energetic",eyebrow:"FACEBOOK UPDATE",     pill:"SHARE WITH FRIENDS"},
+    {name:"Countdown Series (3-day)",  cat:"Campaign",     tier:"premium", c1:"#b01050",c2:"#7B3FB5", type:"badge",    eyebrow:"COUNTDOWN",           pill:"3 DAYS TO GO"},
+    {name:"Sponsor Thank-You Graphic", cat:"Recognition",  tier:"premium", c1:"#0D1B3E",c2:"#C9943A", type:"elegant",  eyebrow:"THANK YOU SPONSOR",   gold:"#C9943A"}
   ]},
 
   /* ── EVENT BUILDER ── */
   {tool:"event",toolLabel:"Event Builder",toolIcon:"🎪",toolColor:"#2BA84A",toolBg:"var(--green-pale)",link:"tool-event-builder.html",
    templates:[
-    {name:"Family Fun Run",cat:"Fundraiser",tier:"free",grad:"linear-gradient(135deg,#1a8040,#2BA84A)"},
-    {name:"Spring Carnival",cat:"Seasonal",tier:"free",grad:"linear-gradient(135deg,#E8357A,#F07A1A)"},
-    {name:"Science Night",cat:"Academic",tier:"free",grad:"linear-gradient(135deg,#1a4fa8,#0B9E8F)"},
-    {name:"Book Fair Weekend",cat:"Academic",tier:"free",grad:"linear-gradient(135deg,#c45000,#F07A1A)"},
-    {name:"Movie Night",cat:"Social",tier:"free",grad:"linear-gradient(135deg,#0D0829,#1C2F5E)"},
-    {name:"Bingo Night Fundraiser",cat:"Fundraiser",tier:"free",grad:"linear-gradient(135deg,#5a1ea0,#7B3FB5)"},
-    {name:"Silent Auction Gala",cat:"Fundraiser",tier:"premium",grad:"linear-gradient(135deg,#0D1B3E,#C9943A)"},
-    {name:"End of Year Celebration",cat:"Seasonal",tier:"premium",grad:"linear-gradient(135deg,#7a5400,#b02060)"}
+    {name:"Family Fun Run",         cat:"Fundraiser", tier:"free",    c1:"#0f5c28",c2:"#2BA84A", type:"energetic",eyebrow:"RUN FOR A CAUSE",    pill:"ALL GRADES"},
+    {name:"Spring Carnival",        cat:"Seasonal",   tier:"free",    c1:"#b01050",c2:"#F07A1A", type:"pennant",  eyebrow:"STEP RIGHT UP!",      pill:"RIDES · GAMES · FOOD"},
+    {name:"Science Night",          cat:"Academic",   tier:"free",    c1:"#0a2050",c2:"#2E7BC4", type:"badge",    eyebrow:"STEM NIGHT",          pill:"GRADES K–5"},
+    {name:"Book Fair Weekend",      cat:"Academic",   tier:"free",    c1:"#0a5f6e",c2:"#F07A1A", type:"pennant",  eyebrow:"SCHOLASTIC PRESENTS", pill:"BUY 1 GET 1 FREE"},
+    {name:"Movie Night",            cat:"Social",     tier:"free",    c1:"#02020e",c2:"#0D1B3E", type:"elegant",  eyebrow:"UNDER THE STARS",     gold:"#F5D78E"},
+    {name:"Bingo Night Fundraiser", cat:"Fundraiser", tier:"free",    c1:"#5a1ea0",c2:"#7B3FB5", type:"splash",   eyebrow:"BINGO!",              pill:"CASH PRIZES"},
+    {name:"Silent Auction Gala",    cat:"Fundraiser", tier:"premium", c1:"#080808",c2:"#1a1a2e", type:"elegant",  eyebrow:"SILENT AUCTION",      gold:"#C9943A"},
+    {name:"End of Year Celebration",cat:"Seasonal",   tier:"premium", c1:"#7a5400",c2:"#b02060", type:"pennant",  eyebrow:"CELEBRATING YOU",     pill:"THANK YOU ALL"}
   ]}
 ];
 
@@ -360,13 +482,7 @@ function renderLibrary(toolFilter) {
       var isFree = t.tier==='free';
       var btnBg = isFree ? 'background:var(--purple);color:white;' : 'background:linear-gradient(135deg,#C9943A,#7a5400);color:white;';
       return '<div class="t-card" onclick="handleTmplClick(\''+t.tier+'\',\''+group.link+'\')">'
-        +'<div class="t-thumb" style="background:'+t.grad+';">'
-        +'<div class="t-thumb-title">'+t.name.toUpperCase()+'</div>'
-        +'<div class="t-line w90"></div>'
-        +'<div class="t-line w70"></div>'
-        +'<div class="t-line w50"></div>'
-        +'<div class="t-cta-bar"></div>'
-        +'</div>'
+        +'<div class="t-thumb">'+mkThumb(t,group.tool)+'</div>'
         +'<div class="t-body">'
         +'<div class="t-name">'+t.name+'</div>'
         +'<div class="t-meta">'+t.cat+'</div>'

@@ -216,13 +216,7 @@ footer{background:var(--navy-mid,#142248);border-top:3px solid transparent;borde
 .ft-card{background:white;border-radius:18px;overflow:hidden;border:2px solid rgba(13,27,62,0.06);box-shadow:0 2px 10px rgba(13,27,62,0.05);transition:all 0.22s;cursor:pointer;}
 .ft-card:hover{transform:translateY(-4px);box-shadow:0 14px 40px rgba(13,27,62,0.12);border-color:rgba(123,63,181,0.25);}
 .ft-card.selected{border-color:var(--purple);box-shadow:0 0 0 3px rgba(123,63,181,0.2);}
-.ft-thumb{height:110px;display:flex;flex-direction:column;padding:12px 14px;}
-.ft-thumb-title{font-size:9px;font-weight:900;color:white;letter-spacing:0.8px;text-transform:uppercase;margin-bottom:6px;line-height:1.2;}
-.ft-thumb-line{height:5px;border-radius:2px;background:rgba(255,255,255,0.5);margin-bottom:4px;}
-.ft-thumb-line.w90{width:90%;}
-.ft-thumb-line.w70{width:70%;}
-.ft-thumb-line.w50{width:50%;}
-.ft-thumb-cta{margin-top:auto;height:20px;border-radius:10px;background:rgba(255,255,255,0.25);}
+.ft-thumb{height:120px;position:relative;overflow:hidden;}
 .ft-card-body{padding:12px 14px 14px;}
 .ft-card-name{font-size:12px;font-weight:800;color:var(--navy);margin-bottom:3px;line-height:1.3;}
 .ft-card-cat{font-size:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:rgba(13,27,62,0.38);margin-bottom:9px;}
@@ -704,32 +698,139 @@ function generateFlyer() {
 
 /* ── FLYER TEMPLATES ── */
 var FLYER_TMPLS = [
-  {id:1,name:"Monthly Meeting",cat:"Meeting",tier:"free",grad:"linear-gradient(135deg,#1a4fa8,#2E7BC4)"},
-  {id:2,name:"Fun Run Fundraiser",cat:"Fundraiser",tier:"free",grad:"linear-gradient(135deg,#1a8040,#2BA84A)"},
-  {id:3,name:"Book Fair",cat:"Event",tier:"free",grad:"linear-gradient(135deg,#c45000,#F07A1A)"},
-  {id:4,name:"School Dance",cat:"Event",tier:"free",grad:"linear-gradient(135deg,#5a1ea0,#7B3FB5)"},
-  {id:5,name:"Back to School Night",cat:"Seasonal",tier:"free",grad:"linear-gradient(135deg,#0a7a70,#0B9E8F)"},
-  {id:6,name:"Volunteer Drive",cat:"Meeting",tier:"free",grad:"linear-gradient(135deg,#0D1B3E,#1C2F5E)"},
-  {id:7,name:"Parent Workshop",cat:"Meeting",tier:"free",grad:"linear-gradient(135deg,#1560a8,#2E7BC4)"},
-  {id:8,name:"Classroom Celebration",cat:"Event",tier:"free",grad:"linear-gradient(135deg,#b02060,#E8357A)"},
-  {id:9,name:"Gala Fundraiser",cat:"Fundraiser",tier:"premium",grad:"linear-gradient(135deg,#7a5400,#C9943A)"},
-  {id:10,name:"Carnival Night",cat:"Event",tier:"premium",grad:"linear-gradient(135deg,#E8357A,#F07A1A)"},
-  {id:11,name:"Science Fair",cat:"Event",tier:"premium",grad:"linear-gradient(135deg,#1a4fa8,#0B9E8F)"},
-  {id:12,name:"Art Show",cat:"Event",tier:"premium",grad:"linear-gradient(135deg,#7B3FB5,#E8357A)"},
-  {id:13,name:"Food Drive",cat:"Fundraiser",tier:"premium",grad:"linear-gradient(135deg,#c45000,#7a5400)"},
-  {id:14,name:"Movie Night",cat:"Event",tier:"premium",grad:"linear-gradient(135deg,#0D0829,#1C2F5E)"},
-  {id:15,name:"Spring Fling",cat:"Seasonal",tier:"premium",grad:"linear-gradient(135deg,#b02060,#7B3FB5)"},
-  {id:16,name:"Holiday Party",cat:"Seasonal",tier:"premium",grad:"linear-gradient(135deg,#b01008,#7a5400)"},
-  {id:17,name:"Sports Day",cat:"Event",tier:"premium",grad:"linear-gradient(135deg,#1a8040,#0B9E8F)"},
-  {id:18,name:"Math Night",cat:"Meeting",tier:"premium",grad:"linear-gradient(135deg,#0D1B3E,#2E7BC4)"},
-  {id:19,name:"Cultural Fair",cat:"Event",tier:"premium",grad:"linear-gradient(135deg,#F07A1A,#7B3FB5)"},
-  {id:20,name:"Auction Night",cat:"Fundraiser",tier:"premium",grad:"linear-gradient(135deg,#0D1B3E,#C9943A)"},
-  {id:21,name:"Plant Sale",cat:"Fundraiser",tier:"premium",grad:"linear-gradient(135deg,#1a8040,#7a5400)"},
-  {id:22,name:"Teacher Appreciation",cat:"Seasonal",tier:"premium",grad:"linear-gradient(135deg,#b02060,#c45000)"},
-  {id:23,name:"Graduation Celebration",cat:"Seasonal",tier:"premium",grad:"linear-gradient(135deg,#5a1ea0,#7a5400)"},
-  {id:24,name:"Summer Reading",cat:"Seasonal",tier:"premium",grad:"linear-gradient(135deg,#0a7a70,#1a4fa8)"},
-  {id:25,name:"Family Game Night",cat:"Event",tier:"premium",grad:"linear-gradient(135deg,#E8357A,#2E7BC4)"}
+  {id:1, name:"Monthly Meeting",        cat:"Meeting",    tier:"free",    c1:"#1a4fa8",c2:"#2E7BC4", type:"doc",      eyebrow:"PTA/PTO PRESENTS",      pill:"RSVP INSIDE"},
+  {id:2, name:"Fun Run Fundraiser",     cat:"Fundraiser", tier:"free",    c1:"#0f5c28",c2:"#2BA84A", type:"energetic",eyebrow:"JOIN THE FUN",          pill:"ALL GRADES"},
+  {id:3, name:"Book Fair",              cat:"Event",      tier:"free",    c1:"#0a5f6e",c2:"#0B9E8F", type:"pennant",  eyebrow:"SCHOLASTIC PRESENTS",   pill:"BUY 1 GET 1 FREE"},
+  {id:4, name:"School Dance",           cat:"Event",      tier:"free",    c1:"#1a0538",c2:"#7B3FB5", type:"badge",    eyebrow:"YOU'RE INVITED",        pill:"SAVE THE DATE"},
+  {id:5, name:"Back to School Night",   cat:"Seasonal",   tier:"free",    c1:"#064860",c2:"#2E7BC4", type:"pennant",  eyebrow:"WELCOME BACK",          pill:"FAMILIES WELCOME"},
+  {id:6, name:"Volunteer Drive",        cat:"Meeting",    tier:"free",    c1:"#0D1B3E",c2:"#1C2F5E", type:"doc",      eyebrow:"WE NEED YOU",           pill:"SIGN UP NOW"},
+  {id:7, name:"Parent Workshop",        cat:"Meeting",    tier:"free",    c1:"#0e3d80",c2:"#2E7BC4", type:"doc",      eyebrow:"FREE WORKSHOP",         pill:"SEATS LIMITED"},
+  {id:8, name:"Classroom Celebration",  cat:"Event",      tier:"free",    c1:"#8a0040",c2:"#E8357A", type:"pennant",  eyebrow:"LET'S CELEBRATE",       pill:"ALL FAMILIES WELCOME"},
+  {id:9, name:"Gala Fundraiser",        cat:"Fundraiser", tier:"premium", c1:"#080808",c2:"#1a1a2e", type:"elegant",  eyebrow:"AN EVENING OF",         pill:"BLACK TIE OPTIONAL",  gold:"#C9943A"},
+  {id:10,name:"Carnival Night",         cat:"Event",      tier:"premium", c1:"#b01050",c2:"#F07A1A", type:"pennant",  eyebrow:"STEP RIGHT UP!",        pill:"RIDES · GAMES · FOOD"},
+  {id:11,name:"Science Fair",           cat:"Event",      tier:"premium", c1:"#0a2050",c2:"#2E7BC4", type:"badge",    eyebrow:"ANNUAL EXHIBITION",     pill:"GRADES K–5"},
+  {id:12,name:"Art Show",               cat:"Event",      tier:"premium", c1:"#2a0850",c2:"#7B3FB5", type:"splash",   eyebrow:"STUDENT ARTWORK",       pill:"GALLERY OPENING"},
+  {id:13,name:"Food Drive",             cat:"Fundraiser", tier:"premium", c1:"#8a3000",c2:"#F07A1A", type:"energetic",eyebrow:"GIVE BACK · GIVE BIG",  pill:"ALL DONATIONS WELCOME"},
+  {id:14,name:"Movie Night",            cat:"Event",      tier:"premium", c1:"#02020e",c2:"#0D1B3E", type:"elegant",  eyebrow:"UNDER THE STARS",       pill:"BRING A BLANKET",     gold:"#F5D78E"},
+  {id:15,name:"Spring Fling",           cat:"Seasonal",   tier:"premium", c1:"#6a0030",c2:"#E8357A", type:"pennant",  eyebrow:"SPRING IS HERE",        pill:"LIVE MUSIC · FOOD"},
+  {id:16,name:"Holiday Party",          cat:"Seasonal",   tier:"premium", c1:"#6a0000",c2:"#b01008", type:"elegant",  eyebrow:"'TIS THE SEASON",       pill:"TOYS FOR TOTS DRIVE", gold:"#C9943A"},
+  {id:17,name:"Sports Day",             cat:"Event",      tier:"premium", c1:"#083a18",c2:"#2BA84A", type:"energetic",eyebrow:"GAME ON!",               pill:"FIELD · TRACK · FUN"},
+  {id:18,name:"Math Night",             cat:"Meeting",    tier:"premium", c1:"#0a1830",c2:"#1C2F5E", type:"doc",      eyebrow:"STEM NIGHT",            pill:"ALL GRADES WELCOME"},
+  {id:19,name:"Cultural Fair",          cat:"Event",      tier:"premium", c1:"#8a3000",c2:"#7B3FB5", type:"splash",   eyebrow:"CELEBRATE TOGETHER",    pill:"FOOD · MUSIC · ART"},
+  {id:20,name:"Auction Night",          cat:"Fundraiser", tier:"premium", c1:"#050510",c2:"#1a1a2e", type:"elegant",  eyebrow:"SILENT AUCTION",        pill:"BID TO WIN",          gold:"#C9943A"},
+  {id:21,name:"Plant Sale",             cat:"Fundraiser", tier:"premium", c1:"#073818",c2:"#2BA84A", type:"pennant",  eyebrow:"SPRING SALE",           pill:"ALL PROCEEDS TO PTO"},
+  {id:22,name:"Teacher Appreciation",   cat:"Seasonal",   tier:"premium", c1:"#7a0830",c2:"#E8357A", type:"pennant",  eyebrow:"THANK A TEACHER",       pill:"WEEK-LONG CELEBRATION"},
+  {id:23,name:"Graduation Celebration", cat:"Seasonal",   tier:"premium", c1:"#200848",c2:"#5a1ea0", type:"elegant",  eyebrow:"CONGRATULATIONS",       pill:"CLASS OF 2026",       gold:"#C9943A"},
+  {id:24,name:"Summer Reading",         cat:"Seasonal",   tier:"premium", c1:"#044858",c2:"#2E7BC4", type:"badge",    eyebrow:"SUMMER PROGRAM",        pill:"AGES 5–12"},
+  {id:25,name:"Family Game Night",      cat:"Event",      tier:"premium", c1:"#b01050",c2:"#2E7BC4", type:"energetic",eyebrow:"FAMILY FUN NIGHT",       pill:"GAMES FOR ALL AGES"}
 ];
+
+/* — thumbnail renderers — */
+function mkFlyerThumb(t) {
+  switch(t.type){
+    case 'pennant':   return ftPennant(t);
+    case 'badge':     return ftBadge(t);
+    case 'elegant':   return ftElegant(t);
+    case 'energetic': return ftEnergetic(t);
+    case 'splash':    return ftSplash(t);
+    default:          return ftDoc(t);
+  }
+}
+function _pf(c){return '<span style="display:inline-block;width:0;height:0;border-left:8px solid transparent;border-right:8px solid transparent;border-top:16px solid '+c+';margin:0 1.5px;"></span>';}
+function ftPennant(t){
+  var fs=['#E8357A','#fff','#2E7BC4','#F07A1A','#2BA84A','#fff','#7B3FB5','#F5D78E'];
+  var flags=fs.map(_pf).join('');
+  var ws=t.name.toUpperCase().split(' '), m=Math.ceil(ws.length/2), l1=ws.slice(0,m).join(' '), l2=ws.slice(m).join(' ');
+  return '<div style="background:'+t.c1+';height:120px;display:flex;flex-direction:column;overflow:hidden;">'
+    +'<div style="text-align:center;padding:3px 4px 0;line-height:0;flex-shrink:0;">'+flags+'</div>'
+    +'<div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:2px 8px;">'
+    +'<div style="font-size:5.5px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,0.62);text-align:center;margin-bottom:2px;">'+t.eyebrow+'</div>'
+    +'<div style="font-size:16px;font-weight:900;color:#fff;text-transform:uppercase;letter-spacing:-0.5px;text-align:center;line-height:1.0;text-shadow:0 2px 6px rgba(0,0,0,0.4);">'+l1+'</div>'
+    +(l2?'<div style="font-size:16px;font-weight:900;color:#fff;text-transform:uppercase;letter-spacing:-0.5px;text-align:center;line-height:1.0;text-shadow:0 2px 6px rgba(0,0,0,0.4);">'+l2+'</div>':'')
+    +'<div style="margin-top:5px;"><span style="display:inline-block;background:rgba(255,255,255,0.92);color:'+t.c1+';border-radius:100px;padding:2px 9px;font-size:6px;font-weight:800;text-transform:uppercase;letter-spacing:0.8px;">'+t.pill+'</span></div>'
+    +'</div>'
+    +'<div style="flex-shrink:0;background:rgba(0,0,0,0.3);padding:5px 10px;display:flex;gap:4px;align-items:center;">'
+    +'<div style="height:2px;flex:1;border-radius:1px;background:rgba(255,255,255,0.28);"></div>'
+    +'<div style="height:2px;flex:0.4;border-radius:1px;background:rgba(255,255,255,0.18);"></div>'
+    +'</div></div>';
+}
+function ftBadge(t){
+  return '<div style="background:linear-gradient(155deg,'+t.c1+','+t.c2+');height:120px;overflow:hidden;position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;">'
+    +'<div style="position:absolute;width:96px;height:96px;border-radius:50%;border:2.5px solid rgba(255,255,255,0.12);top:12px;left:50%;transform:translateX(-50%);"></div>'
+    +'<div style="position:absolute;width:72px;height:72px;border-radius:50%;border:2px solid rgba(255,255,255,0.1);top:24px;left:50%;transform:translateX(-50%);"></div>'
+    +'<div style="position:absolute;top:8px;left:10px;font-size:11px;color:rgba(255,255,255,0.18);">★</div>'
+    +'<div style="position:absolute;top:8px;right:10px;font-size:11px;color:rgba(255,255,255,0.18);">★</div>'
+    +'<div style="position:absolute;bottom:16px;left:8px;font-size:9px;color:rgba(255,255,255,0.14);">✦</div>'
+    +'<div style="position:absolute;bottom:16px;right:8px;font-size:9px;color:rgba(255,255,255,0.14);">✦</div>'
+    +'<div style="z-index:1;text-align:center;padding:0 10px;">'
+    +'<div style="font-size:5.5px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,0.62);margin-bottom:3px;">'+t.eyebrow+'</div>'
+    +'<div style="font-size:14px;font-weight:900;color:#fff;text-transform:uppercase;letter-spacing:-0.3px;line-height:1.1;text-shadow:0 2px 8px rgba(0,0,0,0.45);">'+t.name.toUpperCase()+'</div>'
+    +'<div style="margin-top:5px;"><span style="display:inline-block;background:rgba(255,255,255,0.18);border:1px solid rgba(255,255,255,0.38);border-radius:100px;padding:2px 8px;font-size:5.5px;font-weight:700;color:#fff;text-transform:uppercase;letter-spacing:0.8px;">'+t.pill+'</span></div>'
+    +'</div></div>';
+}
+function ftElegant(t){
+  var g=t.gold||'#C9943A', g2='#7a5400';
+  return '<div style="background:'+t.c1+';height:120px;display:flex;flex-direction:column;">'
+    +'<div style="background:linear-gradient(90deg,'+g2+','+g+','+g2+');padding:6px 10px;text-align:center;flex-shrink:0;">'
+    +'<div style="font-size:5.5px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,0.92);">'+t.eyebrow+'</div>'
+    +'</div>'
+    +'<div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:8px;">'
+    +'<div style="font-size:13px;font-weight:900;color:#fff;text-transform:uppercase;letter-spacing:-0.3px;text-align:center;line-height:1.1;text-shadow:0 2px 8px rgba(0,0,0,0.55);">'+t.name.toUpperCase()+'</div>'
+    +'<div style="width:36px;height:1.5px;background:'+g+';margin:5px auto;"></div>'
+    +'<div style="font-size:5.5px;color:rgba(255,255,255,0.38);text-align:center;letter-spacing:1px;text-transform:uppercase;">'+t.pill+'</div>'
+    +'</div>'
+    +'<div style="background:linear-gradient(90deg,'+g2+','+g+','+g2+');padding:5px 10px;display:flex;align-items:center;gap:6px;flex-shrink:0;">'
+    +'<div style="height:1.5px;flex:1;background:rgba(0,0,0,0.25);border-radius:1px;"></div>'
+    +'<span style="font-size:9px;color:rgba(255,255,255,0.8);">★</span>'
+    +'<div style="height:1.5px;flex:1;background:rgba(0,0,0,0.25);border-radius:1px;"></div>'
+    +'</div></div>';
+}
+function ftEnergetic(t){
+  return '<div style="height:120px;overflow:hidden;display:flex;flex-direction:column;">'
+    +'<div style="background:'+t.c1+';height:24px;display:flex;align-items:center;padding:0 10px;flex-shrink:0;position:relative;overflow:hidden;">'
+    +'<div style="font-size:5.5px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,0.78);">'+t.eyebrow+'</div>'
+    +'<div style="position:absolute;right:-8px;top:0;bottom:0;width:30px;background:'+t.c2+';transform:skewX(-14deg);"></div>'
+    +'</div>'
+    +'<div style="background:linear-gradient(135deg,'+t.c1+','+t.c2+');flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:6px;">'
+    +'<div style="font-size:14px;font-weight:900;color:#fff;text-transform:uppercase;letter-spacing:-0.4px;text-align:center;line-height:1.05;text-shadow:0 2px 8px rgba(0,0,0,0.4);">'+t.name.toUpperCase()+'</div>'
+    +'<div style="margin-top:4px;"><span style="display:inline-block;background:rgba(255,255,255,0.2);border:1px solid rgba(255,255,255,0.32);border-radius:100px;padding:2px 7px;font-size:5.5px;font-weight:700;color:#fff;text-transform:uppercase;letter-spacing:0.8px;">'+t.pill+'</span></div>'
+    +'</div>'
+    +'<div style="background:white;height:18px;padding:0 10px;display:flex;align-items:center;gap:4px;flex-shrink:0;">'
+    +'<div style="height:3px;border-radius:2px;background:rgba(13,27,62,0.1);flex:1;"></div>'
+    +'<div style="height:3px;border-radius:2px;background:rgba(13,27,62,0.07);flex:0.5;"></div>'
+    +'</div></div>';
+}
+function ftSplash(t){
+  return '<div style="background:linear-gradient(135deg,'+t.c1+','+t.c2+');height:120px;overflow:hidden;position:relative;display:flex;flex-direction:column;">'
+    +'<div style="position:absolute;width:80px;height:80px;border-radius:50%;background:rgba(255,255,255,0.07);top:-24px;left:-18px;pointer-events:none;"></div>'
+    +'<div style="position:absolute;width:56px;height:56px;border-radius:50%;background:rgba(255,255,255,0.06);top:14px;right:-12px;pointer-events:none;"></div>'
+    +'<div style="position:absolute;width:40px;height:40px;border-radius:50%;background:rgba(255,255,255,0.05);bottom:-10px;left:20px;pointer-events:none;"></div>'
+    +'<div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:8px;z-index:1;">'
+    +'<div style="font-size:5.5px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,0.65);margin-bottom:3px;">'+t.eyebrow+'</div>'
+    +'<div style="font-size:14px;font-weight:900;color:#fff;text-transform:uppercase;letter-spacing:-0.3px;text-align:center;line-height:1.1;text-shadow:0 2px 8px rgba(0,0,0,0.35);">'+t.name.toUpperCase()+'</div>'
+    +'<div style="margin-top:4px;"><span style="display:inline-block;background:rgba(255,255,255,0.22);border:1px solid rgba(255,255,255,0.4);border-radius:100px;padding:2px 8px;font-size:5.5px;font-weight:700;color:#fff;text-transform:uppercase;letter-spacing:0.8px;">'+t.pill+'</span></div>'
+    +'</div>'
+    +'<div style="background:rgba(0,0,0,0.22);padding:5px 10px;display:flex;gap:4px;align-items:center;flex-shrink:0;z-index:1;">'
+    +'<div style="height:2px;flex:1;border-radius:1px;background:rgba(255,255,255,0.22);"></div>'
+    +'<div style="height:2px;flex:0.4;border-radius:1px;background:rgba(255,255,255,0.15);"></div>'
+    +'</div></div>';
+}
+function ftDoc(t){
+  return '<div style="background:'+t.c1+';height:120px;display:flex;flex-direction:column;">'
+    +'<div style="padding:9px 10px 6px;flex-shrink:0;">'
+    +'<div style="font-size:5px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,0.55);margin-bottom:2px;">'+t.eyebrow+'</div>'
+    +'<div style="font-size:12px;font-weight:900;color:#fff;text-transform:uppercase;letter-spacing:-0.3px;line-height:1.1;">'+t.name.toUpperCase()+'</div>'
+    +'</div>'
+    +'<div style="background:white;flex:1;padding:7px 10px;display:flex;flex-direction:column;gap:5px;">'
+    +'<div style="display:flex;align-items:center;gap:5px;"><div style="width:11px;height:11px;border-radius:50%;flex-shrink:0;background:'+t.c1+';"></div><div style="height:4px;border-radius:2px;background:rgba(13,27,62,0.12);flex:1;"></div></div>'
+    +'<div style="display:flex;align-items:center;gap:5px;"><div style="width:11px;height:11px;border-radius:50%;flex-shrink:0;background:'+t.c2+';"></div><div style="height:4px;border-radius:2px;background:rgba(13,27,62,0.1);flex:1;"></div><div style="height:4px;border-radius:2px;background:rgba(13,27,62,0.07);flex:0.45;"></div></div>'
+    +'<div style="display:flex;align-items:center;gap:5px;"><div style="width:11px;height:11px;border-radius:50%;flex-shrink:0;background:'+t.c1+';opacity:0.5;"></div><div style="height:4px;border-radius:2px;background:rgba(13,27,62,0.1);flex:0.7;"></div></div>'
+    +'</div>'
+    +'<div style="background:'+t.c2+';padding:5px 10px;display:flex;gap:4px;align-items:center;flex-shrink:0;">'
+    +'<div style="height:2px;flex:1;border-radius:1px;background:rgba(255,255,255,0.22);"></div>'
+    +'<div style="height:2px;flex:0.4;border-radius:1px;background:rgba(255,255,255,0.14);"></div>'
+    +'</div></div>';
+}
 
 function renderFlyerTmpls(filter) {
   var grid = document.getElementById('flyerTmplGrid');
@@ -742,13 +843,7 @@ function renderFlyerTmpls(filter) {
     var isFree = t.tier==='free';
     var btnBg = isFree ? 'background:var(--purple);color:white;' : 'background:linear-gradient(135deg,#C9943A,#7a5400);color:white;';
     return '<div class="ft-card" data-tier="'+t.tier+'" onclick="useFlyerTmpl('+t.id+',event)">'
-      +'<div class="ft-thumb" style="background:'+t.grad+';">'
-      +'<div class="ft-thumb-title">'+t.name.toUpperCase()+'</div>'
-      +'<div class="ft-thumb-line w90"></div>'
-      +'<div class="ft-thumb-line w70"></div>'
-      +'<div class="ft-thumb-line w50"></div>'
-      +'<div class="ft-thumb-cta"></div>'
-      +'</div>'
+      +'<div class="ft-thumb">'+mkFlyerThumb(t)+'</div>'
       +'<div class="ft-card-body">'
       +'<div class="ft-card-name">'+t.name+'</div>'
       +'<div class="ft-card-cat">'+t.cat+'</div>'
@@ -774,12 +869,9 @@ function useFlyerTmpl(id, e) {
     }
     return;
   }
-  var colors = tmpl.grad.match(/#[0-9a-fA-F]{6}/g);
-  if (colors && colors.length>=2) {
-    document.getElementById('primaryColor').value = colors[0];
-    document.getElementById('secondaryColor').value = colors[1];
-    updateColors();
-  }
+  document.getElementById('primaryColor').value = tmpl.c1;
+  document.getElementById('secondaryColor').value = tmpl.c2;
+  updateColors();
   var nameField = document.getElementById('eventName');
   if (!nameField.value) nameField.placeholder = 'e.g. '+tmpl.name;
   document.querySelectorAll('.ft-card').forEach(function(c){c.classList.remove('selected');});
