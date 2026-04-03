@@ -222,6 +222,16 @@ footer{background:var(--navy-mid,#142248);border-top:3px solid transparent;borde
 .ft-card-cat{font-size:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:rgba(13,27,62,0.38);margin-bottom:9px;}
 .ft-card-actions{display:flex;gap:6px;align-items:center;}
 .ft-use-btn{flex:1;font-family:'Poppins',sans-serif;font-size:10px;font-weight:700;padding:7px 8px;border-radius:100px;cursor:pointer;border:none;transition:all 0.18s;text-align:center;}
+.ft-canva-btn{display:flex;align-items:center;justify-content:center;gap:4px;margin-top:7px;padding:6px 8px;border-radius:100px;background:#7D2AE8;color:white;font-family:'Poppins',sans-serif;font-size:9px;font-weight:700;text-decoration:none;transition:all 0.18s;border:none;}
+.ft-canva-btn:hover{background:#6318d0;transform:none;}
+.ft-canva-btn svg{flex-shrink:0;}
+.canva-cta{background:white;border:2px solid #e8e0f8;border-radius:16px;padding:14px 18px;display:flex;align-items:center;gap:14px;margin-top:10px;}
+.canva-cta-icon{width:36px;height:36px;border-radius:10px;background:#7D2AE8;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.canva-cta-text{flex:1;}
+.canva-cta-title{font-size:12px;font-weight:800;color:var(--navy);margin-bottom:2px;}
+.canva-cta-sub{font-size:10px;color:rgba(13,27,62,0.5);line-height:1.4;}
+.canva-cta-btn{background:#7D2AE8;color:white;font-family:'Poppins',sans-serif;font-size:11px;font-weight:700;padding:8px 14px;border-radius:100px;text-decoration:none;white-space:nowrap;transition:background 0.18s;}
+.canva-cta-btn:hover{background:#6318d0;}
 .ft-badge{font-size:8px;font-weight:800;letter-spacing:1px;text-transform:uppercase;padding:3px 8px;border-radius:100px;flex-shrink:0;}
 .ft-badge.free{background:var(--green-pale);color:var(--green);}
 .ft-badge.premium{background:#FDF6E3;color:var(--gold);}
@@ -478,6 +488,17 @@ footer{background:var(--navy-mid,#142248);border-top:3px solid transparent;borde
         <div class="preview-actions" id="previewActions" style="display:none;">
           <button class="pa-btn pa-primary" onclick="printFlyer()">🖨️ Print / Save as PDF</button>
           <button class="pa-btn pa-secondary" id="copyBtn" onclick="copyFlyerText()">📋 Copy Text</button>
+        </div>
+
+        <div class="canva-cta" id="canvaCta" style="display:none;">
+          <div class="canva-cta-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14H9V8h2v8zm4 0h-2V8h2v8z" fill="white"/></svg>
+          </div>
+          <div class="canva-cta-text">
+            <div class="canva-cta-title">Customize this in Canva</div>
+            <div class="canva-cta-sub">Open the matching Canva template — drag in your logo, tweak colors, done.</div>
+          </div>
+          <a id="canvaCtaLink" href="#" target="_blank" rel="noopener" class="canva-cta-btn">Open in Canva →</a>
         </div>
 
         <div class="social-post-link" id="socialPostLink" style="display:none;">
@@ -849,6 +870,7 @@ function generateFlyer() {
     document.getElementById('previewActions').style.display  = 'flex';
     document.getElementById('socialPostLink').style.display  = 'flex';
     document.getElementById('editBadge').style.display       = 'inline-flex';
+    showCanvaCta(selectedFlyerTmpl);
 
     btn.textContent = '↺ Regenerate Flyer';
     btn.disabled    = false;
@@ -863,7 +885,7 @@ function generateFlyer() {
 var FLYER_TMPLS = [
   {id:1, name:"Monthly Meeting",        cat:"Meeting",    tier:"free",    c1:"#1a4fa8",c2:"#2E7BC4", type:"doc",      eyebrow:"PTA/PTO PRESENTS",      pill:"RSVP INSIDE"},
   {id:2, name:"Fun Run Fundraiser",     cat:"Fundraiser", tier:"free",    c1:"#0f5c28",c2:"#2BA84A", type:"energetic",eyebrow:"JOIN THE FUN",          pill:"ALL GRADES"},
-  {id:3, name:"Book Fair",              cat:"Event",      tier:"free",    c1:"#0a5f6e",c2:"#0B9E8F", type:"pennant",  eyebrow:"SCHOLASTIC PRESENTS",   pill:"BUY 1 GET 1 FREE"},
+  {id:3, name:"Book Fair",              cat:"Event",      tier:"free",    c1:"#0a5f6e",c2:"#0B9E8F", type:"pennant",  eyebrow:"SCHOLASTIC PRESENTS",   pill:"BUY 1 GET 1 FREE",    canva:"https://canva.link/fftcuc6lzkyrwjg"},
   {id:4, name:"School Dance",           cat:"Event",      tier:"free",    c1:"#1a0538",c2:"#7B3FB5", type:"badge",    eyebrow:"YOU'RE INVITED",        pill:"SAVE THE DATE"},
   {id:5, name:"Back to School Night",   cat:"Seasonal",   tier:"free",    c1:"#064860",c2:"#2E7BC4", type:"pennant",  eyebrow:"WELCOME BACK",          pill:"FAMILIES WELCOME"},
   {id:6, name:"Volunteer Drive",        cat:"Meeting",    tier:"free",    c1:"#0D1B3E",c2:"#1C2F5E", type:"doc",      eyebrow:"WE NEED YOU",           pill:"SIGN UP NOW"},
@@ -1018,6 +1040,11 @@ function renderFlyerTmpls(filter) {
   grid.innerHTML = list.map(function(t){
     var isFree = t.tier==='free';
     var btnBg = isFree ? 'background:var(--purple);color:white;' : 'background:linear-gradient(135deg,#C9943A,#7a5400);color:white;';
+    var canvaBtn = t.canva
+      ? '<a class="ft-canva-btn" href="'+t.canva+'" target="_blank" rel="noopener" onclick="event.stopPropagation();">'
+        +'<svg width="10" height="10" viewBox="0 0 24 24" fill="white"><circle cx="12" cy="12" r="10"/></svg>'
+        +'Open in Canva</a>'
+      : '';
     return '<div class="ft-card" data-tier="'+t.tier+'" onclick="useFlyerTmpl('+t.id+',event)">'
       +'<div class="ft-thumb">'+mkFlyerThumb(t)+'</div>'
       +'<div class="ft-card-body">'
@@ -1026,7 +1053,9 @@ function renderFlyerTmpls(filter) {
       +'<div class="ft-card-actions">'
       +'<button class="ft-use-btn" style="'+btnBg+'">'+(isFree?'Use Free':'Use — $2.99')+'</button>'
       +'<span class="ft-badge '+t.tier+'">'+(isFree?'FREE':'PRO')+'</span>'
-      +'</div></div></div>';
+      +'</div>'
+      +canvaBtn
+      +'</div></div>';
   }).join('');
 }
 
@@ -1057,8 +1086,19 @@ function useFlyerTmpl(id, e) {
   if (lastFlyerData && document.getElementById('flyerOutput').style.display !== 'none') {
     renderFlyerOutput(lastFlyerData);
     applyLogo();
+    showCanvaCta(tmpl);
   }
   document.getElementById('tool').scrollIntoView({behavior:'smooth'});
+}
+
+function showCanvaCta(tmpl) {
+  var cta = document.getElementById('canvaCta');
+  if (tmpl && tmpl.canva) {
+    document.getElementById('canvaCtaLink').href = tmpl.canva;
+    cta.style.display = 'flex';
+  } else {
+    cta.style.display = 'none';
+  }
 }
 
 renderFlyerTmpls('all');
