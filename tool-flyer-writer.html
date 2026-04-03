@@ -927,6 +927,7 @@ function handleLogoUpload(e) {
   const reader = new FileReader();
   reader.onload = function(ev) {
     schoolLogoDataUrl = ev.target.result;
+    sampleLogoColor(schoolLogoDataUrl);
     const thumb = document.getElementById('logoPreviewThumb');
     const content = document.getElementById('uploadContent');
     thumb.src = schoolLogoDataUrl;
@@ -964,39 +965,60 @@ function applyLogoPosition() {
   }
 }
 
-function hexToRgb(hex) {
-  hex = hex.replace('#','');
-  if (hex.length === 3) hex = hex.split('').map(function(c){return c+c;}).join('');
-  var n = parseInt(hex, 16);
-  return { r: (n>>16)&255, g: (n>>8)&255, b: n&255 };
+var logoSampledColor = null; // { r, g, b } average of logo's opaque pixels
+
+function sampleLogoColor(dataUrl) {
+  var img = new Image();
+  img.onload = function() {
+    try {
+      var canvas = document.createElement('canvas');
+      var MAX = 80;
+      var scale = Math.min(MAX/img.width, MAX/img.height, 1);
+      canvas.width  = Math.round(img.width  * scale);
+      canvas.height = Math.round(img.height * scale);
+      var ctx = canvas.getContext('2d');
+      ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+      var data = ctx.getImageData(0, 0, canvas.width, canvas.height).data;
+      var r=0, g=0, b=0, count=0;
+      for (var i=0; i<data.length; i+=4) {
+        if (data[i+3] > 64) { // skip near-transparent pixels
+          r += data[i]; g += data[i+1]; b += data[i+2]; count++;
+        }
+      }
+      if (count > 0) logoSampledColor = { r: Math.round(r/count), g: Math.round(g/count), b: Math.round(b/count) };
+    } catch(e) { logoSampledColor = null; }
+  };
+  img.src = dataUrl;
 }
-function relativeLuminance(hex) {
-  var c = hexToRgb(hex);
-  var vals = [c.r, c.g, c.b].map(function(v) {
+
+function rgbLuminance(r, g, b) {
+  var vals = [r, g, b].map(function(v) {
     v = v/255;
     return v <= 0.03928 ? v/12.92 : Math.pow((v+0.055)/1.055, 2.4);
   });
   return 0.2126*vals[0] + 0.7152*vals[1] + 0.0722*vals[2];
 }
-function contrastRatio(hex1, hex2) {
-  var l1 = relativeLuminance(hex1), l2 = relativeLuminance(hex2);
-  var lighter = Math.max(l1,l2), darker = Math.min(l1,l2);
-  return (lighter+0.05)/(darker+0.05);
+function hexToRgb(hex) {
+  hex = hex.replace('#','');
+  if (hex.length === 3) hex = hex.split('').map(function(c){return c+c;}).join('');
+  var n = parseInt(hex,16);
+  return { r:(n>>16)&255, g:(n>>8)&255, b:n&255 };
+}
+function contrastRatioRgb(r1,g1,b1, r2,g2,b2) {
+  var l1 = rgbLuminance(r1,g1,b1), l2 = rgbLuminance(r2,g2,b2);
+  var light = Math.max(l1,l2), dark = Math.min(l1,l2);
+  return (light+0.05)/(dark+0.05);
 }
 
 var _a11yTimer = null;
 function checkLogoBgContrast(bg) {
-  if (!schoolLogoDataUrl || bg === 'transparent') return;
-  // Warn if contrast against white (logo assumed light on dark or dark on light) is low
-  // Simple heuristic: warn if bg is not near-white (luminance < 0.7) and not near-black (luminance > 0.08)
-  // i.e. mid-range saturated colors that could clash unpredictably
-  var lum = relativeLuminance(bg);
-  var contrastVsWhite = contrastRatio(bg, '#ffffff');
-  var contrastVsBlack = contrastRatio(bg, '#000000');
-  // Warn if neither white text nor black text has good contrast on this background (< 3:1)
-  if (contrastVsWhite < 3.5 && contrastVsBlack < 3.5) {
-    showA11yToast();
-  }
+  if (!schoolLogoDataUrl || bg === 'transparent' || !logoSampledColor) return;
+  var bgRgb = hexToRgb(bg);
+  var ratio = contrastRatioRgb(
+    logoSampledColor.r, logoSampledColor.g, logoSampledColor.b,
+    bgRgb.r, bgRgb.g, bgRgb.b
+  );
+  if (ratio < 2.5) showA11yToast();
 }
 
 function showA11yToast() {
