@@ -226,6 +226,20 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(13,27,62,0.9
 .social-input{flex:1;padding:7px 10px;border-radius:8px;border:1.5px solid rgba(13,27,62,0.12);font-family:'Poppins',sans-serif;font-size:11px;color:var(--navy);outline:none;transition:border-color 0.18s;}
 .social-input:focus{border-color:var(--purple);}
 .social-input::placeholder{color:rgba(13,27,62,0.3);}
+/* ── FLYER BODY REDESIGN ── */
+.fo-body{padding:20px 28px 16px;}
+.fo-dtl-block{border-radius:14px;overflow:hidden;margin-bottom:14px;box-shadow:0 2px 12px rgba(13,27,62,0.08);}
+.fo-dtl-row{display:flex;align-items:center;gap:10px;padding:10px 16px;font-size:12px;font-weight:700;color:var(--navy);outline:none;cursor:text;min-height:36px;background:white;}
+.fo-dtl-row:focus{background:rgba(123,63,181,0.04);outline:2px dashed rgba(123,63,181,0.3);}
+.fo-dtl-row:empty::before{content:attr(data-placeholder);color:rgba(13,27,62,0.22);font-weight:400;font-size:11px;}
+.fo-dtl-sep{height:1px;background:rgba(13,27,62,0.07);}
+.fo-blurb{font-size:12px;color:rgba(13,27,62,0.72);line-height:1.75;margin-bottom:14px;outline:none;border-radius:6px;min-height:20px;}
+.fo-blurb:focus{background:rgba(123,63,181,0.03);outline:2px dashed rgba(123,63,181,0.25);}
+.fo-cta-bar{color:white;text-align:center;padding:12px 16px;border-radius:10px;font-size:13px;font-weight:800;margin-bottom:12px;outline:none;letter-spacing:0.3px;}
+.fo-cta-bar:focus{filter:brightness(1.12);outline:2px dashed rgba(255,255,255,0.5);}
+.fo-contact{font-size:10px;font-weight:500;color:rgba(13,27,62,0.4);text-align:center;outline:none;border-radius:4px;padding:2px;}
+.fo-title{font-size:28px;font-weight:900;color:white;letter-spacing:-0.5px;line-height:1.1;margin-bottom:6px;outline:none;border-radius:4px;}
+.fo-subtitle{font-size:11px;color:rgba(255,255,255,0.78);font-weight:600;outline:none;border-radius:4px;letter-spacing:0.5px;}
 /* ── FLYER DECORATIONS / GRAPHIC / CALLOUT / STICKER / SOCIALS ── */
 .fo-decor{text-align:center;display:none;}
 .fo-graphic{text-align:center;padding:8px 0 4px;font-size:56px;line-height:1;display:none;}
@@ -401,6 +415,67 @@ footer{background:var(--navy-mid,#142248);border-top:3px solid transparent;borde
 
 @media(max-width:1000px){.fw-layout{grid-template-columns:1fr;}.fw-preview-panel{position:static;}.start-grid{grid-template-columns:1fr;}.ft-grid{grid-template-columns:repeat(2,1fr);}}
 @media(max-width:900px){nav{padding:0 20px;}.nav-links{display:none;}.tool-hero{padding:140px 24px 60px;}.section{padding:60px 24px;}.fw-section{padding:60px 24px;}.hiw-grid,.feat-grid{grid-template-columns:1fr;}.use-grid{grid-template-columns:1fr 1fr;}.tool-cta{padding:60px 24px;}.back-bar,.tools-nav{padding:0 20px;}footer{padding:24px 20px;flex-direction:column;align-items:flex-start;}.fw-row-2{grid-template-columns:1fr;}}
+/* ── BUILD YOUR OWN WIZARD ── */
+.byo-overlay{position:fixed;inset:0;z-index:500;background:rgba(1,13,42,0.88);backdrop-filter:blur(10px);display:flex;align-items:center;justify-content:center;padding:20px;opacity:0;pointer-events:none;transition:opacity 0.3s ease;}
+.byo-overlay.open{opacity:1;pointer-events:all;}
+.byo-modal{background:#0d1130;border-radius:28px;width:100%;max-width:900px;max-height:90vh;overflow:hidden;display:flex;flex-direction:column;box-shadow:0 32px 96px rgba(0,0,0,0.6),0 0 0 1px rgba(255,255,255,0.06);}
+.byo-modal-head{padding:28px 32px 0;display:flex;align-items:flex-start;justify-content:space-between;flex-shrink:0;}
+.byo-modal-title{font-size:22px;font-weight:900;color:white;letter-spacing:-0.5px;}
+.byo-modal-title span{background:linear-gradient(135deg,#FF2D87,#C084FC);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.byo-close{background:rgba(255,255,255,0.08);border:none;color:rgba(255,255,255,0.5);width:36px;height:36px;border-radius:50%;font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all 0.18s;flex-shrink:0;}
+.byo-close:hover{background:rgba(255,255,255,0.15);color:white;}
+.byo-steps{display:flex;gap:0;padding:16px 32px 0;border-bottom:1px solid rgba(255,255,255,0.07);flex-shrink:0;}
+.byo-step-tab{display:flex;align-items:center;gap:8px;padding:10px 0;margin-right:28px;font-size:12px;font-weight:700;color:rgba(255,255,255,0.3);border-bottom:2px solid transparent;transition:all 0.2s;cursor:default;}
+.byo-step-tab.active{color:white;border-bottom-color:var(--pink);}
+.byo-step-tab.done{color:rgba(255,255,255,0.55);}
+.byo-step-num{width:22px;height:22px;border-radius:50%;background:rgba(255,255,255,0.1);font-size:10px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.byo-step-tab.active .byo-step-num{background:var(--pink);color:white;}
+.byo-step-tab.done .byo-step-num{background:var(--green);color:white;}
+.byo-body{overflow-y:auto;padding:28px 32px;flex:1;}
+.byo-step{display:none;}
+.byo-step.active{display:block;}
+.byo-step-label{font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--pink-bright);margin-bottom:6px;}
+.byo-step-heading{font-size:18px;font-weight:900;color:white;margin-bottom:20px;letter-spacing:-0.3px;}
+/* background grid */
+.byo-bg-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;}
+.byo-bg-card{border-radius:16px;overflow:hidden;cursor:pointer;border:3px solid transparent;transition:all 0.2s;position:relative;}
+.byo-bg-card:hover{transform:translateY(-3px);box-shadow:0 12px 36px rgba(0,0,0,0.5);}
+.byo-bg-card.selected{border-color:#FF2D87;box-shadow:0 0 0 4px rgba(255,45,135,0.3);}
+.byo-bg-preview{height:110px;position:relative;overflow:hidden;}
+.byo-bg-preview-inner{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:10px;}
+.byo-bg-fake-title{font-size:11px;font-weight:900;color:white;text-align:center;text-transform:uppercase;letter-spacing:0.5px;text-shadow:0 2px 8px rgba(0,0,0,0.5);line-height:1.2;margin-bottom:4px;}
+.byo-bg-fake-sub{font-size:7px;font-weight:600;color:rgba(255,255,255,0.65);text-align:center;letter-spacing:1px;text-transform:uppercase;}
+.byo-bg-label{background:rgba(255,255,255,0.05);padding:8px 10px;text-align:center;font-size:11px;font-weight:700;color:rgba(255,255,255,0.8);}
+.byo-bg-card.selected .byo-bg-label{background:rgba(255,45,135,0.15);color:white;}
+/* marquee lights effect */
+.marquee-lights{position:absolute;inset:4px;border-radius:8px;border:2px solid rgba(255,220,80,0.5);pointer-events:none;}
+.marquee-dot{position:absolute;width:5px;height:5px;border-radius:50%;background:#FFD700;box-shadow:0 0 4px #FFD700;}
+/* layout grid */
+.byo-layout-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;}
+.byo-layout-card{border-radius:16px;overflow:hidden;cursor:pointer;border:3px solid transparent;transition:all 0.2s;background:#1a1f40;}
+.byo-layout-card:hover{transform:translateY(-3px);box-shadow:0 12px 36px rgba(0,0,0,0.5);}
+.byo-layout-card.selected{border-color:#FF2D87;box-shadow:0 0 0 4px rgba(255,45,135,0.3);}
+.byo-layout-preview{height:140px;display:flex;flex-direction:column;overflow:hidden;}
+.byo-layout-label-row{padding:10px 14px 8px;background:rgba(255,255,255,0.04);display:flex;align-items:center;gap:8px;}
+.byo-layout-name{font-size:11px;font-weight:800;color:white;}
+.byo-layout-desc{font-size:10px;font-weight:400;color:rgba(255,255,255,0.45);}
+/* logo step */
+.byo-logo-zone{border:2px dashed rgba(255,255,255,0.2);border-radius:16px;padding:40px;text-align:center;cursor:pointer;transition:all 0.2s;background:rgba(255,255,255,0.03);}
+.byo-logo-zone:hover{border-color:rgba(255,45,135,0.5);background:rgba(255,45,135,0.05);}
+.byo-logo-zone.has-logo{border-style:solid;border-color:var(--green);background:rgba(43,168,74,0.08);}
+.byo-logo-icon{font-size:40px;margin-bottom:12px;display:block;}
+.byo-logo-text{font-size:15px;font-weight:700;color:white;margin-bottom:6px;}
+.byo-logo-sub{font-size:12px;font-weight:300;color:rgba(255,255,255,0.45);}
+.byo-skip-note{font-size:12px;color:rgba(255,255,255,0.35);margin-top:16px;font-style:italic;}
+/* footer */
+.byo-footer{padding:20px 32px;border-top:1px solid rgba(255,255,255,0.07);display:flex;align-items:center;justify-content:space-between;flex-shrink:0;}
+.byo-back-btn{background:rgba(255,255,255,0.07);border:none;color:rgba(255,255,255,0.6);font-family:'Poppins',sans-serif;font-size:13px;font-weight:700;padding:12px 24px;border-radius:100px;cursor:pointer;transition:all 0.18s;}
+.byo-back-btn:hover{background:rgba(255,255,255,0.12);color:white;}
+.byo-next-btn{background:linear-gradient(135deg,var(--pink),var(--purple));border:none;color:white;font-family:'Poppins',sans-serif;font-size:14px;font-weight:800;padding:14px 32px;border-radius:100px;cursor:pointer;transition:all 0.2s;box-shadow:0 6px 24px rgba(232,53,122,0.4);display:flex;align-items:center;gap:8px;}
+.byo-next-btn:hover{transform:translateY(-1px);box-shadow:0 10px 32px rgba(232,53,122,0.55);}
+.byo-next-btn:disabled{opacity:0.4;cursor:not-allowed;transform:none;}
+@media(max-width:700px){.byo-bg-grid{grid-template-columns:repeat(2,1fr);}.byo-layout-grid{grid-template-columns:1fr;}.byo-modal-head,.byo-steps,.byo-body,.byo-footer{padding-left:20px;padding-right:20px;}}
+
 @media print{nav,.gold-divider,.back-bar,.tools-nav,.tool-hero,.fw-form-panel,.preview-header-bar,.preview-actions,.share-panel,.social-post-link,.fw-header,.section,.feat-section,.tool-cta,footer,.flyer-empty,.flyer-generating,.size-toggle,.canva-cta{display:none!important;}body{background:white;}@page{size:8.5in 11in;margin:0.5in;}.fw-section,.fw-inner,.fw-layout,.fw-preview-panel,.fw-canvas{padding:0!important;margin:0!important;background:white!important;border:none!important;box-shadow:none!important;display:block!important;}.flyer-output{box-shadow:none!important;max-width:100%!important;width:100%!important;aspect-ratio:auto!important;display:block!important;}[contenteditable]{outline:none!important;}}
 </style>
 </head>
@@ -421,6 +496,213 @@ footer{background:var(--navy-mid,#142248);border-top:3px solid transparent;borde
   <span class="ink-toast-icon">🖨️</span>
   <div class="ink-toast-text"><strong>Heads up!</strong> A colored background uses a lot of ink when printing. Consider using a light or white background if you're printing copies.</div>
   <button class="ink-toast-close" onclick="document.getElementById('inkToast').classList.remove('show')">✕</button>
+</div>
+
+<!-- BUILD YOUR OWN WIZARD -->
+<div class="byo-overlay" id="byoOverlay" onclick="byoOverlayClick(event)">
+  <div class="byo-modal" id="byoModal">
+    <div class="byo-modal-head">
+      <div>
+        <div class="byo-modal-title">Build Your Own <span>Custom Flyer</span></div>
+      </div>
+      <button class="byo-close" onclick="closeBuildWizard()">✕</button>
+    </div>
+    <div class="byo-steps">
+      <div class="byo-step-tab active" id="byoTab1"><span class="byo-step-num">1</span> Background</div>
+      <div class="byo-step-tab" id="byoTab2"><span class="byo-step-num">2</span> Layout</div>
+      <div class="byo-step-tab" id="byoTab3"><span class="byo-step-num">3</span> Your Logo</div>
+    </div>
+    <div class="byo-body">
+
+      <!-- STEP 1: Background -->
+      <div class="byo-step active" id="byoStep1">
+        <div class="byo-step-label">Step 1 of 3</div>
+        <div class="byo-step-heading">Choose your background theme</div>
+        <div class="byo-bg-grid" id="byoBgGrid">
+
+          <!-- Carnival Night -->
+          <div class="byo-bg-card selected" data-bg="carnival" onclick="byoPickBg('carnival',this)">
+            <div class="byo-bg-preview" style="background:linear-gradient(180deg,#0a0020 0%,#1a0040 45%,#2d1060 100%);">
+              <div class="marquee-lights">
+                <div class="marquee-dot" style="top:-3px;left:12%"></div><div class="marquee-dot" style="top:-3px;left:28%"></div><div class="marquee-dot" style="top:-3px;left:44%"></div><div class="marquee-dot" style="top:-3px;left:60%"></div><div class="marquee-dot" style="top:-3px;left:76%"></div>
+                <div class="marquee-dot" style="bottom:-3px;left:20%"></div><div class="marquee-dot" style="bottom:-3px;left:36%"></div><div class="marquee-dot" style="bottom:-3px;left:52%"></div><div class="marquee-dot" style="bottom:-3px;left:68%"></div>
+              </div>
+              <div class="byo-bg-preview-inner">
+                <div style="font-size:8px;color:rgba(201,148,58,0.8);font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:4px;">Your School Presents</div>
+                <div class="byo-bg-fake-title" style="font-size:16px;background:linear-gradient(135deg,#FFD700,#C9943A);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">CARNIVAL</div>
+                <div class="byo-bg-fake-sub">Friday, June 14 · 5–8 PM</div>
+              </div>
+            </div>
+            <div class="byo-bg-label">🎪 Carnival Night</div>
+          </div>
+
+          <!-- Rainbow Celebration -->
+          <div class="byo-bg-card" data-bg="rainbow" onclick="byoPickBg('rainbow',this)">
+            <div class="byo-bg-preview" style="background:#ffffff;">
+              <div class="byo-bg-preview-inner">
+                <div style="font-size:8px;color:rgba(13,27,62,0.5);font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:6px;">Your PTO Presents</div>
+                <div style="font-size:15px;font-weight:900;background:linear-gradient(90deg,#FF2D87,#FF6B35,#FFD700,#2BA84A,#2E7BC4,#7B3FB5);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;letter-spacing:-0.5px;text-align:center;">TURN OFF THE<br>SCREEN</div>
+                <div style="font-size:7px;color:rgba(13,27,62,0.5);text-align:center;margin-top:4px;">and Turn Up the Fun</div>
+              </div>
+            </div>
+            <div class="byo-bg-label">🌈 Rainbow Celebration</div>
+          </div>
+
+          <!-- Fall Harvest -->
+          <div class="byo-bg-card" data-bg="fall" onclick="byoPickBg('fall',this)">
+            <div class="byo-bg-preview" style="background:linear-gradient(160deg,#3d1200 0%,#7a2e08 35%,#c85820 70%,#e8882a 100%);">
+              <div class="byo-bg-preview-inner">
+                <div style="position:absolute;top:8px;right:10px;font-size:28px;opacity:0.4;">🎃</div>
+                <div style="position:absolute;bottom:8px;left:8px;font-size:24px;opacity:0.3;">🍂</div>
+                <div class="byo-bg-fake-title" style="font-size:20px;font-family:'Georgia',serif;letter-spacing:1px;">Fall<br>Fest</div>
+                <div class="byo-bg-fake-sub">Friday, Oct 25 · 5–7 PM</div>
+              </div>
+            </div>
+            <div class="byo-bg-label">🍂 Fall Festival</div>
+          </div>
+
+          <!-- Galaxy Night -->
+          <div class="byo-bg-card" data-bg="galaxy" onclick="byoPickBg('galaxy',this)">
+            <div class="byo-bg-preview" style="background:radial-gradient(ellipse at 30% 35%,#3a0080 0%,#0a0028 55%,#000018 100%);">
+              <div class="byo-bg-preview-inner">
+                <div style="position:absolute;inset:0;background-image:radial-gradient(circle,rgba(255,255,255,0.6) 1px,transparent 1px);background-size:16px 16px;opacity:0.2;"></div>
+                <div style="font-size:8px;color:rgba(180,100,255,0.8);letter-spacing:3px;text-transform:uppercase;font-weight:700;margin-bottom:6px;">✦ SCIENCE NIGHT ✦</div>
+                <div class="byo-bg-fake-title" style="font-size:14px;background:linear-gradient(135deg,#9B59FF,#60C6FF);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">GALAXY EXPLORER</div>
+                <div class="byo-bg-fake-sub" style="margin-top:4px;">Jan 22 · School Gym</div>
+              </div>
+            </div>
+            <div class="byo-bg-label">🌌 Galaxy Night</div>
+          </div>
+
+          <!-- Ocean Breeze -->
+          <div class="byo-bg-card" data-bg="ocean" onclick="byoPickBg('ocean',this)">
+            <div class="byo-bg-preview" style="background:linear-gradient(135deg,#005f8e 0%,#0B9E8F 55%,#00c4b4 100%);">
+              <div class="byo-bg-preview-inner">
+                <div style="position:absolute;bottom:0;left:0;right:0;height:30px;background:rgba(255,255,255,0.08);clip-path:ellipse(55% 100% at 50% 100%);"></div>
+                <div style="font-size:7px;color:rgba(255,255,255,0.65);letter-spacing:2px;text-transform:uppercase;font-weight:700;margin-bottom:5px;">SWIM-A-THON</div>
+                <div class="byo-bg-fake-title" style="font-size:15px;">OCEAN<br>FUNDRAISER</div>
+                <div class="byo-bg-fake-sub" style="margin-top:4px;">🌊 March 8 · Aquatic Center</div>
+              </div>
+            </div>
+            <div class="byo-bg-label">🌊 Ocean Breeze</div>
+          </div>
+
+          <!-- Spring Garden -->
+          <div class="byo-bg-card" data-bg="spring" onclick="byoPickBg('spring',this)">
+            <div class="byo-bg-preview" style="background:linear-gradient(135deg,#084d20 0%,#1a7a3a 45%,#2ecc71 100%);">
+              <div class="byo-bg-preview-inner">
+                <div style="position:absolute;top:5px;right:8px;font-size:22px;opacity:0.35;">🌸</div>
+                <div style="position:absolute;bottom:5px;left:6px;font-size:18px;opacity:0.3;">🌿</div>
+                <div class="byo-bg-fake-title" style="font-size:14px;">SPRING<br>BOOK FAIR</div>
+                <div class="byo-bg-fake-sub" style="margin-top:4px;">April 12 · Library</div>
+              </div>
+            </div>
+            <div class="byo-bg-label">🌱 Spring Fresh</div>
+          </div>
+
+          <!-- Bold Modern -->
+          <div class="byo-bg-card" data-bg="bold" onclick="byoPickBg('bold',this)">
+            <div class="byo-bg-preview" style="background:linear-gradient(155deg,#010D2A 0%,#0D1B3E 100%);">
+              <div class="byo-bg-preview-inner">
+                <div style="position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,#FF2D87,#7B3FB5,#2E7BC4);"></div>
+                <div style="font-size:7px;color:rgba(232,53,122,0.8);letter-spacing:2.5px;text-transform:uppercase;font-weight:700;margin-bottom:5px;">PTA · 2025</div>
+                <div class="byo-bg-fake-title" style="font-size:13px;letter-spacing:1px;">ANNUAL<br>FUNDRAISER</div>
+                <div style="height:2px;width:40px;background:linear-gradient(90deg,#FF2D87,#7B3FB5);margin:6px auto;border-radius:2px;"></div>
+                <div class="byo-bg-fake-sub">October 5 · 6 PM</div>
+              </div>
+            </div>
+            <div class="byo-bg-label">💎 Bold Modern</div>
+          </div>
+
+          <!-- Warm Burst -->
+          <div class="byo-bg-card" data-bg="warm" onclick="byoPickBg('warm',this)">
+            <div class="byo-bg-preview" style="background:radial-gradient(ellipse at 50% 50%,#ff8c00 0%,#d4522a 45%,#8b1a00 100%);">
+              <div class="byo-bg-preview-inner">
+                <div style="position:absolute;inset:6px;border-radius:8px;border:1.5px solid rgba(255,220,100,0.3);pointer-events:none;"></div>
+                <div style="font-size:7px;color:rgba(255,220,100,0.8);letter-spacing:2px;text-transform:uppercase;font-weight:700;margin-bottom:5px;">❤️ SCHOOL SPIRIT</div>
+                <div class="byo-bg-fake-title" style="font-size:14px;">FUN RUN<br>2025</div>
+                <div class="byo-bg-fake-sub" style="margin-top:4px;">🏃 May 10 · Track Field</div>
+              </div>
+            </div>
+            <div class="byo-bg-label">🔥 Warm Burst</div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- STEP 2: Layout -->
+      <div class="byo-step" id="byoStep2">
+        <div class="byo-step-label">Step 2 of 3</div>
+        <div class="byo-step-heading">Choose your text layout</div>
+        <div class="byo-layout-grid" id="byoLayoutGrid">
+
+          <!-- Layout A: Centered Spotlight -->
+          <div class="byo-layout-card selected" data-layout="centered" onclick="byoPickLayout('centered',this)">
+            <div class="byo-layout-preview" id="byoLayoutPreview_centered"></div>
+            <div class="byo-layout-label-row">
+              <div>
+                <div class="byo-layout-name">Centered Spotlight</div>
+                <div class="byo-layout-desc">Big title centered · date &amp; details below</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Layout B: Bold Band -->
+          <div class="byo-layout-card" data-layout="band" onclick="byoPickLayout('band',this)">
+            <div class="byo-layout-preview" id="byoLayoutPreview_band"></div>
+            <div class="byo-layout-label-row">
+              <div>
+                <div class="byo-layout-name">Bold Header Band</div>
+                <div class="byo-layout-desc">Color stripe at top · clean white body</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Layout C: Marquee Frame -->
+          <div class="byo-layout-card" data-layout="marquee" onclick="byoPickLayout('marquee',this)">
+            <div class="byo-layout-preview" id="byoLayoutPreview_marquee"></div>
+            <div class="byo-layout-label-row">
+              <div>
+                <div class="byo-layout-name">Marquee Frame</div>
+                <div class="byo-layout-desc">Decorative border frame · event-poster style</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Layout D: Scheduler -->
+          <div class="byo-layout-card" data-layout="schedule" onclick="byoPickLayout('schedule',this)">
+            <div class="byo-layout-preview" id="byoLayoutPreview_schedule"></div>
+            <div class="byo-layout-label-row">
+              <div>
+                <div class="byo-layout-name">Schedule Style</div>
+                <div class="byo-layout-desc">Multi-event list · great for activity nights</div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- STEP 3: Logo -->
+      <div class="byo-step" id="byoStep3">
+        <div class="byo-step-label">Step 3 of 3</div>
+        <div class="byo-step-heading">Add your school logo <span style="font-size:13px;font-weight:400;color:rgba(255,255,255,0.4);">— optional</span></div>
+        <input type="file" id="byoLogoInput" accept="image/*" style="display:none" onchange="byoHandleLogo(event)">
+        <div class="byo-logo-zone" id="byoLogoZone" onclick="document.getElementById('byoLogoInput').click()">
+          <span class="byo-logo-icon" id="byoLogoIcon">🏫</span>
+          <div class="byo-logo-text" id="byoLogoText">Click to upload your school logo</div>
+          <div class="byo-logo-sub" id="byoLogoSub">PNG, JPG, or SVG — any size</div>
+          <img id="byoLogoThumb" alt="" style="display:none;max-height:80px;max-width:200px;border-radius:10px;margin:12px auto 0;display:none;">
+        </div>
+        <div class="byo-skip-note">No logo? No problem — you can skip this step and add it later.</div>
+      </div>
+
+    </div>
+    <div class="byo-footer">
+      <button class="byo-back-btn" id="byoBackBtn" onclick="byoWizardBack()" style="visibility:hidden;">← Back</button>
+      <button class="byo-next-btn" id="byoNextBtn" onclick="byoWizardNext()">Next Step →</button>
+    </div>
+  </div>
 </div>
 
 <nav>
@@ -476,7 +758,7 @@ footer{background:var(--navy-mid,#142248);border-top:3px solid transparent;borde
     <div class="start-grid">
 
       <!-- SCRATCH CARD — spectacular -->
-      <div class="scratch-card" onclick="document.getElementById('tool').scrollIntoView({behavior:'smooth'})">
+      <div class="scratch-card" onclick="openBuildWizard()">
         <div class="scratch-card-inner">
           <div class="scratch-dots-bg">
             <div class="scratch-dot-bg" style="background:var(--pink);opacity:0.25;"></div>
@@ -1101,10 +1383,11 @@ function updateColors() {
   var s = document.getElementById('secondaryColor').value;
   document.getElementById('primaryHex').textContent = p;
   document.getElementById('secondaryHex').textContent = s;
-  var hdr = document.getElementById('foHeader');
-  if (hdr) hdr.style.background = 'linear-gradient(135deg,'+p+','+s+')';
-  var cta = document.getElementById('foCta');
-  if (cta && !selectedFlyerTmpl) cta.style.background = p;
+  // Full re-render so layered hero styles pick up new colors
+  if (lastFlyerData) {
+    renderFlyerOutput(lastFlyerData);
+    applyLogo();
+  }
 }
 
 /* ── FLYER OUTPUT RENDERERS ── */
@@ -1112,33 +1395,39 @@ function _foTop() {
   return '<div class="fo-logo-bar" id="foLogoBar" style="display:none;"><img id="foLogo" src="" alt="School Logo"></div>';
 }
 function _foBdy(d, ctaBg) {
+  var dtlBg = ctaBg+'18';
   return '<div class="fo-decor" id="foDecor" style="display:none;"></div>'
     +'<div class="fo-body">'
     +'<div class="fo-image" id="foImage"></div>'
-    +'<div class="fo-graphic" id="foGraphic"></div>'
-    +'<div class="fo-blurb" id="foBlurb" contenteditable="true" spellcheck="false">'+d.body+'</div>'
-    +'<div class="fo-dtl-block" id="foDtlBlock">'
-    +'<div class="fo-dtl-accent" id="foDtlAccent"></div>'
-    +'<div class="fo-dtl-row" id="foDate" contenteditable="true" spellcheck="false" data-placeholder="📅 Add a date">'+d.dateStr+'</div>'
-    +'<div class="fo-dtl-sep"></div>'
-    +'<div class="fo-dtl-row" id="foTime" contenteditable="true" spellcheck="false" data-placeholder="🕒 Add a time">'+d.timeStr+'</div>'
-    +'<div class="fo-dtl-sep"></div>'
-    +'<div class="fo-dtl-row" id="foLocation" contenteditable="true" spellcheck="false" data-placeholder="📍 Add a location">'+d.locStr+'</div>'
-    +'</div>'
-    +'<div class="fo-details-extra" id="foExtra" contenteditable="true" spellcheck="false"></div>'
+    +'<div class="fo-graphic" id="foGraphic" style="text-align:center;padding:6px 0 2px;font-size:52px;line-height:1;display:none;"></div>'
+    +'<div class="fo-blurb" id="foBlurb" contenteditable="true" spellcheck="false" style="font-size:12.5px;color:rgba(13,27,62,0.72);line-height:1.75;margin-bottom:14px;outline:none;border-radius:6px;min-height:20px;">'+d.body+'</div>'
+    +'<div id="foDtlBlock" style="border-radius:14px;overflow:hidden;margin-bottom:14px;border:1.5px solid rgba(13,27,62,0.08);box-shadow:0 2px 14px rgba(13,27,62,0.07);">'
+    +'<div id="foDtlAccent" style="height:5px;background:linear-gradient(90deg,'+ctaBg+','+ctaBg+'99);"></div>'
+    +'<div style="background:'+dtlBg+';padding:2px 0;">'
+    +'<div id="foDate" contenteditable="true" spellcheck="false" data-placeholder="📅 Add a date" style="display:flex;align-items:center;gap:10px;padding:10px 18px;font-size:12px;font-weight:700;color:#0D1B3E;outline:none;cursor:text;min-height:36px;background:transparent;">'+d.dateStr+'</div>'
+    +'<div style="height:1px;background:rgba(13,27,62,0.07);margin:0 14px;"></div>'
+    +'<div id="foTime" contenteditable="true" spellcheck="false" data-placeholder="🕒 Add a time" style="display:flex;align-items:center;gap:10px;padding:10px 18px;font-size:12px;font-weight:700;color:#0D1B3E;outline:none;cursor:text;min-height:36px;background:transparent;">'+d.timeStr+'</div>'
+    +'<div style="height:1px;background:rgba(13,27,62,0.07);margin:0 14px;"></div>'
+    +'<div id="foLocation" contenteditable="true" spellcheck="false" data-placeholder="📍 Add a location" style="display:flex;align-items:center;gap:10px;padding:10px 18px;font-size:12px;font-weight:700;color:#0D1B3E;outline:none;cursor:text;min-height:36px;background:transparent;">'+d.locStr+'</div>'
+    +'</div></div>'
+    +'<div class="fo-details-extra" id="foExtra" contenteditable="true" spellcheck="false" style="font-size:11.5px;color:rgba(13,27,62,0.55);line-height:1.65;margin-bottom:12px;padding:2px;outline:none;border-radius:4px;min-height:18px;"></div>'
     +'<div class="fo-sticker" id="foSticker"></div>'
-    +'<div class="fo-callout" id="foCallout"><div class="fo-callout-text" id="foCalloutText" contenteditable="true" spellcheck="false"></div></div>'
-    +'<div class="fo-cta-bar" id="foCta" contenteditable="true" spellcheck="false" style="background:'+ctaBg+';">'+d.cta+'</div>'
-    +'<div class="fo-cta-custom" id="foCtaCustom" contenteditable="true" spellcheck="false"></div>'
-    +'<div class="fo-contact" id="foContact" contenteditable="true" spellcheck="false">'+d.contact+'</div>'
-    +'<div class="fo-socials" id="foSocials"></div>'
+    +'<div class="fo-callout" id="foCallout" style="display:none;margin:8px 0;"><div class="fo-callout-text" id="foCalloutText" contenteditable="true" spellcheck="false" style="display:block;padding:11px 18px;border-radius:10px;font-size:13px;font-weight:800;text-align:center;outline:none;cursor:text;"></div></div>'
+    +'<div class="fo-cta-bar" id="foCta" contenteditable="true" spellcheck="false" style="background:'+ctaBg+';border-radius:10px;color:white;text-align:center;padding:13px 18px;font-size:13px;font-weight:800;margin-bottom:12px;letter-spacing:0.3px;box-shadow:0 4px 18px '+ctaBg+'55;outline:none;">'+d.cta+'</div>'
+    +'<div class="fo-cta-custom" id="foCtaCustom" contenteditable="true" spellcheck="false" style="display:none;margin:0 0 10px;padding:11px 16px;border-radius:10px;font-size:13px;font-weight:800;text-align:center;cursor:text;outline:none;"></div>'
+    +'<div class="fo-contact" id="foContact" contenteditable="true" spellcheck="false" style="font-size:10.5px;font-weight:500;color:rgba(13,27,62,0.4);text-align:center;outline:none;border-radius:4px;padding:2px;">'+d.contact+'</div>'
+    +'<div class="fo-socials" id="foSocials" style="display:none;justify-content:center;align-items:center;flex-wrap:wrap;gap:7px;padding:10px 0 2px;border-top:1px solid rgba(13,27,62,0.07);margin-top:6px;"></div>'
     +'</div>';
 }
 
-function _heroTitle(d, extra) {
-  return '<div id="foTitle" contenteditable="true" spellcheck="false" style="outline:none;border-radius:4px;'+(extra||'')+'">'+d.title+'</div>'
-    +'<div id="foSubtitle" contenteditable="true" spellcheck="false" style="outline:none;border-radius:4px;">'+d.subtitle+'</div>';
+function _dots(colors, count) {
+  var s=''; var cx=[8,22,38,54,70,84,92,80,65,50,35,18];
+  for(var i=0;i<Math.min(count||12,cx.length);i++){
+    s+='<div style="position:absolute;width:5px;height:5px;border-radius:50%;background:'+colors[i%colors.length]+';left:'+cx[i]+'%;top:'+(8+(i%3)*28)+'%;opacity:'+(0.4+0.2*(i%3))+';"></div>';
+  }
+  return s;
 }
+
 function buildFlyerDefault(d, c1, c2) {
   switch(flyerCustom.heroStyle) {
     case 'diagonal': return buildHeroDiagonal(d, c1, c2);
@@ -1149,145 +1438,216 @@ function buildFlyerDefault(d, c1, c2) {
     default:         return buildHeroGradient(d, c1, c2);
   }
 }
+
 function buildHeroGradient(d, c1, c2) {
   return _foTop()
-    +'<div class="fo-header" id="foHeader" style="background:linear-gradient(135deg,'+c1+','+c2+');padding:28px 28px 24px;text-align:center;">'
-    +'<div class="fo-title" id="foTitle" contenteditable="true" spellcheck="false">'+d.title+'</div>'
-    +'<div class="fo-subtitle" id="foSubtitle" contenteditable="true" spellcheck="false">'+d.subtitle+'</div>'
+    +'<div id="foHeader" style="position:relative;overflow:hidden;background:linear-gradient(145deg,'+c1+' 0%,'+c2+' 100%);padding:32px 28px 28px;text-align:center;">'
+    // soft noise overlay
+    +'<div style="position:absolute;inset:0;background-image:radial-gradient(circle at 20% 80%,rgba(255,255,255,0.08) 0%,transparent 50%),radial-gradient(circle at 80% 20%,rgba(255,255,255,0.1) 0%,transparent 45%);pointer-events:none;"></div>'
+    // decorative dots
+    +'<div style="position:absolute;inset:0;overflow:hidden;pointer-events:none;">'+_dots(['rgba(255,255,255,0.2)','rgba(255,255,255,0.12)','rgba(255,255,255,0.08)'])+'</div>'
+    +'<div style="position:relative;z-index:1;">'
+    +'<div id="foSubtitle" contenteditable="true" spellcheck="false" style="font-size:10px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,0.75);margin-bottom:12px;outline:none;border-radius:4px;">'+d.subtitle+'</div>'
+    // decorative rule
+    +'<div style="display:flex;align-items:center;gap:8px;justify-content:center;margin-bottom:12px;">'
+    +'<div style="height:1px;width:32px;background:rgba(255,255,255,0.35);"></div>'
+    +'<div style="width:6px;height:6px;background:rgba(255,255,255,0.6);transform:rotate(45deg);"></div>'
+    +'<div style="height:1px;width:32px;background:rgba(255,255,255,0.35);"></div>'
     +'</div>'
+    +'<div id="foTitle" contenteditable="true" spellcheck="false" style="font-size:clamp(28px,6vw,40px);font-weight:900;color:#fff;text-transform:uppercase;letter-spacing:-0.5px;line-height:1.0;text-shadow:0 4px 24px rgba(0,0,0,0.35),0 1px 0 rgba(255,255,255,0.15);outline:none;border-radius:4px;margin-bottom:6px;">'+d.title+'</div>'
+    +'</div></div>'
     +_foBdy(d, c1);
 }
+
 function buildHeroDiagonal(d, c1, c2) {
   return _foTop()
-    +'<div id="foHeader" style="position:relative;overflow:hidden;min-height:110px;">'
+    +'<div id="foHeader" style="position:relative;overflow:hidden;min-height:130px;">'
     +'<div style="position:absolute;inset:0;background:'+c2+';"></div>'
-    +'<div style="position:absolute;inset:0;background:'+c1+';clip-path:polygon(0 0,72% 0,50% 100%,0 100%);"></div>'
-    +'<div style="position:relative;z-index:1;padding:26px 28px 30px;">'
-    +'<div id="foSubtitle" contenteditable="true" spellcheck="false" style="font-size:10px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:rgba(255,255,255,0.72);margin-bottom:8px;outline:none;border-radius:4px;text-shadow:0 1px 4px rgba(0,0,0,0.4);">'+d.subtitle+'</div>'
-    +'<div id="foTitle" contenteditable="true" spellcheck="false" style="font-size:26px;font-weight:900;color:#fff;text-transform:uppercase;letter-spacing:-0.5px;line-height:1.05;text-shadow:0 3px 12px rgba(0,0,0,0.5);outline:none;border-radius:4px;">'+d.title+'</div>'
+    +'<div style="position:absolute;inset:0;background:linear-gradient(145deg,'+c1+' 0%,'+c1+'cc 100%);clip-path:polygon(0 0,68% 0,46% 100%,0 100%);"></div>'
+    // accent stripe
+    +'<div style="position:absolute;left:0;top:0;bottom:0;width:6px;background:rgba(255,255,255,0.25);"></div>'
+    +'<div style="position:absolute;inset:0;overflow:hidden;pointer-events:none;">'+_dots(['rgba(255,255,255,0.18)','rgba(255,255,255,0.1)'],8)+'</div>'
+    +'<div style="position:relative;z-index:1;padding:28px 28px 32px;">'
+    +'<div id="foSubtitle" contenteditable="true" spellcheck="false" style="font-size:9px;font-weight:800;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,0.65);margin-bottom:10px;outline:none;border-radius:4px;text-shadow:0 1px 4px rgba(0,0,0,0.4);">'+d.subtitle+'</div>'
+    +'<div id="foTitle" contenteditable="true" spellcheck="false" style="font-size:clamp(26px,5.5vw,38px);font-weight:900;color:#fff;text-transform:uppercase;letter-spacing:-0.5px;line-height:1.0;text-shadow:0 4px 16px rgba(0,0,0,0.55);outline:none;border-radius:4px;max-width:56%;">'+d.title+'</div>'
     +'</div>'
-    +'<div style="position:absolute;bottom:0;left:0;right:0;height:6px;background:rgba(0,0,0,0.18);"></div>'
+    +'<div style="position:absolute;bottom:0;left:0;right:0;height:5px;background:linear-gradient(90deg,rgba(255,255,255,0.3),rgba(255,255,255,0.05),transparent);"></div>'
     +'</div>'
     +_foBdy(d, c1);
 }
+
 function buildHeroRadial(d, c1, c2) {
   return _foTop()
-    +'<div id="foHeader" style="position:relative;overflow:hidden;padding:34px 28px 30px;text-align:center;">'
-    +'<div style="position:absolute;inset:0;background:radial-gradient(ellipse at 50% 45%,'+c2+' 0%,'+c1+' 72%);"></div>'
-    +'<div style="position:absolute;width:260px;height:260px;border-radius:50%;border:2px solid rgba(255,255,255,0.12);top:50%;left:50%;transform:translate(-50%,-50%);"></div>'
-    +'<div style="position:absolute;width:170px;height:170px;border-radius:50%;border:1.5px solid rgba(255,255,255,0.18);top:50%;left:50%;transform:translate(-50%,-50%);"></div>'
+    +'<div id="foHeader" style="position:relative;overflow:hidden;padding:36px 28px 32px;text-align:center;">'
+    +'<div style="position:absolute;inset:0;background:radial-gradient(ellipse 80% 80% at 50% 50%,'+c2+' 0%,'+c1+' 65%,'+c1+'ee 100%);"></div>'
+    // concentric rings
+    +'<div style="position:absolute;width:320px;height:320px;border-radius:50%;border:1.5px solid rgba(255,255,255,0.1);top:50%;left:50%;transform:translate(-50%,-50%);pointer-events:none;"></div>'
+    +'<div style="position:absolute;width:220px;height:220px;border-radius:50%;border:1.5px solid rgba(255,255,255,0.15);top:50%;left:50%;transform:translate(-50%,-50%);pointer-events:none;"></div>'
+    +'<div style="position:absolute;width:140px;height:140px;border-radius:50%;background:rgba(255,255,255,0.05);border:2px solid rgba(255,255,255,0.2);top:50%;left:50%;transform:translate(-50%,-50%);pointer-events:none;"></div>'
+    // star glints at corners
+    +'<div style="position:absolute;top:14px;left:18px;font-size:16px;color:rgba(255,255,255,0.3);">★</div>'
+    +'<div style="position:absolute;top:14px;right:18px;font-size:16px;color:rgba(255,255,255,0.3);">★</div>'
+    +'<div style="position:absolute;bottom:14px;left:24px;font-size:10px;color:rgba(255,255,255,0.2);">✦</div>'
+    +'<div style="position:absolute;bottom:14px;right:24px;font-size:10px;color:rgba(255,255,255,0.2);">✦</div>'
     +'<div style="position:relative;z-index:1;">'
-    +'<div id="foSubtitle" contenteditable="true" spellcheck="false" style="font-size:10px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:rgba(255,255,255,0.68);margin-bottom:10px;outline:none;border-radius:4px;">'+d.subtitle+'</div>'
-    +'<div id="foTitle" contenteditable="true" spellcheck="false" style="font-size:26px;font-weight:900;color:#fff;text-transform:uppercase;letter-spacing:-0.5px;line-height:1.05;text-shadow:0 4px 16px rgba(0,0,0,0.5);outline:none;border-radius:4px;">'+d.title+'</div>'
+    +'<div id="foSubtitle" contenteditable="true" spellcheck="false" style="font-size:9px;font-weight:800;letter-spacing:3.5px;text-transform:uppercase;color:rgba(255,255,255,0.65);margin-bottom:12px;outline:none;border-radius:4px;">'+d.subtitle+'</div>'
+    +'<div id="foTitle" contenteditable="true" spellcheck="false" style="font-size:clamp(28px,6vw,40px);font-weight:900;color:#fff;text-transform:uppercase;letter-spacing:-0.5px;line-height:1.0;text-shadow:0 0 40px rgba(255,255,255,0.25),0 4px 20px rgba(0,0,0,0.55);outline:none;border-radius:4px;">'+d.title+'</div>'
+    // bottom divider with diamond
+    +'<div style="display:flex;align-items:center;gap:8px;justify-content:center;margin-top:14px;">'
+    +'<div style="height:1px;width:40px;background:rgba(255,255,255,0.3);"></div>'
+    +'<div style="width:5px;height:5px;background:rgba(255,255,255,0.5);transform:rotate(45deg);"></div>'
+    +'<div style="height:1px;width:40px;background:rgba(255,255,255,0.3);"></div>'
+    +'</div>'
     +'</div></div>'
     +_foBdy(d, c2);
 }
+
 function buildHeroDark(d, c1, c2) {
   return _foTop()
-    +'<div id="foHeader" style="position:relative;overflow:hidden;padding:32px 28px;text-align:center;background:#0a0a14;">'
-    +'<div style="position:absolute;width:300px;height:300px;border-radius:50%;background:'+c1+';top:-120px;left:50%;transform:translateX(-50%);opacity:0.35;filter:blur(40px);"></div>'
-    +'<div style="position:absolute;width:200px;height:200px;border-radius:50%;background:'+c2+';bottom:-80px;left:50%;transform:translateX(-50%);opacity:0.28;filter:blur(30px);"></div>'
+    +'<div id="foHeader" style="position:relative;overflow:hidden;padding:36px 28px 30px;text-align:center;background:#060812;">'
+    // glowing blobs
+    +'<div style="position:absolute;width:280px;height:280px;border-radius:50%;background:'+c1+';top:-110px;left:50%;transform:translateX(-50%);opacity:0.3;filter:blur(50px);pointer-events:none;"></div>'
+    +'<div style="position:absolute;width:180px;height:180px;border-radius:50%;background:'+c2+';bottom:-60px;right:10%;opacity:0.25;filter:blur(40px);pointer-events:none;"></div>'
+    +'<div style="position:absolute;width:120px;height:120px;border-radius:50%;background:'+c1+';bottom:-40px;left:10%;opacity:0.2;filter:blur(35px);pointer-events:none;"></div>'
+    // star field
+    +'<div style="position:absolute;inset:0;overflow:hidden;pointer-events:none;">'
+    +'<div style="position:absolute;width:2px;height:2px;border-radius:50%;background:#fff;top:18%;left:15%;opacity:0.7;"></div>'
+    +'<div style="position:absolute;width:1.5px;height:1.5px;border-radius:50%;background:#fff;top:35%;left:82%;opacity:0.5;"></div>'
+    +'<div style="position:absolute;width:2px;height:2px;border-radius:50%;background:'+c1+';top:12%;left:68%;opacity:0.8;"></div>'
+    +'<div style="position:absolute;width:1.5px;height:1.5px;border-radius:50%;background:#fff;top:72%;left:22%;opacity:0.5;"></div>'
+    +'<div style="position:absolute;width:2px;height:2px;border-radius:50%;background:'+c2+';top:60%;left:88%;opacity:0.6;"></div>'
+    +'<div style="position:absolute;width:1px;height:1px;border-radius:50%;background:#fff;top:50%;left:50%;opacity:0.4;"></div>'
+    +'</div>'
     +'<div style="position:relative;z-index:1;">'
-    +'<div id="foSubtitle" contenteditable="true" spellcheck="false" style="font-size:10px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,0.5);margin-bottom:10px;outline:none;border-radius:4px;">'+d.subtitle+'</div>'
-    +'<div id="foTitle" contenteditable="true" spellcheck="false" style="font-size:26px;font-weight:900;color:#fff;text-transform:uppercase;letter-spacing:-0.5px;line-height:1.05;text-shadow:0 0 30px '+c1+',0 4px 14px rgba(0,0,0,0.6);outline:none;border-radius:4px;">'+d.title+'</div>'
-    +'<div style="display:flex;align-items:center;gap:10px;margin:14px auto 0;max-width:160px;">'
-    +'<div style="height:1px;flex:1;background:'+c1+';opacity:0.6;"></div>'
-    +'<span style="color:'+c1+';font-size:10px;">✦</span>'
-    +'<div style="height:1px;flex:1;background:'+c2+';opacity:0.6;"></div>'
+    +'<div id="foSubtitle" contenteditable="true" spellcheck="false" style="font-size:9px;font-weight:800;letter-spacing:4px;text-transform:uppercase;color:rgba(255,255,255,0.45);margin-bottom:12px;outline:none;border-radius:4px;">'+d.subtitle+'</div>'
+    +'<div id="foTitle" contenteditable="true" spellcheck="false" style="font-size:clamp(28px,6vw,40px);font-weight:900;color:#fff;text-transform:uppercase;letter-spacing:-0.5px;line-height:1.0;text-shadow:0 0 40px '+c1+',0 0 80px '+c1+'66,0 4px 16px rgba(0,0,0,0.7);outline:none;border-radius:4px;">'+d.title+'</div>'
+    +'<div style="display:flex;align-items:center;gap:10px;margin:16px auto 0;max-width:180px;">'
+    +'<div style="height:1px;flex:1;background:linear-gradient(90deg,transparent,'+c1+');"></div>'
+    +'<span style="color:'+c1+';font-size:12px;text-shadow:0 0 8px '+c1+';">✦</span>'
+    +'<div style="height:1px;flex:1;background:linear-gradient(90deg,'+c2+',transparent);"></div>'
     +'</div></div></div>'
     +_foBdy(d, c1);
 }
+
 function buildHeroBold(d, c1, c2) {
   return _foTop()
-    +'<div id="foHeader">'
-    +'<div style="background:'+c1+';padding:10px 28px 8px;text-align:center;">'
-    +'<div id="foSubtitle" contenteditable="true" spellcheck="false" style="font-size:10px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,0.65);outline:none;border-radius:4px;">'+d.subtitle+'</div>'
+    +'<div id="foHeader" style="position:relative;overflow:hidden;">'
+    // eyebrow band
+    +'<div style="background:'+c2+';padding:8px 28px;text-align:center;position:relative;overflow:hidden;">'
+    +'<div style="position:absolute;inset:0;background-image:repeating-linear-gradient(90deg,transparent,transparent 18px,rgba(255,255,255,0.06) 18px,rgba(255,255,255,0.06) 19px);pointer-events:none;"></div>'
+    +'<div id="foSubtitle" contenteditable="true" spellcheck="false" style="position:relative;font-size:9px;font-weight:800;letter-spacing:3.5px;text-transform:uppercase;color:rgba(255,255,255,0.7);outline:none;border-radius:4px;">'+d.subtitle+'</div>'
     +'</div>'
-    +'<div style="background:'+c1+';padding:10px 28px 28px;text-align:center;">'
-    +'<div id="foTitle" contenteditable="true" spellcheck="false" style="font-size:32px;font-weight:900;color:#fff;text-transform:uppercase;letter-spacing:-1px;line-height:1.0;text-shadow:0 4px 20px rgba(0,0,0,0.4);outline:none;border-radius:4px;">'+d.title+'</div>'
+    // main title area
+    +'<div style="background:'+c1+';padding:20px 28px 26px;text-align:center;position:relative;overflow:hidden;">'
+    +'<div style="position:absolute;inset:0;background:linear-gradient(180deg,transparent 60%,rgba(0,0,0,0.2) 100%);pointer-events:none;"></div>'
+    +'<div style="position:absolute;top:0;right:0;width:120px;height:100%;background:rgba(255,255,255,0.05);clip-path:polygon(30% 0,100% 0,100% 100%,0 100%);pointer-events:none;"></div>'
+    +'<div id="foTitle" contenteditable="true" spellcheck="false" style="position:relative;font-size:clamp(30px,7vw,44px);font-weight:900;color:#fff;text-transform:uppercase;letter-spacing:-1px;line-height:0.95;text-shadow:0 6px 24px rgba(0,0,0,0.45),0 2px 0 rgba(255,255,255,0.1);outline:none;border-radius:4px;">'+d.title+'</div>'
     +'</div>'
-    +'<div style="height:8px;background:'+c2+';"></div>'
-    +'<div style="height:3px;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.3),transparent);"></div>'
+    // color stripe
+    +'<div style="height:6px;background:linear-gradient(90deg,'+c2+','+c1+','+c2+');"></div>'
+    +'<div style="height:2px;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.4),transparent);"></div>'
     +'</div>'
     +_foBdy(d, c2);
 }
+
 function buildHeroWave(d, c1, c2) {
   return _foTop()
     +'<div id="foHeader" style="position:relative;overflow:visible;">'
-    +'<div style="background:linear-gradient(160deg,'+c1+','+c2+');padding:26px 28px 48px;text-align:center;">'
-    +'<div id="foSubtitle" contenteditable="true" spellcheck="false" style="font-size:10px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:rgba(255,255,255,0.7);margin-bottom:8px;outline:none;border-radius:4px;">'+d.subtitle+'</div>'
-    +'<div id="foTitle" contenteditable="true" spellcheck="false" style="font-size:26px;font-weight:900;color:#fff;text-transform:uppercase;letter-spacing:-0.5px;line-height:1.05;text-shadow:0 3px 12px rgba(0,0,0,0.35);outline:none;border-radius:4px;">'+d.title+'</div>'
+    +'<div style="position:relative;overflow:hidden;background:linear-gradient(150deg,'+c1+' 0%,'+c2+' 100%);padding:32px 28px 52px;text-align:center;">'
+    +'<div style="position:absolute;inset:0;background-image:radial-gradient(circle at 15% 85%,rgba(255,255,255,0.12) 0%,transparent 45%),radial-gradient(circle at 85% 15%,rgba(255,255,255,0.08) 0%,transparent 40%);pointer-events:none;"></div>'
+    +'<div style="position:relative;z-index:1;">'
+    +'<div style="display:inline-block;background:rgba(255,255,255,0.15);backdrop-filter:blur(4px);border:1px solid rgba(255,255,255,0.2);border-radius:100px;padding:4px 16px;margin-bottom:12px;">'
+    +'<div id="foSubtitle" contenteditable="true" spellcheck="false" style="font-size:9px;font-weight:800;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,0.85);outline:none;">'+d.subtitle+'</div>'
     +'</div>'
-    +'<div style="margin-top:-2px;line-height:0;">'
-    +'<svg viewBox="0 0 480 32" preserveAspectRatio="none" style="width:100%;height:32px;display:block;">'
-    +'<path d="M0,16 C80,32 160,0 240,16 C320,32 400,0 480,16 L480,32 L0,32 Z" fill="'+c1+'"/>'
-    +'</svg></div></div>'
+    +'<div id="foTitle" contenteditable="true" spellcheck="false" style="font-size:clamp(28px,6vw,40px);font-weight:900;color:#fff;text-transform:uppercase;letter-spacing:-0.5px;line-height:1.0;text-shadow:0 4px 20px rgba(0,0,0,0.35);outline:none;border-radius:4px;">'+d.title+'</div>'
+    +'</div></div>'
+    // double wave
+    +'<div style="position:relative;margin-top:-2px;line-height:0;">'
+    +'<svg viewBox="0 0 480 48" preserveAspectRatio="none" style="width:100%;height:42px;display:block;">'
+    +'<path d="M0,24 C60,44 120,4 180,24 C240,44 300,4 360,24 C400,36 440,14 480,24 L480,48 L0,48 Z" fill="'+c2+'" opacity="0.4"/>'
+    +'<path d="M0,32 C80,48 160,12 240,32 C320,48 400,12 480,32 L480,48 L0,48 Z" fill="white"/>'
+    +'</svg></div>'
+    +'</div>'
     +_foBdy(d, c1);
 }
 
 function buildFlyerPennant(d, tmpl, c1, c2) {
   var fc=['#E8357A','#F07A1A','#F5D78E','#2BA84A','#2E7BC4','#7B3FB5','#E8357A','#F07A1A','#2BA84A','#2E7BC4'];
   var flags=fc.map(function(c){
-    return '<div style="display:inline-flex;flex-direction:column;align-items:center;margin:0 2px;">'
-      +'<div style="width:1px;height:10px;background:rgba(255,255,255,0.5);"></div>'
-      +'<div style="width:0;height:0;border-left:12px solid transparent;border-right:12px solid transparent;border-top:26px solid '+c+';filter:drop-shadow(0 2px 3px rgba(0,0,0,0.35));"></div>'
+    return '<div style="display:inline-flex;flex-direction:column;align-items:center;margin:0 3px;">'
+      +'<div style="width:1.5px;height:12px;background:rgba(255,255,255,0.55);"></div>'
+      +'<div style="width:0;height:0;border-left:13px solid transparent;border-right:13px solid transparent;border-top:28px solid '+c+';filter:drop-shadow(0 2px 5px rgba(0,0,0,0.4));"></div>'
       +'</div>';
   }).join('');
   return _foTop()
-    +'<div style="background:'+c1+';padding:14px 20px 22px;text-align:center;">'
-    +'<div style="display:inline-flex;align-items:flex-start;margin-bottom:14px;position:relative;">'
-    +'<div style="position:absolute;top:10px;left:0;right:0;height:1px;background:rgba(255,255,255,0.35);"></div>'
+    +'<div style="position:relative;overflow:hidden;background:linear-gradient(160deg,'+c1+' 0%,'+c1+'dd 100%);padding:16px 20px 24px;text-align:center;">'
+    +'<div style="position:absolute;inset:0;background-image:radial-gradient(circle at 80% 20%,rgba(255,255,255,0.1) 0%,transparent 45%);pointer-events:none;"></div>'
+    +'<div style="display:flex;align-items:flex-start;justify-content:center;margin-bottom:16px;position:relative;">'
+    +'<div style="position:absolute;top:10px;left:0;right:0;height:1.5px;background:rgba(255,255,255,0.3);"></div>'
     +flags
     +'</div>'
-    +'<div id="foSubtitle" contenteditable="true" spellcheck="false" style="font-size:10px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:rgba(255,255,255,0.6);margin-bottom:8px;outline:none;border-radius:4px;">'+d.subtitle+'</div>'
-    +'<div id="foTitle" contenteditable="true" spellcheck="false" style="font-size:28px;font-weight:900;color:#fff;text-transform:uppercase;letter-spacing:-0.5px;line-height:1.05;text-shadow:0 3px 12px rgba(0,0,0,0.45);outline:none;border-radius:4px;">'+d.title+'</div>'
+    +'<div id="foSubtitle" contenteditable="true" spellcheck="false" style="font-size:9px;font-weight:800;letter-spacing:3.5px;text-transform:uppercase;color:rgba(255,255,255,0.65);margin-bottom:10px;outline:none;border-radius:4px;">'+d.subtitle+'</div>'
+    +'<div id="foTitle" contenteditable="true" spellcheck="false" style="font-size:clamp(26px,5.5vw,36px);font-weight:900;color:#fff;text-transform:uppercase;letter-spacing:-0.5px;line-height:1.0;text-shadow:0 4px 18px rgba(0,0,0,0.5),0 1px 0 rgba(255,255,255,0.1);outline:none;border-radius:4px;">'+d.title+'</div>'
     +'</div>'
-    +'<div style="background:'+c2+';padding:10px 28px;display:flex;align-items:center;gap:10px;">'
-    +'<div style="height:1px;flex:1;background:rgba(255,255,255,0.3);"></div>'
-    +'<span style="background:rgba(255,255,255,0.95);color:'+c1+';font-size:10px;font-weight:800;letter-spacing:0.6px;padding:4px 14px;border-radius:100px;text-transform:uppercase;">'+(tmpl&&tmpl.pill?tmpl.pill:'ALL FAMILIES WELCOME')+'</span>'
-    +'<div style="height:1px;flex:1;background:rgba(255,255,255,0.3);"></div>'
+    +'<div style="background:'+c2+';padding:11px 28px;display:flex;align-items:center;gap:12px;">'
+    +'<div style="height:1.5px;flex:1;background:rgba(255,255,255,0.25);"></div>'
+    +'<span style="background:white;color:'+c1+';font-size:10px;font-weight:900;letter-spacing:1px;padding:5px 16px;border-radius:100px;text-transform:uppercase;box-shadow:0 2px 10px rgba(0,0,0,0.2);">'+(tmpl&&tmpl.pill?tmpl.pill:'ALL FAMILIES WELCOME')+'</span>'
+    +'<div style="height:1.5px;flex:1;background:rgba(255,255,255,0.25);"></div>'
     +'</div>'
     +_foBdy(d, c1);
 }
 
 function buildFlyerBadge(d, tmpl, c1, c2) {
   return _foTop()
-    +'<div style="position:relative;overflow:hidden;padding:34px 28px 30px;text-align:center;">'
-    +'<div style="position:absolute;inset:0;background:radial-gradient(ellipse at 50% 45%,'+c2+' 0%,'+c1+' 70%);"></div>'
-    +'<div style="position:absolute;width:280px;height:280px;border-radius:50%;border:3px solid rgba(255,255,255,0.2);top:50%;left:50%;transform:translate(-50%,-50%);"></div>'
-    +'<div style="position:absolute;width:210px;height:210px;border-radius:50%;border:2px solid rgba(255,255,255,0.14);top:50%;left:50%;transform:translate(-50%,-50%);"></div>'
-    +'<div style="position:absolute;width:148px;height:148px;border-radius:50%;background:rgba(255,255,255,0.06);border:2px solid rgba(255,255,255,0.22);top:50%;left:50%;transform:translate(-50%,-50%);"></div>'
-    +'<div style="position:absolute;top:14px;left:20px;font-size:22px;color:rgba(255,255,255,0.28);">★</div>'
-    +'<div style="position:absolute;top:14px;right:20px;font-size:22px;color:rgba(255,255,255,0.28);">★</div>'
-    +'<div style="position:absolute;bottom:22px;left:20px;font-size:14px;color:rgba(255,255,255,0.18);">✦</div>'
-    +'<div style="position:absolute;bottom:22px;right:20px;font-size:14px;color:rgba(255,255,255,0.18);">✦</div>'
-    +'<div id="foSubtitle" contenteditable="true" spellcheck="false" style="font-size:10px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:rgba(255,255,255,0.65);margin-bottom:10px;outline:none;border-radius:4px;position:relative;z-index:1;">'+d.subtitle+'</div>'
-    +'<div id="foTitle" contenteditable="true" spellcheck="false" style="font-size:30px;font-weight:900;color:#fff;text-transform:uppercase;letter-spacing:-0.5px;line-height:1.05;text-shadow:0 4px 16px rgba(0,0,0,0.5);outline:none;border-radius:4px;position:relative;z-index:1;">'+d.title+'</div>'
+    +'<div style="position:relative;overflow:hidden;padding:40px 28px 36px;text-align:center;">'
+    +'<div style="position:absolute;inset:0;background:radial-gradient(ellipse 90% 80% at 50% 50%,'+c2+' 0%,'+c1+' 60%,'+c1+'f0 100%);"></div>'
+    // rings
+    +'<div style="position:absolute;width:300px;height:300px;border-radius:50%;border:2px solid rgba(255,255,255,0.15);top:50%;left:50%;transform:translate(-50%,-50%);pointer-events:none;"></div>'
+    +'<div style="position:absolute;width:220px;height:220px;border-radius:50%;border:1.5px solid rgba(255,255,255,0.18);top:50%;left:50%;transform:translate(-50%,-50%);pointer-events:none;"></div>'
+    +'<div style="position:absolute;width:148px;height:148px;border-radius:50%;background:rgba(255,255,255,0.06);border:2px solid rgba(255,255,255,0.24);top:50%;left:50%;transform:translate(-50%,-50%);pointer-events:none;"></div>'
+    // corner stars
+    +'<div style="position:absolute;top:12px;left:16px;font-size:20px;color:rgba(255,255,255,0.3);text-shadow:0 0 8px rgba(255,255,255,0.3);">★</div>'
+    +'<div style="position:absolute;top:12px;right:16px;font-size:20px;color:rgba(255,255,255,0.3);text-shadow:0 0 8px rgba(255,255,255,0.3);">★</div>'
+    +'<div style="position:absolute;bottom:18px;left:20px;font-size:13px;color:rgba(255,255,255,0.2);">✦</div>'
+    +'<div style="position:absolute;bottom:18px;right:20px;font-size:13px;color:rgba(255,255,255,0.2);">✦</div>'
+    +'<div style="position:relative;z-index:1;">'
+    +'<div id="foSubtitle" contenteditable="true" spellcheck="false" style="font-size:9px;font-weight:800;letter-spacing:3.5px;text-transform:uppercase;color:rgba(255,255,255,0.6);margin-bottom:12px;outline:none;border-radius:4px;">'+d.subtitle+'</div>'
+    +'<div id="foTitle" contenteditable="true" spellcheck="false" style="font-size:clamp(28px,6vw,40px);font-weight:900;color:#fff;text-transform:uppercase;letter-spacing:-0.5px;line-height:1.0;text-shadow:0 0 40px rgba(255,255,255,0.2),0 4px 20px rgba(0,0,0,0.55);outline:none;border-radius:4px;">'+d.title+'</div>'
+    +'<div style="display:flex;align-items:center;gap:8px;justify-content:center;margin-top:14px;">'
+    +'<div style="height:1px;width:36px;background:rgba(255,255,255,0.35);"></div>'
+    +'<span style="color:rgba(255,255,255,0.55);font-size:10px;">✦</span>'
+    +'<div style="height:1px;width:36px;background:rgba(255,255,255,0.35);"></div>'
     +'</div>'
+    +'</div></div>'
     +_foBdy(d, c2);
 }
 
 function buildFlyerElegant(d, tmpl, c1, c2) {
-  var gold = tmpl&&tmpl.gold ? tmpl.gold : '#C9943A', gold2 = '#5a3800';
+  var gold = tmpl&&tmpl.gold ? tmpl.gold : '#C9943A';
+  var gold2 = '#3d2200';
   return _foTop()
     +'<div style="background:'+c1+';">'
-    +'<div style="background:linear-gradient(90deg,'+gold2+','+gold+','+gold2+');padding:14px 28px;text-align:center;">'
-    +'<div id="foSubtitle" contenteditable="true" spellcheck="false" style="font-size:10px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,0.95);outline:none;border-radius:4px;">'+d.subtitle+'</div>'
+    // top gold bar
+    +'<div style="background:linear-gradient(90deg,'+gold2+' 0%,'+gold+' 40%,#f5d78e 50%,'+gold+' 60%,'+gold2+' 100%);padding:10px 28px;text-align:center;">'
+    +'<div id="foSubtitle" contenteditable="true" spellcheck="false" style="font-size:9px;font-weight:800;letter-spacing:4px;text-transform:uppercase;color:rgba(255,255,255,0.9);outline:none;border-radius:4px;text-shadow:0 1px 4px rgba(0,0,0,0.4);">'+d.subtitle+'</div>'
     +'</div>'
-    +'<div style="height:1px;background:linear-gradient(90deg,transparent,'+gold+',transparent);"></div>'
-    +'<div style="padding:32px 28px 24px;text-align:center;">'
-    +'<div id="foTitle" contenteditable="true" spellcheck="false" style="font-size:26px;font-weight:900;color:#fff;text-transform:uppercase;letter-spacing:0px;line-height:1.1;text-shadow:0 4px 16px rgba(0,0,0,0.6);outline:none;border-radius:4px;">'+d.title+'</div>'
-    +'<div style="display:flex;align-items:center;gap:10px;margin:14px auto 0;max-width:180px;">'
-    +'<div style="height:1px;flex:1;background:'+gold+';"></div>'
-    +'<span style="color:'+gold+';font-size:14px;line-height:1;">◆</span>'
-    +'<div style="height:1px;flex:1;background:'+gold+';"></div>'
+    +'<div style="height:1px;background:linear-gradient(90deg,transparent,'+gold+',#f5d78e,'+gold+',transparent);"></div>'
+    // main title
+    +'<div style="padding:32px 28px 20px;text-align:center;position:relative;overflow:hidden;">'
+    +'<div style="position:absolute;inset:0;background:radial-gradient(ellipse 60% 50% at 50% 50%,rgba(201,148,58,0.06) 0%,transparent 70%);pointer-events:none;"></div>'
+    +'<div style="position:relative;">'
+    +'<div id="foTitle" contenteditable="true" spellcheck="false" style="font-size:clamp(24px,5vw,36px);font-weight:900;color:#fff;text-transform:uppercase;letter-spacing:1px;line-height:1.05;text-shadow:0 4px 20px rgba(0,0,0,0.6),0 0 30px rgba(201,148,58,0.2);outline:none;border-radius:4px;">'+d.title+'</div>'
+    +'<div style="display:flex;align-items:center;gap:8px;margin:16px auto 0;max-width:200px;">'
+    +'<div style="height:1px;flex:1;background:linear-gradient(90deg,transparent,'+gold+');"></div>'
+    +'<span style="color:'+gold+';font-size:16px;line-height:1;text-shadow:0 0 6px '+gold+'88;">◆</span>'
+    +'<div style="height:1px;flex:1;background:linear-gradient(90deg,'+gold+',transparent);"></div>'
     +'</div>'
-    +'</div>'
-    +'<div style="height:1px;background:linear-gradient(90deg,transparent,'+gold+',transparent);"></div>'
-    +'<div style="background:linear-gradient(90deg,'+gold2+','+gold+','+gold2+');padding:12px 28px;display:flex;align-items:center;gap:10px;">'
-    +'<div style="height:1px;flex:1;background:rgba(0,0,0,0.3);"></div>'
-    +'<span style="font-size:18px;color:rgba(255,255,255,0.9);">★</span>'
-    +'<div style="height:1px;flex:1;background:rgba(0,0,0,0.3);"></div>'
+    +'</div></div>'
+    +'<div style="height:1px;background:linear-gradient(90deg,transparent,'+gold+',#f5d78e,'+gold+',transparent);"></div>'
+    +'<div style="background:linear-gradient(90deg,'+gold2+','+gold+' 30%,#f5d78e 50%,'+gold+' 70%,'+gold2+');padding:10px 28px;display:flex;align-items:center;gap:12px;">'
+    +'<div style="height:1px;flex:1;background:rgba(0,0,0,0.25);"></div>'
+    +'<span style="font-size:16px;color:rgba(255,255,255,0.85);text-shadow:0 0 6px rgba(255,255,255,0.4);">★ ★ ★</span>'
+    +'<div style="height:1px;flex:1;background:rgba(0,0,0,0.25);"></div>'
     +'</div></div>'
     +_foBdy(d, gold2);
 }
@@ -1296,42 +1656,58 @@ function buildFlyerEnergetic(d, tmpl, c1, c2) {
   return _foTop()
     +'<div style="position:relative;overflow:hidden;">'
     +'<div style="position:absolute;inset:0;background:'+c2+';"></div>'
-    +'<div style="position:absolute;top:0;left:0;bottom:0;right:0;background:'+c1+';clip-path:polygon(0 0,72% 0,50% 100%,0 100%);"></div>'
-    +'<div style="position:relative;z-index:1;padding:24px 28px 28px;">'
-    +'<div id="foSubtitle" contenteditable="true" spellcheck="false" style="font-size:10px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:rgba(255,255,255,0.7);margin-bottom:8px;outline:none;border-radius:4px;text-shadow:0 1px 4px rgba(0,0,0,0.4);">'+d.subtitle+'</div>'
-    +'<div id="foTitle" contenteditable="true" spellcheck="false" style="font-size:28px;font-weight:900;color:#fff;text-transform:uppercase;letter-spacing:-0.5px;line-height:1.05;text-shadow:0 3px 12px rgba(0,0,0,0.5);outline:none;border-radius:4px;">'+d.title+'</div>'
+    +'<div style="position:absolute;inset:0;background:'+c1+';clip-path:polygon(0 0,70% 0,45% 100%,0 100%);"></div>'
+    // light beam
+    +'<div style="position:absolute;top:0;left:55%;width:80px;height:100%;background:rgba(255,255,255,0.04);transform:skewX(-15deg);pointer-events:none;"></div>'
+    +'<div style="position:absolute;top:0;right:5%;width:30px;height:100%;background:rgba(255,255,255,0.03);transform:skewX(-15deg);pointer-events:none;"></div>'
+    +'<div style="position:relative;z-index:1;padding:28px 28px 30px;">'
+    +'<div id="foSubtitle" contenteditable="true" spellcheck="false" style="font-size:9px;font-weight:800;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,0.65);margin-bottom:10px;outline:none;border-radius:4px;text-shadow:0 1px 4px rgba(0,0,0,0.5);">'+d.subtitle+'</div>'
+    +'<div id="foTitle" contenteditable="true" spellcheck="false" style="font-size:clamp(26px,5.5vw,38px);font-weight:900;color:#fff;text-transform:uppercase;letter-spacing:-0.5px;line-height:1.0;text-shadow:0 4px 18px rgba(0,0,0,0.55);outline:none;border-radius:4px;max-width:58%;">'+d.title+'</div>'
     +'</div>'
-    +'<div style="position:relative;z-index:1;background:rgba(0,0,0,0.22);padding:8px 28px;display:flex;align-items:center;gap:6px;">'
-    +'<div style="height:3px;border-radius:2px;background:rgba(255,255,255,0.4);flex:1;"></div>'
-    +'<div style="height:3px;border-radius:2px;background:rgba(255,255,255,0.25);flex:0.5;"></div>'
-    +'<div style="height:3px;border-radius:2px;background:rgba(255,255,255,0.4);flex:0.7;"></div>'
+    +'<div style="position:relative;z-index:1;background:rgba(0,0,0,0.2);padding:9px 28px;display:flex;align-items:center;gap:5px;">'
+    +'<div style="height:3px;border-radius:2px;background:rgba(255,255,255,0.45);flex:1;"></div>'
+    +'<div style="height:3px;border-radius:2px;background:rgba(255,255,255,0.2);width:20px;"></div>'
+    +'<div style="height:3px;border-radius:2px;background:rgba(255,255,255,0.35);flex:0.6;"></div>'
+    +'<div style="height:3px;border-radius:2px;background:rgba(255,255,255,0.15);width:12px;"></div>'
+    +'<div style="height:3px;border-radius:2px;background:rgba(255,255,255,0.45);flex:0.4;"></div>'
     +'</div></div>'
     +_foBdy(d, c1);
 }
 
 function buildFlyerSplash(d, tmpl, c1, c2) {
   return _foTop()
-    +'<div style="position:relative;overflow:hidden;padding:32px 28px;text-align:center;background:#111;">'
-    +'<div style="position:absolute;width:260px;height:260px;border-radius:50%;background:'+c1+';top:-80px;left:-60px;opacity:0.9;"></div>'
-    +'<div style="position:absolute;width:200px;height:200px;border-radius:50%;background:'+c2+';top:0px;right:-60px;opacity:0.85;"></div>'
-    +'<div style="position:absolute;width:140px;height:140px;border-radius:50%;background:'+c1+';bottom:-50px;left:30px;opacity:0.8;"></div>'
-    +'<div style="position:absolute;width:100px;height:100px;border-radius:50%;background:'+c2+';bottom:0;right:10px;opacity:0.75;"></div>'
-    +'<div style="position:absolute;inset:0;background:rgba(0,0,0,0.22);"></div>'
-    +'<div id="foSubtitle" contenteditable="true" spellcheck="false" style="font-size:10px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:rgba(255,255,255,0.75);margin-bottom:10px;outline:none;border-radius:4px;position:relative;z-index:1;text-shadow:0 2px 6px rgba(0,0,0,0.5);">'+d.subtitle+'</div>'
-    +'<div id="foTitle" contenteditable="true" spellcheck="false" style="font-size:28px;font-weight:900;color:#fff;text-transform:uppercase;letter-spacing:-0.5px;line-height:1.05;text-shadow:0 4px 14px rgba(0,0,0,0.6);outline:none;border-radius:4px;position:relative;z-index:1;">'+d.title+'</div>'
+    +'<div style="position:relative;overflow:hidden;padding:36px 28px 32px;text-align:center;background:#0a0a12;">'
+    // paint splashes
+    +'<div style="position:absolute;width:280px;height:280px;border-radius:50%;background:'+c1+';top:-90px;left:-70px;opacity:0.92;filter:blur(2px);"></div>'
+    +'<div style="position:absolute;width:220px;height:220px;border-radius:50%;background:'+c2+';top:-10px;right:-65px;opacity:0.88;"></div>'
+    +'<div style="position:absolute;width:160px;height:160px;border-radius:50%;background:'+c1+';bottom:-55px;left:15px;opacity:0.85;filter:blur(1px);"></div>'
+    +'<div style="position:absolute;width:110px;height:110px;border-radius:50%;background:'+c2+';bottom:0;right:15px;opacity:0.8;"></div>'
+    // dark veil
+    +'<div style="position:absolute;inset:0;background:rgba(0,0,0,0.28);backdrop-filter:blur(0.5px);"></div>'
+    +'<div style="position:relative;z-index:1;">'
+    +'<div id="foSubtitle" contenteditable="true" spellcheck="false" style="font-size:9px;font-weight:800;letter-spacing:4px;text-transform:uppercase;color:rgba(255,255,255,0.7);margin-bottom:12px;outline:none;border-radius:4px;text-shadow:0 2px 8px rgba(0,0,0,0.6);">'+d.subtitle+'</div>'
+    +'<div id="foTitle" contenteditable="true" spellcheck="false" style="font-size:clamp(28px,6vw,40px);font-weight:900;color:#fff;text-transform:uppercase;letter-spacing:-0.5px;line-height:1.0;text-shadow:0 0 40px rgba(255,255,255,0.15),0 4px 20px rgba(0,0,0,0.65);outline:none;border-radius:4px;">'+d.title+'</div>'
+    +'<div style="display:flex;align-items:center;gap:10px;justify-content:center;margin-top:16px;">'
+    +'<div style="height:1.5px;width:44px;background:rgba(255,255,255,0.35);border-radius:2px;"></div>'
+    +'<span style="color:rgba(255,255,255,0.5);font-size:10px;">✦</span>'
+    +'<div style="height:1.5px;width:44px;background:rgba(255,255,255,0.35);border-radius:2px;"></div>'
     +'</div>'
+    +'</div></div>'
     +_foBdy(d, c1);
 }
 
 function buildFlyerDoc(d, tmpl, c1, c2) {
   var eyebrow = tmpl ? tmpl.eyebrow : '';
   return _foTop()
-    +'<div style="background:'+c1+';padding:22px 28px 20px;">'
-    +(eyebrow ? '<div style="font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,0.55);margin-bottom:5px;">'+eyebrow+'</div>' : '')
-    +'<div id="foTitle" contenteditable="true" spellcheck="false" style="font-size:24px;font-weight:900;color:#fff;text-transform:uppercase;letter-spacing:-0.5px;line-height:1.1;outline:none;border-radius:4px;">'+d.title+'</div>'
-    +'<div id="foSubtitle" contenteditable="true" spellcheck="false" style="font-size:12px;color:rgba(255,255,255,0.78);margin-top:5px;outline:none;border-radius:4px;">'+d.subtitle+'</div>'
+    +'<div style="position:relative;overflow:hidden;">'
+    +'<div style="background:linear-gradient(100deg,'+c1+' 0%,'+c1+'ee 70%,'+c2+' 100%);padding:24px 28px 20px;position:relative;">'
+    +'<div style="position:absolute;top:0;right:0;width:80px;height:100%;background:rgba(255,255,255,0.04);clip-path:polygon(40% 0,100% 0,100% 100%,0 100%);"></div>'
+    +(eyebrow ? '<div style="font-size:9px;font-weight:800;letter-spacing:2.5px;text-transform:uppercase;color:rgba(255,255,255,0.5);margin-bottom:6px;">'+eyebrow+'</div>' : '')
+    +'<div id="foTitle" contenteditable="true" spellcheck="false" style="font-size:clamp(22px,4.5vw,32px);font-weight:900;color:#fff;text-transform:uppercase;letter-spacing:-0.5px;line-height:1.1;text-shadow:0 3px 14px rgba(0,0,0,0.4);outline:none;border-radius:4px;position:relative;z-index:1;">'+d.title+'</div>'
+    +'<div id="foSubtitle" contenteditable="true" spellcheck="false" style="font-size:11px;color:rgba(255,255,255,0.7);margin-top:6px;outline:none;border-radius:4px;font-weight:500;letter-spacing:0.3px;position:relative;z-index:1;">'+d.subtitle+'</div>'
     +'</div>'
-    +'<div style="height:6px;background:'+c2+';"></div>'
+    +'<div style="height:5px;background:linear-gradient(90deg,'+c2+','+c1+');"></div>'
+    +'<div style="height:2px;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.35),transparent);"></div>'
     +_foBdy(d, c2);
 }
 
@@ -2266,6 +2642,285 @@ function showCanvaCta(tmpl) {
 }
 
 renderFlyerTmpls('all');
+
+/* ── BUILD YOUR OWN WIZARD ── */
+var byoState = { step: 1, bg: 'carnival', layout: 'centered', logoDataUrl: null };
+
+var BYO_BG_CONFIGS = {
+  carnival: { c1: '#C9943A', c2: '#7B3FB5', hero: 'dark',     font: 'fredoka',    decor: 'stars',  label: '🎪 Carnival Night' },
+  rainbow:  { c1: '#FF2D87', c2: '#7B3FB5', hero: 'gradient', font: 'poppins',    decor: 'none',   label: '🌈 Rainbow Celebration' },
+  fall:     { c1: '#E07B2A', c2: '#8B3A0F', hero: 'bold',     font: 'playfair',   decor: 'leaves', label: '🍂 Fall Festival' },
+  galaxy:   { c1: '#9B59FF', c2: '#2E7BC4', hero: 'dark',     font: 'oswald',     decor: 'stars',  label: '🌌 Galaxy Night' },
+  ocean:    { c1: '#0B9E8F', c2: '#2E7BC4', hero: 'wave',     font: 'montserrat', decor: 'none',   label: '🌊 Ocean Breeze' },
+  spring:   { c1: '#2BA84A', c2: '#0B9E8F', hero: 'radial',   font: 'poppins',    decor: 'none',   label: '🌱 Spring Fresh' },
+  bold:     { c1: '#E8357A', c2: '#7B3FB5', hero: 'diagonal', font: 'montserrat', decor: 'dots',   label: '💎 Bold Modern' },
+  warm:     { c1: '#D4522A', c2: '#C9943A', hero: 'radial',   font: 'oswald',     decor: 'flags',  label: '🔥 Warm Burst' }
+};
+
+var BYO_LAYOUT_SAMPLE = {
+  centered: {
+    title: 'SPRING CARNIVAL',
+    subtitle: 'Jefferson Elementary PTO Presents',
+    body: 'Join us for a night of fun, games, and community! All families welcome.',
+    dateStr: '📅 Friday, June 14, 2025',
+    timeStr: '🕒 5:00 – 8:00 PM',
+    locStr: '📍 Jefferson Campus',
+    cta: "We can't wait to see you there! 🎉",
+    contact: '✉️  pta@jefferson.edu'
+  },
+  band: {
+    title: 'FUN RUN 2025',
+    subtitle: 'Your School PTO Presents',
+    body: 'Lace up your sneakers and help us raise funds for our school! Every lap counts.',
+    dateStr: '📅 Saturday, May 10, 2025',
+    timeStr: '🕒 9:00 AM – Noon',
+    locStr: '📍 School Track & Field',
+    cta: 'Register by May 1 — don\'t miss out! 🏃',
+    contact: '✉️  fundraiser@school.org'
+  },
+  marquee: {
+    title: 'BINGO NIGHT',
+    subtitle: 'Your Elementary School PTO',
+    body: 'Calling all BINGO fans! Come enjoy a fun-filled evening with prizes, snacks, and community spirit.',
+    dateStr: '📅 Thursday, March 20, 2025',
+    timeStr: '🕒 6:30 – 8:30 PM',
+    locStr: '📍 School Cafeteria',
+    cta: 'Tickets: $5 per card · All ages welcome! 🎱',
+    contact: '✉️  info@schoolpto.org'
+  },
+  schedule: {
+    title: 'ACTIVITY NIGHT',
+    subtitle: 'Jefferson PTO · January 2025',
+    body: 'A packed evening of activities — join us for any or all!',
+    dateStr: '📅 Wednesday, January 22, 2025',
+    timeStr: '🕒 5:30 – 7:30 PM',
+    locStr: '📍 School Commons',
+    cta: 'Arrive anytime — free for all families! 🎯',
+    contact: '✉️  events@jeffersonpto.com'
+  }
+};
+
+function openBuildWizard() {
+  byoState = { step: 1, bg: 'carnival', layout: 'centered', logoDataUrl: null };
+  document.getElementById('byoOverlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+  byoSyncUI();
+  byoRenderLayoutPreviews();
+}
+
+function closeBuildWizard() {
+  document.getElementById('byoOverlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+function byoOverlayClick(e) {
+  if (e.target === document.getElementById('byoOverlay')) closeBuildWizard();
+}
+
+function byoPickBg(id, card) {
+  byoState.bg = id;
+  document.querySelectorAll('.byo-bg-card').forEach(function(c){ c.classList.remove('selected'); });
+  card.classList.add('selected');
+  byoRenderLayoutPreviews();
+}
+
+function byoPickLayout(id, card) {
+  byoState.layout = id;
+  document.querySelectorAll('.byo-layout-card').forEach(function(c){ c.classList.remove('selected'); });
+  card.classList.add('selected');
+}
+
+function byoRenderLayoutPreviews() {
+  var cfg = BYO_BG_CONFIGS[byoState.bg] || BYO_BG_CONFIGS.carnival;
+  var c1 = cfg.c1, c2 = cfg.c2;
+  var layouts = ['centered','band','marquee','schedule'];
+  layouts.forEach(function(id) {
+    var el = document.getElementById('byoLayoutPreview_' + id);
+    if (!el) return;
+    var s = BYO_LAYOUT_SAMPLE[id];
+    var html = '';
+    if (id === 'centered') {
+      html = '<div style="height:100%;display:flex;flex-direction:column;overflow:hidden;">'
+        + '<div style="background:linear-gradient(135deg,'+c1+','+c2+');padding:14px 12px 12px;text-align:center;flex-shrink:0;">'
+        + '<div style="font-size:7px;color:rgba(255,255,255,0.65);letter-spacing:2px;text-transform:uppercase;font-weight:700;margin-bottom:4px;">'+s.subtitle+'</div>'
+        + '<div style="font-size:13px;font-weight:900;color:#fff;text-transform:uppercase;letter-spacing:-0.3px;text-shadow:0 2px 8px rgba(0,0,0,0.4);">'+s.title+'</div>'
+        + '</div>'
+        + '<div style="padding:10px 12px;flex:1;background:#fff;">'
+        + '<div style="background:'+c1+'18;border-radius:6px;padding:6px 8px;margin-bottom:6px;border-left:3px solid '+c1+';">'
+        + '<div style="font-size:7px;color:#333;font-weight:700;">'+s.dateStr+'</div>'
+        + '<div style="font-size:7px;color:#333;font-weight:700;">'+s.timeStr+'</div>'
+        + '<div style="font-size:7px;color:#333;font-weight:700;">'+s.locStr+'</div>'
+        + '</div>'
+        + '<div style="font-size:7px;color:rgba(13,27,62,0.65);line-height:1.6;margin-bottom:6px;">'+s.body+'</div>'
+        + '<div style="background:'+c1+';color:#fff;border-radius:4px;padding:5px 8px;font-size:7px;font-weight:800;text-align:center;">'+s.cta+'</div>'
+        + '</div></div>';
+    } else if (id === 'band') {
+      html = '<div style="height:100%;display:flex;flex-direction:column;overflow:hidden;">'
+        + '<div style="background:'+c1+';padding:6px 12px;text-align:center;flex-shrink:0;">'
+        + '<div style="font-size:7px;color:rgba(255,255,255,0.7);letter-spacing:1.5px;text-transform:uppercase;font-weight:700;">'+s.subtitle+'</div>'
+        + '</div>'
+        + '<div style="background:'+c2+';padding:10px 12px 12px;text-align:center;flex-shrink:0;">'
+        + '<div style="font-size:14px;font-weight:900;color:#fff;text-transform:uppercase;letter-spacing:-0.3px;">'+s.title+'</div>'
+        + '</div>'
+        + '<div style="height:4px;background:linear-gradient(90deg,'+c1+','+c2+');flex-shrink:0;"></div>'
+        + '<div style="padding:8px 12px;flex:1;background:#fff;">'
+        + '<div style="font-size:7px;color:#333;font-weight:700;margin-bottom:2px;">'+s.dateStr+' · '+s.timeStr+'</div>'
+        + '<div style="font-size:7px;color:#333;font-weight:700;margin-bottom:6px;">'+s.locStr+'</div>'
+        + '<div style="font-size:7px;color:rgba(13,27,62,0.6);line-height:1.6;">'+s.body+'</div>'
+        + '</div></div>';
+    } else if (id === 'marquee') {
+      var bg = (cfg.hero === 'dark') ? '#0a0018' : ('linear-gradient(135deg,'+c2+','+c1+')');
+      html = '<div style="height:100%;background:'+bg+';display:flex;flex-direction:column;align-items:center;justify-content:center;padding:10px;position:relative;overflow:hidden;">'
+        + '<div style="position:absolute;inset:5px;border-radius:8px;border:1.5px solid rgba(255,220,80,0.4);pointer-events:none;"></div>'
+        + '<div style="font-size:6px;color:rgba(255,220,80,0.75);letter-spacing:2px;text-transform:uppercase;font-weight:700;text-align:center;margin-bottom:4px;">'+s.subtitle+'</div>'
+        + '<div style="font-size:15px;font-weight:900;color:#fff;text-transform:uppercase;letter-spacing:1px;text-align:center;text-shadow:0 2px 10px rgba(0,0,0,0.6);line-height:1.1;margin-bottom:4px;">'+s.title+'</div>'
+        + '<div style="font-size:6px;color:rgba(255,255,255,0.7);text-align:center;font-weight:700;letter-spacing:1px;">'+s.dateStr.replace('📅 ','')+'</div>'
+        + '<div style="font-size:6px;color:rgba(255,255,255,0.6);text-align:center;font-weight:600;margin-top:1px;">'+s.timeStr.replace('🕒 ','')+'  |  '+s.locStr.replace('📍 ','')+'</div>'
+        + '</div>';
+    } else if (id === 'schedule') {
+      html = '<div style="height:100%;display:flex;flex-direction:column;overflow:hidden;">'
+        + '<div style="background:linear-gradient(90deg,'+c1+','+c2+');padding:8px 12px;flex-shrink:0;">'
+        + '<div style="font-size:13px;font-weight:900;color:#fff;text-transform:uppercase;letter-spacing:-0.3px;">'+s.title+'</div>'
+        + '<div style="font-size:7px;color:rgba(255,255,255,0.7);font-weight:600;margin-top:1px;">'+s.dateStr.replace('📅 ','')+'</div>'
+        + '</div>'
+        + '<div style="flex:1;background:#fff;padding:8px 10px;display:flex;flex-direction:column;gap:5px;">'
+        + '<div style="display:flex;gap:6px;align-items:flex-start;">'
+        + '<div style="background:'+c1+';color:#fff;font-size:7px;font-weight:800;padding:2px 5px;border-radius:3px;white-space:nowrap;flex-shrink:0;">5:30</div>'
+        + '<div style="font-size:7px;font-weight:700;color:#0D1B3E;line-height:1.3;">Opening Ceremony &amp; Welcome</div>'
+        + '</div>'
+        + '<div style="display:flex;gap:6px;align-items:flex-start;">'
+        + '<div style="background:'+c2+';color:#fff;font-size:7px;font-weight:800;padding:2px 5px;border-radius:3px;white-space:nowrap;flex-shrink:0;">6:00</div>'
+        + '<div style="font-size:7px;font-weight:700;color:#0D1B3E;line-height:1.3;">Family Activity Stations Open</div>'
+        + '</div>'
+        + '<div style="display:flex;gap:6px;align-items:flex-start;">'
+        + '<div style="background:'+c1+';color:#fff;font-size:7px;font-weight:800;padding:2px 5px;border-radius:3px;white-space:nowrap;flex-shrink:0;">7:00</div>'
+        + '<div style="font-size:7px;font-weight:700;color:#0D1B3E;line-height:1.3;">Special Guest Presentation</div>'
+        + '</div>'
+        + '<div style="display:flex;gap:6px;align-items:flex-start;">'
+        + '<div style="background:'+c2+';color:#fff;font-size:7px;font-weight:800;padding:2px 5px;border-radius:3px;white-space:nowrap;flex-shrink:0;">7:30</div>'
+        + '<div style="font-size:7px;font-weight:700;color:#0D1B3E;line-height:1.3;">Raffle Drawings &amp; Wrap-Up</div>'
+        + '</div>'
+        + '</div></div>';
+    }
+    el.innerHTML = html;
+  });
+}
+
+function byoHandleLogo(e) {
+  var file = e.target.files[0];
+  if (!file) return;
+  var reader = new FileReader();
+  reader.onload = function(ev) {
+    byoState.logoDataUrl = ev.target.result;
+    var thumb = document.getElementById('byoLogoThumb');
+    thumb.src = ev.target.result;
+    thumb.style.display = 'block';
+    document.getElementById('byoLogoIcon').textContent = '✅';
+    document.getElementById('byoLogoText').textContent = 'Logo uploaded!';
+    document.getElementById('byoLogoSub').textContent = file.name;
+    document.getElementById('byoLogoZone').classList.add('has-logo');
+  };
+  reader.readAsDataURL(file);
+}
+
+function byoSyncUI() {
+  var step = byoState.step;
+  for (var i = 1; i <= 3; i++) {
+    var stepEl = document.getElementById('byoStep'+i);
+    var tabEl  = document.getElementById('byoTab'+i);
+    if (stepEl) stepEl.classList.toggle('active', i === step);
+    if (tabEl) {
+      tabEl.classList.toggle('active', i === step);
+      tabEl.classList.toggle('done', i < step);
+    }
+  }
+  var backBtn = document.getElementById('byoBackBtn');
+  var nextBtn = document.getElementById('byoNextBtn');
+  if (backBtn) backBtn.style.visibility = step > 1 ? 'visible' : 'hidden';
+  if (nextBtn) {
+    if (step < 3) {
+      nextBtn.textContent = 'Next Step →';
+    } else {
+      nextBtn.innerHTML = '✦ Build My Flyer';
+    }
+  }
+}
+
+function byoWizardNext() {
+  if (byoState.step < 3) {
+    byoState.step++;
+    byoSyncUI();
+  } else {
+    byoApplyAndLaunch();
+  }
+}
+
+function byoWizardBack() {
+  if (byoState.step > 1) {
+    byoState.step--;
+    byoSyncUI();
+  }
+}
+
+function byoApplyAndLaunch() {
+  var cfg = BYO_BG_CONFIGS[byoState.bg] || BYO_BG_CONFIGS.carnival;
+  var sample = BYO_LAYOUT_SAMPLE[byoState.layout] || BYO_LAYOUT_SAMPLE.centered;
+
+  // Apply colors
+  document.getElementById('primaryColor').value = cfg.c1;
+  document.getElementById('secondaryColor').value = cfg.c2;
+  updateColors();
+
+  // Apply hero style
+  flyerCustom.heroStyle = cfg.hero;
+  document.querySelectorAll('.cp-hero-btn').forEach(function(b){
+    b.classList.toggle('active', b.getAttribute('onclick') && b.getAttribute('onclick').indexOf("'"+cfg.hero+"'") > -1);
+  });
+
+  // Apply font
+  setFont(cfg.font, null);
+  document.querySelectorAll('.font-opt').forEach(function(b){
+    b.classList.toggle('active', b.getAttribute('onclick') && b.getAttribute('onclick').indexOf("'"+cfg.font+"'") > -1);
+  });
+
+  // No template selected
+  selectedFlyerTmpl = null;
+  document.querySelectorAll('.cp-tmpl-item').forEach(function(el){el.classList.remove('active');});
+  var noneItem = document.querySelector('.cp-tmpl-item[data-tmpl-id="none"]');
+  if (noneItem) noneItem.classList.add('active');
+
+  // Apply sample data from selected layout
+  lastFlyerData = Object.assign({}, sample);
+
+  // If schedule layout, pre-fill form fields for context
+  document.getElementById('eventName').value = sample.title.replace(/\s*\d{4}$/,'');
+  document.getElementById('orgName').value   = sample.subtitle.replace(' Presents','');
+
+  // Render flyer
+  renderFlyerOutput(lastFlyerData);
+
+  // Apply logo if uploaded
+  if (byoState.logoDataUrl) {
+    logoDataUrl = byoState.logoDataUrl;
+    currentLogoPos = 'top-left';
+    applyLogo();
+    var thumb = document.getElementById('logoPreviewThumb');
+    if (thumb) { thumb.src = byoState.logoDataUrl; thumb.style.display = 'block'; }
+    var uploadContent = document.getElementById('uploadContent');
+    if (uploadContent) uploadContent.style.display = 'none';
+    var uploadZone = document.getElementById('uploadZone');
+    if (uploadZone) uploadZone.classList.add('has-logo');
+  }
+
+  // Show output
+  var output = document.getElementById('flyerOutput');
+  if (output) { output.style.display = 'block'; output.classList.add('editable'); }
+  document.getElementById('editBadge').style.display = 'inline-flex';
+
+  // Close wizard and scroll to tool
+  closeBuildWizard();
+  document.getElementById('tool').scrollIntoView({ behavior: 'smooth' });
+}
 
 function printFlyer() { window.print(); }
 
