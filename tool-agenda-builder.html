@@ -223,6 +223,12 @@ footer{background:var(--navy-mid,#142248);border-top:3px solid transparent;borde
   .ao-item-text:hover,.ao-item-text:focus,.ao-owner:hover,.ao-owner:focus,.ao-dur:hover,.ao-dur:focus,.ao-doc-footer:hover,.ao-doc-footer:focus,.ao-org:focus,.ao-title:focus,.ao-meta-chip:focus{outline:none!important;background:transparent!important;}
 }
 </style>
+<!-- Firebase auth guard -->
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+<script src="firebase-config.js"></script>
+<script>guardPage();</script>
 </head>
 <body>
 

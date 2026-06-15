@@ -478,6 +478,12 @@ footer{background:var(--navy-mid,#142248);border-top:3px solid transparent;borde
 
 @media print{nav,.gold-divider,.back-bar,.tools-nav,.tool-hero,.fw-form-panel,.preview-header-bar,.preview-actions,.share-panel,.social-post-link,.fw-header,.section,.feat-section,.tool-cta,footer,.flyer-empty,.flyer-generating,.size-toggle,.canva-cta{display:none!important;}body{background:white;}@page{size:8.5in 11in;margin:0.5in;}.fw-section,.fw-inner,.fw-layout,.fw-preview-panel,.fw-canvas{padding:0!important;margin:0!important;background:white!important;border:none!important;box-shadow:none!important;display:block!important;}.flyer-output{box-shadow:none!important;max-width:100%!important;width:100%!important;aspect-ratio:auto!important;display:block!important;}[contenteditable]{outline:none!important;}}
 </style>
+<!-- Firebase auth guard -->
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+<script src="firebase-config.js"></script>
+<script>guardPage();</script>
 </head>
 <body>
 

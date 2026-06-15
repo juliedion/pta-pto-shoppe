@@ -582,7 +582,8 @@ footer {
     <a href="#testimonials">Reviews</a>
     <a href="contact.html">Contact</a>
   </div>
-  <a href="checkout.html" class="nav-cta">Get Started →</a>
+  <a href="checkout.html" class="nav-cta" id="navCta">Get Started →</a>
+  <a href="dashboard.html" class="nav-cta" id="navDash" style="display:none;">My Dashboard →</a>
 </nav>
 
 <!-- GOLD DIVIDER -->
@@ -1038,6 +1039,26 @@ function goToCheckoutBilling(plan) {
 function goToCheckout(plan) {
   goToCheckoutBilling(plan);
 }
+</script>
+
+<!-- Firebase auth: swap CTA for logged-in users -->
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+<script src="firebase-config.js"></script>
+<script>
+initFirebase();
+firebase.auth().onAuthStateChanged(function(user) {
+  var ctaEl  = document.getElementById('navCta');
+  var dashEl = document.getElementById('navDash');
+  if (user) {
+    if (ctaEl)  ctaEl.style.display  = 'none';
+    if (dashEl) dashEl.style.display = '';
+  } else {
+    if (ctaEl)  ctaEl.style.display  = '';
+    if (dashEl) dashEl.style.display = 'none';
+  }
+});
 </script>
 </body>
 </html>

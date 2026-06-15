@@ -425,9 +425,34 @@ function openCheckout() {
 
   const finalUrl = url + (params.toString() ? '?' + params.toString() : '');
 
+  // Store chosen plan in sessionStorage so success page can write it to Firestore
+  sessionStorage.setItem('chosenPlan', currentPlan);
+  sessionStorage.setItem('chosenBilling', currentBilling);
+
   // Redirect to Stripe Payment Link
   window.location.href = finalUrl;
 }
+</script>
+
+<!-- Firebase: pre-fill email if already signed in, guard subscribe CTA -->
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+<script src="firebase-config.js"></script>
+<script>
+initFirebase();
+firebase.auth().onAuthStateChanged(function(user) {
+  if (user && user.email) {
+    var emailEl = document.getElementById('co-email');
+    if (emailEl && !emailEl.value) emailEl.value = user.email;
+  }
+  // Show "reason" message if redirected from auth guard
+  var params = new URLSearchParams(window.location.search);
+  if (params.get('reason') === 'subscribe') {
+    var hero = document.querySelector('.checkout-hero h1');
+    if (hero) hero.textContent = 'Choose your plan to get started';
+  }
+});
 </script>
 </body>
 </html>
